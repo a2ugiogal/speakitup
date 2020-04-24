@@ -1,0 +1,79 @@
+table {
+	width: 100%;
+}
+
+/* 整個表單 */
+#personPage {
+	position: absolute;
+	top: 20%;
+    left: 15%;
+	width: 70%;
+	border: 1px black solid;
+	padding: 1%;
+}
+
+/* 內容標題 */
+.personalTitle {
+	font: bold 22px Tahoma;
+	width: 35%;
+	height: 50px;
+	line-height: 50px;
+	text-align: right;
+}
+
+/* 內容(可以改、不能改) */
+.personal, .personalUpdate {
+	font: 18px Tahoma;
+	height: 50px;
+	line-height: 50px;
+}
+
+/* 筆 */
+#edit {
+	width: 40px;
+	padding: 5px;
+	border: 2px solid #fff;
+	border-radius: 50%;
+	background: rgb(118, 206, 169);
+}
+
+/* 頭照DIV */
+#boxHeadPicture {
+	text-align: center;
+	line-height: 220px;
+	height: 220px;
+}
+
+/* 設定照片大小 */
+#headPicture {
+	max-width: 50%;
+	max-height: 200px;
+	border: 1px solid;
+	padding: 5px;
+}
+
+#btSubmit, #btCancel {
+	margin: 15px;
+	height: 30px;
+}
+
+/* 選擇檔案DIV */
+#boxFileSelect {
+	height: 50px;
+	text-align: center;
+	margin-bottom: 15px;
+}
+
+/*表格*/
+.updateInput {
+	font: 18px Tahoma;
+	width: 70%;
+	padding: 5px;
+}
+
+/*下拉式選單地址*/
+#address select {
+	font: 16px Tahoma;
+	height: 30px;
+	margin-right: 10px;
+}

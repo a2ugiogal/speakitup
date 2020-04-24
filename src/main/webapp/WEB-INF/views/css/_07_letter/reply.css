@@ -1,0 +1,157 @@
+*{
+    margin: 0;
+    border: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans TC', sans-serif;
+}
+
+
+.angelA{
+    font-size: 2rem;
+    text-decoration: none;
+    color: #333;
+   
+}
+
+.angelA:hover,.darkA:hover{
+    color: royalblue;
+}
+
+.darkA{
+    font-size: 2rem;
+    text-decoration: none;
+    color: aliceblue;
+}
+
+
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+ 
+}
+
+/*天使區照片*/
+.happyImg{
+    width: 500px;
+    height: 600px;
+    background-color: #f5d9e4;
+   
+}
+
+/*惡魔區照片*/
+.sadImg{
+    width: 500px;
+    height: 600px;
+    background: aliceblue;
+}
+
+
+/*整個頁面*/
+.container{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 1300px;
+    transform-style: preserve-3d;
+}
+
+
+/*最上層的box*/
+.container .box{
+    position: relative;
+    width: 500px;
+    height: 600px;
+    margin: 20px 0;
+    perspective: 1000px;
+    overflow: hidden;
+    transform-style: preserve-3d;
+}
+
+/*第二層的box(照片層)*/
+.container .box .imgBox{
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height:100%;
+    transform-origin: top;
+    transform-style: preserve-3d;
+    transition: 0.5s;
+}
+
+/*當hover到照片的box時*/
+.container .box:hover .imgBox{
+    transform: rotateX(-90deg);
+    opacity: 0;
+}
+
+/*照片層*/
+.container .box .imgBox img{
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/*天使區的內容*/
+.container .box .contentBoxHappy{
+    font-size: 1.2rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fad2e2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    transform-origin: bottom;
+    transform-style: preserve-3d;
+    transition: 0.8s;
+    transform: rotateX(90deg);
+    opacity: 0;
+    background-image: linear-gradient( #fad2e2, #f7bcd4, #f395bb);
+}
+
+/*惡魔區的內容*/
+.container .box .contentBoxSad{
+    font-size: 1.1rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    transform-origin: bottom;
+    transform-style: preserve-3d;
+    transition: 0.8s;
+    transform: rotateX(90deg);
+    opacity: 0;
+    background-image: linear-gradient( #0e2640, #0b2a4b, #1d4570);
+}
+
+/*hover到天使區*/
+.container .box:hover .contentBoxHappy{
+    
+    transform: rotateX(0deg);
+    opacity: 1;
+}
+
+
+/*hover到惡魔區*/
+.container .box:hover .contentBoxSad{
+    color: rgb(210, 222, 235);
+    transform: rotateX(0deg);
+    opacity: 1;
+}

@@ -1,0 +1,182 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    /* background: aliceblue; */
+}
+
+body{
+    font-family: 'Noto Sans TC', sans-serif;
+    
+}
+
+.container{
+    width: 90vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    
+}
+
+.info_img{
+	width:50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.info_img img{
+    width: 700px;
+}
+
+
+
+.intro-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+
+/*簡介文字大小*/
+ul{
+	font-size:1.3rem;
+}
+
+.letterImg{
+    width: 100px;
+}
+
+.btnGroup{
+    display: flex;
+
+}
+
+
+/*三個按鈕那邊*/
+.btn{
+    width: 40%;
+    height: 50px;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    margin: 1rem 5px;
+    text-align: center;
+    padding-top: 10px;
+    /*讓顏色從左到右*/
+    background-image: linear-gradient(to right, #0e2640, #0b2a4b, #1d4570);
+    cursor: pointer;
+    font-family: 'Noto Sans TC', sans-serif;
+    background-size: 200%;
+    transition: .5s;
+}
+
+.btnError{
+	width: 40%;
+    height: 50px;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    margin: 1rem 5px;
+    text-align: center;
+    padding-top: 10px;
+	background :#ccc;
+	opacity:0.5;
+	cursor:pointer;
+}
+
+/*三個按鈕的裡的文字*/
+.btn a{
+    text-decoration: none;
+    color: #fff;
+}
+
+.btn:hover{
+    background-position: right;
+}
+
+
+
+@media screen and (max-width:1200px){
+    .info_img img{
+    	margin:10px;
+        width: 400px;
+    }
+	
+	
+    ul{
+        font-size: 1.1rem;
+    }
+}
+
+
+@media screen and (max-width:1000px){
+
+    .info_img img{
+        width: 350px;
+    }
+
+    ul{
+        font-size: 0.9rem;
+    }
+    
+    .btn{
+   		 width: 40%;
+    }
+    .btn a {
+    font-size:0.8rem;
+    }
+}
+
+@media screen and (max-width:900px){
+    .info_img{
+        display: none;
+    }
+
+    .container{
+        grid-template-columns: 1fr;
+    }
+
+    .intro-container{
+       justify-content: center;
+     
+    }
+
+
+    .formTop{
+        text-align: center;
+    }
+
+    h1{
+        font-size: 2.4rem;
+    }
+
+    ul{
+        font-size: 1rem;
+    }
+
+    .btn{
+        width: 40%;
+       	
+    }
+    
+    .btn a {
+    font-size:1rem;
+    }
+}
+
+@media screen and (max-width:400px){
+
+    .intro-container{
+        width: 100%;
+    }
+
+    .info_img{
+        display: none;
+    }
+
+
+    ul{
+        font-size: 1.2rem;
+        margin: 10px;
+    }
+}

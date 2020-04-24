@@ -1,0 +1,116 @@
+.top { /*最上層logo*/
+	margin: 0px;
+	padding: 0px;
+	height: 75px;
+	background: aquamarine;
+}
+
+.main-menu { /* 主要選單*/
+	height: 100px;
+	background: blanchedalmond;
+	display: flex;
+	flex-direction: row;
+	padding-top: 20px;
+	box-sizing: border-box;
+}
+
+.menu {
+	height: 60px;
+	/* border: 1px solid black; */
+	/* background: greenyellow; */
+	align-items: flex-start;
+	width: calc(( 100%/ 3)- 2%);
+	margin: auto 1%;
+	text-align: center;
+	font-size: 24px;
+}
+
+a {
+	text-decoration-line: none;
+}
+
+.search { /* 搜尋列 */
+	height: 50px;
+	margin: 5px 100px;
+	background: whitesmoke;
+	display: flex;
+	flex-direction: row;
+}
+
+.space { /* 只是想把空間隔開 */
+	width: 50%;
+}
+
+.search-post {
+	margin: 10px 20px;
+}
+
+input {
+	border-radius: 10px;
+}
+
+#select-menu { /* option選單 */
+	width: 100px;
+	margin-top: 10px;
+}
+
+.bigbox { /* 中間的超大區塊 包含左又選單 及文章 */
+	height: 450px;
+	/* background: thistle; */
+	display: flex;
+	flex-direction: row;
+	margin: 1%;
+}
+
+.left-menu { /* 左邊選單 */
+	width: 10%;
+	height: 450px;
+	background: blanchedalmond;
+	display: flex;
+	flex-direction: column;
+}
+
+.topic { /* 每個主題的div */
+	height: 70px;
+	margin: 2%;
+}
+
+.main-post { /* 陳列文章的空間 */
+	height: 450px;
+	/* border: 1px solid purple; */
+	width: 80%;
+}
+
+.right-menu { /* 右邊的選單 */
+	width: 10%;
+	height: 450px;
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	text-align: center;
+	box-sizing: border-box;
+}
+
+.post { /* 新增文章的區塊 */
+	height: 80px;
+	margin: 5%;
+	padding: 10px;
+	background: aliceblue;
+}
+
+.rank { /* 排行榜的div區塊 */
+	margin-top: 10px;
+	margin-bottom: 10px;
+	height: 365px;
+	background: beige;
+}
+
+.footer { /* 下方區塊 */
+	height: 100px;
+	background: orange;
+	margin: 0px;
+	padding: 0px;
+}
+.option{
+	margin: 10px;
+}

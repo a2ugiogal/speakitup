@@ -1,0 +1,82 @@
+table {
+  width: 100%;
+}
+
+/* 整個表單 */
+#registerPage {
+  position: absolute;
+  top: 20%;
+  left: 15%;
+
+  width: 70%;
+  border: 1px black solid;
+  padding: 1%;
+}
+
+/* 頭照DIV */
+#boxHeadPicture {
+  text-align: center;
+  line-height: 220px;
+  height: 220px;
+}
+
+/* 設定照片大小 */
+#headPicture {
+  max-width: 50%;
+  max-height: 200px;
+  border: 1px solid;
+  padding: 5px;
+}
+
+/* 選擇檔案DIV */
+#boxFileSelect {
+  height: 50px;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* td1*/
+.personalTitle {
+  font: bold 22px Tahoma;
+  width: 35%;
+  height: 50px;
+  line-height: 50px;
+  text-align: right;
+}
+
+/* td2 */
+.tdInput {
+  font: 18px Tahoma;
+  height: 50px;
+  line-height: 50px;
+  width: 45%;
+}
+
+/*表格*/
+.contentText {
+  font: 18px Tahoma;
+  padding: 5px;
+  width: 90%;
+}
+
+#btSubmit {
+  margin: 15px;
+  height: 30px;
+}
+
+/*錯誤訊息*/
+.errorText {
+  font-size: 10px;
+  color: red;
+}
+
+#btnUserName {
+  height: 30px;
+}
+
+/*下拉式選單地址*/
+#address select {
+  font: 16px Tahoma;
+  height: 30px;
+  margin-right: 10px;
+}

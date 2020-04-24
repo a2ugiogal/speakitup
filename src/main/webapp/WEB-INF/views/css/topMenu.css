@@ -1,0 +1,123 @@
+body {
+	/* 整個背景*/
+	background: #fefbf1;
+	margin: 0px;
+}
+
+.top_area {
+	/* logo 登入那塊 */
+	width: auto;
+	margin: 5px auto;
+}
+
+.logo {
+	/* 論壇logo */
+	margin: auto 40px;
+	width: max-content;
+}
+
+.login {
+	float: right;
+	position: absolute;
+	top: 20px;
+	left: 93%;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+ul {
+	/*取消ul預設的樣式 */
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+ul.main_menu {
+	/* 主要選單的背景顏色 */
+	width: 100%;
+	display: inline-block;
+	/* background-color: #FEE18F; */
+	background-color: #99f7ab;
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.main_menu_li {
+	/* 三個主要標題*/
+	width: 33.3%;
+	margin-top: 5px;
+	position: relative;
+	white-space: nowrap;
+	display: inline-block;
+	z-index: 2;
+}
+
+.main_menu_li {
+	float: left;
+	text-align: center;
+}
+
+ul.main_menu a {
+	/* 上層及子選單的字體樣式 */
+	color: black;
+	padding: 0 30px;
+	line-height: 40px;
+}
+
+ul.main_menu:hover {
+	/* 碰到主要選單的區塊會變色*/
+	background-color: #99f7ab;
+}
+
+.item_menu {
+	/*  下拉式選單在滑鼠經過前都不會顯示*/
+	width: 100%;
+	background-color: #fefbf1;
+	display: none;
+}
+
+ul.main_menu:hover ul {
+	/* 碰到上層選單時，所有子選單會顯示出來 */
+	width: 100%;
+	display: block;
+	border-bottom: 1px dotted;
+	border-right: 1px solid transparent;
+}
+
+.side_menu {
+	position: absolute;
+	top: 200px;
+	width: 100px;
+	height: 55%;
+	background-color: #d6f9dd;
+	padding-bottom: 100px;
+	z-index: 1;
+}
+
+.side_menu span {
+	display: block;
+	text-align: center;
+	padding-top: 15px;
+	font: 24px bold;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.login_window {
+	width: 30%;
+	height: 30%;
+	border: 1px solid black;
+}
+
+.middle {
+	height: 600px;
+	width: 70%;
+}
+
+.bottom {
+	top: 10%;
+	width: 70%;
+	height: 5%;
+	background-color: #99f7ab;
+}

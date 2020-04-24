@@ -1,0 +1,27 @@
+/* .Mainimg{
+    justify-content: center;
+    align-items: center;
+} */
+body{
+    background: #3A405A;
+}
+
+#contentLength {
+    color: #7E6B8F;
+    font-family: 'Noto Sans TC', sans-serif;
+}
+
+h4{
+	font-family: 'Noto Sans TC', sans-serif;
+}
+
+#letterContent{
+    display: flex;
+    box-sizing: border-box;
+    height: 200px;
+    margin : 0 auto;
+}
+
+#cardBody{
+    border-radius: 20px 20px 20px 20px;
+}

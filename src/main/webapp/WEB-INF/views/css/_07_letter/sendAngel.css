@@ -1,0 +1,55 @@
+*{
+	margin :0;
+	padding:0;
+	box-sizing: border-box;
+}
+
+body{
+    background: #E9AFA3;
+    font-family: 'Noto Sans TC', sans-serif;
+}
+
+#contentLength {
+    color: green;
+    font-family: 'Noto Sans TC', sans-serif;
+}
+
+h4{
+	font-family: 'Noto Sans TC', sans-serif;
+}
+
+#letterContent{
+    display: flex;
+    box-sizing: border-box;
+    margin : 0 auto;
+    height: 200px;
+}
+
+
+
+#cardBody{
+    border-radius: 20px 20px 20px 20px;
+}
+
+#submitbtn{
+	font-family: 'Noto Sans TC', sans-serif;
+	color:#fff;
+	
+}
+
+#leftImg{
+	position:absolute;
+	box-sizing : border-box;
+	z-index:1;
+}
+
+#writeMode{
+	z-index:999;
+	position:absolute;
+	width:450px;
+	height:314px;
+/* 	top:118px; */
+/* 	left:8px; */
+	background: #FCF7F8;
+	opacity : 0.8;
+}

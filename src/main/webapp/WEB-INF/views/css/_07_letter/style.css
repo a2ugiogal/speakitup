@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@700&display=swap');
+
+
+.content{
+    height: 800px;
+}
+
+.heaven{
+    background: #fdc822;
+    
+}
+
+.evil{
+    background: #012640;
+    
+}
+
+#send{
+    font-size: large;
+
+}
+
+#reply{
+    font-size: large;
+    color: aliceblue;
+    
+}

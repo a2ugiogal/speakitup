@@ -1,0 +1,23 @@
+.row a{
+    text-decoration: none;
+    color: black;
+}
+.product{
+    width: 70%;
+}
+.productImg{
+    width: 80%;
+    margin:auto;
+}
+#pages{
+    text-align: center;
+}
+.btPage{
+    height: 30px;
+    width: 30px;
+    margin: 5px;
+}
+#pages{
+    margin: 20px;
+}
+
