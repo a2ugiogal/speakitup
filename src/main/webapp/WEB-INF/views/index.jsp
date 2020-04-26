@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -16,41 +17,41 @@
 	<div class="top">
 		<div class="logo"></div>
 		<span class="option"> <a
-			href="<c:url value='_01_register/add' />">註冊</a>
+			href="<c:url value='/register/add' />">註冊</a>
 		</span> 
 		<span class="option"> 
 			<c:choose>
 			<c:when test="${ ! empty LoginOK || LoginOK.checkAuthSuccess == 'y' }">
-			   <a href="<c:url value='/_02_login/logout.jsp' />">
+			   <a href="<c:url value='/login/logout.jsp' />">
   				登出 <i class="fas fa-sign-out-alt"></i>
 	           </a>
 			</c:when>
 			<c:otherwise>
-				<a href="<c:url value='/_02_login/login.jsp'/>">
+				<a href="<spring:url value='/login/login'/>">
   				登入
 	           </a>
 			</c:otherwise>
 			</c:choose>
 		</span> 
 		<span class="option"> <a
-			href="<c:url value='/_03_personPage/personPage.jsp' />">個人頁面</a>
+			href="<c:url value='/personPage/personPage.jsp' />">個人頁面</a>
 		</span><span class="option"> <a
 			href="<c:url value='/article/ShowFamousArticles' />">熱門文章</a>
 		</span><span class="option"> <a
-			href="<c:url value='/_06_article/addArticle.jsp' />">新增文章</a>
+			href="<c:url value='/article/addArticle.jsp' />">新增文章</a>
 		</span><span class="option"> <a
 			href="<c:url value='/product/ShowPageProducts' />">購物區</a>
 		</span><span class="option"> <a
 			href="<c:url value='/product/ShowFamousProducts' />">熱門商品區</a>
 		</span>
 		<span class="option"> <a
-			href="<c:url value='/_04_order/shoppingCart.jsp' />">購物車</a>
+			href="<c:url value='/order/shoppingCart.jsp' />">購物車</a>
 		</span>
 		<span class="option"> <a
 			href="<c:url value='/order/showHistoryOrder' />">歷史訂單</a>
 		</span>
 		<span class="option"> <a
-			href="<c:url value='/_07_letter/letterInfo' />">漂流信</a>
+			href="<c:url value='/letter/letterInfo' />">漂流信</a>
 		</span>
 		<span class="option"> <a
 			href="<c:url value='/manager/showReports' />">管理員_檢舉專區</a>
