@@ -21,8 +21,8 @@
 		</span> 
 		<span class="option"> 
 			<c:choose>
-			<c:when test="${ ! empty LoginOK || LoginOK.checkAuthSuccess == 'y' }">
-			   <a href="<c:url value='/login/logout.jsp' />">
+			<c:when test="${ ! empty LoginOK || LoginOK.checkAuthSuccess == '未驗證' }">
+			   <a href="<c:url value='/login/logout' />">
   				登出 <i class="fas fa-sign-out-alt"></i>
 	           </a>
 			</c:when>
