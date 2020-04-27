@@ -27,12 +27,6 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
 </head>
-<!-- <script type="text/javascript"> -->
-<!-- 	$(document).ready(function() { -->
-
-<!-- 		$('.toast').toast('show') 
-<!-- 	}) -->
-<!-- </script> -->
 <body>
 	<c:set var="funcName" value="LOG" scope="session" />
 	<c:if test="${ ! empty sessionScope.timeOut }">
@@ -168,9 +162,9 @@
 										<div class="error">${ErrorMsgKey.LoginError}</div>
 										<input type="submit"
 											class="btn btn-primary btn-user btn-block" value="立即登入"
-											onclick="LoginForm.action='<c:url value="/login"  />'; ">
+											onclick="LoginForm.action='<c:url value="/checkLogin"  />'; ">
 
-										                    </a>
+										                    
 										<hr>
 										<a href=".." class="btn btn-google btn-user btn-block">
 											用Google帳號登入 </a> <a href=".."

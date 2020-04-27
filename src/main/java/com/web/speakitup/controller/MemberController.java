@@ -56,7 +56,7 @@ public class MemberController {
 
 	@PostMapping("/add")
 	public String addMember(@ModelAttribute("memberBean") MemberBean mb,Model model, BindingResult bindingResult,
-			HttpServletRequest request) {
+			HttpServletRequest request,HttpServletResponse response) {
 		 
 		new RegisterValidator().validate(mb, bindingResult);
 
