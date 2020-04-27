@@ -35,7 +35,7 @@ public class MemberServiceImpl implements MemberService {
 		return map;
 	}
 
-	@Transactional
+
 	@Override
 	public boolean idExists(String id) {
 		boolean result;
@@ -92,7 +92,7 @@ public class MemberServiceImpl implements MemberService {
 		dao.updateReplyDate(memberId, replyDate);
 	}
 
-	@Transactional
+	
 	@Override
 	public MemberBean getMember(int id) {
 		MemberBean mb = null;

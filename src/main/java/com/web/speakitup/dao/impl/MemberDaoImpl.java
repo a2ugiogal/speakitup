@@ -63,7 +63,7 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public boolean idExists(String id) {
 		boolean exist = false;
-		String hql = "FROM MemberBean m Where m.memberId = :id";
+		String hql = "FROM MemberBean m WHERE m.memberId = :id";
 		Session session = factory.getCurrentSession();
 		try {
 			session.createQuery(hql).setParameter("id", id).getSingleResult();

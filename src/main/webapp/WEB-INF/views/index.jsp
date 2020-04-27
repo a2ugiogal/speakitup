@@ -17,7 +17,7 @@
 	<div class="top">
 		<div class="logo"></div>
 		<span class="option"> <a
-			href="<c:url value='/register/add' />">註冊</a>
+			href="<spring:url value='/register/add' />">註冊</a>
 		</span> 
 		<span class="option"> 
 			<c:choose>

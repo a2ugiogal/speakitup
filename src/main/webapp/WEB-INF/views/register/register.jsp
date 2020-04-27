@@ -21,7 +21,7 @@
 	src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
 <script
-	src="<spring:url value='/js/_01_register/register.js' /> "></script>
+	src="<spring:url value='/js/register/register.js' /> "></script>
 <link rel="stylesheet"
 	href="http://jqueryui.com/resources/demos/style.css" />
 <!-- my css -->
@@ -169,8 +169,7 @@
 									<!-- ===再次輸入密碼=== -->
 									<div class="col-sm-6">
 										<input type="password" class="form-control form-control-user"
-											id="passwordCheck" placeholder="請再次輸入密碼8~12字元" maxlength="15"
-											minlength="8">
+											id="passwordCheck" placeholder="請再次輸入密碼8~12字元" maxlength="15" minlength="8" >
 									</div>
 									<!-- 密碼error msg -->
 									<div style="display: none;" id="passwordError"
@@ -236,7 +235,7 @@
                   <a href=".." class="btn btn-facebook btn-user btn-block">
                     用Facebook帳號登入
                   </a> -->
-								</form>
+								
 							</form:form>
 							<hr>
 						</div>
@@ -332,7 +331,7 @@
 	</footer>
 	<!-- Footer -->
 
-	</div>
+	
 
 	<!-- 下拉式地址 -->
 	<script

@@ -34,13 +34,23 @@ body {
     width: 120px;
 }
 
-.error {
-  margin: 5px;
-  font-size: 10px;
+.idEmptyError {
+  margin-top: 5px;
+  margin-bottom:-5px;
+  font-size: 12px;
   color: red;
+  visibility:hidden;
 }
-p.error {
-  text-align: left;
-  width: 216px;
-  margin: 5px auto;
+
+.passwordEmptyError{
+	margin-top: 5px;
+	margin-bottom:-5px;
+  font-size: 12px;
+  color: red;
+  visibility:hidden;
+}
+.loginError{
+	font-size: 12px;
+  	color: red;
+ 	
 }

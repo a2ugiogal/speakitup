@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.web.speakitup.model.MemberBean;
 import com.web.speakitup.service.MemberService;
 
 
@@ -27,21 +28,17 @@ public class LoginController {
 	
 	@PostMapping("/checkLogin")
 	public String checkData(@RequestParam("memberId") String memberId,@RequestParam("password")String password,Model model) {
-		
-		
-		
-		if (memberId == null || memberId.trim().length() == 0) {
-			model.addAttribute("AccountEmptyError", "帳號欄必須輸入");
-		}
-		if (password == null || password.trim().length() == 0) {
-			model.addAttribute("PasswordEmptyError", "密碼欄必須輸入");
-		}
-		
+			MemberBean mb = memberService.checkIdPassword(memberId, password);
+				if(mb == null) {
+				model.addAttribute("loginError", "loginError");
+				System.out.println("帳密錯誤");
+				return "login/login";
+			}else {
+				model.addAttribute("LoginOK", mb);
+				return "redirect:../";
+			}
 		
 			
-			return "login/login";
-		
-//		return "redirect:../";
 	}
 	
 }

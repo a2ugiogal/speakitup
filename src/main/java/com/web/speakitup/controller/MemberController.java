@@ -33,7 +33,6 @@ import com.web.speakitup._00_init.GlobalService;
 import com.web.speakitup._00_init.SendEmail;
 import com.web.speakitup.model.MemberBean;
 import com.web.speakitup.service.MemberService;
-//import com.web.speakitup.validate.RegisterValidator;
 import com.web.speakitup.validate.RegisterValidator;
 
 @Controller
@@ -55,9 +54,9 @@ public class MemberController {
 	}
 
 	@PostMapping("/add")
-	public String addMember(@ModelAttribute("memberBean") MemberBean mb,Model model, BindingResult bindingResult,
+	public String addMember(@ModelAttribute("memberBean") MemberBean mb, BindingResult bindingResult,
 			HttpServletRequest request,HttpServletResponse response) {
-		 
+		
 		new RegisterValidator().validate(mb, bindingResult);
 
 		if (bindingResult.hasErrors()) {

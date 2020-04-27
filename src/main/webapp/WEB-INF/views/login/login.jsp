@@ -20,6 +20,8 @@
 <!-- my css -->
 <link rel="stylesheet"
 	href="<spring:url value='/css/_02_login/style.css' /> " />
+	
+	<script src="<spring:url value='/js/login/login.js' /> " /></script>
 <title>Login</title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"
 	integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
@@ -136,17 +138,17 @@
 										</c:if>
 
 										<div class="form-group">
-											<input type="text" class="form-control form-control-user"
-												name="memberId" placeholder="輸入您的帳號"
+											<input type="text" class="form-control form-control-user mr-0"
+												name="memberId" placeholder="輸入您的帳號" id="inputmemberId" required
 												value="${requestScope.memberId}${param.memberId}">
-											<p class="error">${ErrorMsgKey.AccountEmptyError}</p>
+<!-- 											<div class="idEmptyError">帳號欄必須輸入</div> -->
 										</div>
 										<div class="form-group">
 											<input type="password" class="form-control form-control-user"
-												name="password" id="exampleInputPassword"
+												name="password" id="inputPassword" required
 												placeholder="輸入您的密碼"
 												value="${requestScope.password}${param.password}">
-											<p class="error">${ErrorMsgKey.PasswordEmptyError}</p>
+<!-- 											<div class="passwordEmptyError">密碼欄必須輸入</div> -->
 										</div>
 										<div class="form-group">
 											<div class="custom-control custom-checkbox small">
@@ -159,10 +161,12 @@
 													for="customCheck">記住我</label>
 											</div>
 										</div>
-										<div class="error">${ErrorMsgKey.LoginError}</div>
-										<input type="submit"
+										<c:if test="${not empty loginError}" >
+										<div class="loginError">帳號或密碼錯誤</div>
+										</c:if>
+										<input type="submit" id="loginBtn"
 											class="btn btn-primary btn-user btn-block" value="立即登入"
-											onclick="LoginForm.action='<c:url value="/checkLogin"  />'; ">
+											onclick="LoginForm.action='<spring:url value="/login/checkLogin"  />'; ">
 
 										                    
 										<hr>

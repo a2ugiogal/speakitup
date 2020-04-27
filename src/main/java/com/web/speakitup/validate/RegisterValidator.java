@@ -22,7 +22,9 @@ public class RegisterValidator implements Validator {
 	@Override
 	public void validate(Object target, Errors errors) {
 		MemberBean mb = (MemberBean) target;
-
+		String id = mb.getMemberId();
+		System.out.println(id);
+		System.out.println(service.idExists(id));
 		if (service.idExists(mb.getMemberId())) {
 			errors.rejectValue("memberId", "此帳號已存在");
 		}
