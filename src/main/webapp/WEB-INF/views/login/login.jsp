@@ -16,10 +16,10 @@
 	href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css'
 	rel='stylesheet'>
 <link rel="stylesheet"
-	href="<spring:url value='/css/_02_login/template_style.css' /> ">
+	href="<spring:url value='/css/login/template_style.css' /> ">
 <!-- my css -->
 <link rel="stylesheet"
-	href="<spring:url value='/css/_02_login/style.css' /> " />
+	href="<spring:url value='/css/login/style.css' /> " />
 	
 	<script src="<spring:url value='/js/login/login.js' /> " /></script>
 <title>Login</title>

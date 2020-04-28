@@ -2,7 +2,9 @@ package com.web.speakitup.controller;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,10 +40,12 @@ public class LoginController {
 	@PostMapping("/checkLogin")
 	public String checkData(@RequestParam("memberId") String memberId,
 							@RequestParam("password")String password,
-							@RequestParam("rememberMe")String rm,
-							Model model,HttpServletResponse response) {
+							Model model,HttpServletRequest request,HttpServletResponse response,
+							HttpSession session) {
 		
-		
+		//因為如果沒勾會是null 用@RequestParam註釋一定要傳值進來   如果沒有值會當掉  所以需要用過去request的方式去抓
+		String rm = request.getParameter("rememberMe");
+				
 		Cookie cookieUser = null;
 		Cookie cookiePassword = null;
 		Cookie cookieRememberMe = null;
@@ -88,14 +92,12 @@ public class LoginController {
 				System.out.println("帳密錯誤");
 				return "login/login";
 			}else {
+				String target = (String) session.getAttribute("target");
 				model.addAttribute("LoginOK", mb);
 				System.out.println(mb.getMemberId());
-				return "redirect:/";
-			}
-		
-			
+				return "redirect:" + target;
+			}		
 	}
-	
 	
 	@GetMapping("/logout")
 	public String logout() {
