@@ -55,7 +55,7 @@ public class WebAppJavaConfig implements WebMvcConfigurer {
 	@Bean
 	public MessageSource messageSource() {
 		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-		messageSource.setBasenames("MemberMessage", "ValidationMessages");
+		messageSource.setBasenames("ValidationMessages");
 		return messageSource;
 	}
 

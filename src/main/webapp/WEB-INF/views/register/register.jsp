@@ -20,13 +20,13 @@
 <script type="text/javascript"
 	src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
-<script
-	src="<spring:url value='/js/register/register.js' /> "></script>
 <link rel="stylesheet"
 	href="http://jqueryui.com/resources/demos/style.css" />
+
+<script src="<spring:url value='/js/register/register.js' /> "></script>
 <!-- my css -->
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/_01_register/register.css" />
+	href="<spring:url value='/css/register/register.css' /> " />
 <title>Register</title>
 
 
@@ -106,8 +106,7 @@
 							</div>
 							<!-- ======從這裡開始套 =========-->
 							<form:form class="user" method='POST' modelAttribute="memberBean"
-								id="registerForm"
-								enctype="multipart/form-data">
+								id="registerForm" enctype="multipart/form-data">
 								<%-- 								<form class="user" method="post" --%>
 								<%-- 									action="<c:url value='/register' />" --%>
 								<%-- 									enctype="multipart/form-data" id="registerForm"> --%>
@@ -153,8 +152,8 @@
 											class="btn btn-secondary">
 									</div>
 									<!--帳號 error msg -->
-									<form:errors path="memberId" cssClass="error" />
-																		<div class="errorText" id="userNameText">${errorMsg.errorId}</div>
+									<div class="errorText" id="userNameText">
+										<form:errors path="memberId" cssClass="errorText" />${errorMsg.errorId}</div>
 									<!-- ===密碼=== -->
 									<div class="col-sm-6 mb-3">
 										<form:input type="password" path="password"
@@ -169,7 +168,8 @@
 									<!-- ===再次輸入密碼=== -->
 									<div class="col-sm-6">
 										<input type="password" class="form-control form-control-user"
-											id="passwordCheck" placeholder="請再次輸入密碼8~12字元" maxlength="15" minlength="8" >
+											id="passwordCheck" placeholder="請再次輸入密碼8~12字元" maxlength="15"
+											minlength="8">
 									</div>
 									<!-- 密碼error msg -->
 									<div style="display: none;" id="passwordError"
@@ -177,19 +177,19 @@
 									<!-- email -->
 									<div class="col-sm-10 mb-3">
 										<form:input id="email" path="email" placeholder="輸入email"
- 											required="required" type="email" 
-											class="form-control form-control-user" /> 
-<%-- 																				<input id="email" name="email" value="${mb.email}" --%>
-<%-- 																					placeholder="輸入email" required="required" type="email" --%>
-<%-- 																					class="form-control form-control-user"> --%>
+											required="required" type="email"
+											class="form-control form-control-user" />
+										<%-- 																				<input id="email" name="email" value="${mb.email}" --%>
+										<%-- 																					placeholder="輸入email" required="required" type="email" --%>
+										<%-- 																					class="form-control form-control-user"> --%>
 									</div>
 									<div class="col-sm-1 mb-3">
-										<input  type="button" id="btEmail" value="重複檢查"
+										<input type="button" id="btEmail" value="重複檢查"
 											class="btn btn-secondary" />
 									</div>
 									<!-- email err msg -->
-									<form:errors path="email" cssClass="error" />
-																		<div class="errorText" id="emailText">${errorMsg.errorEmail}</div>
+									<div class="errorText" id="emailText">
+										<form:errors path="email" cssClass="errorText" />${errorMsg.errorEmail}</div>
 
 									<div class="col-sm-10 mb-3">
 										<form:input path="phone" type="text"
@@ -235,7 +235,7 @@
                   <a href=".." class="btn btn-facebook btn-user btn-block">
                     用Facebook帳號登入
                   </a> -->
-								
+
 							</form:form>
 							<hr>
 						</div>
@@ -331,7 +331,7 @@
 	</footer>
 	<!-- Footer -->
 
-	
+
 
 	<!-- 下拉式地址 -->
 	<script
@@ -358,8 +358,7 @@
 	<script type="text/javascript"
 		src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 	<!-- Template Main JS File -->
-<script
-	src="<spring:url value='/js/_01_register/register.js' /> "></script>
+	<script src="<spring:url value='/js/_01_register/register.js' /> "></script>
 	<script>
 		let date = new Date();
 		let year = date.getFullYear();
