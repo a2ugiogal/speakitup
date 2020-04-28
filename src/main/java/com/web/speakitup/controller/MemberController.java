@@ -44,6 +44,9 @@ public class MemberController {
 
 	@Autowired
 	MemberService service;
+	
+	@Autowired
+	RegisterValidator registerValidator;
 
 
 	@GetMapping("/add")
@@ -57,7 +60,7 @@ public class MemberController {
 	public String addMember(@ModelAttribute("memberBean") MemberBean mb, BindingResult bindingResult,
 			HttpServletRequest request,HttpServletResponse response) {
 		
-		new RegisterValidator().validate(mb, bindingResult);
+		registerValidator.validate(mb, bindingResult);
 
 		if (bindingResult.hasErrors()) {
 			List<ObjectError> list = bindingResult.getAllErrors();

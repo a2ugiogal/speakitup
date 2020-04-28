@@ -14,6 +14,15 @@ public class RegisterValidator implements Validator {
 	@Autowired
 	MemberService service;
 
+	public RegisterValidator() {
+		super();
+	}
+	
+//	public RegisterValidator(MemberService service) {
+//		super();
+//		this.service = service;
+//	}
+
 	@Override
 	public boolean supports(Class<?> clazz) {
 		return MemberBean.class.isAssignableFrom(clazz);
@@ -24,7 +33,7 @@ public class RegisterValidator implements Validator {
 		MemberBean mb = (MemberBean) target;
 		String id = mb.getMemberId();
 		System.out.println(id);
-		System.out.println(service.idExists(id));
+		System.out.println("+++" + service.idExists(id));
 		if (service.idExists(mb.getMemberId())) {
 			errors.rejectValue("memberId", "此帳號已存在");
 		}
