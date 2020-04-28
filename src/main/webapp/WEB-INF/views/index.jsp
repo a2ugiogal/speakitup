@@ -34,7 +34,7 @@
 			</c:choose>
 		</span> 
 		<span class="option"> <a
-			href="<c:url value='/personPage/personPage.jsp' />">個人頁面</a>
+			href="<c:url value='/personPage/' />">個人頁面</a>
 		</span><span class="option"> <a
 			href="<c:url value='/article/ShowFamousArticles' />">熱門文章</a>
 		</span><span class="option"> <a

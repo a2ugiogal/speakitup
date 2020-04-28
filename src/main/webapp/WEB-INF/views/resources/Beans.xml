@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+        
+    
+    <context:property-placeholder location="classpath:db.properties"/>
+    
+    <context:component-scan base-package="_01_register _02_login _03_personPage _04_order _05_product _06_article" />
+   
+   <bean id="dataSource" destroy-method='close' scope="prototype"
+      class="com.mchange.v2.c3p0.ComboPooledDataSource" >
+      <property name="driverClass" value="${jdbc.driverClass}"/>
+      <property name="jdbcUrl" value="${jdbc.jdbcUrl}"/>
+      <property name="user" value="${jdbc.user}"/>
+      <property name="password" value="${jdbc.password}"/>
+      <property name="initialPoolSize" value="${jdbc.initPoolSize}"/>
+      <property name="maxPoolSize" value="${jdbc.maxPoolSize}"/>
+   </bean>
+   
+   <bean id='sessionFactory'
+        class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref='dataSource' />
+        <property name="packagesToScan" 
+        	value='_01_register.model, _04_order.model, _05_product.model, _06_article.model' />
+        <property name="configLocation"
+            value='classpath:hibernateCreateTables.cfg.xml' />
+    </bean>
+    <!-- 配置交易管理器 -->
+    <bean id='transactionManager'
+        class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <tx:annotation-driven />
+    
+<!--      @Transacional -->
+   
+
+</beans>
