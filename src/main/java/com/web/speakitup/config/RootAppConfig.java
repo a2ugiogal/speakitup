@@ -30,6 +30,7 @@ public class RootAppConfig {
 	int mps;
 
 	Environment env;
+
 	@Autowired
 	public void setEnv(Environment env) {
 		this.env = env;
@@ -50,7 +51,7 @@ public class RootAppConfig {
 		ds.setMaxPoolSize(mps);
 		return ds;
 	}
-	
+
 	@Bean
 	public DataSource mySqlDataSource() {
 		ComboPooledDataSource ds = new ComboPooledDataSource();
@@ -66,7 +67,6 @@ public class RootAppConfig {
 		ds.setMaxPoolSize(mps);
 		return ds;
 	}
-	
 
 	@Bean
 	public LocalSessionFactoryBean sessionFactory() {
@@ -88,8 +88,8 @@ public class RootAppConfig {
 	private Properties mySqlAdditionalPropertiesMsSQL() {
 		Properties properties = new Properties();
 		properties.put("hibernate.dialect", org.hibernate.dialect.MySQL8Dialect.class);
-		properties.put("hibernate.show_sql", Boolean.TRUE);
-		properties.put("hibernate.format_sql", Boolean.TRUE);
+		properties.put("hibernate.show_sql", Boolean.FALSE);
+		properties.put("hibernate.format_sql", Boolean.FALSE);
 		properties.put("default_batch_fetch_size", 10);
 		properties.put("hibernate.hbm2ddl.auto", "update");
 		return properties;

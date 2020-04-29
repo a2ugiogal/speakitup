@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -9,63 +9,53 @@
 <title>要抒啦--首頁</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/angel.css" />
- <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+	integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+	crossorigin="anonymous"></script>
 </head>
 
 <body>
-	
+
 	<div class="top">
 		<div class="logo"></div>
 		<span class="option"> <a
 			href="<spring:url value='/register/add' />">註冊</a>
-		</span> 
-		<span class="option"> 
-			<c:choose>
-			<c:when test="${ ! empty LoginOK || LoginOK.checkAuthSuccess == '未驗證' }">
-			   <a href="<c:url value='/login/logout' />">
-  				登出 <i class="fas fa-sign-out-alt"></i>
-	           </a>
-			</c:when>
-			<c:otherwise>
-				<a href="<spring:url value='/login/login'/>">
-  				登入
-	           </a>
-			</c:otherwise>
+		</span> <span class="option"> <c:choose>
+				<c:when
+					test="${ ! empty LoginOK || LoginOK.checkAuthSuccess == '未驗證' }">
+					<a href="<c:url value='/login/logout' />"> 登出 <i
+						class="fas fa-sign-out-alt"></i>
+					</a>
+				</c:when>
+				<c:otherwise>
+					<a href="<spring:url value='/login/login'/>"> 登入 </a>
+				</c:otherwise>
 			</c:choose>
-		</span> 
-		<span class="option"> <a
-			href="<c:url value='/personPage/' />">個人頁面</a>
+		</span> <span class="option"> <a href="<c:url value='/personPage/' />">個人頁面</a>
 		</span><span class="option"> <a
 			href="<c:url value='/article/ShowFamousArticles' />">熱門文章</a>
 		</span><span class="option"> <a
 			href="<c:url value='/article/addArticle.jsp' />">新增文章</a>
 		</span><span class="option"> <a
-			href="<c:url value='/product/ShowPageProducts' />">購物區</a>
+			href="<spring:url value='/product/ShowPageProducts' />">購物區</a>
 		</span><span class="option"> <a
-			href="<c:url value='/product/ShowFamousProducts' />">熱門商品區</a>
-		</span>
-		<span class="option"> <a
+			href="<spring:url value='/product/ShowFamousProducts' />">熱門商品區</a>
+		</span> <span class="option"> <a
 			href="<c:url value='/order/shoppingCart.jsp' />">購物車</a>
-		</span>
-		<span class="option"> <a
+		</span> <span class="option"> <a
 			href="<c:url value='/order/showHistoryOrder' />">歷史訂單</a>
-		</span>
-		<span class="option"> <a
+		</span> <span class="option"> <a
 			href="<c:url value='/letter/letterInfo' />">漂流信</a>
-		</span>
-		<span class="option"> <a
+		</span> <span class="option"> <a
 			href="<c:url value='/manager/showReports' />">管理員_檢舉專區</a>
-		</span>
-		<span class="option"> <a
+		</span> <span class="option"> <a
 			href="<c:url value='/manager/showMembers' />">管理員_帳號管理</a>
-		</span>
-		<span class="option"> <a
+		</span> <span class="option"> <a
 			href="<c:url value='/manager/showOrders' />">管理員_訂單管理</a>
-		</span>
-		<span class="option"> <a
+		</span> <span class="option"> <a
 			href="<c:url value='/manager/showProducts' />">管理員_商品管理</a>
 		</span>
-		
+
 	</div>
 	<div class="main-menu">
 		<div class="menu">
@@ -116,8 +106,8 @@
 		</div>
 
 		<div class="main-post">
-			<c:if test="${not empty register}" >
-				
+			<c:if test="${not empty register}">
+
 			</c:if>
 		</div>
 
