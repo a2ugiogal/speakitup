@@ -3,6 +3,7 @@ package com.web.speakitup.controller;
 import java.io.IOException;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -29,7 +30,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.web.speakitup._00_init.GlobalService;
+import com.web.speakitup.model.ArticleBean;
 import com.web.speakitup.model.MemberBean;
+import com.web.speakitup.service.ArticleService;
 import com.web.speakitup.service.MemberService;
 
 
@@ -45,8 +48,8 @@ public class PersonPageController {
 	@Autowired
 	ServletContext context;
 	
-//	@Autowired
-//	ArticleService articleService;
+	@Autowired
+	ArticleService articleService;
 	
 	//給會員的舊表單
 	@GetMapping("/personPage")
@@ -56,6 +59,7 @@ public class PersonPageController {
 		model.addAttribute("memberBean", mb);
 		return "personPage/personPage";
 	}
+	
 	
 	//修改會員資料
 	@PostMapping("/personPage")
@@ -100,7 +104,7 @@ public class PersonPageController {
 		//先用個笨方法XDD 如果都沒改就一樣更新 但是不要擺檔名跟blob 因為如果原本就有照片會被洗掉
 		if(memPic == null) {
 			mbNew = new MemberBean(mbOld.getId(),email, phone, city, area, address);
-			memberService.updateMemberNoBlob(mbNew);
+			memberService.updateMemberNoBlob(mbNew);    //更新完以後 再重新取得物件 並set新的session物件進去
 			mb = memberService.getMember(mbOld.getId());
 			session.setAttribute("LoginOK", mb);
 			return "redirect:/personPage/personPage";
@@ -114,7 +118,8 @@ public class PersonPageController {
 		mb = memberService.getMember(mbOld.getId());
 		session.setAttribute("LoginOK", mb);
 		
-		return "redirect:/personPage/personPage";
+		return "redirect:/updateSuccess";
+
 		}
 		
 		}else {
@@ -122,8 +127,14 @@ public class PersonPageController {
 		}
 	}
 	
+	//修改成功後 先傳給此get方法 再回傳給client端
+	@GetMapping("/updateSuccess")
+	public String updateSuccess() {
+		return "/personPage/personPage";
+	}
 
 	//取得會員的照片
+	@SuppressWarnings("unused")
 	@GetMapping("/getUserImage/{id}")
 	public ResponseEntity<byte[]> getUserImage(@PathVariable int id,Model model,HttpServletRequest request,
 								HttpServletResponse response) throws IOException {
@@ -134,8 +145,8 @@ public class PersonPageController {
 		String filename = "";
 		int len = 0;
 		MemberBean mb = memberService.getMember(id);
-	
-		
+			
+		//取得照片跟檔名
 		if (mb != null) {
 			Blob blob = mb.getPicture();
 			filename = mb.getFileName();
@@ -166,15 +177,16 @@ public class PersonPageController {
 	@GetMapping("/showMyArticles")
 	public String getmyArticles(Model model,HttpSession session,HttpServletRequest request) {
 		
+		//取得搜尋字串或是篩選的字串 點擊我的文章時會先進來一次，所以第一次會是空字串，代表回傳所有的文章
 		String arrange = request.getParameter("arrange") == null ? "" : request.getParameter("arrange");
 		String searchStr = request.getParameter("search") == null ? "" : request.getParameter("search");
 		
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
-//		Map<Integer, ArticleBean> articleMap = articleService.getPersonArticles(arrange, searchStr, mb);
+		Map<Integer, ArticleBean> articleMap = articleService.getPersonArticles(arrange, searchStr, mb);
 		
 		request.setAttribute("searchStr", searchStr);
 		request.setAttribute("arrange", arrange);
-//		request.setAttribute("articles_map", articleMap);
+		request.setAttribute("articles_map", articleMap);
 		
 		
 		return "personPage/myArticles";

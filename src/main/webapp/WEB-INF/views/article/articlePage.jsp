@@ -47,7 +47,7 @@
 				<div class="input-group my-3 col-9 ">
 					<div class="input-group-prepend">
 						<span class="input-group-text">
-						<img src="<spring:url value='/images/_05_product/search.png' /> " /></span>
+						<img src="<spring:url value='/image/_05_product/search.png' /> " /></span>
 					</div>
 					<input type="search" class="form-control" placeholder="搜尋: 文章標題"
 						name="search" aria-label="Sizing example input"
@@ -71,15 +71,15 @@
 		<!-- 		文章列========================================= -->
 		<c:forEach var="entry" items="${articles_map}">
 			<a
-				href="<c:url value='/article/ShowArticleContent?articleId=${entry.value.articleId}'/>">
+				href="<c:url value='/article/ShowArticleContent/${entry.value.articleId}'/>">
 				<div class="rounded-pill border m-4">
 					<div
 						class="d-flex mx-auto justify-content-center align-items-center"
 						style="text-align: center;">
 						<img
-							src="${pageContext.request.contextPath}/init/getArticleImage?id=${entry.value.articleId}"
+							src="<spring:url value='/article/getArticleImage/${entry.value.articleId}' /> "
 							style="max-width: 200px; max-height: 100px;" /> <img
-							src="${pageContext.request.contextPath}/init/getUserImage?id=${entry.value.authorId}"
+							src="<spring:url value='/personPage/getUserImage/${entry.value.authorId}' /> "
 							class="rounded-circle border border-dark"
 							style="height: 100px; width: 100px;" />
 						<div class="ml-4 my-auto" style="height: 100px;">
