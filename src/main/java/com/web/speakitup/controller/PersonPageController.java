@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.web.speakitup._00_init.GlobalService;
 import com.web.speakitup.model.ArticleBean;
 import com.web.speakitup.model.MemberBean;
 import com.web.speakitup.service.ArticleService;
@@ -98,7 +99,6 @@ public class PersonPageController {
 		String area = request.getParameter("district");
 		//地址
 		String address = request.getParameter("address");
-		mb.setAddress(address);
 		
 		memPic = mb.getPicture();
 		System.out.println("000" + memPic);
@@ -133,7 +133,6 @@ public class PersonPageController {
 	@GetMapping("/getUserImage/{id}")
 	public ResponseEntity<byte[]> getUserImage(@PathVariable int id,Model model,HttpServletRequest request,
 								HttpServletResponse response) throws IOException {
-	System.out.println("memberId:" + id);
 		
 		String filepath = "/resources/images/NoImage.jpg";
 		byte[] media = null;
@@ -154,39 +153,20 @@ public class PersonPageController {
 					throw new RuntimeException("getUserImage發生SQLException"  + e.getMessage());
 				}
 			}else {
-				media = toByteArray(filepath);
+				media = GlobalService.toByteArray(context, filepath);
 				filename = filepath;
 			}
 			
 		}else {
-			media = toByteArray(filepath);
+			media = GlobalService.toByteArray(context, filepath);
 			filename = filepath;
 		}
 			headers.setCacheControl(CacheControl.noCache().getHeaderValue());
 			String mimeType = context.getMimeType(filename);
 			MediaType mediaType = MediaType.valueOf(mimeType);
-			System.out.println("mediaType:" + mediaType);
 			ResponseEntity<byte[]> responseEntity = new ResponseEntity<byte[]>(media,headers,HttpStatus.OK);
 			return responseEntity;
 		}
-
-
-	private byte[] toByteArray(String filepath) {
-		byte[] b = null;
-		String realPath = context.getRealPath(filepath);
-		try {
-			File file = new File(realPath);
-			long size = file.length();
-			b = new byte[(int) size];
-			InputStream is = context.getResourceAsStream(filepath);
-			is.read(b);
-		}catch(FileNotFoundException e) {
-			e.printStackTrace();
-		}catch(IOException e) {
-			e.printStackTrace();
-		}
-		return b;
-	}
 	
 	//個人文章
 	@GetMapping("/showMyArticles")
@@ -197,7 +177,7 @@ public class PersonPageController {
 		
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
 		Map<Integer, ArticleBean> articleMap = articleService.getPersonArticles(arrange, searchStr, mb);
-
+		
 		request.setAttribute("searchStr", searchStr);
 		request.setAttribute("arrange", arrange);
 		request.setAttribute("articles_map", articleMap);
