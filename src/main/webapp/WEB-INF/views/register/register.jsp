@@ -107,9 +107,6 @@
 							<!-- ======從這裡開始套 =========-->
 							<form:form class="user" method='POST' modelAttribute="memberBean"
 								id="registerForm" enctype="multipart/form-data">
-								<%-- 								<form class="user" method="post" --%>
-								<%-- 									action="<c:url value='/register' />" --%>
-								<%-- 									enctype="multipart/form-data" id="registerForm"> --%>
 								<!-- autocomplete="off"不要讓瀏覽器記住使用者輸入資料的歷史紀錄 -->
 								<!-- 大頭照上傳 -->
 								<div id="boxHeadPicture" class="d-flex justify-content-center">
@@ -128,10 +125,6 @@
 								<div class="d-flex justify-content-center">
 									<form:radiobuttons path="gender" required="required"
 										items='${genderMap}' />
-									<!-- 									<input type="radio" name="gender" value="男" required="required" -->
-									<%-- 										<c:if test='${mb.gender=="男"}'>checked='checked'</c:if>>男 --%>
-									<!-- 									<input type="radio" name="gender" value="女" required="required" -->
-									<%-- 										<c:if test='${mb.gender=="女"}'> checked='checked'</c:if>>女 --%>
 								</div>
 
 
@@ -142,10 +135,6 @@
 											placeholder="輸入帳號，可用英文字母和數字" required="required" type="text"
 											class="form-control form-control-user"
 											onkeyup="value=value.replace(/[\W]/g,'')" />
-										<%-- 										<input id="userName" name="memberId" value="${mb.memberId}" --%>
-										<!-- 											placeholder="輸入帳號，可用英文字母和數字" required="required" type="text" -->
-										<!-- 											class="form-control form-control-user" -->
-										<!-- 											onkeyup="value=value.replace(/[\W]/g,'')"> -->
 									</div>
 									<div class="col-sm-1 mb-3">
 										<input type="button" id="btUserName" value="重複檢查"
@@ -160,10 +149,6 @@
 											class="form-control form-control-user" id="password"
 											placeholder="輸入密碼8~12字元" maxlength="15" minlength="8"
 											required="required" />
-										<!-- 										<input type="password" name="password" -->
-										<!-- 											class="form-control form-control-user" id="password" -->
-										<!-- 											placeholder="輸入密碼8~12字元" maxlength="15" minlength="8" -->
-										<!-- 											required="required"> -->
 									</div>
 									<!-- ===再次輸入密碼=== -->
 									<div class="col-sm-6">
@@ -179,9 +164,6 @@
 										<form:input id="email" path="email" placeholder="輸入email"
 											required="required" type="email"
 											class="form-control form-control-user" />
-										<%-- 																				<input id="email" name="email" value="${mb.email}" --%>
-										<%-- 																					placeholder="輸入email" required="required" type="email" --%>
-										<%-- 																					class="form-control form-control-user"> --%>
 									</div>
 									<div class="col-sm-1 mb-3">
 										<input type="button" id="btEmail" value="重複檢查"
@@ -195,9 +177,6 @@
 										<form:input path="phone" type="text"
 											class="form-control form-control-user" placeholder="輸入手機號碼"
 											maxlength="10" onkeyup="value=value.replace(/[^\d]/g,'')" />
-										<%-- 										<input name="phone" type="text" value="${mb.phone}" --%>
-										<!-- 											class="form-control form-control-user" placeholder="輸入手機號碼" -->
-										<!-- 											maxlength="10" onkeyup="value=value.replace(/[^\d]/g,'')"> -->
 									</div>
 
 									<!-- 生日 -->
@@ -205,9 +184,6 @@
 										<form:input id="datepicker" path="birthday"
 											placeholder="選擇您的生日" type="text" autocomplete="off"
 											required="required" class="form-control form-control-user" />
-										<!-- 										<input id="datepicker" name="birthday" placeholder="選擇您的生日" -->
-										<%-- 											value="${mb.birthday}" type="text" autocomplete="off" --%>
-										<!-- 											required="required" class="form-control form-control-user"> -->
 									</div>
 
 									<!-- 地址 -->
@@ -216,9 +192,6 @@
 										<form:input path="address" type="text"
 											class="form-control form-control-user mb-3"
 											placeholder="輸入地址" />
-										<%-- 										<input name="address" value="${mb.address}" type="text" --%>
-										<!-- 											class="form-control form-control-user mb-3" -->
-										<!-- 											placeholder="輸入地址"> -->
 									</div>
 								</div>
 								<input class="btn btn-primary btn-user btn-block mt-3"
@@ -235,7 +208,6 @@
                   <a href=".." class="btn btn-facebook btn-user btn-block">
                     用Facebook帳號登入
                   </a> -->
-
 							</form:form>
 							<hr>
 						</div>

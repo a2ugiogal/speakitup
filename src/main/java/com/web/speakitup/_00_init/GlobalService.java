@@ -3,6 +3,7 @@ package com.web.speakitup._00_init;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,6 +24,7 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 import javax.sql.rowset.serial.SerialBlob;
@@ -344,6 +346,23 @@ public class GlobalService {
 
 	public static String extractFileName(String pathName) throws IOException, SQLException {
 		return pathName.substring(pathName.lastIndexOf("/") + 1);
+	}
+
+	public static byte[] toByteArray(ServletContext context, String filepath) {
+		byte[] b = null;
+		String realPath = context.getRealPath(filepath);
+		try {
+			File file = new File(realPath);
+			long size = file.length();
+			b = new byte[(int) size];
+			InputStream fis = context.getResourceAsStream(filepath);
+			fis.read(b);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return b;
 	}
 
 }

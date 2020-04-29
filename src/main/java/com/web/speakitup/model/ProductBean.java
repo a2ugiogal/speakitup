@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +16,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "Products")
@@ -32,7 +36,9 @@ public class ProductBean implements Serializable {
 	private Blob image;
 	private Clob detail;
 	private Integer sales;
-	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+	@Transient
+	private MultipartFile productImage;
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	Set<ProductFormatBean> productFormat = new LinkedHashSet<>();
 
 	public ProductBean(Integer productId, String productName, CategoryBean category, Integer price, String fileName,
@@ -122,6 +128,14 @@ public class ProductBean implements Serializable {
 
 	public void setProductFormat(Set<ProductFormatBean> productFormat) {
 		this.productFormat = productFormat;
+	}
+
+	public MultipartFile getProductImage() {
+		return productImage;
+	}
+
+	public void setProductImage(MultipartFile productImage) {
+		this.productImage = productImage;
 	}
 
 }

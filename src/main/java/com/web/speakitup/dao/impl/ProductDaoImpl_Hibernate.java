@@ -29,7 +29,7 @@ public class ProductDaoImpl_Hibernate implements ProductDao {
 	private int recordsPerPage = GlobalService.RECORDS_PER_PAGE;
 	private int recordsPerFamous = GlobalService.RECORDS_PER_FAMOUS;
 
-	int nowTotalPages = -1;
+//	int nowTotalPages = -1;
 
 	@Autowired
 	SessionFactory factory;
@@ -47,13 +47,23 @@ public class ProductDaoImpl_Hibernate implements ProductDao {
 	// 計算搜尋的商品總共有幾頁
 	@Override
 	public int getTotalPages(String searchStr, String categoryTitle, String categoryName) {
-		if (searchStr == "" && categoryTitle == "" && categoryName == "") {
-			// 總共幾頁=無條件進位(共有幾個商品/一頁的商品數)
-			int totalPages = (int) (Math.ceil(getRecordCounts() / (double) recordsPerPage));
-			return totalPages;
-		} else {
-			return nowTotalPages;
-		}
+		String hql = "SELECT pb FROM ProductBean pb, CategoryBean cb WHERE pb.category=cb.categoryId "
+				+ "AND pb.productName LIKE :searchStr " + "AND cb.categoryTitle LIKE :categoryTitle "
+				+ "AND cb.categoryName LIKE :categoryName ";
+		Session session = factory.getCurrentSession();
+		int count = session.createQuery(hql).setParameter("searchStr", "%" + searchStr + "%")
+				.setParameter("categoryTitle", "%" + categoryTitle + "%")
+				.setParameter("categoryName", "%" + categoryName + "%").getResultList().size();
+
+//		nowTotalPages = (int) (Math.ceil(count / (double) recordsPerPage));
+
+//		if (searchStr == "" && categoryTitle == "" && categoryName == "") {
+//			// 總共幾頁=無條件進位(共有幾個商品/一頁的商品數)
+//			int totalPages = (int) (Math.ceil(getRecordCounts() / (double) recordsPerPage));
+//			return totalPages;
+//		} else {
+		return (int) (Math.ceil(count / (double) recordsPerPage));
+//		}
 	}
 
 	// 計算總共有多少商品
@@ -99,13 +109,13 @@ public class ProductDaoImpl_Hibernate implements ProductDao {
 			}
 		}
 		// 不是找全部的商品=>計算找到的商品個數
-		if (searchStr != "" || categoryTitle != "" || categoryName != "") {
-			int count = session.createQuery(hql).setParameter("searchStr", "%" + searchStr + "%")
-					.setParameter("categoryTitle", "%" + categoryTitle + "%")
-					.setParameter("categoryName", "%" + categoryName + "%").getResultList().size();
-
-			nowTotalPages = (int) (Math.ceil(count / (double) recordsPerPage));
-		}
+//		if (searchStr != "" || categoryTitle != "" || categoryName != "") {
+//			int count = session.createQuery(hql).setParameter("searchStr", "%" + searchStr + "%")
+//					.setParameter("categoryTitle", "%" + categoryTitle + "%")
+//					.setParameter("categoryName", "%" + categoryName + "%").getResultList().size();
+//
+//			nowTotalPages = (int) (Math.ceil(count / (double) recordsPerPage));
+//		}
 		// 只取此頁的商品
 		list = session.createQuery(hql).setParameter("searchStr", "%" + searchStr + "%")
 				.setParameter("categoryTitle", "%" + categoryTitle + "%")
