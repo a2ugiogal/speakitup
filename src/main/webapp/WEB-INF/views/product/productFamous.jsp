@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -23,6 +24,8 @@ div a {
 </style>
 </head>
 <body>
+	<%-- 	<jsp:include page="../fragment/topForLogin.jsp" /> --%>
+
 	<div class="w-75 my-5 mx-auto">
 		<h1>天使熱門榜</h1>
 		<div class="swiper-container">
@@ -33,16 +36,17 @@ div a {
 				<c:forEach var="entry" items="${angel_products_map}">
 					<div class="p-3 swiper-slide">
 						<a
-							href="<c:url value='/product/ShowProductInfo?productId=${entry.value.productId}'/>">
+							href="<spring:url value='/product/showProductInfo/${entry.value.productId}'/>">
 							<div class="card border-dark">
 								<img
-									src="${pageContext.request.contextPath}/init/getProductImage?id=${entry.value.productId}"
+									src="<spring:url value='/product/getProductImage/${entry.value.productId}' />"
 									class="card-img-top productImg" />
 								<div class="card-body">
 									<h5 class="card-title"
 										style="text-align: center; font-size: 30px;">${entry.value.productName}</h5>
 									<div class="card-text mt-2"
-										style="text-align: center; font-size: 20px;">$ ${entry.value.price}</div>
+										style="text-align: center; font-size: 20px;">$
+										${entry.value.price}</div>
 								</div>
 							</div>
 						</a>
@@ -66,10 +70,10 @@ div a {
 				<c:forEach var="entry" items="${evil_products_map}">
 					<div class="p-3 swiper-slide">
 						<a
-							href="<c:url value='/product/ShowProductInfo?productId=${entry.value.productId}'/>">
+							href="<spring:url value='/product/ShowProductInfo/${entry.value.productId}'/>">
 							<div class="card border-dark">
 								<img
-									src="${pageContext.request.contextPath}/init/getProductImage?id=${entry.value.productId}"
+									src="<c:url value='/product/getProductImage/${entry.value.productId}' />"
 									class="card-img-top productImg" />
 								<div class="card-body">
 									<h5 class="card-title"

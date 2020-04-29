@@ -37,9 +37,9 @@
 		</span><span class="option"> <a
 			href="<c:url value='/article/addArticle.jsp' />">新增文章</a>
 		</span><span class="option"> <a
-			href="<spring:url value='/product/ShowPageProducts' />">購物區</a>
+			href="<spring:url value='/product/showPageProducts' />">購物區</a>
 		</span><span class="option"> <a
-			href="<spring:url value='/product/ShowFamousProducts' />">熱門商品區</a>
+			href="<spring:url value='/product/showFamousProducts' />">熱門商品區</a>
 		</span> <span class="option"> <a
 			href="<c:url value='/order/shoppingCart.jsp' />">購物車</a>
 		</span> <span class="option"> <a
@@ -53,7 +53,7 @@
 		</span> <span class="option"> <a
 			href="<c:url value='/manager/showOrders' />">管理員_訂單管理</a>
 		</span> <span class="option"> <a
-			href="<c:url value='/manager/showProducts' />">管理員_商品管理</a>
+			href="<spring:url value='/product/showProducts' />">管理員_商品管理</a>
 		</span>
 
 	</div>

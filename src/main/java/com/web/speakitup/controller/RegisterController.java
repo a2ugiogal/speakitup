@@ -91,13 +91,12 @@ public class RegisterController {
 
 		// 存入圖片
 		MultipartFile memberImage = mb.getMemberImage();
-		String originalFilename = memberImage.getOriginalFilename();
-		mb.setFileName(originalFilename);
 		if (memberImage != null && !memberImage.isEmpty()) {
 			try {
 				byte[] b = memberImage.getBytes();
 				Blob blob = new SerialBlob(b);
 				mb.setPicture(blob);
+				mb.setFileName(memberImage.getOriginalFilename());
 			} catch (Exception e) {
 				e.printStackTrace();
 				throw new RuntimeException("檔案上傳發生異常：" + e.getMessage());

@@ -11,24 +11,26 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 	crossorigin="anonymous" />
+
 <link rel="stylesheet"
 	href="<spring:url value='/css/product/productList.css' />" />
 <script src="<spring:url value='/js/product/productList.js' />"></script>
 </head>
 <body>
+	<%-- 	<jsp:include page="../fragment/topForLogin.jsp" /> --%>
 	<div class="product">
 		<div class="w-75 m-auto">
-			<a href="<c:url value='/product/ShowPageProducts?pageNo=-1' />">全部商品</a>
+			<a href="<spring:url value='/product/showPageProducts?pageNo=-1' />">全部商品</a>
 			<a
-				href="<c:url value='/product/ShowPageProducts?categoryTitle=天使&pageNo=-1' />">天使商品</a>
+				href="<spring:url value='/product/showPageProducts?categoryTitle=天使&pageNo=-1' />">天使商品</a>
 			<a
-				href="<c:url value='/product/ShowPageProducts?categoryTitle=天使&categoryName=日常用品&pageNo=-1' />">日常用品</a>
+				href="<spring:url value='/product/showPageProducts?categoryTitle=天使&categoryName=日常用品&pageNo=-1' />">日常用品</a>
 			<a
-				href="<c:url value='/product/ShowPageProducts?categoryTitle=天使&categoryName=紓壓小物&pageNo=-1' />">紓壓小物</a>
+				href="<spring:url value='/product/showPageProducts?categoryTitle=天使&categoryName=紓壓小物&pageNo=-1' />">紓壓小物</a>
 			<a
-				href="<c:url value='/product/ShowPageProducts?categoryTitle=惡魔&pageNo=-1' />">惡魔商品</a>
+				href="<spring:url value='/product/showPageProducts?categoryTitle=惡魔&pageNo=-1' />">惡魔商品</a>
 			<!-- 搜尋選擇列=================================== -->
-			<form action="<c:url value='/product/ShowPageProducts' />"
+			<form action="<spring:url value='/product/showPageProducts' />"
 				id="searchForm">
 				<div class="row">
 					<div class="input-group my-3 col-9 ">
@@ -66,11 +68,11 @@
 				<div class="row">
 					<c:forEach var="entry" items="${products_map}">
 						<a
-							href="<spring:url value='/product/ShowProductInfo/${entry.value.productId}'/>"
+							href="<spring:url value='/product/showProductInfo/${entry.value.productId}'/>"
 							class="col-12 col-sm-6 col-lg-4 mt-4">
 							<div class="card border-dark">
 								<img
-									src="<c:url value='/getProductImage/${entry.value.productId}' />"
+									src="<spring:url value='/product/getProductImage/${entry.value.productId}' />"
 									class="card-img-top productImg" />
 								<div class="card-body">
 									<h5 class="card-title"
@@ -89,7 +91,7 @@
 				<div id="pages"
 					class="col d-flex justify-content-center align-items-center">
 					<a
-						href="<c:url value='/product/ShowPageProducts?pageNo=${pageNo-1}&search=${searchStr}&arrange=${arrange}&categoryTitle=${categoryTitle}&categoryName=${categoryName}'/>"
+						href="<spring:url value='/product/showPageProducts?pageNo=${pageNo-1}&search=${searchStr}&arrange=${arrange}&categoryTitle=${categoryTitle}&categoryName=${categoryName}'/>"
 						<c:if test="${pageNo==1}">style="visibility: hidden;"</c:if>>
 						<button class="btPage">
 							<img
@@ -97,13 +99,13 @@
 								style="max-width: 90%;" />
 						</button>
 					</a> <a
-						href="<c:url value='/product/ShowPageProducts?pageNo=1&search=${searchStr}&arrange=${arrange}&categoryTitle=${categoryTitle}&categoryName=${categoryName}'/>"
+						href="<spring:url value='/product/showPageProducts?pageNo=1&search=${searchStr}&arrange=${arrange}&categoryTitle=${categoryTitle}&categoryName=${categoryName}'/>"
 						<c:if test="${pageNo==1}">style="visibility: hidden;"</c:if>>
 						<button class="btPage">1</button>
 					</a> <span <c:if test="${pageNo==1}">style="visibility: hidden;"</c:if>>．．．</span>
 
 
-					<form action="<c:url value='/product/ShowPageProducts' />"
+					<form action="<spring:url value='/product/showPageProducts' />"
 						id="pageForm">
 						<span>第</span> <select name="pageNo" id="nowPage">
 							<c:forEach var="pages" begin="1" end="${totalPages}">
@@ -123,11 +125,11 @@
 
 
 					<a
-						href="<c:url value='/product/ShowPageProducts?pageNo=${totalPages}&search=${searchStr}&arrange=${arrange}&categoryTitle=${categoryTitle}&categoryName=${categoryName}'/>"
+						href="<spring:url value='/product/showPageProducts?pageNo=${totalPages}&search=${searchStr}&arrange=${arrange}&categoryTitle=${categoryTitle}&categoryName=${categoryName}'/>"
 						<c:if test="${pageNo==totalPages}">style="visibility: hidden;"</c:if>>
 						<button class="btPage">${totalPages}</button>
 					</a> <a
-						href="<c:url value='/product/ShowPageProducts?pageNo=${pageNo+1}&search=${searchStr}&arrange=${arrange}&categoryTitle=${categoryTitle}&categoryName=${categoryName}'/>"
+						href="<spring:url value='/product/showPageProducts?pageNo=${pageNo+1}&search=${searchStr}&arrange=${arrange}&categoryTitle=${categoryTitle}&categoryName=${categoryName}'/>"
 						<c:if test="${pageNo==totalPages}">style="visibility: hidden;"</c:if>>
 						<button class="btPage">
 							<img

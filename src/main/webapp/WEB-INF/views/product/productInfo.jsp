@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -15,11 +16,9 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 <link rel="stylesheet"
 	href="<spring:url value='/css/product/productInfo.css' />">
-
-
-
 </head>
 
 <body class="bg-light">
@@ -32,7 +31,7 @@
 
 				<div class="productImg col-5">
 					<img
-						src="${pageContext.request.contextPath}/init/getProductImage?id=${product.productId}"
+						src="<spring:url value='/product/getProductImage/${product.productId}' />"
 						class="img-thumbnail">
 				</div>
 				<div class="itemSelect col-lg-6 col-sm-3 m-2">
@@ -103,7 +102,6 @@
 
 	</div>
 
-	</div>
 
 
 
