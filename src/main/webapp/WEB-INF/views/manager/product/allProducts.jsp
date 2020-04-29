@@ -38,7 +38,7 @@
 			<div class="input-group my-3">
 				<div class="input-group-prepend">
 					<span class="input-group-text"><img
-						src="${pageContext.request.contextPath}/image/_05_product/search.png"
+						src="<spring:url value= '/image/product/search.png'/>"
 						class="productImg" /></span>
 				</div>
 				<input type="search" class="form-control" placeholder="關鍵字搜尋"

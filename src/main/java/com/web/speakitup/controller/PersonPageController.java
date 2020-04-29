@@ -1,14 +1,12 @@
 package com.web.speakitup.controller;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -30,14 +28,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.web.speakitup._00_init.GlobalService;
 import com.web.speakitup.model.MemberBean;
 import com.web.speakitup.service.MemberService;
 
 
 @Controller
 @RequestMapping("/personPage")
-//@MultipartConfig(location = "", fileSizeThreshold = 5 * 1024 * 1024, maxFileSize = 1024 * 1024
-//* 500, maxRequestSize = 1024 * 1024 * 500 * 5)
+@MultipartConfig(location = "", fileSizeThreshold = 5 * 1024 * 1024, maxFileSize = 1024 * 1024
+* 500, maxRequestSize = 1024 * 1024 * 500 * 5)
 public class PersonPageController {
 	
 	@Autowired
@@ -46,6 +45,8 @@ public class PersonPageController {
 	@Autowired
 	ServletContext context;
 	
+//	@Autowired
+//	ArticleService articleService;
 	
 	//給會員的舊表單
 	@GetMapping("/personPage")
@@ -66,7 +67,7 @@ public class PersonPageController {
 		
 		//如果沒有取消的話代表新增 就去抓資料
 		if(cancel == null) {
-				
+			
 			//取得檔名及照片
 			MultipartFile memberImage = mb.getMemberImage();
 			String originalFilename = memberImage.getOriginalFilename();
@@ -93,7 +94,6 @@ public class PersonPageController {
 		//地址
 		String address = request.getParameter("address");
 		
-		
 		memPic = mb.getPicture();
 		System.out.println("000" + memPic);
 		MemberBean	mbNew = new MemberBean();
@@ -102,8 +102,6 @@ public class PersonPageController {
 			mbNew = new MemberBean(mbOld.getId(),email, phone, city, area, address);
 			memberService.updateMemberNoBlob(mbNew);
 			mb = memberService.getMember(mbOld.getId());
-			
-			model.addAttribute("memberBean", mb);
 			session.setAttribute("LoginOK", mb);
 			return "redirect:/personPage/personPage";
 			
@@ -114,9 +112,6 @@ public class PersonPageController {
 		//先更新 再取出新的mb物件  重新裝入LoginOK裡面
 		memberService.updateMember(mbNew);
 		mb = memberService.getMember(mbOld.getId());
-		System.out.println("mb" + mb);
-		
-		model.addAttribute("memberBean", mb);
 		session.setAttribute("LoginOK", mb);
 		
 		return "redirect:/personPage/personPage";
@@ -132,7 +127,6 @@ public class PersonPageController {
 	@GetMapping("/getUserImage/{id}")
 	public ResponseEntity<byte[]> getUserImage(@PathVariable int id,Model model,HttpServletRequest request,
 								HttpServletResponse response) throws IOException {
-	System.out.println("memberId:" + id);
 		
 		String filepath = "/resources/images/NoImage.jpg";
 		byte[] media = null;
@@ -144,9 +138,7 @@ public class PersonPageController {
 		
 		if (mb != null) {
 			Blob blob = mb.getPicture();
-			System.out.println("222 pic" + mb.getPicture());
 			filename = mb.getFileName();
-			System.out.println("333 name" + mb.getFileName());
 			if (blob != null) {
 				try {
 					len = (int) blob.length();
@@ -155,40 +147,20 @@ public class PersonPageController {
 					throw new RuntimeException("getUserImage發生SQLException"  + e.getMessage());
 				}
 			}else {
-				media = toByteArray(filepath);
+				media = GlobalService.toByteArray(context, filepath);
 				filename = filepath;
 			}
 			
 		}else {
-			media = toByteArray(filepath);
+			media = GlobalService.toByteArray(context, filepath);
 			filename = filepath;
 		}
-		
 			headers.setCacheControl(CacheControl.noCache().getHeaderValue());
 			String mimeType = context.getMimeType(filename);
 			MediaType mediaType = MediaType.valueOf(mimeType);
-			System.out.println("mediaType:" + mediaType);
 			ResponseEntity<byte[]> responseEntity = new ResponseEntity<byte[]>(media,headers,HttpStatus.OK);
 			return responseEntity;
 		}
-
-
-	private byte[] toByteArray(String filepath) {
-		byte[] b = null;
-		String realPath = context.getRealPath(filepath);
-		try {
-			File file = new File(realPath);
-			long size = file.length();
-			b = new byte[(int) size];
-			InputStream is = context.getResourceAsStream(filepath);
-			is.read(b);
-		}catch(FileNotFoundException e) {
-			e.printStackTrace();
-		}catch(IOException e) {
-			e.printStackTrace();
-		}
-		return b;
-	}
 	
 	//個人文章
 	@GetMapping("/showMyArticles")
@@ -197,10 +169,14 @@ public class PersonPageController {
 		String arrange = request.getParameter("arrange") == null ? "" : request.getParameter("arrange");
 		String searchStr = request.getParameter("search") == null ? "" : request.getParameter("search");
 		
+		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
+//		Map<Integer, ArticleBean> articleMap = articleService.getPersonArticles(arrange, searchStr, mb);
+		
+		request.setAttribute("searchStr", searchStr);
+		request.setAttribute("arrange", arrange);
+//		request.setAttribute("articles_map", articleMap);
 		
 		
-		
-		
-		return "personPage/showMyArticles";
+		return "personPage/myArticles";
 	}
 }

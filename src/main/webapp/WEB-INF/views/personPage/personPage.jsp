@@ -61,16 +61,16 @@
 				</tr>
 				<tr>
 					<td class="personalTitle">E-mail：&nbsp&nbsp</td>
-					<td class="personalUpdate">${memberBean.email}</td>
+					<td class="personalUpdate">${LoginOK.email}</td>
 				</tr>
 				<tr>
 					<td class="personalTitle">手機：&nbsp&nbsp</td>
-					<td class="personalUpdate">${memberBean.phone}</td>
+					<td class="personalUpdate">${LoginOK.phone}</td>
 				</tr>
 				<tr>
 					<td class="personalTitle">地址：&nbsp&nbsp</td>
-					<td class="personalUpdate"><span id="city">${memberBean.city}</span><span
-						id="area">${memberBean.area}</span><span id="address">${memberBean.address}</span></td>
+					<td class="personalUpdate"><span id="city">${LoginOK.city}</span><span
+						id="area">${LoginOK.area}</span><span id="address">${LoginOK.address}</span></td>
 				</tr>
 				<tr>
 					<td colspan="2">

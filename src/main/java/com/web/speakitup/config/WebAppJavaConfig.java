@@ -48,8 +48,9 @@ public class WebAppJavaConfig implements WebMvcConfigurer {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		/* 只要請求路徑是以/css/開頭的任何請求，都轉到/WEB-INF/views/css/去尋找 */
 		registry.addResourceHandler("/css/**").addResourceLocations("/WEB-INF/views/css/");
-		registry.addResourceHandler("/images/**").addResourceLocations("/resources/images/");
+		registry.addResourceHandler("/image/**").addResourceLocations("/resources/images/");
 		registry.addResourceHandler("/js/**").addResourceLocations("/WEB-INF/views/js/");
+
 	}
 
 	@Bean

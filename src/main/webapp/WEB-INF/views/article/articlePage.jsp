@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,19 +13,41 @@
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 	crossorigin="anonymous">
 <script
-	src="<spring:url value='/js/_06_article/articlePage.js' /> "></script>
+	src="<spring url value='/js/_06_article/articlePage.js' /> "></script>
 </head>
 <body>
 	<div class="w-75 m-auto">
+		天使板 <a
+			href="<c:url value='/article/ShowPageArticles?categoryTitle=天使' />">全部</a>
+		<a
+			href="<c:url value='/article/ShowPageArticles?categoryTitle=天使&categoryName=工作' />">工作</a>
+		<a
+			href="<c:url value='/article/ShowPageArticles?categoryTitle=天使&categoryName=感情' />">感情</a>
+		<a
+			href="<c:url value='/article/ShowPageArticles?categoryTitle=天使&categoryName=生活' />">生活</a>
+		<a
+			href="<c:url value='/article/ShowPageArticles?categoryTitle=天使&categoryName=時事' />">時事</a>
+		惡魔板 <a
+			href="<c:url value='/article/ShowPageArticles?categoryTitle=惡魔' />">全部</a>
+		<a
+			href="<c:url value='/article/ShowPageArticles?categoryTitle=惡魔&categoryName=工作' />">工作</a>
+		<a
+			href="<c:url value='/article/ShowPageArticles?categoryTitle=惡魔&categoryName=感情' />">感情</a>
+		<a
+			href="<c:url value='/article/ShowPageArticles?categoryTitle=惡魔&categoryName=生活' />">生活</a>
+		<a
+			href="<c:url value='/article/ShowPageArticles?categoryTitle=惡魔&categoryName=時事' />">時事</a>
 
 		<!-- 		搜尋======================================== -->
-		<form action="<spring:url value='/personPage/showMyArticles' />"
+		<form action="<c:url value='/article/ShowPageArticles' />"
 			id="searchForm">
-			<div class="row">
+			<input type="hidden" value="${categoryTitle}" name="categoryTitle">
+			<input type="hidden" value="${categoryName}" name="categoryName">
+			<div id="searchTop" class="row">
 				<div class="input-group my-3 col-9 ">
 					<div class="input-group-prepend">
-						<span class="input-group-text"><img
-							src="${pageContext.request.contextPath}/image/_05_product/search.png" /></span>
+						<span class="input-group-text">
+						<img src="<spring:url value='/images/_05_product/search.png' /> " /></span>
 					</div>
 					<input type="search" class="form-control" placeholder="搜尋: 文章標題"
 						name="search" aria-label="Sizing example input"
@@ -37,10 +59,10 @@
 				<div id="arrange"
 					class="col-3 my-3 d-flex justify-content-end align-items-center">
 					<span style="font-size: 10px;">排序：</span> <select name="arrange">
-						<option value="time"
-							<c:if test="${arrange=='time'}"> selected </c:if>>最新</option>
 						<option value="popular"
 							<c:if test="${arrange=='popular'}"> selected </c:if>>熱門</option>
+						<option value="time"
+							<c:if test="${arrange=='time'}"> selected </c:if>>最新</option>
 					</select>
 				</div>
 			</div>
@@ -48,16 +70,16 @@
 		<hr>
 		<!-- 		文章列========================================= -->
 		<c:forEach var="entry" items="${articles_map}">
-			<a href="<c:url value='/article/ShowArticleContent/${entry.value.articleId}'/>" >
-				<div class="rounded-pill border m-4" >
+			<a
+				href="<c:url value='/article/ShowArticleContent?articleId=${entry.value.articleId}'/>">
+				<div class="rounded-pill border m-4">
 					<div
 						class="d-flex mx-auto justify-content-center align-items-center"
 						style="text-align: center;">
 						<img
-							src="<spring:url value='/init/getArticleImage?id=${entry.value.articleId}' /> "
-							style="max-width: 200px; max-height: 100px;" /> 
-							<img
-							src="<spring:url value='/personPage/getUserImage/${LoginOK.id}' />　"
+							src="${pageContext.request.contextPath}/init/getArticleImage?id=${entry.value.articleId}"
+							style="max-width: 200px; max-height: 100px;" /> <img
+							src="${pageContext.request.contextPath}/init/getUserImage?id=${entry.value.authorId}"
 							class="rounded-circle border border-dark"
 							style="height: 100px; width: 100px;" />
 						<div class="ml-4 my-auto" style="height: 100px;">
@@ -73,10 +95,14 @@
 							愛心：${entry.value.likes} 留言數：
 							<c:choose>
 								<c:when test="${not empty entry.value.articleComments}">
+									<c:set var="i" value="0"></c:set>
 									<c:forEach var="comments"
 										items="${entry.value.articleComments}" varStatus="number">
+										<c:if test="${comments.status=='正常'}">
+											<c:set var="i" value="${i+1}"></c:set>
+										</c:if>
 										<c:if test="${number.last}">
-										${number.count} 
+											${i}
 										</c:if>
 									</c:forEach>
 								</c:when>
@@ -86,7 +112,6 @@
 					</div>
 				</div>
 			</a>
-
 		</c:forEach>
 	</div>
 
