@@ -1,12 +1,8 @@
 package com.web.speakitup.controller;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
-import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -33,9 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.web.speakitup._00_init.GlobalService;
-import com.web.speakitup.model.ArticleBean;
 import com.web.speakitup.model.MemberBean;
-import com.web.speakitup.service.ArticleService;
 import com.web.speakitup.service.MemberService;
 
 
@@ -51,8 +45,8 @@ public class PersonPageController {
 	@Autowired
 	ServletContext context;
 	
-	@Autowired
-	ArticleService articleService;
+//	@Autowired
+//	ArticleService articleService;
 	
 	//給會員的舊表單
 	@GetMapping("/personPage")
@@ -176,11 +170,11 @@ public class PersonPageController {
 		String searchStr = request.getParameter("search") == null ? "" : request.getParameter("search");
 		
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
-		Map<Integer, ArticleBean> articleMap = articleService.getPersonArticles(arrange, searchStr, mb);
+//		Map<Integer, ArticleBean> articleMap = articleService.getPersonArticles(arrange, searchStr, mb);
 		
 		request.setAttribute("searchStr", searchStr);
 		request.setAttribute("arrange", arrange);
-		request.setAttribute("articles_map", articleMap);
+//		request.setAttribute("articles_map", articleMap);
 		
 		
 		return "personPage/myArticles";

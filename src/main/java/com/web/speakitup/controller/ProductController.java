@@ -331,10 +331,7 @@ public class ProductController {
 	@PostMapping("/addProduct/{productId}")
 	public String addProduct(Model model, HttpServletRequest request, @ModelAttribute("productBean") ProductBean pb,
 			@PathVariable("productId") Integer productId) {
-		String productName = request.getParameter("productName");
 		Integer categoryId = Integer.parseInt(request.getParameter("categoryId").trim());
-		Integer price = Integer.parseInt(request.getParameter("price").trim());
-
 		String formatTitle1 = request.getParameter("formatTitle1");
 		Set<String> formatContents1 = new LinkedHashSet<String>();
 		for (String formatContent : request.getParameterValues("formatContent1")) {
@@ -349,16 +346,16 @@ public class ProductController {
 		for (String stockStr : request.getParameterValues("stock")) {
 			stocks.add(Integer.parseInt(stockStr.trim()));
 		}
-		String detail = "";
+		String detail = request.getParameter("detailStr");
 
 		// 存入圖片
-		MultipartFile memberImage = pb.getProductImage();
-		if (memberImage != null && !memberImage.isEmpty()) {
+		MultipartFile productImage = pb.getProductImage();
+		if (productImage != null && !productImage.isEmpty()) {
 			try {
-				byte[] b = memberImage.getBytes();
+				byte[] b = productImage.getBytes();
 				Blob blob = new SerialBlob(b);
 				pb.setImage(blob);
-				pb.setFileName(memberImage.getOriginalFilename());
+				pb.setFileName(productImage.getOriginalFilename());
 			} catch (Exception e) {
 				e.printStackTrace();
 				throw new RuntimeException("檔案上傳發生異常：" + e.getMessage());
@@ -366,9 +363,7 @@ public class ProductController {
 		}
 
 		try {
-			pb.setProductName(productName);
 			pb.setCategory(productService.getCategory(categoryId));
-			pb.setPrice(price);
 			pb.setDetail(GlobalService.stringToClob(detail));
 			if (productId != 0) {
 				// 修改商品
