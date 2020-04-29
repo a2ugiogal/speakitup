@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,21 +28,22 @@
 		<span><a href="<spring:url value='/' /> ">回首頁</a></span> 
 	</div>
 
-	<form action="<spring:url value='/personPage/updatePersonPage' />" method="POST"
-		enctype='multipart/form-data' id="personForm">
+	<form:form  modelAttribute="memberBean" method="POST" enctype='multipart/form-data' id="personForm">
 		<div id="personPage">
 			<div>
 				<img src="<spring:url value='/image/personPage/icons8-edit-144.png ' /> " id="edit" />
 			</div>
 			<div id="boxHeadPicture">
 				<img
-					src="<spring:url value='/personPage/getUserImage?id=${LoginOK.id}' /> "
+					src="<spring:url value='/personPage/getUserImage/${LoginOK.id}' /> "
 					id="headPicture" />
 			</div>
 			<div id="boxFileSelect">
-				<input name="memberMultipartFile" type="file"
+
+				<form:input type="file" path="memberImage"
 					style="visibility: hidden;" id="fileSelect"
-					value="${LoginOK.picture}" />
+ 						value='/personPage/getUserImage/${LoginOK.id}'/>
+						
 			</div>
 
 			<table>
@@ -73,16 +75,14 @@
 				<tr>
 					<td colspan="2">
 						<div align="center">
-							<input id="btSubmit" type="submit" value="儲存"
-								style="visibility: hidden;" /> <input type="submit"
-								id="btCancel" value="取消" style="visibility: hidden;"
-								name="cancel" />
+							<input id="btSubmit" type="submit" value="儲存" style="visibility: hidden;" /> 
+							<input type="submit" id="btCancel" value="取消" style="visibility: hidden;" name="cancel" />
 						</div>
 					</td>
 				</tr>
 			</table>
 		</div>
-	</form>
+	</form:form>
 </body>
 </html>
 		

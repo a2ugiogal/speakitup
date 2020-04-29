@@ -9,7 +9,7 @@ function doFirst() {
 	city = document.getElementById("city");
 	area = document.getElementById("area");
 	address = document.getElementById("address");
-
+	
 
 	edit.addEventListener("click", update);
 
@@ -29,8 +29,10 @@ function doFirst() {
 		readFile.addEventListener("load", function() {
 			source = this.result;
 			headPicture.src = source;
+//			fileName.value = fileSelect.value.split(/(\\|\/)/g).pop();
 			headPicture.style.maxWidth = "50%";
 			headPicture.style.maxHeight = "200px";
+			
 		});
 	});
 }

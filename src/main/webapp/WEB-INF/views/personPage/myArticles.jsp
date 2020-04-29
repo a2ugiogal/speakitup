@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,13 +13,13 @@
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 	crossorigin="anonymous">
 <script
-	src="${pageContext.request.contextPath}/js/_06_article/articlePage.js"></script>
+	src="<spring:url value='/js/_06_article/articlePage.js' /> "></script>
 </head>
 <body>
 	<div class="w-75 m-auto">
 
 		<!-- 		搜尋======================================== -->
-		<form action="<c:url value='/personPage/showMyArticles' />"
+		<form action="<spring:url value='/personPage/showMyArticles' />"
 			id="searchForm">
 			<div class="row">
 				<div class="input-group my-3 col-9 ">
@@ -48,15 +49,16 @@
 		<!-- 		文章列========================================= -->
 		<c:forEach var="entry" items="${articles_map}">
 			<a
-				href="<c:url value='/article/ShowArticleContent?articleId=${entry.value.articleId}'/>">
-				<div class="rounded-pill border m-4">
+				href="<c:url value='/article/ShowArticleContent?articleId=${entry.value.articleId}'/>" >
+				<div class="rounded-pill border m-4" >
 					<div
 						class="d-flex mx-auto justify-content-center align-items-center"
 						style="text-align: center;">
 						<img
-							src="${pageContext.request.contextPath}/init/getArticleImage?id=${entry.value.articleId}"
-							style="max-width: 200px; max-height: 100px;" /> <img
-							src="${pageContext.request.contextPath}/init/getUserImage?id=${entry.value.authorId}"
+							src="<spring:url value='/init/getArticleImage?id=${entry.value.articleId}' /> "
+							style="max-width: 200px; max-height: 100px;" /> 
+							<img
+							src="<spring:url value='/init/getUserImage?id=${entry.value.authorId}' />　"
 							class="rounded-circle border border-dark"
 							style="height: 100px; width: 100px;" />
 						<div class="ml-4 my-auto" style="height: 100px;">
