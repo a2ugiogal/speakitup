@@ -1,5 +1,6 @@
 package com.web.speakitup.service;
 
+import java.sql.Blob;
 import java.util.Map;
 
 import com.web.speakitup.model.MemberBean;
@@ -15,7 +16,9 @@ public interface MemberService {
 	public boolean emailExists(String email);
 
 	public int updateMember(MemberBean mb);
-
+	
+	public void updateMemberNoBlob(MemberBean mb);
+	
 	public MemberBean checkIdPassword(String memberId, String password);
 
 	public MemberBean getEmailValid(String emailCode);
@@ -24,7 +27,6 @@ public interface MemberService {
 	
 	public void updateReplyDate(String memberId,String replyDate);
 	
-
 	public int updateMemberPassword(String memberId, String passwordNew);
 
 	public MemberBean getMember(int id);

@@ -1,5 +1,6 @@
 package com.web.speakitup.service.impl;
 
+import java.sql.Blob;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,6 +99,12 @@ public class MemberServiceImpl implements MemberService {
 		MemberBean mb = null;
 		mb = dao.getMember(id);
 		return mb;
+	}
+
+	@Override
+	public void updateMemberNoBlob(MemberBean mb) {
+		dao.updateMemberNoBlob(mb);
+		
 	}
 
 }

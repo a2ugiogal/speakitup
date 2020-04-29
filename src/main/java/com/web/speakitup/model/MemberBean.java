@@ -68,6 +68,32 @@ public class MemberBean implements Serializable {
 		this.lastSendDate = lastSendDate;
 		this.lastReplyDate = lastReplyDate;
 	}
+	
+	
+	
+	public MemberBean(Integer id, String email, String phone, String city, String area, String address,
+			String fileName,Blob picture) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.phone = phone;
+		this.city = city;
+		this.area = area;
+		this.address = address;
+		this.fileName = fileName;
+		this.picture = picture;
+	}
+
+	public MemberBean(Integer id, String email, String phone, String city, String area, String address) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.phone = phone;
+		this.city = city;
+		this.area = area;
+		this.address = address;
+		
+	}
 
 	public MemberBean() {
 		super();

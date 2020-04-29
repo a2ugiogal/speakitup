@@ -1,5 +1,6 @@
 package com.web.speakitup.dao.impl;
 
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -107,6 +108,7 @@ public class MemberDaoImpl implements MemberDao {
 				.setParameter("picture", mb.getPicture()).setParameter("id", mb.getId())
 				.setParameter("sendDate", mb.getLastSendDate()).setParameter("replyDate", mb.getLastReplyDate())
 				.executeUpdate();
+		System.out.println("111");
 		n++;
 		return n;
 	}
@@ -155,7 +157,7 @@ public class MemberDaoImpl implements MemberDao {
 		return n;
 	}
 
-
+	
 	@Override
 	public void updateSendDate(String memberId, String sendDate) {
 		Session session = factory.getCurrentSession();
@@ -181,5 +183,19 @@ public class MemberDaoImpl implements MemberDao {
 		return mb;
 
 	}
+
+	@Override
+	public void updateMemberNoBlob(MemberBean mb) {
+		Session session = factory.getCurrentSession();
+		System.out.println("new");
+		String hql0 = "UPDATE MemberBean m SET m.email = :email, m.phone = :phone, m.city = :city, "
+				+ "m.area = :area, m.address = :address WHERE m.id = :id";
+		session.createQuery(hql0).setParameter("email", mb.getEmail()).setParameter("phone", mb.getPhone())
+				.setParameter("city", mb.getCity()).setParameter("area", mb.getArea())
+				.setParameter("address", mb.getAddress()).setParameter("id", mb.getId()).executeUpdate();
+		
+	}
+
+
 
 }

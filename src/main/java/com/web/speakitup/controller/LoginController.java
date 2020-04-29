@@ -22,7 +22,6 @@ import com.web.speakitup.service.MemberService;
 
 @Controller
 @RequestMapping("/login")
-@SessionAttributes("LoginOK")  //此註解可讓LoginOK變成session物件
 public class LoginController {
 	
 	@Autowired
@@ -30,6 +29,8 @@ public class LoginController {
 	
 	@Autowired
 	ServletContext context;
+	
+	
 	
 	@GetMapping("/login")
 	public String loginForm() {
@@ -93,7 +94,7 @@ public class LoginController {
 				return "login/login";
 			}else {
 				String target = (String) session.getAttribute("target");
-				model.addAttribute("LoginOK", mb);
+				session.setAttribute("LoginOK", mb);
 				if(target!=null) {
 				System.out.println(mb.getMemberId());
 				return "redirect:" + target;
