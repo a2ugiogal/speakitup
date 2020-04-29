@@ -31,7 +31,7 @@ public class LoginController {
 	@Autowired
 	ServletContext context;
 	
-	@GetMapping("login")
+	@GetMapping("/login")
 	public String loginForm() {
 
 		return "login/login";
@@ -94,8 +94,12 @@ public class LoginController {
 			}else {
 				String target = (String) session.getAttribute("target");
 				model.addAttribute("LoginOK", mb);
+				if(target!=null) {
 				System.out.println(mb.getMemberId());
 				return "redirect:" + target;
+				}else {
+				return "redirect:/";
+				}
 			}		
 	}
 	
