@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,13 +13,13 @@
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 	crossorigin="anonymous">
 <script
-	src="${pageContext.request.contextPath}/js/_06_article/articlePage.js"></script>
+	src="<spring:url value='/js/_06_article/articlePage.js' /> "></script>
 </head>
 <body>
 	<div class="w-75 m-auto">
 
 		<!-- 		搜尋======================================== -->
-		<form action="<c:url value='/personPage/showMyArticles' />"
+		<form action="<spring:url value='/personPage/showMyArticles' />"
 			id="searchForm">
 			<div class="row">
 				<div class="input-group my-3 col-9 ">

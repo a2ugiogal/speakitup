@@ -31,7 +31,7 @@
 					<a href="<spring:url value='/login/login'/>"> 登入 </a>
 				</c:otherwise>
 			</c:choose>
-		</span> <span class="option"> <a href="<c:url value='/personPage/' />">個人頁面</a>
+		</span> <span class="option"> <a href="<c:url value='/personPage/personPage' />">個人頁面</a>
 		</span><span class="option"> <a
 			href="<c:url value='/article/ShowFamousArticles' />">熱門文章</a>
 		</span><span class="option"> <a

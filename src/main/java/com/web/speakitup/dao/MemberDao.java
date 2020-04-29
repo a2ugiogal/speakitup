@@ -1,5 +1,6 @@
 package com.web.speakitup.dao;
 
+import java.sql.Blob;
 import java.util.Map;
 
 import com.web.speakitup.model.MemberBean;
@@ -15,6 +16,8 @@ public interface MemberDao {
 	public boolean emailExists(String email);
 
 	public int updateMember(MemberBean mb);
+	
+	public void updateMemberNoBlob(MemberBean mb);
 
 	public MemberBean checkIdPassword(String memberId, String password);
 
@@ -23,6 +26,7 @@ public interface MemberDao {
 	public void updateSendDate(String memberId,String sendDate);
 	
 	public void updateReplyDate(String memberId,String replyDate);
+	
 
 	public int updateMemberPassword(String memberId, String passwordNew);
 

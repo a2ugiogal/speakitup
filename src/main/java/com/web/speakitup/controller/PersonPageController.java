@@ -1,86 +1,206 @@
 package com.web.speakitup.controller;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.sql.Blob;
+import java.sql.SQLException;
 
 import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.sql.rowset.serial.SerialBlob;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.CacheControl;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.web.speakitup.model.MemberBean;
 import com.web.speakitup.service.MemberService;
 
+
 @Controller
 @RequestMapping("/personPage")
+//@MultipartConfig(location = "", fileSizeThreshold = 5 * 1024 * 1024, maxFileSize = 1024 * 1024
+//* 500, maxRequestSize = 1024 * 1024 * 500 * 5)
 public class PersonPageController {
 	
 	@Autowired
-	MemberService MemberService;
+	MemberService memberService;
 	
 	@Autowired
 	ServletContext context;
 	
-	OutputStream os = null;
-	InputStream is = null;
-	String fileName = null;
-	String mimeType = null;
-	Blob blob = null;
 	
-	@GetMapping("/")
-	public String personPage() {
+	//給會員的舊表單
+	@GetMapping("/personPage")
+	public String personPage(Model model,HttpSession session) {
+		
+		MemberBean mb = (MemberBean)session.getAttribute("LoginOK");
+		model.addAttribute("memberBean", mb);
 		return "personPage/personPage";
 	}
 	
-	@GetMapping("/getUserImage")
-	public String getPersonPic(@RequestParam int id,Model model,HttpServletRequest request,HttpServletResponse response) throws IOException {
+	//修改會員資料
+	@PostMapping("/personPage")
+	public String updateMember(@ModelAttribute("memberBean")MemberBean mb, Model model,HttpServletRequest request,HttpSession session,BindingResult result) throws IOException, ServletException {
 		
-	System.out.println("memberId:" + id);
-	MemberBean mb = MemberService.getMember(id);
-	try {
+		MemberBean mbOld = (MemberBean)session.getAttribute("LoginOK");
+
+		String cancel = request.getParameter("cancel");
 		
-	if (mb != null) {
-		blob = mb.getPicture();
-		if (blob != null) {
-			is = blob.getBinaryStream();
-		}
-		fileName = mb.getFileName();
-	}
-	// 如果圖片的來源有問題，就送回預設圖片(/images/NoImage.jpg)
-	if (is == null) {
-		fileName = "NoImage.jpg";
-		is = context.getResourceAsStream("/image/personPage/" + fileName);
-	}
-			// 由圖片檔的檔名來得到檔案的MIME型態
-			mimeType = context.getMimeType(fileName);
-			// 設定輸出資料的MIME型態
-			response.setContentType(mimeType);
-			// 取得能寫出非文字資料的OutputStream物件
-			os = response.getOutputStream();
-			// 由InputStream讀取位元組，然後由OutputStream寫出
-			int len = 0;
-			byte[] bytes = new byte[8192];
-			while ((len = is.read(bytes)) != -1) {
-				os.write(bytes, 0, len);
+		//如果沒有取消的話代表新增 就去抓資料
+		if(cancel == null) {
+				
+			//取得檔名及照片
+			MultipartFile memberImage = mb.getMemberImage();
+			String originalFilename = memberImage.getOriginalFilename();
+			Blob memPic;
+			//如果檔名跟照片都不是空的 就存起來 
+			if (memberImage != null && !memberImage.isEmpty()) {
+				try {
+					byte[] b = memberImage.getBytes();
+					Blob blob = new SerialBlob(b);
+					mb.setPicture(blob);
+				} catch (Exception e) {
+					e.printStackTrace();
+					throw new RuntimeException("檔案上傳發生異常：" + e.getMessage());
+				}
 			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			throw new RuntimeException("_00_init.util.GetUserImageServlet#doGet()發生SQLException: " + ex.getMessage());
-			} finally {
-					if (is != null)
-						is.close();
-					if (os != null)
-						os.close();
-}
-	return "personPage/personPage";
 			
+			
+		String email = request.getParameter("email");
+		String phone = request.getParameter("phone");
+		//城市
+		String city = request.getParameter("county");
+		//地區
+		String area = request.getParameter("district");
+		//地址
+		String address = request.getParameter("address");
+		
+		
+		memPic = mb.getPicture();
+		System.out.println("000" + memPic);
+		MemberBean	mbNew = new MemberBean();
+		//先用個笨方法XDD 如果都沒改就一樣更新 但是不要擺檔名跟blob 因為如果原本就有照片會被洗掉
+		if(memPic == null) {
+			mbNew = new MemberBean(mbOld.getId(),email, phone, city, area, address);
+			memberService.updateMemberNoBlob(mbNew);
+			mb = memberService.getMember(mbOld.getId());
+			
+			model.addAttribute("memberBean", mb);
+			session.setAttribute("LoginOK", mb);
+			return "redirect:/personPage/personPage";
+			
+		}else {
+		
+		mbNew = new MemberBean(mbOld.getId(),email, phone, city, area, address, originalFilename,memPic);
+				
+		//先更新 再取出新的mb物件  重新裝入LoginOK裡面
+		memberService.updateMember(mbNew);
+		mb = memberService.getMember(mbOld.getId());
+		System.out.println("mb" + mb);
+		
+		model.addAttribute("memberBean", mb);
+		session.setAttribute("LoginOK", mb);
+		
+		return "redirect:/personPage/personPage";
+		}
+		
+		}else {
+			return "/personPage/personPage";
+		}
+	}
+	
+
+	//取得會員的照片
+	@GetMapping("/getUserImage/{id}")
+	public ResponseEntity<byte[]> getUserImage(@PathVariable int id,Model model,HttpServletRequest request,
+								HttpServletResponse response) throws IOException {
+	System.out.println("memberId:" + id);
+		
+		String filepath = "/resources/images/NoImage.jpg";
+		byte[] media = null;
+		HttpHeaders headers = new HttpHeaders();
+		String filename = "";
+		int len = 0;
+		MemberBean mb = memberService.getMember(id);
+	
+		
+		if (mb != null) {
+			Blob blob = mb.getPicture();
+			System.out.println("222 pic" + mb.getPicture());
+			filename = mb.getFileName();
+			System.out.println("333 name" + mb.getFileName());
+			if (blob != null) {
+				try {
+					len = (int) blob.length();
+					media = blob.getBytes(1, len);
+				}catch(SQLException e) {
+					throw new RuntimeException("getUserImage發生SQLException"  + e.getMessage());
+				}
+			}else {
+				media = toByteArray(filepath);
+				filename = filepath;
+			}
+			
+		}else {
+			media = toByteArray(filepath);
+			filename = filepath;
+		}
+		
+			headers.setCacheControl(CacheControl.noCache().getHeaderValue());
+			String mimeType = context.getMimeType(filename);
+			MediaType mediaType = MediaType.valueOf(mimeType);
+			System.out.println("mediaType:" + mediaType);
+			ResponseEntity<byte[]> responseEntity = new ResponseEntity<byte[]>(media,headers,HttpStatus.OK);
+			return responseEntity;
+		}
+
+
+	private byte[] toByteArray(String filepath) {
+		byte[] b = null;
+		String realPath = context.getRealPath(filepath);
+		try {
+			File file = new File(realPath);
+			long size = file.length();
+			b = new byte[(int) size];
+			InputStream is = context.getResourceAsStream(filepath);
+			is.read(b);
+		}catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		return b;
+	}
+	
+	//個人文章
+	@GetMapping("/showMyArticles")
+	public String getmyArticles(Model model,HttpSession session,HttpServletRequest request) {
+		
+		String arrange = request.getParameter("arrange") == null ? "" : request.getParameter("arrange");
+		String searchStr = request.getParameter("search") == null ? "" : request.getParameter("search");
+		
+		
+		
+		
+		
+		return "personPage/showMyArticles";
 	}
 }
