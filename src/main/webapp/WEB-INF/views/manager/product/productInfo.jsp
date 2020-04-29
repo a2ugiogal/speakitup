@@ -22,8 +22,8 @@
 </head>
 <body>
 	<div class="w-75 my-5 mx-auto border p-5">
-		<form method="post" enctype="multipart/form-data"
-			action="<spring:url value='/product/addProduct/${productId}'/>">
+		<form:form method="post" enctype="multipart/form-data"
+			modelAttribute="productBean">
 			<div class="row m-0 mb-5">
 				<!-- 左基本資料======================= -->
 				<div class="col-md-12 col-lg-6 border">
@@ -31,14 +31,18 @@
 						class="form-group row mx-0 d-flex justify-content-center align-items-center text-center">
 						<img class="mb-3"
 							src="<spring:url value='/product/getProductImage/${productId}' />"
-							id="headPicture" style="max-width: 75%;" /> <input
-							name="memberMultipartFile" type="file" id="fileSelect" />
+							id="headPicture" style="max-width: 75%;" /> 
+							<form:input id="fileSelect" path="productImage" type="file" />
+<!-- 							<input -->
+<!-- 							name="memberMultipartFile" type="file" id="fileSelect" /> -->
 					</div>
 					<div class="form-group row mx-0">
 						<label class="col-4 col-form-label">商品名稱：</label>
 						<div class="col-8 p-0">
-							<input type="text" name="productName" class="form-control"
-								required="required" value="${product.productName}" />
+							<form:input path="productName" type="text" class="form-control"
+								required="required" />
+							<!-- 							<input type="text" name="productName" class="form-control" -->
+							<%-- 								required="required" value="${product.productName}" /> --%>
 						</div>
 					</div>
 					<div class="form-group row mx-0">
@@ -48,9 +52,11 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">$</div>
 								</div>
-								<input type="text" name="price" class="form-control"
-									required="required" value="${product.price}"
-									onkeyup="value=value.replace(/[^\d]/g,'')" />
+								<form:input path="price" required="required" type="text"
+									class="form-control" onkeyup="value=value.replace(/[^\d]/g,'')" />
+								<!-- 								<input type="text" name="price" class="form-control" -->
+								<%-- 									required="required" value="${product.price}" --%>
+								<!-- 									onkeyup="value=value.replace(/[^\d]/g,'')" /> -->
 							</div>
 						</div>
 					</div>
@@ -377,7 +383,7 @@
 				<h3>產品介紹：</h3>
 			</div>
 			<div class="row m-0 bor">
-				<textarea name="detail" rows="10" style="width: 100%;"
+				<textarea name="detailStr" rows="10" style="width: 100%;"
 					required="required">${detail}</textarea>
 			</div>
 
@@ -393,7 +399,7 @@
 					</c:otherwise>
 				</c:choose>
 			</div>
-		</form>
+		</form:form>
 	</div>
 
 	<!-- 確認要修改/確認規格 浮動視窗========== -->

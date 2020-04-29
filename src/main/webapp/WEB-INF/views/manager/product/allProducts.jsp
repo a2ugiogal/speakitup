@@ -50,7 +50,7 @@
 			</div>
 		</form>
 		<div class="d-flex justify-content-end align-items-center">
-			<a href="<spring:url value='/product/showManageProductInfo/0'/>"><input
+			<a href="<spring:url value='/product/addProduct/0'/>"><input
 				type="button" value="新增商品" /></a>
 		</div>
 
@@ -87,27 +87,27 @@
 			<div class="row productRow">
 				<div
 					class="col-2 d-flex justify-content-center align-items-center text-center my-2"
-					onclick="location.href='<spring:url value="/product/showManageProductInfo/${entry.value.productId}"/>';">
+					onclick="location.href='<spring:url value="/product/addProduct/${entry.value.productId}"/>';">
 					<img
 						src="<spring:url value='/product/getProductImage/${entry.value.productId}' />"
 						alt="" style="max-width: 100px;" />
 				</div>
 				<div
 					class="col-2 d-flex justify-content-center align-items-center text-center my-2"
-					onclick="location.href='<spring:url value="/product/showManageProductInfo/${entry.value.productId}"/>';">
+					onclick="location.href='<spring:url value="/product/addProduct/${entry.value.productId}"/>';">
 					${entry.value.productId}</div>
 				<div
 					class="col-2 d-flex justify-content-center align-items-center text-center my-2"
-					onclick="location.href='<spring:url value="/product/showManageProductInfo/${entry.value.productId}"/>';">
+					onclick="location.href='<spring:url value="/product/addProduct/${entry.value.productId}"/>';">
 					${entry.value.productName}</div>
 
 				<div
 					class="col-2 d-flex justify-content-center align-items-center text-center my-2"
-					onclick="location.href='<spring:url value="/product/showManageProductInfo/${entry.value.productId}"/>';">
+					onclick="location.href='<spring:url value="/product/addProduct/${entry.value.productId}"/>';">
 					${entry.value.category.categoryName}</div>
 				<div
 					class="col-2 d-flex justify-content-center align-items-center text-center my-2"
-					onclick="location.href='<spring:url value="/product/showManageProductInfo/${entry.value.productId}"/>';">
+					onclick="location.href='<spring:url value="/product/addProduct/${entry.value.productId}"/>';">
 					$ ${entry.value.price}</div>
 
 				<div

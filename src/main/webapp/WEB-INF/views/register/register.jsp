@@ -111,7 +111,7 @@
 								<!-- 大頭照上傳 -->
 								<div id="boxHeadPicture" class="d-flex justify-content-center">
 									<img
-										src="${pageContext.request.contextPath}/image/_03_personPage/headPicture.jpg"
+										src="<spring:url value='/images/personPage/headPicture.jpg' />"
 										id="headPicture" class="rounded-circle">
 								</div>
 								<div id="boxFileSelect" class="d-flex justify-content-center">
