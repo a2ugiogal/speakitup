@@ -3,6 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +25,7 @@
 			</c:if>
 			</div>
 			<img
-				src="${pageContext.request.contextPath}/init/getUserImage?id=${article.authorId}"
+				src="<spring:url value='/personPage/getUserImage/${article.authorId}' />　"
 				class="rounded-circle border border-dark"
 				style="float: left; height: 100px; width: 100px;">
 			<div class="ml-4 my-auto" style="float: left; height: 100px;">
@@ -35,14 +37,14 @@
 				</div>
 			</div>
 			<img
-				src="${pageContext.request.contextPath}/init/getArticleImage?id=${article.articleId}"
+				src="<spring:url value='/article/getArticleImage/${article.articleId}' /> "
 				style="max-width: 200px; max-height: 100px;">
 			<div class="" style="clear: both;">${content}</div>
 
 			<div class="d-flex">
 				<c:set var="articleIds"
 					value="${fn:split(LoginOK.likeArticles, ',')}"></c:set>
-				<a href="<c:url value='/article/LikeArticle?login=true'/>"><input
+				<a href="<spring:url value='/article/likeArticle/${article.articleId}?login=true' />"><input
 					type="button" value="愛心"
 					<c:forEach var="entry" items="${articleIds}">${entry}
 					<c:if test="${entry==''+article.articleId}"> disabled="disabled" style="border:1px solid red;color: red;" </c:if>
@@ -69,7 +71,7 @@
 				</c:if>
 			</div>
 			<img
-				src="${pageContext.request.contextPath}/init/getUserImage?id=${entry.authorId}"
+				src="<spring:url value='/personPage/getUserImage/${entry.authorId}' /> "
 				class="rounded-circle border border-dark"
 				style="float: left; height: 100px; width: 100px;">
 			<div class="ml-4 my-auto" style="float: left; height: 100px;">
@@ -84,11 +86,11 @@
 		</c:forEach>
 	</div>
 	<!-- 	可留言處============================ -->
-	<form method="POST" action="<c:url value='/article/AddComment'/>">
+	<form method="POST" action="<spring:url value='/article/addComment/${article.articleId} '/> "> 
 		<div class="border w-75 d-flex" style="position: fixed; bottom: 2%;">
 			<img class="rounded-circle border-dark border my-auto"
 				style="width: 50px; height: 50px;"
-				src="${pageContext.request.contextPath}/init/getUserImage?id=${LoginOK.id}">
+				src="<spring:url value='/personPage/getUserImage/${LoginOK.id}' /> ">
 			<p>留言：</p>
 			<textarea class="w-75" name="content" id="" cols="" rows="2"></textarea>
 			<input class="ml-1 my-auto" type="submit" style="height: 40px;"
@@ -137,7 +139,7 @@
 		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
 		crossorigin="anonymous"></script>
 	<script
-		src="${pageContext.request.contextPath}/js/_06_article/articleContext.js"></script>
+		src="<spring:url value='/js/article/articleContext.js' /> "></script>
 
 </body>
 </html>

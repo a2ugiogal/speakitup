@@ -1,11 +1,11 @@
 package com.web.speakitup.controller;
 
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
-
 import com.web.speakitup._00_init.GlobalService;
 import com.web.speakitup.model.MemberBean;
 import com.web.speakitup.service.MemberService;
@@ -34,10 +32,10 @@ public class LoginController {
 	
 	@GetMapping("/login")
 	public String loginForm() {
-
 		return "login/login";
 	}
 	
+	 
 	@PostMapping("/checkLogin")
 	public String checkData(@RequestParam("memberId") String memberId,
 							@RequestParam("password")String password,

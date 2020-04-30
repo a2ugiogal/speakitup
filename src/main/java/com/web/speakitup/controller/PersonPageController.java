@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.web.speakitup._00_init.GlobalService;
 import com.web.speakitup.model.ArticleBean;
@@ -38,8 +39,8 @@ import com.web.speakitup.service.MemberService;
 
 @Controller
 @RequestMapping("/personPage")
-@MultipartConfig(location = "", fileSizeThreshold = 5 * 1024 * 1024, maxFileSize = 1024 * 1024
-* 500, maxRequestSize = 1024 * 1024 * 500 * 5)
+//@MultipartConfig(location = "", fileSizeThreshold = 5 * 1024 * 1024, maxFileSize = 1024 * 1024
+//* 500, maxRequestSize = 1024 * 1024 * 500 * 5)
 public class PersonPageController {
 	
 	@Autowired
@@ -63,7 +64,7 @@ public class PersonPageController {
 	
 	//修改會員資料
 	@PostMapping("/personPage")
-	public String updateMember(@ModelAttribute("memberBean")MemberBean mb, Model model,HttpServletRequest request,HttpSession session,BindingResult result) throws IOException, ServletException {
+	public String updateMember(@ModelAttribute("memberBean")MemberBean mb, Model model,HttpServletRequest request,HttpSession session,BindingResult result,RedirectAttributes rad) throws IOException, ServletException {
 		
 		MemberBean mbOld = (MemberBean)session.getAttribute("LoginOK");
 
@@ -118,21 +119,22 @@ public class PersonPageController {
 		mb = memberService.getMember(mbOld.getId());
 		session.setAttribute("LoginOK", mb);
 		
-		return "redirect:/updateSuccess";
+		return "redirect:/personPage/personPage";
 
 		}
 		
 		}else {
-			return "/personPage/personPage";
+			return "personPage/personPage";
 		}
 	}
 	
 	//修改成功後 先傳給此get方法 再回傳給client端
-	@GetMapping("/updateSuccess")
-	public String updateSuccess() {
-		return "/personPage/personPage";
-	}
+//	@GetMapping("/updateSuccess")
+//	public String updateSuccess() {
+//		return "/personPage/personPage";
+//	}
 
+	
 	//取得會員的照片
 	@SuppressWarnings("unused")
 	@GetMapping("/getUserImage/{id}")
