@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>要抒拉--商品管理細節</title>
+<title>要抒拉管理員--商品管理細節</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
@@ -31,18 +31,18 @@
 						class="form-group row mx-0 d-flex justify-content-center align-items-center text-center">
 						<img class="mb-3"
 							src="<spring:url value='/product/getProductImage/${productId}' />"
-							id="headPicture" style="max-width: 75%;" /> 
-							<form:input id="fileSelect" path="productImage" type="file" />
-<!-- 							<input -->
-<!-- 							name="memberMultipartFile" type="file" id="fileSelect" /> -->
+							id="headPicture" style="max-width: 75%;" />
+						<form:input id="fileSelect" path="productImage" type="file" />
+						<!-- 							<input -->
+						<!-- 							name="memberMultipartFile" type="file" id="fileSelect" /> -->
 					</div>
 					<div class="form-group row mx-0">
 						<label class="col-4 col-form-label">商品名稱：</label>
 						<div class="col-8 p-0">
 							<form:input path="productName" type="text" class="form-control"
 								required="required" />
-							<!-- 							<input type="text" name="productName" class="form-control" -->
-							<%-- 								required="required" value="${product.productName}" /> --%>
+							<!-- 														<input type="text" name="productName" class="form-control" -->
+							<%-- 															required="required" value="${product.productName}" /> --%>
 						</div>
 					</div>
 					<div class="form-group row mx-0">
@@ -99,7 +99,7 @@
 
 					<!-- format1============================ -->
 					<div class="productFomat row mx-0 mb-3"
-						<c:if test="${product==null}"> style="display: none;"</c:if>>
+						<c:if test="${product==null||title1==''}"> style="display: none;"</c:if>>
 						<div class="col-10 p-3 border border-dark formatItemsBox">
 							<c:choose>
 								<c:when test="${product==null||title1==''}">
@@ -210,7 +210,7 @@
 
 					<!-- format2============================ -->
 					<div class="productFomat row mx-0 mb-3"
-						<c:if test="${product==null}"> style="display: none;"</c:if>>
+						<c:if test="${product==null||title2==''}"> style="display: none;"</c:if>>
 						<div class="col-10 p-3 border border-dark formatItemsBox">
 							<c:choose>
 								<c:when test="${product==null||title2==''}">

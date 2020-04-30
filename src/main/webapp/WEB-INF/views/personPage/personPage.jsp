@@ -20,7 +20,7 @@
 
 </head>
 <body>
-<%-- 	<jsp:include page="/fragment/topMenuTemp.jsp" /> --%>
+	<jsp:include page="../fragment/topMenuTemp.jsp" />
 
 	<div class="side_menu">
 		<span><a href="">個人頁面</a></span> 
