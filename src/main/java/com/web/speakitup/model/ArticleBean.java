@@ -17,8 +17,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.OrderBy;
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "Articles")
@@ -39,6 +41,8 @@ public class ArticleBean implements Serializable {
 	private Blob image;
 	private Integer likes;
 	private String status;
+	@Transient
+	private MultipartFile articleImage;
 	
 	@OneToMany(mappedBy = "article", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	@OrderBy(clause = "publishTime")
@@ -152,6 +156,14 @@ public class ArticleBean implements Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public MultipartFile getArticleImage() {
+		return articleImage;
+	}
+
+	public void setArticleImage(MultipartFile articleImage) {
+		this.articleImage = articleImage;
 	}
 
 	public Set<CommentBean> getArticleComments() {

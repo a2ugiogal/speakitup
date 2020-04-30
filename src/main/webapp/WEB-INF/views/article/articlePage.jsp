@@ -71,14 +71,15 @@
 		<!-- 		文章列========================================= -->
 		<c:forEach var="entry" items="${articles_map}">
 			<a
-				href="<c:url value='/article/ShowArticleContent/${entry.value.articleId}'/>">
+				href="<spring:url value='/article/ShowArticleContent/${entry.value.articleId}'/>">
 				<div class="rounded-pill border m-4">
 					<div
 						class="d-flex mx-auto justify-content-center align-items-center"
 						style="text-align: center;">
 						<img
 							src="<spring:url value='/article/getArticleImage/${entry.value.articleId}' /> "
-							style="max-width: 200px; max-height: 100px;" /> <img
+							style="max-width: 200px; max-height: 100px;" /> 
+							<img
 							src="<spring:url value='/personPage/getUserImage/${entry.value.authorId}' /> "
 							class="rounded-circle border border-dark"
 							style="height: 100px; width: 100px;" />

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,15 +28,15 @@ div a {
 		<h1>天使熱門榜</h1>
 		<c:forEach var="entry" items="${angel_articles_map}">
 			<a
-				href="<c:url value='/article/ShowArticleContent?articleId=${entry.value.articleId}'/>">
+				href="<spring:url value='/article/showArticleContent/${entry.value.articleId}'/>">
 				<div class="rounded-pill border m-4">
 					<div
 						class="d-flex mx-auto justify-content-center align-items-center"
 						style="text-align: center;">
 						<img
-							src="${pageContext.request.contextPath}/init/getArticleImage?id=${entry.value.articleId}"
+							src="<spring:url value='/article/getArticleImage/${entry.value.articleId}' /> "
 							style="max-width: 200px; max-height: 100px;" /> <img
-							src="${pageContext.request.contextPath}/init/getUserImage?id=${entry.value.authorId}"
+							src="<spring:url value='/personPage/getUserImage/${entry.value.authorId}' /> "
 							class="rounded-circle border border-dark"
 							style="height: 100px; width: 100px;" />
 						<div class="ml-4 my-auto" style="height: 100px;">
@@ -43,8 +44,7 @@ div a {
 								${entry.value.category.categoryName}</div>
 							<div>${entry.value.authorName}</div>
 							<div>
-								<fmt:formatDate value="${entry.value.publishTime}"
-									pattern="yyyy-MM-dd" />
+								<fmt:formatDate value="${entry.value.publishTime}" pattern="yyyy-MM-dd" />
 							</div>
 						</div>
 						<div class="d-flex">
@@ -72,15 +72,15 @@ div a {
 		<h1>惡魔熱門榜</h1>
 		<c:forEach var="entry" items="${evil_articles_map}">
 			<a
-				href="<c:url value='/article/ShowArticleContent?articleId=${entry.value.articleId}'/>">
+				href="<spring:url value='/article/showArticleContent/${entry.value.articleId}'/>">
 				<div class="rounded-pill border m-4">
 					<div
 						class="d-flex mx-auto justify-content-center align-items-center"
 						style="text-align: center;">
 						<img
-							src="${pageContext.request.contextPath}/init/getArticleImage?id=${entry.value.articleId}"
+							src="<spring:url value='/article/getArticleImage/${entry.value.articleId}' /> "
 							style="max-width: 200px; max-height: 100px;" /> <img
-							src="${pageContext.request.contextPath}/init/getUserImage?id=${entry.value.authorId}"
+							src="<spring:url value='/personPage/getUserImage/${entry.value.authorId}' /> "
 							class="rounded-circle border border-dark"
 							style="height: 100px; width: 100px;" />
 						<div class="ml-4 my-auto" style="height: 100px;">

@@ -23,8 +23,11 @@
 			<div class="row">
 				<div class="input-group my-3 col-9 ">
 					<div class="input-group-prepend">
-						<span class="input-group-text"><img
+						<<<<<<< HEAD <span class="input-group-text"><img
 							src="<spring:url value='/image/product/search.png ' />" /></span>
+						======= <span class="input-group-text"> <img
+							src="<spring:url value='/image/product/search.png' /> " /></span>
+						>>>>>>> f33afd47157e276ebdb662927f30fc05a0788980
 					</div>
 					<input type="search" class="form-control" placeholder="搜尋: 文章標題"
 						name="search" aria-label="Sizing example input"
@@ -54,7 +57,7 @@
 						class="d-flex mx-auto justify-content-center align-items-center"
 						style="text-align: center;">
 						<img
-							src="<spring:url value='/init/getArticleImage?id=${entry.value.articleId}' /> "
+							src="<spring:url value='/article/getArticleImage/${entry.value.articleId}' /> "
 							style="max-width: 200px; max-height: 100px;" /> <img
 							src="<spring:url value='/personPage/getUserImage/${LoginOK.id}' />　"
 							class="rounded-circle border border-dark"

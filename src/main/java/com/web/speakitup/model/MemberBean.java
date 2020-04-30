@@ -12,10 +12,12 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "Members")
+@Component
 public class MemberBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
