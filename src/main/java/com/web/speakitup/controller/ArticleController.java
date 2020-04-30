@@ -28,6 +28,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -36,6 +38,8 @@ import com.web.speakitup.model.ArticleBean;
 import com.web.speakitup.model.ArticleCategoryBean;
 import com.web.speakitup.model.CommentBean;
 import com.web.speakitup.model.MemberBean;
+import com.web.speakitup.model.ReportArticleBean;
+import com.web.speakitup.model.ReportCommentBean;
 import com.web.speakitup.service.ArticleService;
 import com.web.speakitup.service.MemberService;
 
@@ -51,11 +55,13 @@ public class ArticleController {
 	
 	@Autowired
 	MemberService memberService;
+
+/*----------------------------------所有的文章-----------------------------------------------------*/
 	
-	// 所有的文章
-	@GetMapping("/ShowPageArticles")
+	@GetMapping("/showPageArticles")
 	
 	public String ShowPageArticles(HttpServletRequest request,Model model) {
+		//先取得所有的篩選條件 預設是空的 不管有沒有條件都會來run這個方法
 		String arrange = request.getParameter("arrange") == null ? "" : request.getParameter("arrange");
 		String searchStr = request.getParameter("search") == null ? "" : request.getParameter("search");
 		String categoryTitle = request.getParameter("categoryTitle") == null ? ""
@@ -63,11 +69,6 @@ public class ArticleController {
 		String categoryName = request.getParameter("categoryName") == null ? "" : request.getParameter("categoryName");
 
 		Map<Integer, ArticleBean> articleMap = articleService.getArticles(arrange, searchStr, categoryTitle,categoryName);
-//		request.setAttribute("searchStr", searchStr);
-//		request.setAttribute("arrange", arrange);
-//		request.setAttribute("categoryTitle", categoryTitle);
-//		request.setAttribute("categoryName", categoryName);
-//		request.setAttribute("articles_map", articleMap);
 
 		model.addAttribute("searchStr", searchStr);
 		model.addAttribute("arrange", arrange);
@@ -77,7 +78,7 @@ public class ArticleController {
 		
 		return "article/articlePage";
 	}
-	
+	/*--------------------------------新增文章空白表單---------------------------------------------------*/
 	@GetMapping("/addArticle")
 	public String addArticle(Model model) {
 		
@@ -86,7 +87,8 @@ public class ArticleController {
 		return "article/addArticle";
 	}
 	
-	//從addArticle.jsp過來的 新增文章
+/*-----------------------------------從addArticle.jsp過來的 新增文章----------------------------------------------------*/
+	
 	@PostMapping("/addArticle")
 	public String addArticle(@ModelAttribute("articleBean")ArticleBean ab,HttpServletRequest request,
 			RedirectAttributes rda,HttpSession session) throws IOException, SQLException {
@@ -143,7 +145,7 @@ public class ArticleController {
 		return "redirect:/article/addSuccess";		
 		
 	}
-		
+	
 	//文章新增成功 轉跳這
 	@GetMapping("/addSuccess")
 	public String addSuccess(@ModelAttribute("articleId")int articleId,Model model) throws IOException, SQLException {
@@ -154,8 +156,8 @@ public class ArticleController {
 		model.addAttribute("content", content);
 		return "article/articleContent";
 	}
+/*-----------------------------------新增留言POST----------------------------------------------------*/	
 	
-	//新增留言POST
 	@PostMapping("/addComment/{articleId}")
 	public String addComment(@PathVariable("articleId") int articleId, HttpServletRequest request,HttpSession session) {	
 		
@@ -180,10 +182,10 @@ public class ArticleController {
 		public String addCommentGet(@PathVariable("articleId") int articleId, HttpServletRequest request,HttpSession session) {
 			return "redirect:/article/showArticleContent/{articleId}";
 		}
-	
+/*---------------------------------------------------------------------------------------*/	
 	//取得文章內容
 	@GetMapping("/showArticleContent/{articleId}")
-	public String ShowArticleContent(@PathVariable int articleId,Model model) throws IOException, SQLException {
+	public String ShowArticleContent(@PathVariable int articleId,Model model,HttpSession session) throws IOException, SQLException {
 		
 		ArticleBean ab =  articleService.getArticle(articleId);
 		Set<CommentBean> allComments = ab.getArticleComments();
@@ -195,7 +197,7 @@ public class ArticleController {
 		}
 		
 		String content = GlobalService.clobToString(ab.getContent());
-		model.addAttribute("article", ab);
+		session.setAttribute("article", ab);
 		model.addAttribute("content", content);
 		model.addAttribute("comments_set", comments);
 		
@@ -203,7 +205,8 @@ public class ArticleController {
 		return "article/articleContent";
 	}
 	
-	//喜歡文章
+/*-----------------------------------喜歡文章----------------------------------------------------*/
+	
 	@GetMapping("/likeArticle/{articleId}")
 	public String likeArticle(@PathVariable("articleId")int articleId,HttpSession session,HttpServletRequest request) {
 		
@@ -221,6 +224,41 @@ public class ArticleController {
 		
 		return "redirect:/article/showArticleContent/{articleId}";
 	}
+
+/*---------------------------------檢舉文章或留言------------------------------------------------------*/
+
+	@PostMapping("/report")
+	public void addReport(HttpSession session,HttpServletRequest request) {
+		
+		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
+		String commentIdStr = request.getParameter("commentId");
+//		// 檢舉項目
+		String reportItem = request.getParameter("reportItem");
+		System.out.println("commentIdStr" + commentIdStr);
+		if (commentIdStr.trim() == "") {
+			System.out.println("有進來檢舉文章");
+			// 檢舉文章
+			ArticleBean ab = (ArticleBean) session.getAttribute("article");
+			System.out.println("ArticleId" + ab.getArticleId());
+			ReportArticleBean bean = new ReportArticleBean(null, ab.getArticleId(), ab.getAuthorName(),
+					ab.getPublishTime(), ab.getTitle(), mb.getMemberId(), reportItem);
+			
+			articleService.insertReportArticle(bean);
+		} else {
+			// 檢舉留言
+			int commentId = Integer.parseInt(commentIdStr);
+			CommentBean cb = articleService.getComment(commentId);
+			
+			ReportCommentBean bean = new ReportCommentBean(null, commentId, cb.getAuthorName(), cb.getPublishTime(),
+					cb.getContent(), mb.getMemberId(), reportItem);
+			articleService.insertReportComment(bean);
+		}
+
+		return;
+		
+	}
+	
+/*---------------------------------熱門文章------------------------------------------------------*/
 	
 	@GetMapping("/showFamousArticles")
 	public String showFamousArticles(Model model){
@@ -235,8 +273,8 @@ public class ArticleController {
 	}
 	
 	
-	
-	//取得文章照片
+/*---------------------------------	取得文章照片------------------------------------------------------*/
+
 	@GetMapping("/getArticleImage/{articleId}")
 	public ResponseEntity<byte[]> getArticleImage(@PathVariable int articleId, Model model, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {

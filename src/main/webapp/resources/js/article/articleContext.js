@@ -13,11 +13,11 @@ $("#sendReport").on("click", function () {
       reportItem = reportItems[i].value;
     }
   }
-//   alert(reportItem + " , " + commentIdInput.value);
+   alert(reportItem + " , " + commentIdInput.value);
     xhr = new XMLHttpRequest();
     xhr.open(
-      "GET",
-      "/yaoshula/article/Report?commentId=" + commentIdInput.value + "&reportItem=" + reportItem ,
+      "POST",
+      "/speakitup/article/report?commentId=" + commentIdInput.value + "&reportItem=" + reportItem ,
       false
     );
     xhr.send();

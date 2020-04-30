@@ -59,7 +59,7 @@
 	</div>
 	<div class="main-menu">
 		<div class="menu">
-			<a href="<spring:url value='/article/ShowPageArticles' />">論壇</a>
+			<a href="<spring:url value='/article/showPageArticles' />">論壇</a>
 		</div>
 		<div class="menu">
 			<a href="">商城</a>

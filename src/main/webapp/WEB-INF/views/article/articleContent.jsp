@@ -110,6 +110,7 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
+				
 				<div class="modal-body">
 					<input type="radio" name="reportItem" value="惡意洗版" checked />惡意洗版<br />
 					<input type="radio" name="reportItem" value="惡意攻擊他人" />惡意攻擊他人<br />
@@ -125,7 +126,6 @@
 			</div>
 		</div>
 	</div>
-
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

@@ -13,33 +13,33 @@
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 	crossorigin="anonymous">
 <script
-	src="<spring url value='/js/_06_article/articlePage.js' /> "></script>
+	src="<spring:url value='/js/article/articlePage.js' /> "></script>
 </head>
 <body>
 	<div class="w-75 m-auto">
 		天使板 <a
-			href="<c:url value='/article/ShowPageArticles?categoryTitle=天使' />">全部</a>
+			href="<spring:url value='/article/showPageArticles?categoryTitle=天使' />">全部</a>
 		<a
-			href="<c:url value='/article/ShowPageArticles?categoryTitle=天使&categoryName=工作' />">工作</a>
+			href="<spring:url value='/article/showPageArticles?categoryTitle=天使&categoryName=工作' />">工作</a>
 		<a
-			href="<c:url value='/article/ShowPageArticles?categoryTitle=天使&categoryName=感情' />">感情</a>
+			href="<spring:url value='/article/showPageArticles?categoryTitle=天使&categoryName=感情' />">感情</a>
 		<a
-			href="<c:url value='/article/ShowPageArticles?categoryTitle=天使&categoryName=生活' />">生活</a>
+			href="<spring:url value='/article/showPageArticles?categoryTitle=天使&categoryName=生活' />">生活</a>
 		<a
-			href="<c:url value='/article/ShowPageArticles?categoryTitle=天使&categoryName=時事' />">時事</a>
+			href="<spring:url value='/article/showPageArticles?categoryTitle=天使&categoryName=時事' />">時事</a>
 		惡魔板 <a
-			href="<c:url value='/article/ShowPageArticles?categoryTitle=惡魔' />">全部</a>
+			href="<spring:url value='/article/showPageArticles?categoryTitle=惡魔' />">全部</a>
 		<a
-			href="<c:url value='/article/ShowPageArticles?categoryTitle=惡魔&categoryName=工作' />">工作</a>
+			href="<spring:url value='/article/showPageArticles?categoryTitle=惡魔&categoryName=工作' />">工作</a>
 		<a
-			href="<c:url value='/article/ShowPageArticles?categoryTitle=惡魔&categoryName=感情' />">感情</a>
+			href="<spring:url value='/article/showPageArticles?categoryTitle=惡魔&categoryName=感情' />">感情</a>
 		<a
-			href="<c:url value='/article/ShowPageArticles?categoryTitle=惡魔&categoryName=生活' />">生活</a>
+			href="<spring:url value='/article/showPageArticles?categoryTitle=惡魔&categoryName=生活' />">生活</a>
 		<a
-			href="<c:url value='/article/ShowPageArticles?categoryTitle=惡魔&categoryName=時事' />">時事</a>
+			href="<spring:url value='/article/showPageArticles?categoryTitle=惡魔&categoryName=時事' />">時事</a>
 
 		<!-- 		搜尋======================================== -->
-		<form action="<c:url value='/article/ShowPageArticles' />"
+		<form action="<spring:url value='/article/showPageArticles' />"
 			id="searchForm">
 			<input type="hidden" value="${categoryTitle}" name="categoryTitle">
 			<input type="hidden" value="${categoryName}" name="categoryName">
@@ -47,7 +47,7 @@
 				<div class="input-group my-3 col-9 ">
 					<div class="input-group-prepend">
 						<span class="input-group-text">
-						<img src="<spring:url value='/image/_05_product/search.png' /> " /></span>
+						<img src="<spring:url value='/image/product/search.png' /> " /></span>
 					</div>
 					<input type="search" class="form-control" placeholder="搜尋: 文章標題"
 						name="search" aria-label="Sizing example input"
@@ -71,7 +71,7 @@
 		<!-- 		文章列========================================= -->
 		<c:forEach var="entry" items="${articles_map}">
 			<a
-				href="<spring:url value='/article/ShowArticleContent/${entry.value.articleId}'/>">
+				href="<spring:url value='/article/showArticleContent/${entry.value.articleId}'/>">
 				<div class="rounded-pill border m-4">
 					<div
 						class="d-flex mx-auto justify-content-center align-items-center"
