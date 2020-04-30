@@ -1,11 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="zh-TW">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,7 +22,6 @@
 <link rel="stylesheet"
 	href="http://jqueryui.com/resources/demos/style.css" />
 
-<script src="<spring:url value='/js/register/register.js' /> "></script>
 <!-- my css -->
 <link rel="stylesheet"
 	href="<spring:url value='/css/register/register.css' /> " />
@@ -38,8 +36,8 @@
 		<nav class="navbar navbar-expand-lg navbar-light bg-danger">
 			<!-- logo和標題 -->
 			<nav class="navbar navbar-light bg-danger">
-				<a class="navbar-brand text-white"
-					href='<c:url value="/index.jsp" />'> <!-- <img src="https://github.com/sun0722a/yaoshula/blob/master/src/logo/logo_trans_250px.png?raw=true" width="50" height="50" class="d-inline-block align-top" alt=""> -->
+				<a class="navbar-brand text-white" href='<spring:url value="/" />'>
+					<!-- <img src="https://github.com/sun0722a/yaoshula/blob/master/src/logo/logo_trans_250px.png?raw=true" width="50" height="50" class="d-inline-block align-top" alt=""> -->
 					要抒啦！
 				</a>
 			</nav>
@@ -123,8 +121,12 @@
 
 								<!-- 性別 -->
 								<div class="d-flex justify-content-center">
-									<form:radiobuttons path="gender" required="required"
-										items='${genderMap}' />
+									<%-- 									<form:radiobuttons path="gender" required="required" --%>
+									<%-- 										items='${genderMap}' /> --%>
+									<input type="radio" name="gender" value="男" required="required"
+										<c:if test='${mb.gender=="男"}'>checked='checked'</c:if>>男
+									<input type="radio" name="gender" value="女" required="required"
+										<c:if test='${mb.gender=="女"}'> checked='checked'</c:if>>女
 								</div>
 
 
@@ -330,7 +332,7 @@
 	<script type="text/javascript"
 		src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 	<!-- Template Main JS File -->
-	<script src="<spring:url value='/js/_01_register/register.js' /> "></script>
+	<script src="<spring:url value='/js/register/register.js' /> "></script>
 	<script>
 		let date = new Date();
 		let year = date.getFullYear();

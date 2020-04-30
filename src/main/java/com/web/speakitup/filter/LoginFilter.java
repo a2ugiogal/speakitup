@@ -21,7 +21,7 @@ import com.web.speakitup.model.MemberBean;
 
 @WebFilter(urlPatterns = { "/*" }, initParams = {
 		@WebInitParam(name = "url_1", value = "/login"),
-		@WebInitParam(name = "url_2", value = "/register"),
+//		@WebInitParam(name = "url_2", value = "/register"),
 		@WebInitParam(name = "url_3", value = "/personPage/*"),
 		@WebInitParam(name = "url_4", value = "/order/*"),})
 //		@WebInitParam(name = "url_4", value = "/article/AddComment"),

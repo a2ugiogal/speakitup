@@ -107,7 +107,6 @@ public class MemberDaoImpl implements MemberDao {
 				.setParameter("picture", mb.getPicture()).setParameter("id", mb.getId())
 				.setParameter("sendDate", mb.getLastSendDate()).setParameter("replyDate", mb.getLastReplyDate())
 				.executeUpdate();
-		System.out.println("111");
 		n++;
 		return n;
 	}
@@ -131,7 +130,6 @@ public class MemberDaoImpl implements MemberDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public MemberBean getEmailValid(String emailCode) {
-
 		MemberBean mb = null;
 		List<MemberBean> beans = null;
 		String hql = "FROM MemberBean m WHERE m.authToken = :emailCode";
@@ -141,7 +139,6 @@ public class MemberDaoImpl implements MemberDao {
 		if (beans.size() > 0) {
 			mb = beans.get(0);
 		}
-		System.out.println(beans.size());
 		return mb;
 	}
 
