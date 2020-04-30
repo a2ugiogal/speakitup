@@ -1,5 +1,6 @@
 package com.web.speakitup.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -7,6 +8,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,7 +17,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Orders")
-public class OrderBean {
+public class OrderBean implements Serializable {
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer orderNo;
@@ -33,7 +36,7 @@ public class OrderBean {
 	Date arriveDate;
 	String status;
 
-	@OneToMany(mappedBy = "orderBean", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "orderBean", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	Set<OrderItemBean> orderItems = new LinkedHashSet<>();
 
 	public OrderBean(Integer orderNo, Integer memberId, String memberName, Integer totalPrice, String address,

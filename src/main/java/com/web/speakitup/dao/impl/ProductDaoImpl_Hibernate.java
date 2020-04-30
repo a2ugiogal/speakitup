@@ -19,17 +19,12 @@ import com.web.speakitup.model.OrderBean;
 import com.web.speakitup.model.OrderItemBean;
 import com.web.speakitup.model.ProductBean;
 
-/* 問問問: hql使用count + join 會報錯 */
-/* 刪除 : implements Serializable，不知道會不會出事 */
-
 @Repository
 public class ProductDaoImpl_Hibernate implements ProductDao {
 
-	// 預設值：每頁九筆
+	// 預設值：每頁6筆
 	private int recordsPerPage = GlobalService.RECORDS_PER_PAGE;
 	private int recordsPerFamous = GlobalService.RECORDS_PER_FAMOUS;
-
-//	int nowTotalPages = -1;
 
 	@Autowired
 	SessionFactory factory;
@@ -54,16 +49,7 @@ public class ProductDaoImpl_Hibernate implements ProductDao {
 		int count = session.createQuery(hql).setParameter("searchStr", "%" + searchStr + "%")
 				.setParameter("categoryTitle", "%" + categoryTitle + "%")
 				.setParameter("categoryName", "%" + categoryName + "%").getResultList().size();
-
-//		nowTotalPages = (int) (Math.ceil(count / (double) recordsPerPage));
-
-//		if (searchStr == "" && categoryTitle == "" && categoryName == "") {
-//			// 總共幾頁=無條件進位(共有幾個商品/一頁的商品數)
-//			int totalPages = (int) (Math.ceil(getRecordCounts() / (double) recordsPerPage));
-//			return totalPages;
-//		} else {
 		return (int) (Math.ceil(count / (double) recordsPerPage));
-//		}
 	}
 
 	// 計算總共有多少商品
@@ -108,14 +94,6 @@ public class ProductDaoImpl_Hibernate implements ProductDao {
 						+ "AND cb.categoryName LIKE :categoryName " + "ORDER BY pb.price DESC";
 			}
 		}
-		// 不是找全部的商品=>計算找到的商品個數
-//		if (searchStr != "" || categoryTitle != "" || categoryName != "") {
-//			int count = session.createQuery(hql).setParameter("searchStr", "%" + searchStr + "%")
-//					.setParameter("categoryTitle", "%" + categoryTitle + "%")
-//					.setParameter("categoryName", "%" + categoryName + "%").getResultList().size();
-//
-//			nowTotalPages = (int) (Math.ceil(count / (double) recordsPerPage));
-//		}
 		// 只取此頁的商品
 		list = session.createQuery(hql).setParameter("searchStr", "%" + searchStr + "%")
 				.setParameter("categoryTitle", "%" + categoryTitle + "%")

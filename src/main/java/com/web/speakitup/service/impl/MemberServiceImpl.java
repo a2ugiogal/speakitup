@@ -1,6 +1,5 @@
 package com.web.speakitup.service.impl;
 
-import java.sql.Blob;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;

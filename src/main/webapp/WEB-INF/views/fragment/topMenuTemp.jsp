@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <link rel="stylesheet"
@@ -24,7 +24,7 @@
 				src="${pageContext.request.contextPath}/webImage/home.png">論壇
 		</a>
 			<ul class="item_menu">
-				<li><a href="<c:url value='/index.jsp' />">天使</a></li>
+				<li><a href="<spring:url value='/' />">天使</a></li>
 				<li><a href="">惡魔</a></li>
 				<li><a></a></li>
 			</ul></li>

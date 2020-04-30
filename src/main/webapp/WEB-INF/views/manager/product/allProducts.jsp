@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>要抒拉--商品管理</title>
+<title>要抒拉管理員--商品管理</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
@@ -18,8 +18,8 @@
 		$("#deleteProductModal").modal("show");
 		var aSend = document.getElementById('aSend');
 		modalBody = document.getElementById("modalBody");
-		modalBody.innerHTML = "確認是否刪除<br> 編號：" + productId + " 名稱："
-				+ productName + "之商品?";
+		modalBody.innerHTML = "確認是否刪除商品?<br> 編號：" + productId + " 名稱："
+				+ productName;
 		aSend.href = "<spring:url value='/product/deleteProduct/" + productId
 				+ "'/>"
 		$("#deleteProductModal").modal("hide");

@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Document</title>
+<title>要抒啦--商品細節</title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.css">
 <link rel="stylesheet"
@@ -80,12 +80,12 @@
 						aria-label="Basic example">
 						<input type="submit" class="btn btn-dark mt-3" role="button"
 							value="立即購買 "
-							onclick="buyForm.action='<c:url value="/order/checkOrder" />';">
+							onclick="buyForm.action='<spring:url value="/order/checkOrder" />';">
 						<input type="submit" class="btn btn-dark mt-3" role="button"
 							id="joinCart" value="加入購物車"
-							onclick="buyForm.action='<c:url value="/order/shoppingCart" />'; ">
+							onclick="buyForm.action='<spring:url value="/order/shoppingCart" />'; ">
 						<a type="button" class="btn btn-dark mt-3" role="button"
-							href="<c:url value="/product/ShowPageProducts" /> ">返回商品列表</a>
+							href="<spring:url value="/product/showPageProducts" /> ">返回商品列表</a>
 					</div>
 
 

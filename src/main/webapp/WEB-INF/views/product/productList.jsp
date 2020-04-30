@@ -95,7 +95,7 @@
 						<c:if test="${pageNo==1}">style="visibility: hidden;"</c:if>>
 						<button class="btPage">
 							<img
-								src="${pageContext.request.contextPath}/image/_05_product/上一頁.png"
+								src="<spring:url value='/image/product/上一頁.png' />"
 								style="max-width: 90%;" />
 						</button>
 					</a> <a
@@ -133,7 +133,7 @@
 						<c:if test="${pageNo==totalPages}">style="visibility: hidden;"</c:if>>
 						<button class="btPage">
 							<img
-								src="${pageContext.request.contextPath}/image/_05_product/下一頁.png"
+								src="<spring:url value='/image/product/下一頁.png' />"
 								style="max-width: 90%;" />
 						</button>
 					</a>

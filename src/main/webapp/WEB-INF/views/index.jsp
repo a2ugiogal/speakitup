@@ -19,7 +19,7 @@
 	<div class="top">
 		<div class="logo"></div>
 		<span class="option"> <a
-			href="<spring:url value='/register/add' />">註冊</a>
+			href="<spring:url value='/member/register' />">註冊</a>
 		</span> <span class="option"> <c:choose>
 				<c:when
 					test="${ ! empty LoginOK || LoginOK.checkAuthSuccess == '未驗證' }">
@@ -31,7 +31,8 @@
 					<a href="<spring:url value='/login/login'/>"> 登入 </a>
 				</c:otherwise>
 			</c:choose>
-		</span> <span class="option"> <a href="<c:url value='/personPage/personPage' />">個人頁面</a>
+		</span> <span class="option"> <a
+			href="<c:url value='/personPage/personPage' />">個人頁面</a>
 		</span><span class="option"> <a
 			href="<c:url value='/article/showFamousArticles' />">熱門文章</a>
 		</span><span class="option"> <a
@@ -41,7 +42,7 @@
 		</span><span class="option"> <a
 			href="<spring:url value='/product/showFamousProducts' />">熱門商品區</a>
 		</span> <span class="option"> <a
-			href="<c:url value='/order/shoppingCart.jsp' />">購物車</a>
+			href="<spring:url value='/order/shoppingCartList' />">購物車</a>
 		</span> <span class="option"> <a
 			href="<c:url value='/order/showHistoryOrder' />">歷史訂單</a>
 		</span> <span class="option"> <a
@@ -49,9 +50,9 @@
 		</span> <span class="option"> <a
 			href="<c:url value='/manager/showReports' />">管理員_檢舉專區</a>
 		</span> <span class="option"> <a
-			href="<c:url value='/manager/showMembers' />">管理員_帳號管理</a>
+			href="<spring:url value='/member/showMembers' />">管理員_帳號管理</a>
 		</span> <span class="option"> <a
-			href="<c:url value='/manager/showOrders' />">管理員_訂單管理</a>
+			href="<spring:url value='/order/showOrders' />">管理員_訂單管理</a>
 		</span> <span class="option"> <a
 			href="<spring:url value='/product/showProducts' />">管理員_商品管理</a>
 		</span>

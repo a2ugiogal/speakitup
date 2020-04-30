@@ -1,6 +1,5 @@
 package com.web.speakitup.dao.impl;
 
-import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -30,7 +29,7 @@ public class MemberDaoImpl implements MemberDao {
 	public int saveMember(MemberBean mb) {
 		int n = 0;
 		Session session = factory.getCurrentSession();
-		session.save(mb);
+		session.saveOrUpdate(mb);
 		n++;
 		return n;
 	}
@@ -108,7 +107,6 @@ public class MemberDaoImpl implements MemberDao {
 				.setParameter("picture", mb.getPicture()).setParameter("id", mb.getId())
 				.setParameter("sendDate", mb.getLastSendDate()).setParameter("replyDate", mb.getLastReplyDate())
 				.executeUpdate();
-		System.out.println("111");
 		n++;
 		return n;
 	}
@@ -132,7 +130,6 @@ public class MemberDaoImpl implements MemberDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public MemberBean getEmailValid(String emailCode) {
-
 		MemberBean mb = null;
 		List<MemberBean> beans = null;
 		String hql = "FROM MemberBean m WHERE m.authToken = :emailCode";
@@ -142,7 +139,6 @@ public class MemberDaoImpl implements MemberDao {
 		if (beans.size() > 0) {
 			mb = beans.get(0);
 		}
-		System.out.println(beans.size());
 		return mb;
 	}
 
@@ -157,7 +153,6 @@ public class MemberDaoImpl implements MemberDao {
 		return n;
 	}
 
-	
 	@Override
 	public void updateSendDate(String memberId, String sendDate) {
 		Session session = factory.getCurrentSession();
@@ -169,10 +164,10 @@ public class MemberDaoImpl implements MemberDao {
 	public void updateReplyDate(String memberId, String replyDate) {
 		Session session = factory.getCurrentSession();
 		String hql = "UPDATE MemberBean m SET m.lastReplyDate = :replyDate WHERE m.memberId = :memberId";
-		session.createQuery(hql).setParameter("replyDate", replyDate).setParameter("memberId", memberId).executeUpdate();
-		
-	}
+		session.createQuery(hql).setParameter("replyDate", replyDate).setParameter("memberId", memberId)
+				.executeUpdate();
 
+	}
 
 	// 取得會員資料
 	@Override
@@ -193,9 +188,7 @@ public class MemberDaoImpl implements MemberDao {
 		session.createQuery(hql0).setParameter("email", mb.getEmail()).setParameter("phone", mb.getPhone())
 				.setParameter("city", mb.getCity()).setParameter("area", mb.getArea())
 				.setParameter("address", mb.getAddress()).setParameter("id", mb.getId()).executeUpdate();
-		
+
 	}
-
-
 
 }

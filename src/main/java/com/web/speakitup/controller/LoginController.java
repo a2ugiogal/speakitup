@@ -94,7 +94,7 @@ public class LoginController {
 				String target = (String) session.getAttribute("target");
 				session.setAttribute("LoginOK", mb);
 				if(target!=null) {
-				System.out.println(mb.getMemberId());
+//				System.out.println(mb.getMemberId());
 				return "redirect:" + target;
 				}else {
 				return "redirect:/";
