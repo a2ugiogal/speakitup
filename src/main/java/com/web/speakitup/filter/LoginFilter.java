@@ -25,13 +25,8 @@ import com.web.speakitup.model.MemberBean;
 		@WebInitParam(name = "url_4", value = "/order/*"),
 		@WebInitParam(name = "url_5", value = "/article/likeArticle/*"),
 		@WebInitParam(name = "url_6", value = "/article/addComment/*"),
-<<<<<<< HEAD
 		@WebInitParam(name = "url_7", value = "/article/addArticle")})
-//		@WebInitParam(name = "url_8", value = "/article/report/*")})
-=======
-		@WebInitParam(name = "url_7", value = "/article/addArticle") })
-//		@WebInitParam(name = "url_6", value = "/article/Report"),
->>>>>>> 11d0c2101101db1c381d69b9156a8193216483db
+//		@WebInitParam(name = "url_6", value = "/article/Report/*")})
 //		@WebInitParam(name = "url_7", value = "/_07_letter/letterInfo.jsp"),
 //		@WebInitParam(name = "url_8", value = "/_07_letter/*")})
 public class LoginFilter implements Filter {
