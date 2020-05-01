@@ -12,22 +12,19 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 	crossorigin="anonymous">
-<script src="<spring:url value='/js/_06_article/articlePage.js' /> "></script>
+<script src="<spring:url value='/js/article/articlePage.js' /> "></script>
 </head>
 <body>
 	<div class="w-75 m-auto">
 
 		<!-- 		搜尋======================================== -->
-		<form action="<spring:url value='/personPage/showMyArticles' />"
+		<form action="<spring:url value='/member/showMyArticles' />"
 			id="searchForm">
 			<div class="row">
 				<div class="input-group my-3 col-9 ">
 					<div class="input-group-prepend">
-						<<<<<<< HEAD <span class="input-group-text"><img
+						<span class="input-group-text"><img
 							src="<spring:url value='/image/product/search.png ' />" /></span>
-						======= <span class="input-group-text"> <img
-							src="<spring:url value='/image/product/search.png' /> " /></span>
-						>>>>>>> f33afd47157e276ebdb662927f30fc05a0788980
 					</div>
 					<input type="search" class="form-control" placeholder="搜尋: 文章標題"
 						name="search" aria-label="Sizing example input"
@@ -51,7 +48,7 @@
 		<!-- 		文章列========================================= -->
 		<c:forEach var="entry" items="${articles_map}">
 			<a
-				href="<c:url value='/article/ShowArticleContent/${entry.value.articleId}'/>">
+				href="<spring:url value='/article/showArticleContent/${entry.value.articleId}'/>">
 				<div class="rounded-pill border m-4">
 					<div
 						class="d-flex mx-auto justify-content-center align-items-center"
