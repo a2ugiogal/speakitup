@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.sql.Blob;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,12 +17,18 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialBlob;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.CacheControl;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -56,8 +63,48 @@ public class MemberController {
 	@Autowired
 	ArticleService articleService;
 
+	/* 取得會員的照片 */
+	@SuppressWarnings("unused")
+	@GetMapping("/getUserImage/{id}")
+	public ResponseEntity<byte[]> getUserImage(@PathVariable int id, Model model, HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		String filepath = "/resources/images/personPage/headPicture.jpg";
+		byte[] media = null;
+		HttpHeaders headers = new HttpHeaders();
+		String filename = "";
+		int len = 0;
+		MemberBean mb = memberService.getMember(id);
+
+		// 取得照片跟檔名
+		if (mb != null) {
+			Blob blob = mb.getPicture();
+			filename = mb.getFileName();
+			if (blob != null) {
+				try {
+					len = (int) blob.length();
+					media = blob.getBytes(1, len);
+				} catch (SQLException e) {
+					throw new RuntimeException("getUserImage發生SQLException" + e.getMessage());
+				}
+			} else {
+				media = GlobalService.toByteArray(context, filepath);
+				filename = filepath;
+			}
+
+		} else {
+			media = GlobalService.toByteArray(context, filepath);
+			filename = filepath;
+		}
+		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
+		String mimeType = context.getMimeType(filename);
+		MediaType mediaType = MediaType.valueOf(mimeType);
+		ResponseEntity<byte[]> responseEntity = new ResponseEntity<byte[]>(media, headers, HttpStatus.OK);
+		return responseEntity;
+	}
+
 	// ==================非管理員(註冊)===================
 
+	/* 前往註冊 */
 	@GetMapping("/register")
 	public String getAddMember(Model model) {
 		MemberBean mb = new MemberBean();
@@ -65,6 +112,7 @@ public class MemberController {
 		return "register/register";
 	}
 
+	/* 存入會員資料 */
 	@PostMapping("/register")
 	public String addMember(@ModelAttribute("memberBean") MemberBean mb, BindingResult bindingResult,
 			HttpServletRequest request, HttpServletResponse response) {
@@ -144,7 +192,7 @@ public class MemberController {
 
 	}
 
-	// 檢查信箱
+	/* 檢查信箱 */
 	@GetMapping("/register/checkEmail")
 	public void checkEmail(@RequestParam("email") String email, HttpServletResponse response) {
 		response.setCharacterEncoding("UTF-8");
@@ -165,7 +213,7 @@ public class MemberController {
 		return;
 	}
 
-	// 檢查memberId
+	/* 檢查帳號 */
 	@GetMapping("/register/checkUserName")
 	public void checkUserName(@RequestParam("userName") String userName, HttpServletResponse response) {
 		response.setCharacterEncoding("UTF-8");
@@ -186,6 +234,7 @@ public class MemberController {
 		return;
 	}
 
+	/* 驗證帳號(信) */
 	@GetMapping("/register/emailVerify")
 	public String emailVerify(HttpServletRequest request, HttpSession session) {
 		StringBuilder content = new StringBuilder();
@@ -208,7 +257,160 @@ public class MemberController {
 		return "redirect:/";
 	}
 
-	// ==================非管理員(註冊)===================
+	// ==================非管理員(登入)===================
+
+	/* 前往登入 */
+	@GetMapping("/login")
+	public String loginForm() {
+		return "login/login";
+	}
+
+	/* 前往信箱驗證 */
+	@GetMapping("/enterEmail")
+	public String enterEmail() {
+		return "login/enterEmail";
+	}
+
+	/* 檢查登入帳號密碼 */
+	@PostMapping("/checkLogin")
+	public String checkData(@RequestParam("memberId") String memberId, @RequestParam("password") String password,
+			Model model, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+
+		String password2 = GlobalService.getMD5Endocing(GlobalService.encryptString(password));
+		MemberBean mb = memberService.checkIdPassword(memberId, password2);
+		if (mb == null) {
+			model.addAttribute("loginError", "loginError");
+			System.out.println("帳密錯誤");
+			return "login/login";
+		}
+		session.setAttribute("LoginOK", mb);
+
+		// 因為如果沒勾會是null 用@RequestParam註釋一定要傳值進來 如果沒有值會當掉 所以需要用過去request的方式去抓
+		String rm = request.getParameter("rememberMe");
+		Cookie cookieUser = null;
+		Cookie cookiePassword = null;
+		Cookie cookieRememberMe = null;
+		if (rm != null) {
+			// 如果選擇記住帳密
+			cookieUser = new Cookie("memberId", memberId);
+			cookieUser.setMaxAge(30 * 24 * 60 * 60); // cookie存活期一個月
+			cookieUser.setPath(context.getContextPath());
+
+			String encodePassword = GlobalService.encryptString(password);
+			cookiePassword = new Cookie("password", encodePassword);
+			cookiePassword.setMaxAge(30 * 24 * 60 * 60);
+			cookiePassword.setPath(context.getContextPath());
+
+			cookieRememberMe = new Cookie("rememberMe", "true");
+			cookieRememberMe.setMaxAge(30 * 24 * 60 * 60);
+			cookieRememberMe.setPath(context.getContextPath());
+		} else {
+			// 如果使用者沒有按下記住帳密 就不會保存帳號密碼的cookie
+			cookieUser = new Cookie("memberId", memberId);
+			cookieUser.setMaxAge(0);
+			cookieUser.setPath(context.getContextPath());
+
+			String encodePassword = GlobalService.encryptString(password);
+			cookiePassword = new Cookie("password", encodePassword);
+			cookiePassword.setMaxAge(0);
+			cookiePassword.setPath(context.getContextPath());
+
+			cookieRememberMe = new Cookie("rememberMe", "true");
+			cookieRememberMe.setMaxAge(0);
+			cookieRememberMe.setPath(context.getContextPath());
+		}
+		response.addCookie(cookieUser);
+		response.addCookie(cookiePassword);
+		response.addCookie(cookieRememberMe);
+
+		// 回到先前那頁
+		String target = (String) session.getAttribute("target");
+		if (target != null) {
+			return "redirect:" + target;
+		} else {
+			return "redirect:/";
+		}
+	}
+
+	/* 前往登出 */
+	@GetMapping("/logout")
+	public String logout() {
+		return "login/logout";
+	}
+	
+	/* 前往登出 */
+	@GetMapping("/findPassword")
+	public String findPassword() {
+		return "login/logout";
+	}
+
+	// ==================非管理員(個人頁面)===================
+
+	/* 給會員的舊表單，前往個人頁面 */
+	@GetMapping("/personPage")
+	public String personPage(Model model, HttpSession session) {
+		MemberBean mb = new MemberBean();
+		model.addAttribute("memberBean", mb);
+		return "personPage/personPage";
+	}
+
+	/* 修改會員資料 */
+	@PostMapping("/personPage")
+	public String updateMember(@ModelAttribute("memberBean") MemberBean mb, Model model, HttpServletRequest request,
+			HttpSession session) {
+		String cancel = request.getParameter("cancel");
+		// 如果沒有取消的話代表新增 就去抓資料
+		if (cancel == null) {
+			MemberBean oldmb = (MemberBean) session.getAttribute("LoginOK");
+			mb.setId(oldmb.getId());
+			mb.setCity(request.getParameter("county"));
+			mb.setArea(request.getParameter("district"));
+
+			// 取得檔名及照片
+			MultipartFile memberImage = mb.getMemberImage();
+			if (memberImage != null && !memberImage.isEmpty()) {
+				// 如果有填照片，就存起來
+				try {
+					byte[] b = memberImage.getBytes();
+					Blob blob = new SerialBlob(b);
+					mb.setPicture(blob);
+					mb.setFileName(memberImage.getOriginalFilename());
+				} catch (Exception e) {
+					e.printStackTrace();
+					throw new RuntimeException("檔案上傳發生異常：" + e.getMessage());
+				}
+			} else {
+				// 如果沒填照片，使用原來的
+				mb.setPicture(oldmb.getPicture());
+				mb.setFileName(oldmb.getFileName());
+			}
+
+			memberService.updateMember(mb);
+			// 更新session內的使用者資料
+			MemberBean bean = memberService.getMember(oldmb.getId());
+			session.setAttribute("LoginOK", bean);
+		} else {
+			;
+		}
+		return "redirect:/member/personPage";
+	}
+
+	/* 個人文章 */
+	@GetMapping("/showMyArticles")
+	public String getmyArticles(Model model, HttpSession session, HttpServletRequest request) {
+		// 取得搜尋字串或是篩選的字串 點擊我的文章時會先進來一次，所以第一次會是空字串，代表回傳所有的文章
+		String arrange = request.getParameter("arrange") == null ? "" : request.getParameter("arrange");
+		String searchStr = request.getParameter("search") == null ? "" : request.getParameter("search");
+
+		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
+		Map<Integer, ArticleBean> articleMap = articleService.getPersonArticles(arrange, searchStr, mb);
+
+		model.addAttribute("searchStr", searchStr);
+		model.addAttribute("arrange", arrange);
+		model.addAttribute("articles_map", articleMap);
+
+		return "personPage/myArticles";
+	}
 
 	// ==================管理員===================
 

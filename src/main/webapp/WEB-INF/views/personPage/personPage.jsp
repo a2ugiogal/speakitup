@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,8 +10,7 @@
 <title>要抒拉--個人頁面</title>
 <link rel="stylesheet"
 	href="<spring:url value='/css/personPage/personPage.css' /> " />
-<script
-	src="<spring:url value='/js/personPage/updatePersonPage.js' /> "></script>
+<script src="<spring:url value='/js/personPage/updatePersonPage.js' /> "></script>
 
 <!-- 下拉式地址 -->
 <script
@@ -23,27 +22,29 @@
 	<jsp:include page="../fragment/topMenuTemp.jsp" />
 
 	<div class="side_menu">
-		<span><a href="">個人頁面</a></span> 
-		<span><a href="<spring:url value='/personPage/showMyArticles' />">我的文章</a></span>
-		<span><a href="<spring:url value='/' /> ">回首頁</a></span> 
+		<span><a href="<spring:url value='/member/personPage' />">個人頁面</a></span>
+		<span><a href="<spring:url value='/member/showMyArticles' />">我的文章</a></span>
+		<span><a href="<spring:url value='/' /> ">回首頁</a></span>
 	</div>
 
-	<form:form  modelAttribute="memberBean" method="POST" enctype='multipart/form-data' id="personForm">
+	<form:form modelAttribute="memberBean" method="POST"
+		enctype='multipart/form-data' id="personForm">
 		<div id="personPage">
 			<div>
-				<img src="<spring:url value='/image/personPage/icons8-edit-144.png ' /> " id="edit" />
+				<img
+					src="<spring:url value='/image/personPage/icons8-edit-144.png ' /> "
+					id="edit" />
 			</div>
 			<div id="boxHeadPicture">
 				<img
-					src="<spring:url value='/personPage/getUserImage/${LoginOK.id}' /> "
+					src="<spring:url value='/member/getUserImage/${LoginOK.id}' /> "
 					id="headPicture" />
 			</div>
 			<div id="boxFileSelect">
 
 				<form:input type="file" path="memberImage"
-					style="visibility: hidden;" id="fileSelect"
- 						value='/personPage/getUserImage/${LoginOK.id}'/>
-						
+					style="visibility: hidden;" id="fileSelect" />
+
 			</div>
 
 			<table>
@@ -75,8 +76,10 @@
 				<tr>
 					<td colspan="2">
 						<div align="center">
-							<input id="btSubmit" type="submit" value="儲存" style="visibility: hidden;" /> 
-							<input type="submit" id="btCancel" value="取消" style="visibility: hidden;" name="cancel" />
+							<input id="btSubmit" type="submit" value="儲存"
+								style="visibility: hidden;" /> <input type="submit"
+								id="btCancel" value="取消" style="visibility: hidden;"
+								name="cancel" />
 						</div>
 					</td>
 				</tr>
@@ -85,4 +88,3 @@
 	</form:form>
 </body>
 </html>
-		

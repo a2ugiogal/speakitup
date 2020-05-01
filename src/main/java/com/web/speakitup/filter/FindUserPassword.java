@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.web.speakitup._00_init.GlobalService;
 
-@WebFilter("/login/login")
+@WebFilter("/member/login")
 public class FindUserPassword implements Filter {
 	String requestURI;
 
@@ -35,7 +35,7 @@ public class FindUserPassword implements Filter {
 			String password = "";
 			String rememberMe = "";
 			Cookie[] cookies = req.getCookies(); // 讀取cookie
-			
+
 			if (cookies != null) {
 				for (int i = 0; i < cookies.length; i++) {
 					cookieName = cookies[i].getName();
@@ -44,7 +44,7 @@ public class FindUserPassword implements Filter {
 						memberId = cookies[i].getValue();
 					} else if (cookieName.equals("password")) {
 						String tmp = cookies[i].getValue();
-						
+
 						if (tmp != null) {
 							password = GlobalService.decryptString(GlobalService.KEY, tmp);
 						}

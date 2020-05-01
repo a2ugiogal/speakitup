@@ -23,16 +23,16 @@
 		</span> <span class="option"> <c:choose>
 				<c:when
 					test="${ ! empty LoginOK || LoginOK.checkAuthSuccess == '未驗證' }">
-					<a href="<c:url value='/login/logout' />"> 登出 <i
+					<a href="<spring:url value='/member/logout' />"> 登出 <i
 						class="fas fa-sign-out-alt"></i>
 					</a>
 				</c:when>
 				<c:otherwise>
-					<a href="<spring:url value='/login/login'/>"> 登入 </a>
+					<a href="<spring:url value='/member/login'/>"> 登入 </a>
 				</c:otherwise>
 			</c:choose>
 		</span> <span class="option"> <a
-			href="<c:url value='/personPage/personPage' />">個人頁面</a>
+			href="<spring:url value='/member/personPage' />">個人頁面</a>
 		</span><span class="option"> <a
 			href="<c:url value='/article/showFamousArticles' />">熱門文章</a>
 		</span><span class="option"> <a

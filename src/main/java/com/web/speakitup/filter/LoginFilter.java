@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 
 import com.web.speakitup.model.MemberBean;
 
+<<<<<<< HEAD
 @WebFilter(urlPatterns = { "/*" }, initParams = 
 	  { @WebInitParam(name = "url_1", value = "/login"),
 		@WebInitParam(name = "url_2", value = "/personPage/showMyArticles"),
@@ -28,6 +29,15 @@ import com.web.speakitup.model.MemberBean;
 		@WebInitParam(name = "url_6", value = "/article/addComment/*"),
 		@WebInitParam(name = "url_7", value = "/article/addArticle"),
 		@WebInitParam(name = "url_8", value = "/article/showReports")})
+=======
+@WebFilter(urlPatterns = { "/*" }, initParams = { @WebInitParam(name = "url_1", value = "/login"),
+		@WebInitParam(name = "url_2", value = "/member/showMyArticles"),
+		@WebInitParam(name = "url_3", value = "/member/personPage"), @WebInitParam(name = "url_4", value = "/order/*"),
+		@WebInitParam(name = "url_5", value = "/article/likeArticle/*"),
+		@WebInitParam(name = "url_6", value = "/article/addComment/*"),
+		@WebInitParam(name = "url_7", value = "/article/addArticle") })
+//		@WebInitParam(name = "url_6", value = "/article/Report/*")})
+>>>>>>> 6f9455b9661f5f430518e443d3b5d0cae2d19b81
 //		@WebInitParam(name = "url_7", value = "/_07_letter/letterInfo.jsp"),
 //		@WebInitParam(name = "url_8", value = "/_07_letter/*")})
 public class LoginFilter implements Filter {
@@ -62,7 +72,7 @@ public class LoginFilter implements Filter {
 				} else {
 					HttpSession session = req.getSession();
 					session.setAttribute("target", servletPath);
-					resp.sendRedirect(contextPath + "/login/login");
+					resp.sendRedirect(contextPath + "/member/login");
 					return;
 				}
 			} else { // 如果不用登入 就直接交棒給要執行的程式
