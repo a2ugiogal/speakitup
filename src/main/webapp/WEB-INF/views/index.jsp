@@ -48,7 +48,7 @@
 		</span> <span class="option"> <a
 			href="<c:url value='/letter/letterInfo' />">漂流信</a>
 		</span> <span class="option"> <a
-			href="<c:url value='/manager/showReports' />">管理員_檢舉專區</a>
+			href="<spring:url value='/article/showReports' />">管理員_檢舉專區</a>
 		</span> <span class="option"> <a
 			href="<spring:url value='/member/showMembers' />">管理員_帳號管理</a>
 		</span> <span class="option"> <a
