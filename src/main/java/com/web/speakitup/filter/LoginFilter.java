@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 
 import com.web.speakitup.model.MemberBean;
 
+<<<<<<< HEAD
 @WebFilter(urlPatterns = { "/*" }, initParams = 
 	  { @WebInitParam(name = "url_1", value = "/login"),
 		@WebInitParam(name = "url_2", value = "/personPage/showMyArticles"),
@@ -28,6 +29,16 @@ import com.web.speakitup.model.MemberBean;
 		@WebInitParam(name = "url_6", value = "/article/addComment/*"),
 		@WebInitParam(name = "url_7", value = "/article/addArticle"),
 		@WebInitParam(name = "url_8", value = "/article/showReports")})
+=======
+@WebFilter(urlPatterns = { "/*" }, initParams = { @WebInitParam(name = "url_1", value = "/login"),
+		@WebInitParam(name = "url_2", value = "/member/showMyArticles"),
+		@WebInitParam(name = "url_3", value = "/member/personPage"), @WebInitParam(name = "url_4", value = "/order/*"),
+		@WebInitParam(name = "url_5", value = "/article/likeArticle/*"),
+		@WebInitParam(name = "url_6", value = "/article/addComment/*"),
+		@WebInitParam(name = "url_7", value = "/article/addArticle"),
+		@WebInitParam(name = "url_8", value = "/article/showReports") })
+//		@WebInitParam(name = "url_6", value = "/article/Report/*")})
+>>>>>>> 1d9f84f3de3693457598dffd183e01bee1b44422
 //		@WebInitParam(name = "url_7", value = "/_07_letter/letterInfo.jsp"),
 //		@WebInitParam(name = "url_8", value = "/_07_letter/*")})
 public class LoginFilter implements Filter {
