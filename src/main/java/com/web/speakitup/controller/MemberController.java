@@ -39,7 +39,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.web.speakitup._00_init.GlobalService;
 import com.web.speakitup._00_init.SendEmail;
@@ -115,7 +118,7 @@ public class MemberController {
 	/* 存入會員資料 */
 	@PostMapping("/register")
 	public String addMember(@ModelAttribute("memberBean") MemberBean mb, BindingResult bindingResult,
-			HttpServletRequest request, HttpServletResponse response) {
+			HttpServletRequest request, HttpServletResponse response,RedirectAttributes rad) {
 
 		new RegisterValidator(memberService).validate(mb, bindingResult);
 
@@ -178,12 +181,11 @@ public class MemberController {
 			subject = "歡迎你加入要抒啦的會員";
 			content.setLength(0);
 			content.append(
-					"<p>" + "請點選以下連結" + "</p>" + "<br>" + GlobalService.DOMAIN_PATTERN + "/member/register/emailVerify"
-							+ "?" + "emailCode=" + authToken + "<br>" + "<p>" + "進入連結後即認證成功，可以去抒發一下了!" + "</p>");
+					"<p>" + "請點選以下連結" + "</p>" + "<br>" + "<a href='" + GlobalService.DOMAIN_PATTERN + "/member/register/emailVerify"
+							+ "/"  + authToken  +  "'>請點我</a>"+  "<br>" + "<p>" + "進入連結後即認證成功，可以去抒發一下了!" + "</p>");
 
 			Thread sendEmail = new SendEmail(memberEmail, subject, content.toString(), "");
 			sendEmail.start();
-
 			return "redirect:../";
 		} else {
 			System.out.println("更新此筆資料有誤(RegisterServlet)");
@@ -235,25 +237,30 @@ public class MemberController {
 	}
 
 	/* 驗證帳號(信) */
-	@GetMapping("/register/emailVerify")
-	public String emailVerify(HttpServletRequest request, HttpSession session) {
+	@GetMapping("/register/emailVerify/{emailVerifyCode}")
+	public String emailVerify(@PathVariable("emailVerifyCode")String emailVerifyCode, HttpSession session) {
+		
 		StringBuilder content = new StringBuilder();
-		String emailVerifyCode = request.getParameter("emailCode");
-
+		
+		System.out.println("00000");
+		System.out.println("emailVerifyCode" + emailVerifyCode);
 		// 透過service的方法得到與驗證碼相同的MemberBean物件
-		MemberBean mb = null;
-		mb = memberService.getEmailValid(emailVerifyCode);
-
+		MemberBean mb = memberService.getEmailValid(emailVerifyCode);
+		System.out.println("mb" + mb);
 		if (mb != null) {
+			System.out.println("!!!!");
 			if (mb.getStatus().trim().equals("未驗證")) {
 				mb.setStatus("正常");
-				;
+				memberService.updateMember(mb);
+				session.setAttribute("LoginOK", mb);
 			}
-			memberService.updateMember(mb);
-			session.setAttribute("LoginOK", mb);
-		} else {
+		
+		} 
+		else {
 			content.append("<li>" + "資料發生異常，請再試一次" + "</li>");
+			return "/";
 		}
+		
 		return "redirect:/";
 	}
 
@@ -338,12 +345,65 @@ public class MemberController {
 		return "login/logout";
 	}
 	
-	/* 前往登出 */
-	@GetMapping("/findPassword")
-	public String findPassword() {
-		return "login/logout";
+	/* 忘記密碼的寄信 */
+	@PostMapping("/findPassword")
+	public String findPassword(HttpServletRequest request) {
+		String memberEmailStr = request.getParameter("email");
+		System.out.println(memberEmailStr);
+		
+		if(memberService.emailExists(memberEmailStr) == true) {
+			
+				String[] memberEmail = {memberEmailStr};
+				String authToken = GlobalService.getMD5Endocing(GlobalService.encryptString(memberEmailStr));
+				String subject = null;
+				StringBuilder content = new StringBuilder();
+				subject = "請點選連結修改密碼";
+				content.setLength(0);
+				content.append("<p>" + "請點選以下連結修改密碼" + "</p>" + "<br>" + "<a href='" + 
+				GlobalService.DOMAIN_PATTERN +"/member"+"/changepswd" + "/" + authToken + "'>點我</a>" + "<br>"
+				+"<p>" + "下次不要再弄丟密碼了啦" + "</p>");
+				Thread sendEmail = new SendEmail(memberEmail, subject,content.toString(),"");
+				System.out.println(memberEmail[0]);
+				sendEmail.start();
+				}else {
+					System.out.println("假裝有寄啦，但其實沒寄");
+				}
+		
+		return "redirect:/";
 	}
-
+	
+	@GetMapping("/changepswd/{emailVerifyCode}")
+	public String changepswd(@PathVariable("emailVerifyCode")String emailVerifyCode,HttpSession session) {
+		MemberBean mb = null;
+		System.out.println("驗證碼為" + emailVerifyCode);
+		//透過service的方法得到與驗證碼相同的MemberBean物件
+		mb =  memberService.getEmailValid(emailVerifyCode);
+		session.setAttribute("mb",mb);
+		
+		return "login/enterNewPassword";
+	}
+	
+	@PostMapping("/changepswd")
+	public String enterNewPassword(HttpSession session,HttpServletRequest request) {
+		
+		MemberBean mb = (MemberBean) session.getAttribute("mb");
+		String memberId = mb.getMemberId();
+		String password = request.getParameter("password");
+		String passwordNew = GlobalService.getMD5Endocing(GlobalService.encryptString(password));
+		
+		int n = memberService.updateMemberPassword(memberId, passwordNew);
+		System.out.println(n);
+		if(n == 1) {
+			System.out.println("修改成功");
+			
+		}else {
+			System.out.println("修改失敗");
+			return "redirect:/";
+		}
+		
+		return "redirect:/login/login";
+	}
+	
 	// ==================非管理員(個人頁面)===================
 
 	/* 給會員的舊表單，前往個人頁面 */

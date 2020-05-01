@@ -13,16 +13,15 @@
 	integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
 	crossorigin="anonymous"></script>
 </head>
-
 <body>
-
+	
 	<div class="top">
 		<div class="logo"></div>
 		<span class="option"> <a
 			href="<spring:url value='/member/register' />">註冊</a>
 		</span> <span class="option"> <c:choose>
 				<c:when
-					test="${ ! empty LoginOK || LoginOK.checkAuthSuccess == '未驗證' }">
+					test="${ ! empty LoginOK}">
 					<a href="<spring:url value='/member/logout' />"> 登出 <i
 						class="fas fa-sign-out-alt"></i>
 					</a>

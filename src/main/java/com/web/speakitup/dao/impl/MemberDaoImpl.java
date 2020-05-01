@@ -98,12 +98,12 @@ public class MemberDaoImpl implements MemberDao {
 		int n = 0;
 		Session session = factory.getCurrentSession();
 		String hql0 = "UPDATE MemberBean m SET m.email = :email, m.phone = :phone, m.city = :city, "
-				+ "m.area = :area, m.address = :address, m.fileName = :fileName, "
+				+ "m.area = :area, m.address = :address, m.fileName = :fileName,m.status = :status, "
 				+ "m.picture = :picture ,m.lastSendDate = :sendDate,"
 				+ "m.lastReplyDate = :replyDate  WHERE m.id = :id";
 		session.createQuery(hql0).setParameter("email", mb.getEmail()).setParameter("phone", mb.getPhone())
 				.setParameter("city", mb.getCity()).setParameter("area", mb.getArea())
-				.setParameter("address", mb.getAddress()).setParameter("fileName", mb.getFileName())
+				.setParameter("address", mb.getAddress()).setParameter("fileName", mb.getFileName()).setParameter("status", mb.getStatus())
 				.setParameter("picture", mb.getPicture()).setParameter("id", mb.getId())
 				.setParameter("sendDate", mb.getLastSendDate()).setParameter("replyDate", mb.getLastReplyDate())
 				.executeUpdate();
@@ -134,7 +134,6 @@ public class MemberDaoImpl implements MemberDao {
 		List<MemberBean> beans = null;
 		String hql = "FROM MemberBean m WHERE m.authToken = :emailCode";
 		Session session = factory.getCurrentSession();
-
 		beans = session.createQuery(hql).setParameter("emailCode", emailCode).getResultList();
 		if (beans.size() > 0) {
 			mb = beans.get(0);

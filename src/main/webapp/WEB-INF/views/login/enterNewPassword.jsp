@@ -1,23 +1,25 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-	crossorigin="anonymous">
 <link
 	href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css'
 	rel='stylesheet'>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+	integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+	crossorigin="anonymous"></script>
 <!-- my css -->
-<link rel="stylesheet" href="<spring:url value='/css/style.css' /> " />
-<script src="<spring:url value='/js/login/enterEmail.js'  /> "></script>
-<title>Forget Password</title>
+<link rel="stylesheet"
+	href="<spring:url value='/css/style.css' /> " />
+<script src="<spring:url value='/js/login/enterNewPswd.js' /> "></script>
+<title>Reset Password</title>
 </head>
 <body>
 	<!-- ==============Header =================-->
@@ -25,7 +27,10 @@
 		<nav class="navbar navbar-expand-lg navbar-light bg-danger fixed-top">
 			<!-- logo和標題 -->
 			<nav class="navbar navbar-light bg-danger">
-				<a class="navbar-brand text-white" href="#"> <!--                   <img src="https://github.com/sun0722a/yaoshula/blob/master/src/logo/logo_trans_250px.png?raw=true" width="50" height="50" class="d-inline-block align-top" alt=""> -->
+				<a class="navbar-brand text-white" href="#">
+<!-- 				 <img -->
+<!-- 					src="https://github.com/sun0722a/yaoshula/blob/master/src/logo/logo_trans_250px.png?raw=true" -->
+<!-- 					width="50" height="50" class="d-inline-block align-top" alt=""> -->
 					要抒啦！
 				</a>
 			</nav>
@@ -86,35 +91,43 @@
 
 				<div class="card o-hidden border-0 shadow-lg my-5 ">
 					<div class="card-body p-0">
+						<!-- Nested Row within Card Body -->
 						<div class="row">
-							<!-- 左側圖片 -->
 							<div class="col-lg-6 d-none d-lg-block bg-password-image"></div>
 							<div class="col-lg-6">
 								<div class="p-5">
 									<div class="text-center">
-										<h1 class="h4 text-gray-900 mb-2">唉呀!忘記密碼了</h1>
-										<p class="mb-4">幫您找找，我們將寄發一封驗證信</p>
+										<h1 class="h4 text-gray-900 mb-2">歡迎回來！要抒啦！</h1>
+										<p class="mb-4">請重新設定您的密碼</p>
 									</div>
-									<form class="user" action="<spring:url value='/member/findPassword' />"
+									<form class="user" action="<spring:url value='/member/changepswd'  />"
 										method="POST">
 										<div class="form-group">
-											<input type="email" name="email"
-												class="form-control form-control-user" id="emailInput"
-												placeholder="請輸入您註冊時的email">
+											<input type="password" name="password"
+												class="form-control form-control-user" id="enterPassword"
+												placeholder="輸入新密碼(8~15字元)" maxlength="15" minlength="8">
 										</div>
-										<div id="emailError" style="display: none;"
-											class="errorText mb-3 ml-3">Email格式不符</div>
-										<input type="submit"
-											class="btn btn-primary btn-user btn-block" role="button"
-											id="submitbtn" disabled>
+									
+											<div class="checkPswd input-group mb-3">
+												<input type="password" name="checkPassword"
+													class="form-control form-control-user checked"
+													id="checkPassword" placeholder="再輸入一次">
+												<div class="input-group-append">
+													
+													<button class="btn btn-outline-primary" type="button"
+														id="button-addon">
+														<i class='bx bxs-lock-open'></i>
+													</button>
+												</div>
+												
+											</div>
+											<div  id="passwordError" style="display: none;"
+														class="errorText">密碼不相符</div>
+											<button type="submit" id="checkbtn"
+												class="btn btn-primary btn-user btn-block" disabled>確認</button>
 									</form>
 									<hr>
-									<div class="text-center">
-										<a class="small" href="<spring:url value='/member/register' />">還沒有帳號?立即註冊</a>
-									</div>
-									<div class="text-center">
-										<a class="small" href="<spring:url value='/member/login' />">想起來了？馬上登入</a>
-									</div>
+
 								</div>
 							</div>
 						</div>
@@ -126,6 +139,7 @@
 		</div>
 
 	</div>
+
 	<!--========= footer================= -->
 	<!-- Footer -->
 	<footer class="page-footer font-small stylish-color-dark pt-5">
@@ -225,5 +239,25 @@
 		crossorigin="anonymous"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.compatibility.min.js"></script>
-	<!--         <script src="template_main.js"></script> -->
+
+	<script>
+		$(document).ready(function() {
+			
+			
+			
+			$('#button-addon').mousedown(function() {
+				let changeType = $('.checked').attr('type')
+				
+					$('.checked').attr('type', 'text')
+				
+			})
+			
+			$('body').mouseup(function() {
+				let changeType = $('.checked').attr('type')
+
+					$('.checked').attr('type', 'password')
+
+			})
+		});
+	</script>
 </html>

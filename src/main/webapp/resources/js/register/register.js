@@ -10,8 +10,6 @@ function doFirst() {
   userNameText = document.getElementById("userNameText");
   emailText = document.getElementById("emailText");
   userName = document.getElementById("userName");
-  email = document.getElementById("email");
-  btSubmit = document.getElementById("btSubmit");
   
   // 在更動畫面裡，選擇照片後改變上面顯示的照片
   fileSelect.addEventListener("change", function() {
@@ -29,7 +27,6 @@ function doFirst() {
   btEmail.addEventListener("click", check);
   password.addEventListener("blur", checkPW);
   passwordCheck.addEventListener("blur", checkPassword);
-//  btSubmit.addEventListener('click',registerOK);
   
 
 }
@@ -80,7 +77,6 @@ function check() {
     emailText.innerHTML = xhr.responseText;
   }
 }
-
 
 
 window.addEventListener("load", doFirst);
