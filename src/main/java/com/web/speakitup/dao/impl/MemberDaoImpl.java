@@ -97,16 +97,23 @@ public class MemberDaoImpl implements MemberDao {
 	public int updateMember(MemberBean mb) {
 		int n = 0;
 		Session session = factory.getCurrentSession();
-		String hql0 = "UPDATE MemberBean m SET m.email = :email, m.phone = :phone, m.city = :city, "
-				+ "m.area = :area, m.address = :address, m.fileName = :fileName,m.status = :status, "
-				+ "m.picture = :picture ,m.lastSendDate = :sendDate,"
-				+ "m.lastReplyDate = :replyDate  WHERE m.id = :id";
-		session.createQuery(hql0).setParameter("email", mb.getEmail()).setParameter("phone", mb.getPhone())
-				.setParameter("city", mb.getCity()).setParameter("area", mb.getArea())
-				.setParameter("address", mb.getAddress()).setParameter("fileName", mb.getFileName()).setParameter("status", mb.getStatus())
-				.setParameter("picture", mb.getPicture()).setParameter("id", mb.getId())
-				.setParameter("sendDate", mb.getLastSendDate()).setParameter("replyDate", mb.getLastReplyDate())
-				.executeUpdate();
+		if (mb.getPicture() == null) {
+			String hql = "UPDATE MemberBean m SET m.phone = :phone, m.city = :city, "
+					+ "m.area = :area, m.address = :address, m.fileName = :fileName,m.status = :status, "
+					+ "WHERE m.id = :id";
+			session.createQuery(hql).setParameter("phone", mb.getPhone()).setParameter("city", mb.getCity())
+					.setParameter("area", mb.getArea()).setParameter("address", mb.getAddress())
+					.setParameter("fileName", mb.getFileName()).setParameter("status", mb.getStatus())
+					.setParameter("id", mb.getId()).executeUpdate();
+		} else {
+			String hql = "UPDATE MemberBean m SET  m.phone = :phone, m.city = :city, "
+					+ "m.area = :area, m.address = :address, m.fileName = :fileName,m.status = :status, "
+					+ "m.picture = :picture WHERE m.id = :id";
+			session.createQuery(hql).setParameter("phone", mb.getPhone()).setParameter("city", mb.getCity())
+					.setParameter("area", mb.getArea()).setParameter("address", mb.getAddress())
+					.setParameter("fileName", mb.getFileName()).setParameter("status", mb.getStatus())
+					.setParameter("picture", mb.getPicture()).setParameter("id", mb.getId()).executeUpdate();
+		}
 		n++;
 		return n;
 	}
@@ -175,6 +182,15 @@ public class MemberDaoImpl implements MemberDao {
 		MemberBean mb = null;
 		mb = session.get(MemberBean.class, id);
 		return mb;
+
+	}
+
+	@Override
+	public void updateLetterOftheDay(String memberId, int letterId) {
+		Session session = factory.getCurrentSession();
+		String hql = "UPDATE MemberBean m SET m.letterOftheDay = :letterIdOftheDay WHERE m.memberId = :memberId";
+		session.createQuery(hql).setParameter("letterIdOftheDay", letterId).setParameter("memberId", memberId)
+				.executeUpdate();
 
 	}
 

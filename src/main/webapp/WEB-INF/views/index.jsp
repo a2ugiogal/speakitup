@@ -45,7 +45,7 @@
 		</span> <span class="option"> <a
 			href="<c:url value='/order/showHistoryOrder' />">歷史訂單</a>
 		</span> <span class="option"> <a
-			href="<c:url value='/letter/letterInfo' />">漂流信</a>
+			href="<c:url value='/letter/letterHome' />">漂流信</a>
 		</span> <span class="option"> <a
 			href="<spring:url value='/article/showReports' />">管理員_檢舉專區</a>
 		</span> <span class="option"> <a

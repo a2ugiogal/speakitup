@@ -24,13 +24,13 @@ import com.web.speakitup.model.ReportCommentBean;
 /* 查詢熱門文章: 是否要有 天使-時事 、熱門文章個數*/
 
 @Repository
-public class ArticleDaoImpl_Hibernate implements ArticleDao {
+public class ArticleDaoImpl implements ArticleDao {
 
 	private int recordsPerFamous = GlobalService.RECORDS_PER_FAMOUS;
 	@Autowired
 	SessionFactory factory;
 
-	public ArticleDaoImpl_Hibernate() {
+	public ArticleDaoImpl() {
 	}
 
 	// 新增文章資料

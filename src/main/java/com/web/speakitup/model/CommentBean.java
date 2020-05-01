@@ -1,6 +1,6 @@
 package com.web.speakitup.model;
 
-import java.io.Serializable;
+
 import java.sql.Timestamp;
 
 import javax.persistence.CascadeType;
@@ -14,8 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Comments")
-public class CommentBean implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class CommentBean {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer commentId;

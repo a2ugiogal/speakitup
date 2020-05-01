@@ -23,6 +23,12 @@ h4{
     box-sizing: border-box;
     margin : 0 auto;
     height: 200px;
+    background:transparent;
+    outline:none;
+    border:none;
+    border-bottom:1px solid #3D5E8D;
+    letter-spacing:1px;
+    resize:none;
 }
 
 
@@ -53,3 +59,12 @@ h4{
 	background: #FCF7F8;
 	opacity : 0.8;
 }
+
+#titleInput
+{
+	background:transparent;
+	border:none;
+	outline:none;
+	border-bottom:1px solid #3D5E8D;
+}
+

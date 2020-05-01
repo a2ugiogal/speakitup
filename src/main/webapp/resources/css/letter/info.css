@@ -50,7 +50,7 @@ ul{
 
 .btnGroup{
     display: flex;
-
+	flex-direction:column;
 }
 
 
@@ -69,6 +69,7 @@ ul{
     font-family: 'Noto Sans TC', sans-serif;
     background-size: 200%;
     transition: .5s;
+    color: #fff;
 }
 
 .btnError{
@@ -82,16 +83,17 @@ ul{
 	background :#ccc;
 	opacity:0.5;
 	cursor:pointer;
+	color: #fff;
 }
 
 /*三個按鈕的裡的文字*/
-.btn a{
+a{
     text-decoration: none;
-    color: #fff;
 }
 
 .btn:hover{
     background-position: right;
+    color: #fff;
 }
 
 

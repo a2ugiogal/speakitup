@@ -20,7 +20,7 @@ import com.web.speakitup.model.OrderItemBean;
 import com.web.speakitup.model.ProductBean;
 
 @Repository
-public class ProductDaoImpl_Hibernate implements ProductDao {
+public class ProductDaoImpl implements ProductDao {
 
 	// 預設值：每頁6筆
 	private int recordsPerPage = GlobalService.RECORDS_PER_PAGE;
@@ -29,7 +29,7 @@ public class ProductDaoImpl_Hibernate implements ProductDao {
 	@Autowired
 	SessionFactory factory;
 
-	public ProductDaoImpl_Hibernate() {
+	public ProductDaoImpl() {
 	}
 
 	// 新增文章資料

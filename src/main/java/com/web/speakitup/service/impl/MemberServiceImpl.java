@@ -105,5 +105,11 @@ public class MemberServiceImpl implements MemberService {
 		dao.updateMemberNoBlob(mb);
 		
 	}
+	
+	@Override
+	public void updateLetterOftheDay(String memberId, int letterId) {
+		dao.updateLetterOftheDay(memberId, letterId);
+	}
+
 
 }

@@ -1,7 +1,10 @@
-/* .Mainimg{
-    justify-content: center;
-    align-items: center;
-} */
+*{
+	margin :0;
+	padding:0;
+	box-sizing: border-box;
+}
+
+
 body{
     background: #3A405A;
 }
@@ -20,8 +23,21 @@ h4{
     box-sizing: border-box;
     height: 200px;
     margin : 0 auto;
+    outline:none;
+    border:none;
+    border-bottom:1px solid #3D5E8D;
+    letter-spacing:1px;
+    resize:none;
 }
 
 #cardBody{
     border-radius: 20px 20px 20px 20px;
+}
+
+#titleInput2
+{
+	background:transparent;
+	border:none;
+	outline:none;
+	border-bottom:1px solid #3D5E8D;
 }

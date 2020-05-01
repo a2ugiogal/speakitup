@@ -1,6 +1,6 @@
 package com.web.speakitup.model;
 
-import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,8 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "ProductFormat")
-public class ProductFormatBean implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class ProductFormatBean{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer productFormatId;

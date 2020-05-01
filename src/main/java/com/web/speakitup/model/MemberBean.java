@@ -1,6 +1,5 @@
 package com.web.speakitup.model;
 
-import java.io.Serializable;
 import java.sql.Blob;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -18,8 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Entity
 @Table(name = "Members")
 @Component
-public class MemberBean implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class MemberBean {
 	@Id
 	@GeneratedValue(generator = "increment")
 	@GenericGenerator(name = "increment", strategy = "native")
@@ -42,13 +40,14 @@ public class MemberBean implements Serializable {
 	private String authToken;
 	private String lastSendDate;
 	private String lastReplyDate;
+	private Integer letterOftheDay;
 	@Transient
 	private MultipartFile memberImage;
 
 	public MemberBean(Integer id, String memberId, String password, String gender, Date birthday, String email,
 			String phone, String city, String area, String address, String fileName, Blob picture, Timestamp createTime,
 			String status, String permission, String likeArticles, String authToken, String lastSendDate,
-			String lastReplyDate) {
+			String lastReplyDate,Integer letterOftheDay) {
 		super();
 		this.id = id;
 		this.memberId = memberId;
@@ -69,6 +68,7 @@ public class MemberBean implements Serializable {
 		this.authToken = authToken;
 		this.lastSendDate = lastSendDate;
 		this.lastReplyDate = lastReplyDate;
+		this.letterOftheDay = letterOftheDay;
 	}
 	
 	
@@ -259,6 +259,18 @@ public class MemberBean implements Serializable {
 
 	public void setMemberImage(MultipartFile memberImage) {
 		this.memberImage = memberImage;
+	}
+
+
+
+	public Integer getLetterOftheDay() {
+		return letterOftheDay;
+	}
+
+
+
+	public void setLetterOftheDay(Integer letterOftheDay) {
+		this.letterOftheDay = letterOftheDay;
 	}
 
 }

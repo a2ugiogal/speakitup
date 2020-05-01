@@ -1,6 +1,6 @@
 ﻿package com.web.speakitup.model;
 
-import java.io.Serializable;
+
 import java.sql.Blob;
 import java.sql.Clob;
 import java.sql.Timestamp;
@@ -24,8 +24,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "Articles")
-public class ArticleBean implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class ArticleBean{
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer articleId;

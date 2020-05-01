@@ -1,0 +1,166 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans TC', sans-serif;
+}
+
+ body
+{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: aliceblue;
+}
+
+ .container
+{
+    position: relative;
+    max-width: 1200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.container .card
+{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 100px 0;
+}
+
+
+/*左邊的卡片*/
+.container .card .contentBox{
+    position: relative;
+    width: 600px;
+    height: 400px;
+     box-sizing: border-box;
+     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+     z-index:-1;
+}
+
+/*左邊卡片的內容*/
+.container .card .contentBox .content
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 0.9rem;
+    object-fit: cover; 
+    background: rgb(247, 242, 224);
+    z-index: 1;
+    padding: 20px 60px 100px 60px;
+    opacity: 0.7;
+    box-sizing: border-box;
+}
+
+
+.container .card .content p
+{
+    margin-top: 10px;
+    color: black;
+     
+}
+
+.container .card .content h4{
+    color: black;
+    font-size: 30px;
+}
+
+
+
+.container .card .replyContentBox
+{
+    position: relative;
+    width: 600px;
+    height: 400px;
+    background: #E4DEE4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+
+    
+}
+
+.container .card .replyContentBox h2
+{
+    font-size: 30px;
+    color: black;
+}
+
+.container .card .replyContentBox p
+{
+    margin-top: 10px;
+    color: black;
+     
+}
+
+.container .card .replyContentBox a
+{
+    display: inline-block;
+    margin-top: 15px;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    border: 1px solid blue;
+}
+
+.container .card .replyContent::before{
+    content: '';
+    position: absolute;
+    top: -50px;
+    bottom: -50px;
+    left: 0;
+    right: 0;
+    background: #E4DEE4;
+    z-index: -1;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+}  
+
+textarea{
+    outline: none;
+    background: none;
+    border: none;
+    resize: none;
+    border-bottom: 1px solid black;
+}
+
+@media (max-width: 1000px)
+{
+    .container .card
+    {
+        flex-direction: column;
+    }
+
+    .container .card .contentBox{
+        width: 450px;
+        height: 500px;
+        left: 0;
+        font-size: 0.8rem;
+
+    }
+
+    .container .card .replyContentBox
+    {
+        width: 450px;
+        height: auto;
+        right: 0;
+        padding: 30px;
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    
+}
+

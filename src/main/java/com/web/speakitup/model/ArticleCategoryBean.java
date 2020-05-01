@@ -1,6 +1,6 @@
 package com.web.speakitup.model;
 
-import java.io.Serializable;
+
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -14,8 +14,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "ArticleCategory")
-public class ArticleCategoryBean implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class ArticleCategoryBean {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer categoryId;
