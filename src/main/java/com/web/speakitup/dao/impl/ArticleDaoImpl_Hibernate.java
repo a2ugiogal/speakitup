@@ -37,7 +37,7 @@ public class ArticleDaoImpl_Hibernate implements ArticleDao {
 	@Override
 	public void insertArticle(ArticleBean ab) {
 		Session session = factory.getCurrentSession();
-		session.save(ab);
+		session.saveOrUpdate(ab);
 	}
 
 	// 新增留言資料

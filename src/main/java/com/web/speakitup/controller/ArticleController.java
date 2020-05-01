@@ -5,8 +5,14 @@ import java.sql.Blob;
 import java.sql.Clob;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.servlet.ServletContext;
@@ -28,8 +34,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -270,6 +274,121 @@ public class ArticleController {
 		model.addAttribute("evil_articles_map", evilArticleMap);
 		
 		return "article/articleFamous";
+	}
+
+	// ==================管理員===================================================
+	
+	@GetMapping("/showReports")
+	public String showReports(HttpServletRequest request,Model model) {
+		
+		String searchStr = request.getParameter("searchStr") == null ? "" : request.getParameter("searchStr");
+		String cmd = request.getParameter("cmd") == null ? "article" : request.getParameter("cmd");
+
+		if (cmd.equals("article")) {
+			Map<ArticleBean, Integer> articles = articleService.getReportArticles(searchStr);
+			// 照value值排序
+			Map<ArticleBean, Integer> articlesNum = new LinkedHashMap<>();
+			List<Entry<ArticleBean, Integer>> list = new ArrayList<Map.Entry<ArticleBean, Integer>>(
+					articles.entrySet());
+			Collections.sort(list, new Comparator<Map.Entry<ArticleBean, Integer>>() {
+				public int compare(Map.Entry<ArticleBean, Integer> o1, Map.Entry<ArticleBean, Integer> o2) {
+					return (o2.getValue() - o1.getValue());
+				}
+			});
+			for (Map.Entry<ArticleBean, Integer> t : list) {
+				articlesNum.put(t.getKey(), t.getValue());
+			}
+			model.addAttribute("article_map", articlesNum);
+
+		} else if (cmd.equals("comment")) {
+			Map<CommentBean, Integer> comments = articleService.getReportComments(searchStr);
+			// 照value值排序
+			Map<CommentBean, Integer> commentsNum = new LinkedHashMap<>();
+			List<Entry<CommentBean, Integer>> list = new ArrayList<Map.Entry<CommentBean, Integer>>(
+					comments.entrySet());
+			Collections.sort(list, new Comparator<Map.Entry<CommentBean, Integer>>() {
+				public int compare(Map.Entry<CommentBean, Integer> o1, Map.Entry<CommentBean, Integer> o2) {
+					return (o2.getValue() - o1.getValue());
+				}
+			});
+			for (Map.Entry<CommentBean, Integer> t : list) {
+				commentsNum.put(t.getKey(), t.getValue());
+			}
+			model.addAttribute("comment_map", commentsNum);
+		}
+		model.addAttribute("searchStr", searchStr);
+		model.addAttribute("cmd", cmd);
+		
+		return "manager/report/allReports";
+	}
+	
+	
+	//看檢舉的詳細內容
+	@GetMapping("showReportInfo/{cmd}/{id}")
+	public String showReportInfo(@PathVariable("cmd")String cmd,@PathVariable("id")int id, HttpServletRequest request,Model model) throws IOException {
+		
+		String[] reportItems = GlobalService.REPORT_ITEM;
+
+		// ("item0", 5)
+		for (Integer i = 0; i < reportItems.length; i++) {
+			int count = articleService.getReportItemCount(cmd, id, reportItems[i]);
+			request.setAttribute("item" + i, count);
+		}
+		if (cmd.equals("article")) {
+			ArticleBean ab = articleService.getArticle(id);
+			String content = "";
+			Clob clob = null;
+			if (ab != null) {
+				try {
+					clob = ab.getContent();
+					if (clob != null) {
+						content = GlobalService.clobToString(clob);
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+
+			model.addAttribute("article", ab);
+			model.addAttribute("content", content);
+		} else if (cmd.equals("comment")) {
+			CommentBean cb = articleService.getComment(id);
+			model.addAttribute("comment", cb);
+		}
+		model.addAttribute("cmd", cmd);
+		model.addAttribute("id", id);
+		return "manager/report/reportInfo";
+	}
+	
+	//刪除檢舉的文章或留言
+	@GetMapping("deleteArticle/{cmd}/{id}")
+	public String deleteArticle(@PathVariable("cmd")String cmd,@PathVariable("id")int id) {
+		
+		System.out.println("cmd" + cmd);
+		System.out.println("id" + id);		
+		if (cmd.equals("article")) {
+			ArticleBean ab = articleService.getArticle(id);
+			ab.setStatus("刪除");
+			articleService.insertArticle(ab);
+		} else if (cmd.equals("comment")) {
+			CommentBean cb = articleService.getComment(id);
+			cb.setStatus("刪除");
+			articleService.insertComment(cb);
+		}
+		
+		return "forward:/article/showReports";
+	}
+	
+	//保留文章
+	@GetMapping("/reserveArticle/{cmd}/{id}")
+	public String reserveArticle(@PathVariable("cmd")String cmd,@PathVariable("id")int id) {
+		
+		if (cmd.equals("article")) {
+			articleService.deleteReportArticle(id);
+		} else if (cmd.equals("comment")) {
+			articleService.deleteReportComment(id);
+		}
+		return "forward:/article/showReports";
 	}
 	
 	
