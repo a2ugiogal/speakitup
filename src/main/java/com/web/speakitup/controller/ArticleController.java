@@ -327,16 +327,15 @@ public class ArticleController {
 	//看檢舉的詳細內容
 		@GetMapping("/showReportInfo/{id}/{cmd}")
 		public String showReportInfo(@PathVariable("cmd")String cmd,@PathVariable("id")int id, HttpServletRequest request,Model model) throws IOException {
-			
 			String[] reportItems = GlobalService.REPORT_ITEM;
-//			String cmd = request.getParameter("cmd");
+			System.out.println("cmd:　" + cmd);
 			if(cmd !=null) {
 			// ("item0", 5)
 			for (Integer i = 0; i < reportItems.length; i++) {
 				int count = articleService.getReportItemCount(cmd, id, reportItems[i]);
 				request.setAttribute("item" + i, count);
 			}
-			if (cmd.equals("article")) {
+			if (cmd.equals("article")||(cmd.equals("deleteArticle"))) {
 				ArticleBean ab = articleService.getArticle(id);
 				String content = "";
 				Clob clob = null;
@@ -353,7 +352,7 @@ public class ArticleController {
 
 				model.addAttribute("article", ab);
 				model.addAttribute("content", content);
-			} else if (cmd.equals("comment")) {
+			}if (cmd.equals("comment")||cmd.equals("deleteComment")) {
 				CommentBean cb = articleService.getComment(id);
 				model.addAttribute("comment", cb);
 			}
@@ -432,6 +431,7 @@ public class ArticleController {
 		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
 		String mimeType = context.getMimeType(filename);
 		MediaType mediaType = MediaType.valueOf(mimeType);
+		headers.setContentType(mediaType);
 		ResponseEntity<byte[]> responseEntity = new ResponseEntity<byte[]>(media, headers, HttpStatus.OK);
 		return responseEntity;
 	}

@@ -2,7 +2,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    /* background: aliceblue; */
+
 }
 
 body{
@@ -49,20 +49,19 @@ ul{
 }
 
 .btnGroup{
-    display: flex;
-	flex-direction:column;
+    display: grid;
+	grid-template-columns: 1fr 1fr;
 }
 
 
-/*三個按鈕那邊*/
+/*四個按鈕那邊*/
 .btn{
-    width: 40%;
+	text-align: center;
+    width: 200px;
     height: 50px;
     border-radius: 25px;
     font-size: 1.1rem;
-    margin: 1rem 5px;
-    text-align: center;
-    padding-top: 10px;
+    margin: 0.7rem 5px;
     /*讓顏色從左到右*/
     background-image: linear-gradient(to right, #0e2640, #0b2a4b, #1d4570);
     cursor: pointer;
@@ -73,13 +72,12 @@ ul{
 }
 
 .btnError{
-	width: 40%;
+	text-align: center;
+	width: 200px;
     height: 50px;
     border-radius: 25px;
     font-size: 1.1rem;
-    margin: 1rem 5px;
-    text-align: center;
-    padding-top: 10px;
+    margin: auto 5px;
 	background :#ccc;
 	opacity:0.5;
 	cursor:pointer;
@@ -108,6 +106,16 @@ a{
     ul{
         font-size: 1.1rem;
     }
+    
+    .btnGroup{
+    display: grid;
+	grid-template-columns: 1fr 1fr;
+	
+}
+	.btn,.btnError{
+		width:200px;
+	}
+    
 }
 
 
@@ -121,11 +129,9 @@ a{
         font-size: 0.9rem;
     }
     
-    .btn{
-   		 width: 40%;
-    }
-    .btn a {
-    font-size:0.8rem;
+    .btn,.btnError{
+   		 width: 150px;
+   		 font-size:0.8rem;
     }
 }
 
@@ -139,14 +145,15 @@ a{
     }
 
     .intro-container{
+    	align-items:center;
        justify-content: center;
      
     }
 
 
-    .formTop{
-        text-align: center;
-    }
+/*     .formTop{ */
+/*         text-align: center; */
+/*     } */
 
     h1{
         font-size: 2.4rem;
@@ -156,14 +163,19 @@ a{
         font-size: 1rem;
     }
 
-    .btn{
-        width: 40%;
-       	
+    .btn,.btnError{
+        width: 150px;
+       	font-size:1rem;
     }
     
-    .btn a {
-    font-size:1rem;
-    }
+ 	.btnGroup{
+    display: grid;
+/* 	grid-template-columns: 1fr 1fr; */
+	justify-content: center;
+  	align-items: center; 
+ 	
+ 	}
+ 	 
 }
 
 @media screen and (max-width:400px){
@@ -181,4 +193,17 @@ a{
         font-size: 1.2rem;
         margin: 10px;
     }
+    
+    a{
+    	margin:0 auto;
+    }
+    
+    .btnGroup{
+    display: grid;
+	justify-content: center;
+  	align-items: center; 
+	
+}
+
+
 }

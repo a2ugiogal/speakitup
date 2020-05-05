@@ -333,8 +333,7 @@ public class MemberController {
 
 	@GetMapping("/logout")
 	public String custLogout(HttpSession session) {
-		session.removeAttribute("LoginOK");
-		session.removeAttribute("target");
+		session.invalidate();
 		return "redirect:/";
 	}
 
@@ -544,7 +543,7 @@ public class MemberController {
 				articlesNum.put(t.getKey(), t.getValue());
 			}
 			model.addAttribute("article_map", articlesNum);
-			model.addAttribute("cmd",cmd);
+			model.addAttribute("cmd","article");
 		} else if (cmd.equals("deleteComment")) {
 			// 查詢檢舉留言
 			Map<CommentBean, Integer> comments = articleService.getPersonDeleteComment(id);
@@ -561,7 +560,7 @@ public class MemberController {
 				commentsNum.put(t.getKey(), t.getValue());
 			}
 			model.addAttribute("comment_map", commentsNum);
-			model.addAttribute("cmd",cmd);
+			model.addAttribute("cmd","comment");
 		}
 		model.addAttribute("id", id);
 		model.addAttribute("mb", mb);

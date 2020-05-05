@@ -50,7 +50,7 @@
 		<div class="my-4 border border-dark p-4"
 			style="height: 500px; overflow-y: scroll;">
 			<c:choose>
-				<c:when test="${cmd=='article'}">
+				<c:when test="${cmd=='article'|| cmd=='deleteArticle'}">
 					<img
 						src="<spring:url value='/personPage/getUserImage/${article.authorId}' /> "
 						class="rounded-circle border border-dark"
@@ -81,7 +81,7 @@
 						</c:choose>
 					</div>
 				</c:when>
-				<c:otherwise>
+				<c:when test="${cmd == 'comment'|| cmd == 'deleteComment'}">
 					<img
 						src="<spring:url value='/personPage/getUserImage/${comment.authorId}' /> "
 						class="rounded-circle border border-dark"
@@ -94,7 +94,7 @@
 						</div>
 					</div>
 					<div style="clear: both;">${comment.content}</div>
-				</c:otherwise>
+				</c:when>
 			</c:choose>
 
 		</div>
