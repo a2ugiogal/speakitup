@@ -1,5 +1,6 @@
 ﻿package com.web.speakitup.model;
 
+import java.io.Serializable;
 import java.sql.Blob;
 import java.sql.Clob;
 import java.util.LinkedHashSet;
@@ -21,8 +22,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "Products")
-public class ProductBean{
+public class ProductBean implements Serializable{
 
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer productId;

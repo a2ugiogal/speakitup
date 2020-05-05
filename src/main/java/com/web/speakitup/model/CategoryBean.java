@@ -1,5 +1,6 @@
 package com.web.speakitup.model;
 
+import java.io.Serializable;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -14,7 +15,9 @@ import javax.persistence.Table;
 // 本類別封裝單筆書籍資料
 @Entity
 @Table(name = "ProductCategory")
-public class CategoryBean {
+public class CategoryBean implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer categoryId;

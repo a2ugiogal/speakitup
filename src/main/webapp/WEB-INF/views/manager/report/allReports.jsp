@@ -56,9 +56,9 @@
 				<div
 					class="col-2 d-flex justify-content-center align-items-center my-2">
 					<c:choose>
-						<c:when test="${cmd=='article'}">標題</c:when>
-						<c:otherwise>留言</c:otherwise>
-					</c:choose>編號
+						<c:when test="${cmd=='article'}">標題編號</c:when>
+						<c:otherwise>留言編號</c:otherwise>
+					</c:choose>
 				</div>
 				<div
 					class="col-3 d-flex justify-content-center align-items-center my-2">帳號</div>
@@ -67,8 +67,8 @@
 				<div
 					class="col-3 d-flex justify-content-center align-items-center my-2">
 					<c:choose>
-						<c:when test="${cmd=='article'}">標題</c:when>
-						<c:otherwise>留言</c:otherwise>
+						<c:when test="${cmd=='article'}">標題編號</c:when>
+						<c:otherwise>留言編號</c:otherwise>
 					</c:choose>
 				</div>
 				<div
@@ -92,7 +92,7 @@
 					</c:otherwise>
 				</c:choose>
 				<a
-					href="<spring:url value='/article/showReportInfo/${cmd}/${cmdId}'/>"
+					href="<spring:url value='/article/showReportInfo/${cmdId}/${cmd}'/>"
 					style="text-decoration: none; color: black;">
 					<div class="row">
 						<div

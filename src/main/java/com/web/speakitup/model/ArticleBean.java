@@ -1,6 +1,7 @@
 ﻿package com.web.speakitup.model;
 
 
+import java.io.Serializable;
 import java.sql.Blob;
 import java.sql.Clob;
 import java.sql.Timestamp;
@@ -24,8 +25,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "Articles")
-public class ArticleBean{
+public class ArticleBean implements Serializable{
 
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer articleId;
@@ -166,6 +168,7 @@ public class ArticleBean{
 		this.articleImage = articleImage;
 	}
 
+
 	public Set<CommentBean> getArticleComments() {
 		return articleComments;
 	}
@@ -174,4 +177,5 @@ public class ArticleBean{
 		this.articleComments = articleComments;
 	}
 
+	
 }

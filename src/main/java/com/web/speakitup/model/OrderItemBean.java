@@ -1,5 +1,7 @@
 package com.web.speakitup.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,7 +12,11 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "OrderItems")
-public class OrderItemBean {
+public class OrderItemBean implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer seqno;

@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>要抒啦--首頁</title>
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/angel.css" />
+	href="<spring:url value='/css/angel.css' /> " />
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"
 	integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
 	crossorigin="anonymous"></script>

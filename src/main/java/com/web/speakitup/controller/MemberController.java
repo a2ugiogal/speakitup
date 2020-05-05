@@ -39,8 +39,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -241,14 +239,9 @@ public class MemberController {
 	public String emailVerify(@PathVariable("emailVerifyCode")String emailVerifyCode, HttpSession session) {
 		
 		StringBuilder content = new StringBuilder();
-		
-		System.out.println("00000");
-		System.out.println("emailVerifyCode" + emailVerifyCode);
 		// 透過service的方法得到與驗證碼相同的MemberBean物件
 		MemberBean mb = memberService.getEmailValid(emailVerifyCode);
-		System.out.println("mb" + mb);
 		if (mb != null) {
-			System.out.println("!!!!");
 			if (mb.getStatus().trim().equals("未驗證")) {
 				mb.setStatus("正常");
 				memberService.updateMember(mb);
@@ -287,7 +280,6 @@ public class MemberController {
 		MemberBean mb = memberService.checkIdPassword(memberId, password2);
 		if (mb == null) {
 			model.addAttribute("loginError", "loginError");
-			System.out.println("帳密錯誤");
 			return "login/login";
 		}
 		session.setAttribute("LoginOK", mb);
@@ -333,24 +325,24 @@ public class MemberController {
 		// 回到先前那頁
 		String target = (String) session.getAttribute("target");
 		if (target != null) {
-			return "redirect:" + target;
+			return "redirect:/" + target;
 		} else {
 			return "redirect:/";
 		}
 	}
 
-	/* 前往登出 */
 	@GetMapping("/logout")
-	public String logout() {
-		return "login/logout";
+	public String custLogout(HttpSession session) {
+		session.removeAttribute("LoginOK");
+		session.removeAttribute("target");
+		return "redirect:/";
 	}
+
 	
 	/* 忘記密碼的寄信 */
 	@PostMapping("/findPassword")
 	public String findPassword(HttpServletRequest request) {
-		String memberEmailStr = request.getParameter("email");
-		System.out.println(memberEmailStr);
-		
+		String memberEmailStr = request.getParameter("email");	
 		if(memberService.emailExists(memberEmailStr) == true) {
 			
 				String[] memberEmail = {memberEmailStr};
@@ -374,12 +366,9 @@ public class MemberController {
 	
 	@GetMapping("/changepswd/{emailVerifyCode}")
 	public String changepswd(@PathVariable("emailVerifyCode")String emailVerifyCode,HttpSession session) {
-		MemberBean mb = null;
-		System.out.println("驗證碼為" + emailVerifyCode);
 		//透過service的方法得到與驗證碼相同的MemberBean物件
-		mb =  memberService.getEmailValid(emailVerifyCode);
+		MemberBean mb =  memberService.getEmailValid(emailVerifyCode);
 		session.setAttribute("mb",mb);
-		
 		return "login/enterNewPassword";
 	}
 	
@@ -392,7 +381,6 @@ public class MemberController {
 		String passwordNew = GlobalService.getMD5Endocing(GlobalService.encryptString(password));
 		
 		int n = memberService.updateMemberPassword(memberId, passwordNew);
-		System.out.println(n);
 		if(n == 1) {
 			System.out.println("修改成功");
 			
@@ -403,7 +391,6 @@ public class MemberController {
 		
 		return "redirect:/login/login";
 	}
-	
 	// ==================非管理員(個人頁面)===================
 
 	/* 給會員的舊表單，前往個人頁面 */
@@ -422,7 +409,8 @@ public class MemberController {
 		// 如果沒有取消的話代表新增 就去抓資料
 		if (cancel == null) {
 			MemberBean oldmb = (MemberBean) session.getAttribute("LoginOK");
-			mb.setId(oldmb.getId());
+			Integer id = oldmb.getId();
+			mb.setId(id);
 			mb.setCity(request.getParameter("county"));
 			mb.setArea(request.getParameter("district"));
 
@@ -443,11 +431,11 @@ public class MemberController {
 				// 如果沒填照片，使用原來的
 				mb.setPicture(oldmb.getPicture());
 				mb.setFileName(oldmb.getFileName());
+				
 			}
-
 			memberService.updateMember(mb);
 			// 更新session內的使用者資料
-			MemberBean bean = memberService.getMember(oldmb.getId());
+			MemberBean bean = memberService.getMember(id);
 			session.setAttribute("LoginOK", bean);
 		} else {
 			;
@@ -522,6 +510,7 @@ public class MemberController {
 				articlesNum.put(t.getKey(), t.getValue());
 			}
 			model.addAttribute("article_map", articlesNum);
+			model.addAttribute("cmd",cmd);
 		} else if (cmd.equals("comment")) {
 			// 查詢留言
 			Map<CommentBean, Integer> comments = articleService.getPersonComment(id);
@@ -538,6 +527,7 @@ public class MemberController {
 				commentsNum.put(t.getKey(), t.getValue());
 			}
 			model.addAttribute("comment_map", commentsNum);
+			model.addAttribute("cmd",cmd);
 		} else if (cmd.equals("deleteArticle")) {
 			// 查詢檢舉文章
 			Map<ArticleBean, Integer> articles = articleService.getPersonDeleteArticle(id);
@@ -554,6 +544,7 @@ public class MemberController {
 				articlesNum.put(t.getKey(), t.getValue());
 			}
 			model.addAttribute("article_map", articlesNum);
+			model.addAttribute("cmd",cmd);
 		} else if (cmd.equals("deleteComment")) {
 			// 查詢檢舉留言
 			Map<CommentBean, Integer> comments = articleService.getPersonDeleteComment(id);
@@ -570,11 +561,13 @@ public class MemberController {
 				commentsNum.put(t.getKey(), t.getValue());
 			}
 			model.addAttribute("comment_map", commentsNum);
+			model.addAttribute("cmd",cmd);
 		}
 		model.addAttribute("id", id);
 		model.addAttribute("mb", mb);
 		model.addAttribute("reportTimes", reportTimes);
-
+		
+		
 		return "manager/member/memberInfo";
 	}
 
@@ -594,6 +587,6 @@ public class MemberController {
 			memberService.saveMember(mb);
 		}
 
-		return "redirect:/manager/showMemberInfo/{id}?reportTimes=" + reportTimes;
+		return "redirect:/member/showManageMemberInfo/{id}?reportTimes=" + reportTimes;
 	}
 }

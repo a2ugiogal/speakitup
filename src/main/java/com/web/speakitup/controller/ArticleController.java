@@ -177,6 +177,7 @@ public class ArticleController {
 		ArticleBean ab = articleService.getArticle(articleId);
 		
 		CommentBean cb = new CommentBean(null, mb.getId(), mb.getMemberId(), ts, comment, ab, "正常");
+//		CommentBean cb = new CommentBean(null, mb.getId(), mb.getMemberId(), ts, comment, articleId, "正常");
 		articleService.insertComment(cb);
 		return "redirect:/article/showArticleContent/{articleId}";
 	}
@@ -324,44 +325,47 @@ public class ArticleController {
 	
 	
 	//看檢舉的詳細內容
-	@GetMapping("showReportInfo/{cmd}/{id}")
-	public String showReportInfo(@PathVariable("cmd")String cmd,@PathVariable("id")int id, HttpServletRequest request,Model model) throws IOException {
-		
-		String[] reportItems = GlobalService.REPORT_ITEM;
-
-		// ("item0", 5)
-		for (Integer i = 0; i < reportItems.length; i++) {
-			int count = articleService.getReportItemCount(cmd, id, reportItems[i]);
-			request.setAttribute("item" + i, count);
-		}
-		if (cmd.equals("article")) {
-			ArticleBean ab = articleService.getArticle(id);
-			String content = "";
-			Clob clob = null;
-			if (ab != null) {
-				try {
-					clob = ab.getContent();
-					if (clob != null) {
-						content = GlobalService.clobToString(clob);
-					}
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
+		@GetMapping("/showReportInfo/{id}/{cmd}")
+		public String showReportInfo(@PathVariable("cmd")String cmd,@PathVariable("id")int id, HttpServletRequest request,Model model) throws IOException {
+			
+			String[] reportItems = GlobalService.REPORT_ITEM;
+//			String cmd = request.getParameter("cmd");
+			if(cmd !=null) {
+			// ("item0", 5)
+			for (Integer i = 0; i < reportItems.length; i++) {
+				int count = articleService.getReportItemCount(cmd, id, reportItems[i]);
+				request.setAttribute("item" + i, count);
 			}
+			if (cmd.equals("article")) {
+				ArticleBean ab = articleService.getArticle(id);
+				String content = "";
+				Clob clob = null;
+				if (ab != null) {
+					try {
+						clob = ab.getContent();
+						if (clob != null) {
+							content = GlobalService.clobToString(clob);
+						}
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
 
-			model.addAttribute("article", ab);
-			model.addAttribute("content", content);
-		} else if (cmd.equals("comment")) {
-			CommentBean cb = articleService.getComment(id);
-			model.addAttribute("comment", cb);
+				model.addAttribute("article", ab);
+				model.addAttribute("content", content);
+			} else if (cmd.equals("comment")) {
+				CommentBean cb = articleService.getComment(id);
+				model.addAttribute("comment", cb);
+			}
+			model.addAttribute("cmd", cmd);
+			model.addAttribute("id", id);
+			}
+			return "manager/report/reportInfo";
 		}
-		model.addAttribute("cmd", cmd);
-		model.addAttribute("id", id);
-		return "manager/report/reportInfo";
-	}
+	
 	
 	//刪除檢舉的文章或留言
-	@GetMapping("deleteArticle/{cmd}/{id}")
+	@GetMapping("/deleteArticle/{cmd}/{id}")
 	public String deleteArticle(@PathVariable("cmd")String cmd,@PathVariable("id")int id) {
 		
 		System.out.println("cmd" + cmd);

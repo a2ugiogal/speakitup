@@ -56,21 +56,22 @@
 		<div class="my-4 border border-dark p-4">
 			<ul class="nav nav-tabs nav-justified">
 				<li class="nav-item"><a class="nav-link"
-					href="<spring:url value='/member/showManageMemberInfo/id=${id}?cmd=article&reportTimes=${reportTimes}'/>"
+					href="<spring:url value='/member/showManageMemberInfo/${id}?cmd=article&reportTimes=${reportTimes}'/>"
 					style="text-decoration: none; color: black;">文章</a></li>
 				<li class="nav-item"><a class="nav-link"
-					href="<spring:url value='/member/showManageMemberInfo/id=${id}?cmd=comment&reportTimes=${reportTimes}'/>"
+					href="<spring:url value='/member/showManageMemberInfo/${id}?cmd=comment&reportTimes=${reportTimes}'/>"
 					style="text-decoration: none; color: black;">留言</a></li>
 				<li class="nav-item"><a class="nav-link"
-					href="<spring:url value='/member/showManageMemberInfo/id=${id}?cmd=deleteArticle&reportTimes=${reportTimes}'/>"
+					href="<spring:url value='/member/showManageMemberInfo/${id}?cmd=deleteArticle&reportTimes=${reportTimes}'/>"
 					style="text-decoration: none; color: black;">被刪除文章</a></li>
 				<li class="nav-item"><a class="nav-link"
-					href="<spring:url value='/member/showManageMemberInfo/id=${id}?cmd=deleteComment&reportTimes=${reportTimes}'/>"
+					href="<spring:url value='/member/showManageMemberInfo/${id}?cmd=deleteComment&reportTimes=${reportTimes}'/>"
 					style="text-decoration: none; color: black;">被刪除留言</a></li>
 			</ul>
 
 			<!-- 文章留言列表============== -->
-
+			<c:choose>
+				<c:when test="${not empty article_map}">
 			<div class="row">
 				<div
 					class="col-2 d-flex justify-content-center align-items-center my-2">
@@ -85,13 +86,10 @@
 					class="col-2 d-flex justify-content-center align-items-center my-2">
 					檢舉數</div>
 			</div>
-
 			<div class="scroll" style="height: 300px; overflow-y: scroll;">
-				<c:choose>
-					<c:when test="${not empty article_map}">
-						<c:forEach var="entry" items="${article_map}">
+			<c:forEach var="entry" items="${article_map}">
 							<a
-								href="<spring:url value='/article/showReportInfo/${entry.key.articleId}?cmd=article'/>"
+								href="<spring:url value='/article/showReportInfo/${entry.key.articleId}/${cmd}'/>"
 								style="text-decoration: none; color: black;">
 								<div class="row">
 									<div
@@ -111,11 +109,27 @@
 								</div>
 							</a>
 						</c:forEach>
-					</c:when>
-					<c:otherwise>
-						<c:forEach var="entry" items="${comment_map}">
+						</div>
+			</c:when>
+			<c:otherwise>
+			<div class="row">
+				<div
+					class="col-2 d-flex justify-content-center align-items-center my-2">
+					留言編號</div>
+				<div
+					class="col-4 d-flex justify-content-center align-items-center my-2">
+					發文日期</div>
+				<div
+					class="col-4 d-flex justify-content-center align-items-center my-2">
+					標題</div>
+				<div
+					class="col-2 d-flex justify-content-center align-items-center my-2">
+					檢舉數</div>
+			</div>
+			<div class="scroll" style="height: 300px; overflow-y: scroll;">
+			<c:forEach var="entry" items="${comment_map}">
 							<a
-								href="<spring:url value='/article/showReportInfo/${entry.key.articleId}?cmd=comment'/>"
+								href="<spring:url value='/article/showReportInfo/${entry.key.commentId}/${cmd}'/>"
 								style="text-decoration: none; color: black;">
 								<div class="row">
 									<div
@@ -135,9 +149,9 @@
 								</div>
 							</a>
 						</c:forEach>
-					</c:otherwise>
-				</c:choose>
-			</div>
+						</div>
+			</c:otherwise>
+</c:choose>
 		</div>
 	</div>
 
@@ -154,7 +168,7 @@
 		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
 		crossorigin="anonymous"></script>
 	<script
-		src="${pageContext.request.contextPath}/js/_06_article/articleContext.js"></script>
+		src="<spring:url value='/js/article/articleContext.js' /> "></script>
 
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.web.speakitup.model;
 
+import java.io.Serializable;
 import java.sql.Blob;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -17,7 +18,9 @@ import org.springframework.web.multipart.MultipartFile;
 @Entity
 @Table(name = "Members")
 @Component
-public class MemberBean {
+public class MemberBean implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(generator = "increment")
 	@GenericGenerator(name = "increment", strategy = "native")

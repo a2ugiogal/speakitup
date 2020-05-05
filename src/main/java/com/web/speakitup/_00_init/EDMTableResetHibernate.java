@@ -287,6 +287,7 @@ public class EDMTableResetHibernate {
 											String commentContent = token3[3];
 											String commentStatus = token3[4];
 											ArticleBean ab = articleBean;
+//											Integer articleId = articleBean.getArticleId();
 
 											CommentBean commentBean = new CommentBean(null, commentAuthorId,
 													commentAuthorName, commentPublishTime, commentContent, ab,
