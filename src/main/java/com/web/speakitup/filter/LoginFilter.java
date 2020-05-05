@@ -26,7 +26,8 @@ import com.web.speakitup.model.MemberBean;
 		@WebInitParam(name = "url_5", value = "/article/likeArticle/*"),
 		@WebInitParam(name = "url_6", value = "/article/addComment/*"),
 		@WebInitParam(name = "url_7", value = "/article/addArticle"),
-		@WebInitParam(name = "url_8", value = "/article/showReports") })
+		@WebInitParam(name = "url_8", value = "/article/showReports"),
+		@WebInitParam(name = "url_9", value = "/letter/*") })
 public class LoginFilter implements Filter {
 
 	List<String> url = new ArrayList<String>();
@@ -54,10 +55,8 @@ public class LoginFilter implements Filter {
 			String servletPath = req.getServletPath();
 			
 			req.isRequestedSessionIdValid();
-			System.out.println(req.isRequestedSessionIdValid());
 			contextPath = req.getContextPath();
 			HttpSession session = req.getSession();
-			System.out.println(req.isRequestedSessionIdValid());
 			if (mustLogin(servletPath)) {
 				if (checkLogin(req)) {
 					// 需要登入 但已經登入

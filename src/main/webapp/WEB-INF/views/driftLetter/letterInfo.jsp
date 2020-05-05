@@ -33,12 +33,6 @@
                     <li>也可從會員信箱看到自己曾經寄過及回過的完整信件。</li>
                 </ul>
             <div class="btnGroup">
-<%--             	<c:if  > --%>
-<!--             		<div class="btnError" style="display:none;">我想寄信</div> -->
-<%--             	</c:if> --%>
-<%--             	<c:if test="${replyError!=''}" > --%>
-<!--             		<div class="btnError" style="display:none;">我想回信</div> -->
-<%--             	</c:if> --%>
 
             	<c:choose>
             		<c:when test="${! empty sendError}">
@@ -56,9 +50,7 @@
             		<c:otherwise>
             			<a href="<spring:url value='/letter/reply' /> "><div class="btn" >我想回信</div></a>
             		</c:otherwise>
-            	</c:choose>	
-<%--             	<div class="btn" ><a  href="<c:url value='/_07_letter/send.jsp' /> ">我想寄信</a></div> --%>
-<%--             	<div class="btn" ><a  href="<c:url value='/_07_letter/reply.jsp' /> ">我想回信</a></div> --%>
+            	</c:choose>	     
                	<a href="<spring:url value='/letter/myLetters' /> "><div class="btn" >我的信箱</div>
                	</a>
                	<a href="<spring:url value='/' /> "><div class="btn" >回到首頁</div>

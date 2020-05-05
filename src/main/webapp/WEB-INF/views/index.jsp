@@ -86,8 +86,24 @@
 							class="dropdown-item"
 							href="<spring:url value='/order/showHistoryOrder' />">歷史訂單</a>
 					</div></li>
-				<li class="nav-item mx-2"><a class="nav-link"
-					href="<spring:url value='/letter/letterHome' />">漂流瓶</a></li>
+				<c:if test="${LoginOK.permission=='管理員'}">
+					<li class="nav-item dropdown mx-2"><a
+						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+						role="button" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false"> 管理後台 </a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item"
+								href="<spring:url value='/article/showReports' />">檢舉專區</a> <a
+								class="dropdown-item"
+								href="<spring:url value='/member/showMembers' />">帳號管理</a> <a
+								class="dropdown-item"
+								href="<spring:url value='/order/showOrders' />">訂單管理</a><a
+								class="dropdown-item"
+								href="<spring:url value='/product/showProducts' />">商品管理</a>
+						</div></li>
+				</c:if>
+
+
 				<li class="nav-item dropdown mx-2 mb-1"><a
 					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 					role="button" data-toggle="dropdown" aria-haspopup="true"

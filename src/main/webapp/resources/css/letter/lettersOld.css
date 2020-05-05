@@ -1,0 +1,154 @@
+body{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: aliceblue;
+    font-family: 'Noto Sans TC', sans-serif;
+    
+}
+
+.container{
+    
+    position: relative;
+    width: 70%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(350px,1fr));
+    grid-template-rows: auto;
+    gap: 0 40px;
+}
+
+.container .box{
+    position: relative;
+    height: 600px;
+    background: #fff;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #000;
+    border-radius: 5px;
+	margin-top:100px;
+}
+
+.content{
+    position: relative;
+    padding: 20px;
+    transform: translateY(40px);
+    
+}
+
+/*編號*/
+ .box .content h2{
+    position: absolute;
+    top: -150px;
+    right: 20px;
+    margin: 0;
+    padding: 0;
+    font-size: 10em ;
+    color: #0e2640;
+    opacity: 0.4;
+    transition: 0.5s;
+}
+
+.box:hover .content h2{
+	position: absolute;
+    top: -250px;
+    color: #0e2640;
+}
+
+/*主題*/
+.box .content h3{
+    margin: 0 0 10px 0 ;
+    padding: 0;
+    font-size: 24px;
+    font-weight: 500;
+    color: #0e2640;
+}
+
+.box .content p{
+    margin: 0;
+    padding: 0;
+    color: #0e2640;
+}
+
+/*查看完整內容的文字 一開始是透明的*/
+.box .content a{
+    position: relative;
+    margin: 0;
+    padding: 10px 20px;
+    text-decoration: none;
+    border: 1px solid #fff;
+    display: inline-block;
+    color: #0e2640;
+    transition: 0.5s;
+    transform: scaleY(-40px);
+    opacity: 0;
+    visibility: hidden;
+}
+
+.box:hover .content a{
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+    font-size: 1.3rem;
+}
+
+.replyContent a{
+    text-decoration: none;
+    font-size: 1.3rem;
+    color: #000;
+}
+
+/*查看完整內容的文字*/
+.box .content a:hover, .replyContent a:hover{
+    color: #75B9BE;
+}
+
+
+/*box的身體*/
+.container .box:nth-child(1n):before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: #000;
+    /*選轉1度*/
+    transform: skew(1deg,1deg);
+    z-index: -1;
+}
+
+.container .box:nth-child(2n):before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: #000;
+    /*選轉1度*/
+    transform: skew(-1deg,-1deg);
+    z-index: -1;
+}
+
+.container .box:nth-child(1n)::before{
+    background: linear-gradient(315deg,#0e2640,#0e2640);
+}
+
+.container .box:nth-child(2n)::before{
+    background: linear-gradient(315deg,#0e2640,#0e2640);
+}
+
+.replyContent{
+   	background:#5D576B;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity:0;
+    padding: 10px;
+}
+

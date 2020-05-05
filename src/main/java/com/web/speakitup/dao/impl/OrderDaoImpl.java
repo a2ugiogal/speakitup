@@ -75,7 +75,6 @@ public class OrderDaoImpl implements OrderDao {
 			}
 			list = session.createQuery(hql).setParameter("search", search).getResultList();
 		}
-
 		return list;
 	}
 

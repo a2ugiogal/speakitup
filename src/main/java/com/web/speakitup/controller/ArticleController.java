@@ -56,143 +56,149 @@ public class ArticleController {
 
 	@Autowired
 	ArticleService articleService;
-	
+
 	@Autowired
 	MemberService memberService;
 
-/*----------------------------------所有的文章-----------------------------------------------------*/
-	
+	/*----------------------------------所有的文章-----------------------------------------------------*/
+
 	@GetMapping("/showPageArticles")
-	
-	public String ShowPageArticles(HttpServletRequest request,Model model) {
-		//先取得所有的篩選條件 預設是空的 不管有沒有條件都會來run這個方法
+
+	public String ShowPageArticles(HttpServletRequest request, Model model) {
+		// 先取得所有的篩選條件 預設是空的 不管有沒有條件都會來run這個方法
 		String arrange = request.getParameter("arrange") == null ? "" : request.getParameter("arrange");
 		String searchStr = request.getParameter("search") == null ? "" : request.getParameter("search");
 		String categoryTitle = request.getParameter("categoryTitle") == null ? ""
 				: request.getParameter("categoryTitle");
 		String categoryName = request.getParameter("categoryName") == null ? "" : request.getParameter("categoryName");
 
-		Map<Integer, ArticleBean> articleMap = articleService.getArticles(arrange, searchStr, categoryTitle,categoryName);
+		Map<Integer, ArticleBean> articleMap = articleService.getArticles(arrange, searchStr, categoryTitle,
+				categoryName);
 
 		model.addAttribute("searchStr", searchStr);
 		model.addAttribute("arrange", arrange);
 		model.addAttribute("categoryTitle", categoryTitle);
 		model.addAttribute("categoryName", categoryName);
 		model.addAttribute("articles_map", articleMap);
-		
+
 		return "article/articlePage";
 	}
+
 	/*--------------------------------新增文章空白表單---------------------------------------------------*/
 	@GetMapping("/addArticle")
 	public String addArticle(Model model) {
-		
+
 		ArticleBean articleBean = new ArticleBean();
 		model.addAttribute("articleBean", articleBean);
 		return "article/addArticle";
 	}
-	
-/*-----------------------------------從addArticle.jsp過來的 新增文章----------------------------------------------------*/
-	
+
+	/*-----------------------------------從addArticle.jsp過來的 新增文章----------------------------------------------------*/
+
 	@PostMapping("/addArticle")
-	public String addArticle(@ModelAttribute("articleBean")ArticleBean ab,HttpServletRequest request,
-			RedirectAttributes rda,HttpSession session) throws IOException, SQLException {
-		
+	public String addArticle(@ModelAttribute("articleBean") ArticleBean ab, HttpServletRequest request,
+			RedirectAttributes rda, HttpSession session) throws IOException, SQLException {
+
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
-		
+
 		String categoryTitle = request.getParameter("categoryTitle");
 		String categoryName = request.getParameter("categoryName");
 		String content = request.getParameter("contentStr");
 		String title = ab.getTitle();
-		//把文章存成clob
+		// 把文章存成clob
 		Clob clobContent = GlobalService.stringToClob(content);
 		ab.setAuthorId(mb.getId());
 		ab.setAuthorName(mb.getMemberId());
 		ab.setContent(clobContent);
 		System.out.println("memberId" + mb.getMemberId());
-		
+
 		ArticleCategoryBean acb = articleService.getCategory(categoryTitle, categoryName);
-		//把種類的外鍵存進去
+		// 把種類的外鍵存進去
 		ab.setCategory(acb);
-		//存文章標題
+		// 存文章標題
 		ab.setTitle(title);
-		
+
 		System.out.println("categoryTitle" + categoryTitle);
 		System.out.println("categoryName: " + categoryName);
 		System.out.println("content: " + content);
 		System.out.println("title: " + title);
-		
-		//取得照片
+
+		// 取得照片
 		MultipartFile articleImage = ab.getArticleImage();
 		String originalFilename = articleImage.getOriginalFilename();
 		if (articleImage != null && !articleImage.isEmpty()) {
 			try {
 				byte[] b = articleImage.getBytes();
 				Blob blob = new SerialBlob(b);
-				//把文章照片的blob存進去
+				// 把文章照片的blob存進去
 				ab.setImage(blob);
-				//把文章照片的名稱存進去
+				// 把文章照片的名稱存進去
 				ab.setFileName(originalFilename);
-				//儲存文章
-				
+				// 儲存文章
+
 			} catch (Exception e) {
 				e.printStackTrace();
 				throw new RuntimeException("檔案上傳發生異常：" + e.getMessage());
-				
+
 			}
 		}
-		
+
 		articleService.insertArticle(ab);
 		Integer articleId = ab.getArticleId();
 		session.setAttribute("mb", mb);
 		rda.addFlashAttribute("articleId", articleId);
-		
-		return "redirect:/article/addSuccess";		
-		
+
+		return "redirect:/article/addSuccess";
+
 	}
-	
-	//文章新增成功 轉跳這
+
+	// 文章新增成功 轉跳這
 	@GetMapping("/addSuccess")
-	public String addSuccess(@ModelAttribute("articleId")int articleId,Model model) throws IOException, SQLException {
+	public String addSuccess(@ModelAttribute("articleId") int articleId, Model model) throws IOException, SQLException {
 		System.out.println("222articleId: " + articleId);
-		ArticleBean ab =  articleService.getArticle(articleId);
+		ArticleBean ab = articleService.getArticle(articleId);
 		String content = GlobalService.clobToString(ab.getContent());
 		model.addAttribute("article", ab);
 		model.addAttribute("content", content);
 		return "article/articleContent";
 	}
-/*-----------------------------------新增留言POST----------------------------------------------------*/	
-	
+	/*-----------------------------------新增留言POST----------------------------------------------------*/
+
 	@PostMapping("/addComment/{articleId}")
-	public String addComment(@PathVariable("articleId") int articleId, HttpServletRequest request,HttpSession session) {	
-		
+	public String addComment(@PathVariable("articleId") int articleId, HttpServletRequest request,
+			HttpSession session) {
+
 		String comment = request.getParameter("content");
-		if(comment == null) {
+		if (comment == null) {
 			return "redirect:/article/showArticleContent/{articleId}";
 		}
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
-		//抓留言
-		
-		//留言時間
+		// 抓留言
+
+		// 留言時間
 		Timestamp ts = new java.sql.Timestamp(System.currentTimeMillis());
 		ArticleBean ab = articleService.getArticle(articleId);
-		
+
 		CommentBean cb = new CommentBean(null, mb.getId(), mb.getMemberId(), ts, comment, ab, "正常");
 //		CommentBean cb = new CommentBean(null, mb.getId(), mb.getMemberId(), ts, comment, articleId, "正常");
 		articleService.insertComment(cb);
 		return "redirect:/article/showArticleContent/{articleId}";
 	}
-	
-	//新增留言Get
-		@GetMapping("/addComment/{articleId}")
-		public String addCommentGet(@PathVariable("articleId") int articleId, HttpServletRequest request,HttpSession session) {
-			return "redirect:/article/showArticleContent/{articleId}";
-		}
-/*---------------------------------------------------------------------------------------*/	
-	//取得文章內容
+
+	// 新增留言Get
+	@GetMapping("/addComment/{articleId}")
+	public String addCommentGet(@PathVariable("articleId") int articleId, HttpServletRequest request,
+			HttpSession session) {
+		return "redirect:/article/showArticleContent/{articleId}";
+	}
+
+	/*---------------------------------------------------------------------------------------*/
+	// 取得文章內容
 	@GetMapping("/showArticleContent/{articleId}")
-	public String ShowArticleContent(@PathVariable int articleId,Model model,HttpSession session) throws IOException, SQLException {
-		
-		ArticleBean ab =  articleService.getArticle(articleId);
+	public String ShowArticleContent(@PathVariable int articleId, Model model, HttpSession session)
+			throws IOException, SQLException {
+
+		ArticleBean ab = articleService.getArticle(articleId);
 		Set<CommentBean> allComments = ab.getArticleComments();
 		Set<CommentBean> comments = new LinkedHashSet<>();
 		for (CommentBean bean : allComments) {
@@ -200,88 +206,85 @@ public class ArticleController {
 				comments.add(bean);
 			}
 		}
-		
+
 		String content = GlobalService.clobToString(ab.getContent());
 		session.setAttribute("article", ab);
 		model.addAttribute("content", content);
 		model.addAttribute("comments_set", comments);
-		
-		
+
 		return "article/articleContent";
 	}
-	
-/*-----------------------------------喜歡文章----------------------------------------------------*/
-	
+
+	/*-----------------------------------喜歡文章----------------------------------------------------*/
+
 	@GetMapping("/likeArticle/{articleId}")
-	public String likeArticle(@PathVariable("articleId")int articleId,HttpSession session,HttpServletRequest request) {
-		
+	public String likeArticle(@PathVariable("articleId") int articleId, HttpSession session,
+			HttpServletRequest request) {
+
 		String loginTrue = request.getParameter("login");
-		if(loginTrue == null) {
+		if (loginTrue == null) {
 			return "redirect:/article/showArticleContent/{articleId}";
 		}
-		
+
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
 		ArticleBean ab = articleService.getArticle(articleId);
 		articleService.likeArticle(ab, mb);
-		
+
 		MemberBean newMb = memberService.getMember(mb.getId());
 		session.setAttribute("LoginOK", newMb);
-		
+
 		return "redirect:/article/showArticleContent/{articleId}";
 	}
 
-/*---------------------------------檢舉文章或留言------------------------------------------------------*/
+	/*---------------------------------檢舉文章或留言------------------------------------------------------*/
 
 	@PostMapping("/report")
-	public void addReport(HttpSession session,HttpServletRequest request) {
-		
+	public void addReport(HttpSession session, HttpServletRequest request) {
+
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
 		String commentIdStr = request.getParameter("commentId");
-//		// 檢舉項目
+		// 檢舉項目
 		String reportItem = request.getParameter("reportItem");
-		System.out.println("commentIdStr" + commentIdStr);
 		if (commentIdStr.trim() == "") {
-			System.out.println("有進來檢舉文章");
 			// 檢舉文章
 			ArticleBean ab = (ArticleBean) session.getAttribute("article");
-			System.out.println("ArticleId" + ab.getArticleId());
 			ReportArticleBean bean = new ReportArticleBean(null, ab.getArticleId(), ab.getAuthorName(),
 					ab.getPublishTime(), ab.getTitle(), mb.getMemberId(), reportItem);
-			
+
 			articleService.insertReportArticle(bean);
 		} else {
 			// 檢舉留言
 			int commentId = Integer.parseInt(commentIdStr);
 			CommentBean cb = articleService.getComment(commentId);
-			
+
 			ReportCommentBean bean = new ReportCommentBean(null, commentId, cb.getAuthorName(), cb.getPublishTime(),
 					cb.getContent(), mb.getMemberId(), reportItem);
 			articleService.insertReportComment(bean);
 		}
 
 		return;
-		
+
 	}
-	
-/*---------------------------------熱門文章------------------------------------------------------*/
-	
+
+	/*---------------------------------熱門文章------------------------------------------------------*/
+
 	@GetMapping("/showFamousArticles")
-	public String showFamousArticles(Model model){
-		
+	public String showFamousArticles(Model model) {
+
 		Map<Integer, ArticleBean> angelArticleMap = articleService.getFamousArticles("天使");
 		Map<Integer, ArticleBean> evilArticleMap = articleService.getFamousArticles("惡魔");
 
 		model.addAttribute("angel_articles_map", angelArticleMap);
 		model.addAttribute("evil_articles_map", evilArticleMap);
-		
+
 		return "article/articleFamous";
 	}
 
 	// ==================管理員===================================================
-	
+
 	@GetMapping("/showReports")
-	public String showReports(HttpServletRequest request,Model model) {
-		
+	public String showReports(HttpServletRequest request, Model model) {
+
 		String searchStr = request.getParameter("searchStr") == null ? "" : request.getParameter("searchStr");
 		String cmd = request.getParameter("cmd") == null ? "article" : request.getParameter("cmd");
 
@@ -319,24 +322,22 @@ public class ArticleController {
 		}
 		model.addAttribute("searchStr", searchStr);
 		model.addAttribute("cmd", cmd);
-		
+
 		return "manager/report/allReports";
 	}
-	
-	
-	//看檢舉的詳細內容
-		@GetMapping("/showReportInfo/{id}/{cmd}")
-		public String showReportInfo(@PathVariable("cmd")String cmd,@PathVariable("id")int id, HttpServletRequest request,Model model) throws IOException {
-			
-			String[] reportItems = GlobalService.REPORT_ITEM;
-//			String cmd = request.getParameter("cmd");
-			if(cmd !=null) {
+
+	// 看檢舉的詳細內容
+	@GetMapping("/showReportInfo/{id}/{cmd}")
+	public String showReportInfo(@PathVariable("cmd") String cmd, @PathVariable("id") int id,
+			HttpServletRequest request, Model model) throws IOException {
+		String[] reportItems = GlobalService.REPORT_ITEM;
+		if (cmd != null) {
 			// ("item0", 5)
 			for (Integer i = 0; i < reportItems.length; i++) {
 				int count = articleService.getReportItemCount(cmd, id, reportItems[i]);
 				request.setAttribute("item" + i, count);
 			}
-			if (cmd.equals("article")) {
+			if (cmd.equals("article") || (cmd.equals("deleteArticle"))) {
 				ArticleBean ab = articleService.getArticle(id);
 				String content = "";
 				Clob clob = null;
@@ -353,23 +354,23 @@ public class ArticleController {
 
 				model.addAttribute("article", ab);
 				model.addAttribute("content", content);
-			} else if (cmd.equals("comment")) {
+			}
+			if (cmd.equals("comment") || cmd.equals("deleteComment")) {
 				CommentBean cb = articleService.getComment(id);
 				model.addAttribute("comment", cb);
 			}
 			model.addAttribute("cmd", cmd);
 			model.addAttribute("id", id);
-			}
-			return "manager/report/reportInfo";
 		}
-	
-	
-	//刪除檢舉的文章或留言
+		return "manager/report/reportInfo";
+	}
+
+	// 刪除檢舉的文章或留言
 	@GetMapping("/deleteArticle/{cmd}/{id}")
-	public String deleteArticle(@PathVariable("cmd")String cmd,@PathVariable("id")int id) {
-		
+	public String deleteArticle(@PathVariable("cmd") String cmd, @PathVariable("id") int id) {
+
 		System.out.println("cmd" + cmd);
-		System.out.println("id" + id);		
+		System.out.println("id" + id);
 		if (cmd.equals("article")) {
 			ArticleBean ab = articleService.getArticle(id);
 			ab.setStatus("刪除");
@@ -379,14 +380,14 @@ public class ArticleController {
 			cb.setStatus("刪除");
 			articleService.insertComment(cb);
 		}
-		
+
 		return "forward:/article/showReports";
 	}
-	
-	//保留文章
+
+	// 保留文章
 	@GetMapping("/reserveArticle/{cmd}/{id}")
-	public String reserveArticle(@PathVariable("cmd")String cmd,@PathVariable("id")int id) {
-		
+	public String reserveArticle(@PathVariable("cmd") String cmd, @PathVariable("id") int id) {
+
 		if (cmd.equals("article")) {
 			articleService.deleteReportArticle(id);
 		} else if (cmd.equals("comment")) {
@@ -394,14 +395,13 @@ public class ArticleController {
 		}
 		return "forward:/article/showReports";
 	}
-	
-	
-/*---------------------------------	取得文章照片------------------------------------------------------*/
+
+	/*---------------------------------	取得文章照片------------------------------------------------------*/
 
 	@GetMapping("/getArticleImage/{articleId}")
 	public ResponseEntity<byte[]> getArticleImage(@PathVariable int articleId, Model model, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
-		
+
 		String filepath = "/resources/images/NoImage.jpg";
 		byte[] media = null;
 		HttpHeaders headers = new HttpHeaders();
@@ -409,7 +409,7 @@ public class ArticleController {
 		int len = 0;
 		ArticleBean articleBean = articleService.getArticle(articleId);
 
-		//取得照片跟檔名
+		// 取得照片跟檔名
 		if (articleBean != null) {
 			Blob blob = articleBean.getImage();
 			filename = articleBean.getFileName();
@@ -432,6 +432,7 @@ public class ArticleController {
 		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
 		String mimeType = context.getMimeType(filename);
 		MediaType mediaType = MediaType.valueOf(mimeType);
+		headers.setContentType(mediaType);
 		ResponseEntity<byte[]> responseEntity = new ResponseEntity<byte[]>(media, headers, HttpStatus.OK);
 		return responseEntity;
 	}
