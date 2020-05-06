@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -260,7 +261,11 @@ public class MemberController {
 
 	/* 前往登入 */
 	@GetMapping("/login")
-	public String loginForm() {
+	public String loginForm(HttpSession session) {
+		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
+		if (mb != null) {
+			return "redirect:/";
+		}
 		return "login/login";
 	}
 
@@ -275,58 +280,85 @@ public class MemberController {
 	public String checkData(@RequestParam("memberId") String memberId, @RequestParam("password") String password,
 			Model model, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 
-		String password2 = GlobalService.getMD5Endocing(GlobalService.encryptString(password));
-		MemberBean mb = memberService.checkIdPassword(memberId, password2);
-		if (mb == null) {
-			model.addAttribute("loginError", "loginError");
-			return "login/login";
-		}
-		session.setAttribute("LoginOK", mb);
-
-		// 因為如果沒勾會是null 用@RequestParam註釋一定要傳值進來 如果沒有值會當掉 所以需要用過去request的方式去抓
-		String rm = request.getParameter("rememberMe");
-		Cookie cookieUser = null;
-		Cookie cookiePassword = null;
-		Cookie cookieRememberMe = null;
-		if (rm != null) {
-			// 如果選擇記住帳密
-			cookieUser = new Cookie("memberId", memberId);
-			cookieUser.setMaxAge(30 * 24 * 60 * 60); // cookie存活期一個月
-			cookieUser.setPath(context.getContextPath());
-
-			String encodePassword = GlobalService.encryptString(password);
-			cookiePassword = new Cookie("password", encodePassword);
-			cookiePassword.setMaxAge(30 * 24 * 60 * 60);
-			cookiePassword.setPath(context.getContextPath());
-
-			cookieRememberMe = new Cookie("rememberMe", "true");
-			cookieRememberMe.setMaxAge(30 * 24 * 60 * 60);
-			cookieRememberMe.setPath(context.getContextPath());
-		} else {
-			// 如果使用者沒有按下記住帳密 就不會保存帳號密碼的cookie
-			cookieUser = new Cookie("memberId", memberId);
-			cookieUser.setMaxAge(0);
-			cookieUser.setPath(context.getContextPath());
-
-			String encodePassword = GlobalService.encryptString(password);
-			cookiePassword = new Cookie("password", encodePassword);
-			cookiePassword.setMaxAge(0);
-			cookiePassword.setPath(context.getContextPath());
-
-			cookieRememberMe = new Cookie("rememberMe", "true");
-			cookieRememberMe.setMaxAge(0);
-			cookieRememberMe.setPath(context.getContextPath());
-		}
-		response.addCookie(cookieUser);
-		response.addCookie(cookiePassword);
-		response.addCookie(cookieRememberMe);
-
-		// 回到先前那頁
-		String target = (String) session.getAttribute("target");
-		if (target != null) {
-			return "redirect:/" + target;
-		} else {
+		MemberBean LoginOK = (MemberBean) session.getAttribute("LoginOK");
+		if (LoginOK != null) {
 			return "redirect:/";
+		}
+
+		// 準備存放錯誤訊息的Map物件
+		Map<String, String> errorMsgMap = new HashMap<String, String>();
+		request.setAttribute("ErrorMsgKey", errorMsgMap); // 顯示錯誤訊息
+
+		String password2 = GlobalService.getMD5Endocing(GlobalService.encryptString(password));
+		MemberBean mb = null;
+		// 檢查帳號密碼是否正確
+		try {
+			mb = memberService.checkIdPassword(memberId, password2);
+			if (mb != null) {
+				if (mb.getStatus().equals("未驗證")) {
+					errorMsgMap.put("memberNotAuthError", "會員尚未驗證成功!請先透過email去認證!");
+					// 先暫時這樣 如果會員認證欄位是N 一樣先給LoginOK 只是要完成認證
+//						session.setAttribute("LoginOK", mb);
+				} else {
+					session.setAttribute("LoginOK", mb);
+				}
+			} else {
+				errorMsgMap.put("LoginError", "帳號或密碼錯誤唷");
+			}
+		} catch (RuntimeException ex) {
+			errorMsgMap.put("LoginError", ex.getMessage());
+		}
+
+		if (errorMsgMap.isEmpty()) {
+			// 存入LoginOK=登入成功
+			session.setAttribute("LoginOK", mb);
+			// 因為如果沒勾會是null 用@RequestParam註釋一定要傳值進來 如果沒有值會當掉 所以需要用過去request的方式去抓
+			String rm = request.getParameter("rememberMe");
+			Cookie cookieUser = null;
+			Cookie cookiePassword = null;
+			Cookie cookieRememberMe = null;
+			if (rm != null) {
+				// 如果選擇記住帳密
+				cookieUser = new Cookie("memberId", memberId);
+				cookieUser.setMaxAge(30 * 24 * 60 * 60); // cookie存活期一個月
+				cookieUser.setPath(context.getContextPath());
+
+				String encodePassword = GlobalService.encryptString(password);
+				cookiePassword = new Cookie("password", encodePassword);
+				cookiePassword.setMaxAge(30 * 24 * 60 * 60);
+				cookiePassword.setPath(context.getContextPath());
+
+				cookieRememberMe = new Cookie("rememberMe", "true");
+				cookieRememberMe.setMaxAge(30 * 24 * 60 * 60);
+				cookieRememberMe.setPath(context.getContextPath());
+			} else {
+				// 如果使用者沒有按下記住帳密 就不會保存帳號密碼的cookie
+				cookieUser = new Cookie("memberId", memberId);
+				cookieUser.setMaxAge(0);
+				cookieUser.setPath(context.getContextPath());
+
+				String encodePassword = GlobalService.encryptString(password);
+				cookiePassword = new Cookie("password", encodePassword);
+				cookiePassword.setMaxAge(0);
+				cookiePassword.setPath(context.getContextPath());
+
+				cookieRememberMe = new Cookie("rememberMe", "true");
+				cookieRememberMe.setMaxAge(0);
+				cookieRememberMe.setPath(context.getContextPath());
+			}
+			response.addCookie(cookieUser);
+			response.addCookie(cookiePassword);
+			response.addCookie(cookieRememberMe);
+
+			String target = (String) session.getAttribute("target");
+			// 如果是從別的地方來的就回去
+			if (target != null) {
+				return "redirect:/" + target;
+			} else {
+				return "redirect:/";
+			}
+		} else {
+			return "login/login";
 		}
 	}
 
@@ -448,10 +480,10 @@ public class MemberController {
 		String searchStr = request.getParameter("search") == null ? "" : request.getParameter("search");
 
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
-		Map<Integer, ArticleBean> articleMap = articleService.getPersonArticles(arrange, searchStr, mb);
+		Map<ArticleBean, String> articleMap = articleService.getPersonArticles(arrange, searchStr, mb);
 
 		model.addAttribute("searchStr", searchStr);
-		model.addAttribute("arrange", arrange);
+//		model.addAttribute("arrange", arrange);
 		model.addAttribute("articles_map", articleMap);
 
 		return "personPage/myArticles";

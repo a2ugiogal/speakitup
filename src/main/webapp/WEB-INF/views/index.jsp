@@ -12,13 +12,14 @@
 	crossorigin="anonymous" />
 
 <link rel="stylesheet" href="<spring:url value='/css/index.css' /> " />
-<link rel="stylesheet" href="<spring:url value='/css/nav.css' /> " />
+<link rel="stylesheet"
+	href="<spring:url value='/css/register/nav.css' /> " />
 <title>要抒啦--首頁</title>
 </head>
 <body>
 	<!-- =======================導覽列================= -->
 	<nav class="navbar navbar-expand-lg navbar-light fixed-top p-0"
-		id="navBody">
+		style="margin-bottom: 200px" id="navBody">
 		<div class="mr-auto">
 			<button id="hamberger-btn" class="navbar-toggler ml-3" type="button"
 				data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -86,6 +87,12 @@
 							class="dropdown-item"
 							href="<spring:url value='/order/showHistoryOrder' />">歷史訂單</a>
 					</div></li>
+				<li class="nav-item mx-2"><a class="nav-link"
+					href="<spring:url value='/letter/letterHome' />">漂流瓶</a></li>
+
+				<li class="nav-item mx-2"><a class="nav-link"
+					href="<spring:url value='/member/showMyArticles' />">我的文章</a></li>
+
 				<c:if test="${LoginOK.permission=='管理員'}">
 					<li class="nav-item dropdown mx-2"><a
 						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
@@ -116,6 +123,8 @@
 			</ul>
 		</div>
 	</nav>
+	<!-- 導覽列 -->
+
 	<!-- 置頂按鈕 設定 -->
 	<a href="#top"> <img id="myBtn"
 		src="https://png.pngtree.com/png-clipart/20190705/original/pngtree-vector-up-arrow-icon-png-image_4272127.jpg" />
@@ -302,6 +311,7 @@
 		</div>
 	</div>
 
+	<!--========= footer================= -->
 	<!-- Footer -->
 	<footer class="page-footer font-small stylish-color-dark pt-2">
 		<!-- Footer Links -->
@@ -312,15 +322,15 @@
 					class="col-md-2 d-flex justify-content-center align-items-center">
 					<img
 						src="https://github.com/sun0722a/yaoshula/blob/master/src/logo/logo_trans_140px.png?raw=true"
-						alt="" />
+						width="120px" alt="" />
 				</div>
 				<!-- Grid column -->
 
 				<div class="col-md-4 mx-auto">
 					<!-- Content -->
-					<h5 class="font-weight-bold text-uppercase mt-3">要抒啦！ 網路論壇&商城
+					<h5 class="font-weight-bold text-uppercase mb-3">要抒啦！ 網路論壇&商城
 					</h5>
-					<p id="footer-introdution" class="text-secondary mt-4">
+					<p id="footer-introdution" class="text-secondary">
 						是個能夠預期回應溫度的論壇空間。希望在亂世間提供一個烏托邦式的空間，讓大家可以盡情釋放壓力，得到慰藉❤️。</p>
 					<div class="d-flex"></div>
 				</div>
@@ -331,7 +341,7 @@
 				<!-- Grid column -->
 				<div class="col-md-2 mx-auto">
 					<!-- Links -->
-					<h5 class="font-weight-bold text-uppercase mt-3 mb-4">論壇</h5>
+					<h5 class="font-weight-bold text-uppercase mb-3">論壇</h5>
 
 					<ul class="list-unstyled">
 						<li><a
@@ -348,7 +358,7 @@
 				<!-- Grid column -->
 				<div class="col-md-2 mx-auto">
 					<!-- Links -->
-					<h5 class="font-weight-bold text-uppercase mt-3 mb-4">商城</h5>
+					<h5 class="font-weight-bold text-uppercase mb-3">商城</h5>
 
 					<ul class="list-unstyled">
 						<li><a href="#!">商城首頁</a></li>
@@ -363,7 +373,7 @@
 				<!-- Grid column -->
 				<div class="col-md-2 mx-auto">
 					<!-- Links -->
-					<h5 class="font-weight-bold text-uppercase mt-3 mb-4">關於我們</h5>
+					<h5 class="font-weight-bold text-uppercase mb-3">關於我們</h5>
 
 					<ul class="list-unstyled">
 						<li><a href="#!">聯絡我們</a></li>
@@ -377,8 +387,9 @@
 		</div>
 
 		<!-- Copyright -->
-		<div class="footer-copyright text-center mt-0 pb-4">© 2020
-			Copyright © 2020 Speak It Up. All rights reserved</div>
+		<div class="footer-copyright text-center mt-0 pb-3"
+			style="font-size: 15px;">© 2020 Copyright © 2020 Speak It Up.
+			All rights reserved</div>
 		<!-- Copyright -->
 	</footer>
 	<!-- Footer -->

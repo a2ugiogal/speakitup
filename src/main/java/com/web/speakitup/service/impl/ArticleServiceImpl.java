@@ -96,8 +96,8 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Transactional
 	@Override
-	public Map<Integer, ArticleBean> getPersonArticles(String arrange, String searchStr, MemberBean mb) {
-		Map<Integer, ArticleBean> map = null;
+	public Map<ArticleBean, String> getPersonArticles(String arrange, String searchStr, MemberBean mb) {
+		Map<ArticleBean, String> map = null;
 		map = dao.getPersonArticles(arrange, searchStr, mb);
 		return map;
 	}

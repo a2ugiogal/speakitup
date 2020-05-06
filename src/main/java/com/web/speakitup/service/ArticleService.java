@@ -30,7 +30,7 @@ public interface ArticleService {
 
 	Map<Integer, ArticleBean> getArticles(String arrange, String searchStr, String categoryTitle, String categoryName);
 
-	Map<Integer, ArticleBean> getPersonArticles(String arrange, String searchStr, MemberBean mb);
+	Map<ArticleBean, String> getPersonArticles(String arrange, String searchStr, MemberBean mb);
 
 	Map<Integer, ArticleBean> getFamousArticles(String categoryTitle);
 

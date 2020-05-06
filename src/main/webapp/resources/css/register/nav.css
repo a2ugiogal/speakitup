@@ -9,7 +9,7 @@
 
 nav a {
 	text-decoration: none;
-	color: white !important;
+	color: rgb(24, 24, 24) !important;
 }
 
 #hamberger-btn {
@@ -26,7 +26,7 @@ nav a {
 
 /* nav主要顏色 */
 #navBody {
-	background-color: #d1142a;
+	background-color: #39c592;
 }
 
 /* 搜尋按鈕顏色 */
@@ -37,7 +37,7 @@ nav a {
 /* 選單內顏色 */
 .dropdown-menu {
 	padding: 0px;
-	background-color: rgb(206, 49, 49);
+	background-color: #5bc9a0;
 	margin-bottom: 10px;
 	border-width: 0px !important;
 }

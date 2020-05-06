@@ -1,5 +1,7 @@
 package com.web.speakitup.dao.impl;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -140,25 +142,28 @@ public class ArticleDaoImpl implements ArticleDao {
 	// 查詢個人文章
 	@SuppressWarnings("unchecked")
 	@Override
-	public Map<Integer, ArticleBean> getPersonArticles(String arrange, String searchStr, MemberBean mb) {
+	public Map<ArticleBean, String> getPersonArticles(String arrange, String searchStr, MemberBean mb) {
 		// 預設的搜尋
 		String hql = "FROM ArticleBean ab WHERE ab.authorName = :memberId AND ab.title LIKE :searchStr AND ab.status= :status ORDER BY ab.articleId DESC";
 		Session session = factory.getCurrentSession();
 		String[] arranges = GlobalService.ARTICLE_ARRANGE; // "popular", "time"
-		Map<Integer, ArticleBean> map = new LinkedHashMap<Integer, ArticleBean>();
+		Map<ArticleBean, String> map = new LinkedHashMap<>();
 		List<ArticleBean> list = new ArrayList<ArticleBean>();
 
 		// 判斷要如何排列
-		if (arrange != "") {
-			if (arrange.equals(arranges[0])) {
-				hql = "FROM ArticleBean ab WHERE ab.authorName = :memberId AND ab.title LIKE :searchStr AND ab.status= :status ORDER BY ab.likes DESC";
-			}
+		if (arrange.equals(arranges[0])) {
+			hql = "FROM ArticleBean ab WHERE ab.authorName = :memberId AND ab.title LIKE :searchStr AND ab.status= :status ORDER BY ab.likes DESC";
 		}
 		// 只取此頁的商品
 		list = session.createQuery(hql).setParameter("memberId", mb.getMemberId())
 				.setParameter("searchStr", "%" + searchStr + "%").setParameter("status", "正常").getResultList();
 		for (ArticleBean bean : list) {
-			map.put(bean.getArticleId(), bean);
+			try {
+				String content = GlobalService.clobToString(bean.getContent());
+				map.put(bean, content);
+			} catch (IOException | SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return map;
 	}

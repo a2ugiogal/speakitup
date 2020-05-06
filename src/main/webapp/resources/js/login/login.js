@@ -1,19 +1,10 @@
-//function doFitst(){
-//	loginBtn = document.getElementById('loginBtn');
-//	inputmemberId = document.getElementById('inputmemberId');
-//	inputPassword = document.getElementById('inputPassword');
-//	idEmptyError = document.getElementById('idEmptyError');
-//	passwordEmptyError = document.getElementById('passwordEmptyError');
-//	
-//	loginBtn.addEventListener('click',checkLogin)
-//}
-//function checkLogin(){
-//	xhr = new XMLHttpRequest();
-//	xhr.open
-//	(
-//	"POST",
-//	"/speakitup/login/checkUserPassword/{memberId}/{password}
-//	)
-//}
-//
-//window.addEventListener('load',doFirst);
+//由<body>的onLoad事件處理函數觸發此函數
+function doFirst() {
+	document.getElementById("inputmemberId").focus(); // 將游標放在userId欄位內
+}
+function closeToast() {
+	toast = document.getElementById("toast-email");
+	toast.style.display = 'none';
+}
+
+window.addEventListener("load", doFirst);

@@ -33,7 +33,7 @@ function doFirst() {
 function checkPW() {
   if (password.value != passwordCheck.value && passwordCheck.value != "") {
     passwordCheck.value = "";
-    passwordError.style.display = "contents";
+    passwordError.style.display = "inline-block";
   } else {
     passwordError.style.display = "none";
   }
@@ -42,7 +42,7 @@ function checkPassword() {
   if (password.value != passwordCheck.value) {
 	password.value="";
     passwordCheck.value = "";
-    passwordError.style.display = "contents";
+    passwordError.style.display = "inline-block";
   } else {
     passwordError.style.display = "none";
   }

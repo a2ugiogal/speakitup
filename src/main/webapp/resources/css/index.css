@@ -1,284 +1,304 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&family=Noto+Serif+TC:wght@200;300;400;500;600;700;900&family=Nunito:ital,wght@0,400;1,800&family=Lexend+Giga&display=swap');
+@import
+	url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&family=Noto+Serif+TC:wght@200;300;400;500;600;700;900&family=Nunito:ital,wght@0,400;1,800&family=Lexend+Giga&display=swap')
+	;
 
 * {
-  box-sizing: border-box;
-  font-family: 'Noto Sans TC', sans-serif;
+	box-sizing: border-box;
+	font-family: 'Noto Sans TC', sans-serif;
 }
 /*字體設定*/
 #eyesNo {
-  font-weight: 700;
+	font-weight: 700;
 }
+
 #listenYouWant {
-  font-weight: 500;
+	font-weight: 500;
 }
+
 #smile {
-  font-family: 'Lexend Giga', sans-serif !important;
-  font-weight: 500;
+	font-family: 'Lexend Giga', sans-serif !important;
+	font-weight: 500;
 }
 
 /* 置頂按鈕 設定 */
 #myBtn {
-  z-index: 99;
-  /* 初始化不顯示 */
-  /* display: none; */
-  /* fixed = 畫面的絕對位置，所以會跟著跑 */
-  position: fixed;
-  /* 離下面30 pixel */
-  bottom: 30px;
-  /* 離右邊30 pixel */
-  right: 10px;
-  /* 半徑圓 */
-  border-radius: 30px;
-  /* 背景色 */
-  background-color: white;
-  /* 透明度 */
-  opacity: 0.5;
-  /* 游標指過去會變手指 */
-  cursor: pointer;
-  /* 控制按鈕寬度 */
-  width: 50px;
+	z-index: 99;
+	/* 初始化不顯示 */
+	/* display: none; */
+	/* fixed = 畫面的絕對位置，所以會跟著跑 */
+	position: fixed;
+	/* 離下面30 pixel */
+	bottom: 30px;
+	/* 離右邊30 pixel */
+	right: 10px;
+	/* 半徑圓 */
+	border-radius: 30px;
+	/* 背景色 */
+	background-color: white;
+	/* 透明度 */
+	opacity: 0.5;
+	/* 游標指過去會變手指 */
+	cursor: pointer;
+	/* 控制按鈕寬度 */
+	width: 50px;
 }
 
-html,
-body {
-  scroll-behavior: smooth;
+html, body {
+	scroll-behavior: smooth;
 }
 
 /* 頁尾設定  */
 footer a {
-  color: #e43c5c !important;
+	font-size: 15px;
+	color: #e43c5c !important;
 }
 
 footer h5 {
-  color: black !important;
+	font-size: 17px;
+	color: black !important;
 }
 
 #footer-introdution {
-  color: rgb(117, 117, 117) !important;
+	font-size: 15px;
+	color: rgb(117, 117, 117) !important;
 }
 
 /* 打字機效果 */
 .typewriter h1 {
-  font-size: 3em;
-  color: #fff;
-  overflow: hidden; /* Ensures the content is not revealed until the animation */
-  border-right: 0.15em solid #ea6981; /* The typwriter cursor */
-  white-space: nowrap; /* Keeps the content on a single line */
-  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-  letter-spacing: 0.15em; /* Adjust as needed */
-  animation: typing 2.5s steps(12, end), blink-caret 0.5s step-end;
-  animation-play-state: paused;
+	font-size: 3em;
+	color: #fff;
+	overflow: hidden;
+	/* Ensures the content is not revealed until the animation */
+	border-right: 0.15em solid #ea6981; /* The typwriter cursor */
+	white-space: nowrap; /* Keeps the content on a single line */
+	margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+	letter-spacing: 0.15em; /* Adjust as needed */
+	animation: typing 2.5s steps(12, end), blink-caret 0.5s step-end;
+	animation-play-state: paused;
 }
 /*動畫名稱是typing 進行3s 將動畫切為25格*/
 
 /* The typing effect */
-@keyframes typing {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%;
-  }
+@
+keyframes typing {from { width:0;
+	
+}
+
+to {
+	width: 100%;
+}
+
 }
 
 /* The typewriter cursor effect */
-@keyframes blink-caret {
-  from,
-  to {
-    border-color: transparent;
-  }
-  50% {
-    border-color: #ea6981;
-  }
+@
+keyframes blink-caret {from , to { border-color:transparent;
+	
+}
+
+50%
+{
+border-color
+:
+ 
+#ea6981
+;
+
+  
+}
 }
 
 /*首圖*/
 #index {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  height: 100vh;
-  background: url("https://github.com/sun0722a/yaoshula/blob/master/src/logo/bg_2.png?raw=true");
-  background-size: cover;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	height: 100vh;
+	background:
+		url("https://github.com/sun0722a/yaoshula/blob/master/src/logo/bg_2.png?raw=true");
+	background-size: cover;
 }
 /*首圖文字*/
 #index .content {
-  width: 600px;
-  height: 350px;
-  margin-top: -120px;
-  margin-right: 150px;
+	width: 600px;
+	height: 350px;
+	margin-top: -120px;
+	margin-right: 150px;
 }
 
 /*--------------------------------------------------------------
 # section
 --------------------------------------------------------------*/
 section {
-  padding: 60px 0;
+	padding: 60px 0;
 }
 
 .section-bg {
-  background-color: white;
+	background-color: white;
 }
 
 .section-title {
-  text-align: center;
-  padding-bottom: 100px;
+	text-align: center;
+	padding-bottom: 100px;
 }
 
 .section-title h2 {
-  font-size: 25px;
-  letter-spacing: 1px;
-  font-weight: 700;
-  padding: 40px 20px;
-  line-height: 1;
-  margin: 0;
-  background: #fdeff2;
-  color: #e43c5c;
-  display: inline-block;
-  text-transform: uppercase;
-  border-radius: 50px;
+	font-size: 25px;
+	letter-spacing: 1px;
+	font-weight: 700;
+	padding: 40px 20px;
+	line-height: 1;
+	margin: 0;
+	background: #fdeff2;
+	color: #e43c5c;
+	display: inline-block;
+	text-transform: uppercase;
+	border-radius: 50px;
 }
 
 .section-title h3 {
-  margin: 15px 0 20px 0;
-  font-size: 32px;
-  font-weight: 700;
+	margin: 15px 0 20px 0;
+	font-size: 32px;
+	font-weight: 700;
 }
 
 .section-title h3 span {
-  color: #e43c5c;
+	color: #e43c5c;
 }
+
 #hotTitle span {
-  font-family: 'Nunito', sans-serif !important;
+	font-family: 'Nunito', sans-serif !important;
 }
 
 .section-title p {
-  margin: 15px auto 0 auto;
-  font-size: 20px;
-  font-weight: 600;
+	margin: 15px auto 0 auto;
+	font-size: 20px;
+	font-weight: 600;
 }
 
-@media (min-width: 1024px) {
-  .section-title p {
-    width: 50%;
-  }
+@media ( min-width : 1024px) {
+	.section-title p {
+		width: 50%;
+	}
 }
 
 /*--------------------------------------------------------------
 # 論壇簡介
 --------------------------------------------------------------*/
 .about .content h3 {
-  font-weight: 600;
-  font-size: 26px;
+	font-weight: 600;
+	font-size: 26px;
 }
 
 .about .content ul {
-  list-style: none;
-  padding: 0;
+	list-style: none;
+	padding: 0;
 }
 
 .about .content ul li {
-  padding-left: 28px;
-  position: relative;
+	padding-left: 28px;
+	position: relative;
 }
 
-.about .content ul li + li {
-  margin-top: 10px;
+.about .content ul li+li {
+	margin-top: 10px;
 }
 
 .about .content ul i {
-  position: absolute;
-  left: 0;
-  top: 2px;
-  font-size: 20px;
-  color: #e43c5c;
-  line-height: 1;
+	position: absolute;
+	left: 0;
+	top: 2px;
+	font-size: 20px;
+	color: #e43c5c;
+	line-height: 1;
 }
 
 .about .content p {
-  font-size: 18px;
+	font-size: 18px;
 }
 
 .about .content .btn-learn-more {
-  font-weight: 600;
-  font-size: 20px;
-  letter-spacing: 1px;
-  display: inline-block;
-  padding: 12px 32px;
-  border-radius: 50px;
-  transition: 0.3s;
-  line-height: 1;
-  color: #e43c5c;
-  -webkit-animation-delay: 0.8s;
-  animation-delay: 0.8s;
-  /* margin-top: 50px; */
-  position:absolute;
-  bottom:0px;
-  /* right:0px; */
-
-  border: 2px solid #e43c5c;
+	font-weight: 600;
+	font-size: 20px;
+	letter-spacing: 1px;
+	display: inline-block;
+	padding: 12px 32px;
+	border-radius: 50px;
+	transition: 0.3s;
+	line-height: 1;
+	color: #e43c5c;
+	-webkit-animation-delay: 0.8s;
+	animation-delay: 0.8s;
+	/* margin-top: 50px; */
+	position: absolute;
+	bottom: 0px;
+	/* right:0px; */
+	border: 2px solid #e43c5c;
 }
 
 .about .content .btn-learn-more:hover {
-  background: #e43c5c;
-  color: #fff;
-  text-decoration: none;
+	background: #e43c5c;
+	color: #fff;
+	text-decoration: none;
 }
 
 .about p {
-  line-height: 28px;
+	line-height: 28px;
 }
 
 /*插頭的圖*/
 #plug {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  height: 100vh;
-  background: url("https://i.imgur.com/56GnWmY.png");
-  background-size: cover;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	height: 100vh;
+	background: url("https://i.imgur.com/56GnWmY.png");
+	background-size: cover;
 }
 /*插頭旁文字*/
 #plug .content {
-  width: 450px;
-  height: 350px;
-  margin-left: 250px;
+	width: 450px;
+	height: 350px;
+	margin-left: 250px;
 }
 
 #plug h1 {
-  font-size: 5em;
-  text-shadow: 5px 3px 1px white;
+	font-size: 5em;
+	text-shadow: 5px 3px 1px white;
 }
 
 #plug h2 {
-  font-size: 3em;
+	font-size: 3em;
 }
 
 #sign-up-now {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 /*熱門區*/
 #hot-news-title {
-  font-size: 3em;
+	font-size: 3em;
 }
+
 .hotnews {
-  background-color: #0e2640;
-  padding-top: 50px;
-  padding-bottom: 150px;
+	background-color: #0e2640;
+	padding-top: 50px;
+	padding-bottom: 150px;
 }
+
 .hotnews .card {
-  border: white 3px solid;
-  /* box-shadow:0 0 18px 5px rgba(255, 255, 255, 0.7); */
-  margin: 20px;
+	border: white 3px solid;
+	/* box-shadow:0 0 18px 5px rgba(255, 255, 255, 0.7); */
+	margin: 20px;
 }
+
 .hotnews img {
-  height: 300px;
+	height: 300px;
 }
 
 /* 漢堡選單的時候 */
 @media only screen and (max-width: 991px) {
-  #left-content{
-    margin: 0px !important;
-  }
+	#left-content {
+		margin: 0px !important;
+	}
 }

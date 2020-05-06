@@ -56,7 +56,6 @@ ul{
 
 /*四個按鈕那邊*/
 .btn{
-	text-align: center;
     width: 200px;
     height: 50px;
     border-radius: 25px;
@@ -72,7 +71,6 @@ ul{
 }
 
 .btnError{
-	text-align: center;
 	width: 200px;
     height: 50px;
     border-radius: 25px;
@@ -145,8 +143,8 @@ a{
     }
 
     .intro-container{
-    	align-items:center;
-       justify-content: center;
+/*     	align-items:center; */
+/*        justify-content: center; */
      
     }
 

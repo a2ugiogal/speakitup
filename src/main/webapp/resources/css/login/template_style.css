@@ -2730,7 +2730,7 @@ input[type='submit'].btn-block {
   min-width: 10rem;
   padding: 0.5rem 0;
   margin: 0.125rem 0 0;
-  font-size: 0.85rem;
+/*   font-size: 0.85rem; */
   color: #858796;
   text-align: left;
   list-style: none;
@@ -8995,7 +8995,7 @@ a:focus {
   transform: rotate(-15deg);
 }
 .dropdown .dropdown-menu {
-  font-size: 0.85rem;
+/*   font-size: 0.85rem; */
 }
 .dropdown .dropdown-menu .dropdown-header {
   font-weight: 800;
@@ -9621,12 +9621,12 @@ a:focus {
 form.user .custom-checkbox.small label {
   line-height: 1.5rem;
 }
-form.user .form-control-user {
+.form-control-user {
   font-size: 0.8rem;
   border-radius: 10rem;
   padding: 1.5rem 1rem;
 }
-form.user .btn-user {
+.btn-user {
   font-size: 0.8rem;
   border-radius: 10rem;
   padding: 0.75rem 1rem;
