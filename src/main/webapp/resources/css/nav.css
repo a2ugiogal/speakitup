@@ -56,6 +56,10 @@ nav a {
 }
 
 /* 頁尾設定  */
+footer {
+	background-color: white;
+}
+
 footer a {
 	font-size: 15px;
 	color: #e43c5c !important;

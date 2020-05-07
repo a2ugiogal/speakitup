@@ -42,9 +42,9 @@ public class ProductServiceImpl implements ProductService {
 
 	@Transactional
 	@Override
-	public Map<Integer, ProductBean> getPageProducts(int pageNo, String arrange, String searchStr, String categoryTitle,
+	public Map<ProductBean, String> getPageProducts(int pageNo, String arrange, String searchStr, String categoryTitle,
 			String categoryName) {
-		Map<Integer, ProductBean> map = null;
+		Map<ProductBean, String> map = null;
 		map = dao.getPageProducts(pageNo, arrange, searchStr, categoryTitle, categoryName);
 		return map;
 	}

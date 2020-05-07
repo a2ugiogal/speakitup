@@ -113,7 +113,7 @@ public class ProductController {
 		}
 
 		// 取得本頁商品資料(Map<Integer, ProductBean>)
-		Map<Integer, ProductBean> productMap = productService.getPageProducts(pageNo, arrange, searchStr, categoryTitle,
+		Map<ProductBean, String> productMap = productService.getPageProducts(pageNo, arrange, searchStr, categoryTitle,
 				categoryName);
 
 		model.addAttribute("searchStr", searchStr);
@@ -243,6 +243,26 @@ public class ProductController {
 
 		ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
 		return responseEntity;
+	}
+
+	@ModelAttribute("angelCategoryList")
+	public List<String> getAngelCategory() {
+		Set<CategoryBean> angelBeans = productService.getCategorys("天使");
+		List<String> list = new ArrayList<String>();
+		for (CategoryBean bean : angelBeans) {
+			list.add(bean.getCategoryName());
+		}
+		return list;
+	}
+
+	@ModelAttribute("evilCategoryList")
+	public List<String> getEvilCategory() {
+		Set<CategoryBean> evilBeans = productService.getCategorys("惡魔");
+		List<String> list = new ArrayList<String>();
+		for (CategoryBean bean : evilBeans) {
+			list.add(bean.getCategoryName());
+		}
+		return list;
 	}
 
 	// ==================管理員===================
