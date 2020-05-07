@@ -1,6 +1,7 @@
 package com.web.speakitup.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Writer;
 import java.sql.Blob;
 import java.sql.Date;
@@ -18,6 +19,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -373,7 +375,6 @@ public class MemberController {
 	public String findPassword(HttpServletRequest request) {
 		String memberEmailStr = request.getParameter("email");
 		if (memberService.emailExists(memberEmailStr) == true) {
-
 			String[] memberEmail = { memberEmailStr };
 			String authToken = GlobalService.getMD5Endocing(GlobalService.encryptString(memberEmailStr));
 			String subject = null;
@@ -386,11 +387,28 @@ public class MemberController {
 			Thread sendEmail = new SendEmail(memberEmail, subject, content.toString(), "");
 			System.out.println(memberEmail[0]);
 			sendEmail.start();
+			return "redirect:/";
 		} else {
+
 			System.out.println("假裝有寄啦，但其實沒寄");
 		}
 
 		return "redirect:/";
+	}
+
+	/* 忘記密碼的檢查信箱 */
+	@GetMapping("/checkEmail")
+	public void checkEmail(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		response.setContentType("text/plain; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+
+		String memberEmailStr = request.getParameter("email");
+		if (memberService.emailExists(memberEmailStr)) {
+			out.print("true");
+		} else {
+			out.print("false");
+		}
 	}
 
 	@GetMapping("/changepswd/{emailVerifyCode}")
@@ -411,14 +429,10 @@ public class MemberController {
 
 		int n = memberService.updateMemberPassword(memberId, passwordNew);
 		if (n == 1) {
-			System.out.println("修改成功");
-
+			return "redirect:/member/login";
 		} else {
-			System.out.println("修改失敗");
 			return "redirect:/";
 		}
-
-		return "redirect:/login/login";
 	}
 	// ==================非管理員(個人頁面)===================
 

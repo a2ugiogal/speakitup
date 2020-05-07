@@ -15,199 +15,255 @@
 	href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css'
 	rel='stylesheet'>
 <!-- my css -->
-<link rel="stylesheet" href="<spring:url value='/css/style.css' /> " />
+<link rel="stylesheet"
+	href="<spring:url value='/css/login/enterEmail.css' /> " />
+<link rel="stylesheet"
+	href="<spring:url value='/css/register/nav.css' /> " />
 <script src="<spring:url value='/js/login/enterEmail.js'  /> "></script>
 <title>Forget Password</title>
 </head>
 <body>
-	<!-- ==============Header =================-->
-	<div id="header">
-		<nav class="navbar navbar-expand-lg navbar-light bg-danger fixed-top">
-			<!-- logo和標題 -->
-			<nav class="navbar navbar-light bg-danger">
-				<a class="navbar-brand text-white" href="#"> <!--                   <img src="https://github.com/sun0722a/yaoshula/blob/master/src/logo/logo_trans_250px.png?raw=true" width="50" height="50" class="d-inline-block align-top" alt=""> -->
-					要抒啦！
-				</a>
-			</nav>
-			<!-- 收縮成漢堡 -->
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarSupportedContent"
+	<!-- =======================導覽列================= -->
+	<nav class="navbar navbar-expand-lg navbar-light fixed-top p-0"
+		style="margin-bottom: 200px" id="navBody">
+		<div class="mr-auto">
+			<button id="hamberger-btn" class="navbar-toggler ml-3" type="button"
+				data-toggle="collapse" data-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
 				aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
+			<a class="navbar-brand ml-3" href="<spring:url value='/' />"> <img
+				src="<spring:url value='/image/logo/logo_trans_92px.png' /> "
+				height="50px" /> 要抒拉
+			</a>
+		</div>
+		<div class="navbar-nav flex-row ml-auto"
+			style="position: absolute; right: 250px; top: 10px;">
+			<!-- 			<form class="form-inline mr-5"> -->
+			<!-- 				<input class="form-control mr-sm-2" type="search" id="search" -->
+			<!-- 					placeholder="Search" aria-label="Search" /> -->
+			<!-- 				<button class="btn d-flex justify-content-center" type="submit" -->
+			<!-- 					id="search-btn">Search</button> -->
+			<!-- 			</form> -->
+		</div>
+		<div class="navbar-nav flex-row ml-auto"
+			style="position: absolute; right: 0; top: 10px;">
+			<!-- ==========判斷是否登入======== -->
+			<c:choose>
+				<c:when test="${empty LoginOK}">
+					<a class="navbar-brand mr-5"
+						href="<spring:url value='/member/login' />">登入</a>
+					<a class="navbar-brand mr-5"
+						href="<spring:url value='/member/register' />">註冊</a>
+				</c:when>
+				<c:otherwise>
+					<div style="width: 150px;">
+						<a class="mr-4" href="<spring:url value='/member/personPage' />"
+							style="text-decoration: none;" id="nav-memberId"> <img
+							src="<spring:url value='/member/getUserImage/${LoginOK.id}' />"
+							width="45px" height="45px" class="rounded-circle mr-2"
+							id="nav-memberPicture" /> ${LoginOK.memberId}
+						</a>
+					</div>
+					<a class="navbar-brand mr-5"
+						href="<spring:url value='/member/logout' />">登出</a>
+				</c:otherwise>
+			</c:choose>
+		</div>
 
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<!-- ============left menu=================== -->
-				<ul class="navbar-nav mr-auto">
-					<!-- 下拉一 -->
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle text-white" href="#"
-						id="navbarDropdown" role="button" data-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false"> 論壇 </a>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item dropdown mx-2"><a
+					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+					role="button" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false"> 論壇 </a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item"
+							href="<spring:url value='/article/showPageArticles?categoryTitle=天使' />">天使板</a>
+						<a class="dropdown-item"
+							href="<spring:url value='/article/showPageArticles?categoryTitle=惡魔' />">惡魔板</a>
+					</div></li>
+				<li class="nav-item dropdown mx-2"><a
+					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+					role="button" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false"> 商城 </a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="#">首頁</a> <a class="dropdown-item"
+							href="<spring:url value='/order/shoppingCartList' />">購物車</a> <a
+							class="dropdown-item"
+							href="<spring:url value='/order/showHistoryOrder' />">歷史訂單</a>
+					</div></li>
+				<li class="nav-item mx-2"><a class="nav-link"
+					href="<spring:url value='/letter/letterHome' />">漂流瓶</a></li>
+				<c:if test="${LoginOK.permission=='管理員'}">
+					<li class="nav-item dropdown mx-2"><a
+						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+						role="button" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false"> 管理後台 </a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="#">天使版</a> <a
-								class="dropdown-item" href="#">惡魔版</a></li>
-					<!-- 下拉二 -->
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle text-white" href="#"
-						id="navbarDropdown" role="button" data-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false"> 商城 </a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="#">商城首頁</a> <a
-								class="dropdown-item" href="#">我的購物車</a> <a
-								class="dropdown-item" href="#">歷史訂單</a></li>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle text-white" href="#"
-						id="navbarDropdown" role="button" data-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false"> 關於 </a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="#">創站理念</a> <a
-								class="dropdown-item" href="#">團隊介紹</a> <a class="dropdown-item"
-								href="#">聯絡我們</a></li>
-				</ul>
-
-				<!-- ============right menu=================== -->
-				<ul class="navbar-nav ml-auto ">
-					<li class="nav-item"><a class="nav-link text-white" href="#">會員登入</a>
-					</li>
-				</ul>
-			</div>
-		</nav>
-	</div>
+							<a class="dropdown-item"
+								href="<spring:url value='/article/showReports' />">檢舉專區</a> <a
+								class="dropdown-item"
+								href="<spring:url value='/member/showMembers' />">帳號管理</a> <a
+								class="dropdown-item"
+								href="<spring:url value='/order/showOrders' />">訂單管理</a><a
+								class="dropdown-item"
+								href="<spring:url value='/product/showProducts' />">商品管理</a>
+						</div></li>
+				</c:if>
+				<li class="nav-item dropdown mx-2 mb-1"><a
+					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+					role="button" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false"> 關於我們 </a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="#">創建理念</a> <a
+							class="dropdown-item" href="#">團隊介紹</a> <a class="dropdown-item"
+							href="<spring:url value='/aboutUs/contact' />">聯絡我們</a>
+					</div></li>
+			</ul>
+		</div>
+	</nav>
+	<!-- 導覽列 -->
 
 	<!-- ===main=== -->
-	<div class="container">
+	<div id="bg-color">
+		<div class="container">
+			<!-- Outer Row -->
+			<div class="row justify-content-center mt-5">
 
-		<!-- Outer Row -->
-		<div class="row justify-content-center mt-5">
+				<div class="col-xl-10 col-lg-12 col-md-9 my-5">
 
-			<div class="col-xl-10 col-lg-12 col-md-9 mt-5">
-
-				<div class="card o-hidden border-0 shadow-lg my-5 ">
-					<div class="card-body p-0">
-						<div class="row">
-							<!-- 左側圖片 -->
-							<div class="col-lg-6 d-none d-lg-block bg-password-image"></div>
-							<div class="col-lg-6">
-								<div class="p-5">
-									<div class="text-center">
-										<h1 class="h4 text-gray-900 mb-2">唉呀!忘記密碼了</h1>
-										<p class="mb-4">幫您找找，我們將寄發一封驗證信</p>
-									</div>
-									<form class="user" action="<spring:url value='/member/findPassword' />"
-										method="POST">
-										<div class="form-group">
-											<input type="email" name="email"
-												class="form-control form-control-user" id="emailInput"
-												placeholder="請輸入您註冊時的email">
+					<div class="card o-hidden border-0 shadow-lg my-5 ">
+						<div class="card-body p-0">
+							<div class="row">
+								<!-- 左側圖片 -->
+								<div class="col-lg-6 d-none d-lg-block bg-password-image"></div>
+								<div class="col-lg-6">
+									<div class="p-5">
+										<div class="text-center">
+											<h2 class="text-gray-900 mb-3">
+												<strong>唉呀!忘記密碼了</strong>
+											</h2>
+											<p class="h6 mb-4">幫您找找，我們將寄發一封驗證信</p>
 										</div>
-										<div id="emailError" style="display: none;"
-											class="errorText mb-3 ml-3">Email格式不符</div>
-										<input type="submit"
-											class="btn btn-primary btn-user btn-block" role="button"
-											id="submitbtn" disabled>
-									</form>
-									<hr>
-									<div class="text-center">
-										<a class="small" href="<spring:url value='/member/register' />">還沒有帳號?立即註冊</a>
-									</div>
-									<div class="text-center">
-										<a class="small" href="<spring:url value='/member/login' />">想起來了？馬上登入</a>
+										<form class="user"
+											action="<spring:url value='/member/findPassword' />"
+											method="POST">
+											<div class="form-group">
+												<input type="email" name="email"
+													class="form-control form-control-user" id="emailInput"
+													placeholder="請輸入您註冊時的email" style="font-size: 18px">
+											</div>
+											<div id="emailError" style="display: none;"
+												class="errorText mt-3 ml-3">Email格式不符</div>
+											<input type="submit"
+												class="btn btn-primary btn-user btn-block mt-4" role="button"
+												id="submitbtn" disabled style="font-size: 16px">
+										</form>
+										<hr>
+										<div class="text-center">
+											<a class="small"
+												href="<spring:url value='/member/register' />"
+												style="font-size: 15px">還沒有帳號?立即註冊</a>
+										</div>
+										<div class="text-center">
+											<a class="small" href="<spring:url value='/member/login' />"
+												style="font-size: 15px">想起來了？馬上登入</a>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+
 				</div>
 
 			</div>
 
 		</div>
-
 	</div>
+
 	<!--========= footer================= -->
 	<!-- Footer -->
-	<footer class="page-footer font-small stylish-color-dark pt-5">
-
+	<footer class="page-footer font-small stylish-color-dark pt-2">
 		<!-- Footer Links -->
-		<div class="container text-center text-md-left">
-
+		<div class="container text-center text-md-left mt-3">
 			<!-- Grid row -->
 			<div class="row">
-
-				<!-- Grid column -->
-				<div class="col-md-4 mx-auto">
-
-					<!-- Content -->
-					<h5 class="font-weight-bold text-uppercase mt-3 mb-4">要抒啦！
-						論壇&商城</h5>
-					<p>是個能夠預期回應溫度的論壇空間。無論感情、生活、工作、時事都可以聊，還附設購物商城「要買啦！💸」，各種新奇有趣的商品都在這裡。</p>
-
+				<div
+					class="col-md-2 d-flex justify-content-center align-items-center">
+					<img
+						src="https://github.com/sun0722a/yaoshula/blob/master/src/logo/logo_trans_140px.png?raw=true"
+						width="120px" alt="" />
 				</div>
 				<!-- Grid column -->
 
-				<hr class="clearfix w-100 d-md-none">
+				<div class="col-md-4 mx-auto">
+					<!-- Content -->
+					<h5 class="font-weight-bold text-uppercase mb-3">要抒啦！ 網路論壇&商城
+					</h5>
+					<p id="footer-introdution" class="text-secondary">
+						是個能夠預期回應溫度的論壇空間。希望在亂世間提供一個烏托邦式的空間，讓大家可以盡情釋放壓力，得到慰藉❤️。</p>
+					<div class="d-flex"></div>
+				</div>
+				<!-- Grid column -->
+
+				<hr class="clearfix w-100 d-md-none" />
 
 				<!-- Grid column -->
 				<div class="col-md-2 mx-auto">
-
 					<!-- Links -->
-					<h5 class="font-weight-bold text-uppercase mt-3 mb-4">論壇</h5>
+					<h5 class="font-weight-bold text-uppercase mb-3">論壇</h5>
 
 					<ul class="list-unstyled">
-						<li><a href="#!">天使版</a></li>
-						<li><a href="#!">惡魔版</a></li>
-
+						<li><a
+							href="<spring:url value='/article/showPageArticles?categoryTitle=天使' />">天使版</a></li>
+						<li><a
+							href="<spring:url value='/article/showPageArticles?categoryTitle=惡魔' />">惡魔版</a></li>
+						<li><a href="<spring:url value='/letter/letterHome' />">漂流信</a></li>
 					</ul>
-
 				</div>
 				<!-- Grid column -->
 
-				<hr class="clearfix w-100 d-md-none">
+				<hr class="clearfix w-100 d-md-none" />
 
 				<!-- Grid column -->
 				<div class="col-md-2 mx-auto">
-
 					<!-- Links -->
-					<h5 class="font-weight-bold text-uppercase mt-3 mb-4">商城</h5>
+					<h5 class="font-weight-bold text-uppercase mb-3">商城</h5>
 
 					<ul class="list-unstyled">
 						<li><a href="#!">商城首頁</a></li>
-						<li><a href="#!">我的購物車</a></li>
-						<li><a href="#!">歷史訂單</a></li>
+						<li><a href="<spring:url value='/order/shoppingCartList' />">我的購物車</a></li>
+						<li><a href="<spring:url value='/order/showHistoryOrder' />">歷史訂單</a></li>
 					</ul>
-
 				</div>
 				<!-- Grid column -->
 
-				<hr class="clearfix w-100 d-md-none">
+				<hr class="clearfix w-100 d-md-none" />
 
 				<!-- Grid column -->
 				<div class="col-md-2 mx-auto">
-
 					<!-- Links -->
-					<h5 class="font-weight-bold text-uppercase mt-3 mb-4">關於我們</h5>
+					<h5 class="font-weight-bold text-uppercase mb-3">關於我們</h5>
 
 					<ul class="list-unstyled">
-						<li><a href="#!">創站理念</a></li>
-						<li><a href="#!">團隊介紹</a></li>
 						<li><a href="#!">聯絡我們</a></li>
+						<li><a href="#!">服務條款</a></li>
+						<li><a href="#!">隱私權政策</a></li>
 					</ul>
-
 				</div>
 				<!-- Grid column -->
-
 			</div>
 			<!-- Grid row -->
-
 		</div>
 
 		<!-- Copyright -->
-		<div class="footer-copyright text-center pb-4">© 2020 Copyright
-			© 2020 Speak It Up. All rights reserved</div>
+		<div class="footer-copyright text-center mt-0 pb-3"
+			style="font-size: 15px;">© 2020 Copyright © 2020 Speak It Up.
+			All rights reserved</div>
 		<!-- Copyright -->
-
 	</footer>
 	<!-- Footer -->
 
@@ -225,5 +281,4 @@
 		crossorigin="anonymous"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.compatibility.min.js"></script>
-	<!--         <script src="template_main.js"></script> -->
 </html>
