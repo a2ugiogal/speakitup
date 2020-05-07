@@ -83,7 +83,7 @@
 					role="button" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false"> 商城 </a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="#">首頁</a> <a class="dropdown-item"
+						<a class="dropdown-item" href="<spring:url value='/product/productHome' />">首頁</a> <a class="dropdown-item"
 							href="<spring:url value='/order/shoppingCartList' />">購物車</a> <a
 							class="dropdown-item"
 							href="<spring:url value='/order/showHistoryOrder' />">歷史訂單</a>
@@ -426,3 +426,4 @@
 	<script src="<spring:url value='/js/index.js' />"></script>
 </body>
 </html>
+						

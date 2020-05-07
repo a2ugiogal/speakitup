@@ -1,23 +1,325 @@
-.row a{
-    text-decoration: none;
-    color: black;
-}
-.product{
-    width: 70%;
-}
-.productImg{
-    width: 80%;
-    margin:auto;
-}
-#pages{
-    text-align: center;
-}
-.btPage{
-    height: 30px;
-    width: 30px;
-    margin: 5px;
-}
-#pages{
-    margin: 20px;
+@import url("https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap");
+/* 全體字型設定 */
+* {
+  font-family: "Noto Sans TC", sans-serif;
 }
 
+/* 商城頁面上的圖片 */
+.jumbotron-bg-top {
+  background-image: url(./image/616226.jpg);
+  /* background-position: center 0; */
+  background-size: cover;
+  height: 1000px;
+  /* width: 100%; */
+}
+
+/* 輪播設定 */
+@import url("https://fonts.googleapis.com/css?family=Montserrat:300");
+body {
+  background-color: #f2f2f2;
+}
+
+/* 輪播內文字控制 */
+h1 {
+  font-family: "Noto Sans TC", sans-serif;
+}
+
+a{
+  text-decoration: none !important;
+
+}
+
+#goToDevilA{
+  color: rgb(233, 171, 39) !important;
+}
+#goToDevilA:hover{
+  color: rgb(255, 174, 0) !important
+}
+
+/* 控制輪播版面寬度 */
+.two_title {
+  width: 90%;
+  margin: 0px auto;
+}
+
+/* 控制輪播箭頭顏色 */
+.carousel-control-next,
+.carousel-control-prev {
+  filter: invert(100%);
+}
+/* 輪播圖片控制 */
+#carousel-card1 img {
+  width: 500px;
+  height: 500px;
+}
+/* 輪播圖片控制 */
+#carousel-card2 img {
+  width: 500px;
+  height: 500px;
+}
+
+/* 置頂按鈕 設定 */
+#myBtn {
+  z-index: 99;
+  /* 初始化不顯示 */
+  /* display: none; */
+  /* fixed = 畫面的絕對位置，所以會跟著跑 */
+  position: fixed;
+  /* 離下面30 pixel */
+  bottom: 30px;
+  /* 離右邊30 pixel */
+  right: 10px;
+  /* 半徑圓 */
+  border-radius: 30px;
+  /* 背景色 */
+  background-color: white;
+  /* 透明度 */
+  opacity: 0.5;
+  /* 游標指過去會變手指 */
+  cursor: pointer;
+  /* 控制按鈕寬度 */
+  width: 50px;
+}
+
+/* 游標只上去會變灰色 */
+#myBtn:hover {
+  background-color: #555;
+}
+
+/* 控制熱銷商品內的文字樣式 */
+.pictureStyle {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px;
+  padding: 50px;
+  justify-content: space-between;
+  font-size: 2em;
+  font-family: "Noto Sans TC", sans-serif;
+}
+
+/* 商城首頁文字方塊控制 */
+.three_title {
+  width: 90%;
+  margin: 0px auto;
+  display: flex;
+}
+
+/* 黑色方塊控制 */
+.black {
+  width: 50%;
+  min-height: 700px;
+  background-color: pink;
+  padding-top: 100px;
+  padding-bottom: 50px;
+}
+
+/* 黃色方塊控制 */
+.yallow {
+  padding: 50px;
+  width: 90%;
+  min-height: 80%;
+  background: white;
+  float: right;
+  font-size: 2em;
+  font-family: "Noto Sans TC", sans-serif;
+  text-align: center;
+  color: rgb(22, 21, 21);
+}
+
+/* 針對黃色方塊內的第一個文字方塊 */
+.yallow > span:nth-child(1) {
+  display: inline-block;
+  margin-top: 50px;
+  padding-left: 50px;
+}
+
+/* 針對黃色方塊內的第二個文字方塊 */
+.yallow > span:nth-child(2) {
+  display: inline-block;
+  padding-top: 50px;
+  padding-left: 50px;
+}
+
+/* 粉紅色方塊 */
+.pink {
+  width: 50%;
+  min-height: 700px;
+  background: black;
+  padding-top: 100px;
+}
+
+/* 白色方塊 */
+.white {
+  background: #15458d;
+  width: 90%;
+  min-height: 60%;
+  padding-top: 100px;
+  font-size: 2em;
+  text-align: center;
+  font-family: "Noto Sans TC", sans-serif;
+  color: aliceblue;
+}
+
+/* 針對白色方塊內的第一個文字方塊 */
+.white > span:nth-child(1) {
+  display: inline-block;
+  margin-right: 20px;
+  padding: 50px;
+  text-align: left;
+}
+
+/* 針對白色方塊內的第二個文字方塊 */
+.white > span:nth-child(2) {
+  display: inline-block;
+  margin-top: 0px;
+  margin-left: 50px;
+}
+
+/* 推薦商品上的文字方塊控制 */
+.therr_bottom {
+  width: 80%;
+  margin: 0px auto;
+  height: 200px;
+  font-size: 1.5em;
+  text-align: center;
+  line-height: 200px;
+  font-family: "Noto Sans TC", sans-serif;
+}
+
+/* 推薦商品文字控制 */
+.recommend {
+  margin: 0px auto;
+  font-size: 2em;
+  text-align: center;
+  font-family: "Noto Sans TC", sans-serif;
+}
+
+/* 推薦商品區塊(全部)控制 */
+.four_title {
+  width: 90%;
+  margin: auto;
+  flex-wrap: wrap;
+}
+
+/* 推薦商品圖片控制 */
+.four_img {
+  width: 430px;
+  height: 430px;
+/*  padding: 10px; */
+}
+
+/* 推薦商品上排區塊控制 */
+.four_top {
+  display: flex;
+  justify-content: space-around;
+}
+
+/* 推薦商品下排區塊控制 */
+.four_under {
+  display: flex;
+  justify-content: space-around;
+}
+
+/* 調整第四區塊內div的距離 */
+.four_title div {
+  margin-bottom: 10px;
+}
+
+/* more按鈕顏色 */
+.four_bottom {
+  font-size: 2em;
+  background-color: black;
+  font-family: "Noto Sans TC", sans-serif;
+}
+
+/* more按鈕控制 */
+.four_bottom a {
+  text-decoration: none; /* 移除超連結底線 */
+  padding: 10px;
+  color: white;
+}
+
+/* more按鈕鼠標移至按鈕上方時出現底線 */
+.four_bottom a:hover {
+  color: white;
+}
+
+/* 查詢按鈕文字顏色 */
+.btu-b:hover {
+  color: #0275d8 !important;
+}
+
+/* 頁尾控制 */
+
+footer a {
+  color: #e43c5c !important;
+}
+
+footer h5 {
+  color: black !important;
+}
+
+#footer-introdution {
+  color: rgb(117, 117, 117) !important;
+}
+/* 熱門商品板塊配色 */
+#hot-sales {
+  background-color: pink;
+}
+/* 推薦商品板塊配色 */
+#recommend-product {
+  background-color: #ffc124;
+}
+/* 推薦商品板塊上方文字配色 */
+.list-unstyled li a {
+  color: #033c73;
+}
+
+#text3d {
+  top: -1250px;
+  left: 30px;
+  position: relative;
+  color: #fff;
+  font-weight: 500;
+  font-size: 12em;
+  letter-spacing: 2px;
+  transform: rotate(-28deg) skew(25deg);
+}
+#text3d::before{
+    content: attr(data-text);
+    position: absolute;
+    top: 30px;
+    left: -30px;
+    color: rgba(0, 0, 0, 0.2);
+    text-shadow: none;
+    filter: blur(8px);
+    z-index: -1;
+}
+
+@media screen and(max-width:1750px){
+  #carousel-card1 img{
+    width: 300px ;
+    height: 300px ;
+  }
+
+  #carousel-card2 img{
+    width: 300px ;
+    height: 300px ;
+  }
+}
+
+/* @media screen and(max-width:1200px){
+  #carousel-card1 img{
+    width: 300px !important;
+    height: 500px !important;
+  }
+
+  #carousel-card2 img{
+    width: 300px !important;
+    height: 500px !important;
+  }
+} */
+
+@media screen and(max-width){
+  
+}
