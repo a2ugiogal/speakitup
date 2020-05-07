@@ -13,13 +13,107 @@ $("#sendReport").on("click", function () {
       reportItem = reportItems[i].value;
     }
   }
-   alert(reportItem + " , " + commentIdInput.value);
-    xhr = new XMLHttpRequest();
-    xhr.open(
-      "POST",
-      "/speakitup/article/report?commentId=" + commentIdInput.value + "&reportItem=" + reportItem ,
-      false
-    );
-    xhr.send();
+  // alert(reportItem + " , " + commentIdInput.value);
+  xhr = new XMLHttpRequest();
+  xhr.open(
+    "GET",
+    "/yaoshula/article/Report?commentId=" +
+      commentIdInput.value +
+      "&reportItem=" +
+      reportItem,
+    false
+  );
+  xhr.send();
   $("#reportModal").modal("hide");
 });
+
+function doFirst() {
+  commentPage = document.getElementById("commentPage");
+  totalPage = document.getElementById("totalPage");
+  commentPageNo = parseInt(commentPage.innerText);
+  totalPageNo = parseInt(totalPage.innerText);
+  lastPage = document.getElementById("lastPage");
+  nextPage = document.getElementById("nextPage");
+  lastPage.addEventListener("click", showLastPage);
+  nextPage.addEventListener("click", showNextPage);
+  speechArea = document.getElementsByClassName("speechArea");
+
+  if (commentPageNo == totalPageNo) {
+    nextPage.style.visibility = "hidden";
+  }
+
+  $("#commentBtnArea").click(function () {
+    myCommentContent = document.getElementById("myCommentContent");
+    mccd = myCommentContent.style.display;
+    if (mccd == "none") {
+      setTimeout(() => {
+        $("#myCommentContent").fadeIn();
+      }, 300);
+      $("#commentArea").slideToggle();
+    } else {
+      $("#myCommentContent").fadeOut();
+      setTimeout(() => {
+        $("#commentArea").slideToggle();
+      }, 200);
+    }
+    $("#bgGray").slideToggle();
+  });
+
+  // 送出留言
+  commentForm = document.getElementById("commentForm");
+  $("#sendCommentBtn").click(function () {
+    $("#myCommentContent").fadeOut();
+    setTimeout(() => {
+      $("#commentArea").slideToggle();
+    }, 200);
+    commentForm.submit();
+  });
+
+  // 按愛心
+  normal = document.getElementsByClassName("normal")[0];
+  redHaert = document.getElementById("redHaert");
+  heartA = document.getElementById("heartA");
+  heart.addEventListener("click", function () {
+    redHaert.classList.remove("normal");
+    redHaert.classList.add("like");
+    heartA.href="";
+  });
+}
+
+function showLastPage() {
+  maxSpeechArea = Math.min(speechArea.length - 1, commentPageNo * 2 - 1);
+  for (let n = commentPageNo * 2 - 2; n <= maxSpeechArea; n++) {
+    speechArea[n].style.display = "none";
+  }
+  commentPageNo--;
+  if (commentPageNo == 1) {
+    lastPage.style.visibility = "hidden";
+    nextPage.style.visibility = "";
+  } else {
+    nextPage.style.visibility = "";
+  }
+  commentPage.innerText = commentPageNo;
+  for (let n = commentPageNo * 2 - 2; n <= commentPageNo * 2 - 1; n++) {
+    speechArea[n].style.display = "";
+  }
+}
+
+function showNextPage() {
+  for (let n = commentPageNo * 2 - 2; n <= commentPageNo * 2 - 1; n++) {
+    speechArea[n].style.display = "none";
+  }
+  commentPageNo++;
+  if (commentPageNo == totalPageNo) {
+    nextPage.style.visibility = "hidden";
+    lastPage.style.visibility = "";
+  } else {
+    lastPage.style.visibility = "";
+  }
+  commentPage.innerText = commentPageNo;
+  maxSpeechArea = Math.min(speechArea.length - 1, commentPageNo * 2 - 1);
+  for (let n = commentPageNo * 2 - 2; n <= maxSpeechArea; n++) {
+    speechArea[n].style.display = "";
+  }
+}
+
+window.addEventListener("load", doFirst);

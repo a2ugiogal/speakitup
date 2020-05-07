@@ -1,6 +1,7 @@
 package com.web.speakitup.controller;
 
 import java.io.IOException;
+import java.io.Writer;
 import java.sql.Blob;
 import java.sql.Clob;
 import java.sql.SQLException;
@@ -218,13 +219,13 @@ public class ArticleController {
 	/*-----------------------------------喜歡文章----------------------------------------------------*/
 
 	@GetMapping("/likeArticle/{articleId}")
-	public String likeArticle(@PathVariable("articleId") int articleId, HttpSession session,
-			HttpServletRequest request) {
+	public void likeArticle(@PathVariable("articleId") int articleId, HttpSession session, HttpServletRequest request,
+			HttpServletResponse response) {
 
-		String loginTrue = request.getParameter("login");
-		if (loginTrue == null) {
-			return "redirect:/article/showArticleContent/{articleId}";
-		}
+//		String loginTrue = request.getParameter("login");
+//		if (loginTrue == null) {
+//			return "redirect:/article/showArticleContent/{articleId}";
+//		}
 
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
 		ArticleBean ab = articleService.getArticle(articleId);
@@ -233,7 +234,18 @@ public class ArticleController {
 		MemberBean newMb = memberService.getMember(mb.getId());
 		session.setAttribute("LoginOK", newMb);
 
-		return "redirect:/article/showArticleContent/{articleId}";
+		response.setCharacterEncoding("UTF-8");
+		Writer os = null;
+
+		try {
+			os = response.getWriter();
+			os.write(ab.getLikes());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+//		return "redirect:/article/showArticleContent/{articleId}";
+		return;
 	}
 
 	/*---------------------------------檢舉文章或留言------------------------------------------------------*/

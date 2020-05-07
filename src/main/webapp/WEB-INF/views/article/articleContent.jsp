@@ -3,8 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,89 +14,427 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 	crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet" />
+<link rel="stylesheet"
+	href="<spring:url value='/css/article/nav.css' /> " />
+<link rel="stylesheet"
+	href="<spring:url value='/css/article/articleContent.css' /> " />
+<script type="text/javascript">
+	redHeart = document.getElementById("redHeart");
+	normal = document.getElementsByClassName("normal")[0];
+	likeNum = document.getElementById("likeNum");
+	normal.addEventListener("click", function () {
+	    xhr = new XMLHttpRequest();
+	    xhr.open(
+	      "GET",
+	      "/article/likeArticle/"+${article.articleId},
+	      false
+	      );
+	      xhr.send();
+	      likeNum.innerText = xhr.responseText;
+	      redHeart.classList.remove("normal");
+	      redHeart.classList.add("like");
+	  });
+	</script>
 </head>
 <body>
-	<div class="w-75 border">
-		<div>
-			<div style="text-align: right;">
-			<c:if test="${not empty LoginOK}">
-				<input type="button" class="report" value="檢舉"
-					onclick="showReportModal('')" />
-			</c:if>
+	<!-- =======================導覽列================= -->
+	<nav class="navbar navbar-expand-lg navbar-light fixed-top p-0"
+		id="navBody">
+		<div class="mr-auto">
+			<button id="hamberger-btn" class="navbar-toggler ml-3" type="button"
+				data-toggle="collapse" data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<a class="navbar-brand ml-3" href="<spring:url value='/' />"> <img
+				src="<spring:url value='/image/logo/logo_trans_92px.png' /> "
+				height="50px" /> 要抒拉
+			</a>
+		</div>
+		<div class="navbar-nav flex-row ml-auto"
+			style="position: absolute; right: 250px; top: 10px;">
+			<form class="form-inline mr-5">
+				<input class="form-control mr-sm-2" type="search" id="search"
+					placeholder="Search" aria-label="Search" />
+				<button class="btn d-flex justify-content-center" type="submit"
+					id="search-btn">Search</button>
+			</form>
+		</div>
+		<div class="navbar-nav flex-row ml-auto"
+			style="position: absolute; right: 0; top: 10px;">
+			<!-- ==========判斷是否登入======== -->
+			<c:choose>
+				<c:when test="${empty LoginOK}">
+					<a class="navbar-brand mr-5"
+						href="<spring:url value='/member/login' />">登入</a>
+					<a class="navbar-brand mr-5"
+						href="<spring:url value='/member/register' />">註冊</a>
+				</c:when>
+				<c:otherwise>
+					<div style="width: 150px;">
+						<a id="nav-memberId" class="mr-4"
+							href="<spring:url value='/member/personPage' />"
+							style="text-decoration: none;"> <img id="nav-memberPicture"
+							src="<spring:url value='/member/getUserImage/${LoginOK.id}' />"
+							width="45px" height="45px" class="rounded-circle mr-2" />
+							${LoginOK.memberId}
+						</a>
+					</div>
+					<a class="navbar-brand mr-5"
+						href="<spring:url value='/member/logout' />">登出</a>
+				</c:otherwise>
+			</c:choose>
+		</div>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item dropdown mx-2"><a
+					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+					role="button" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false"> 論壇 </a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item"
+							href="<spring:url value='/article/showPageArticles?categoryTitle=天使' />">天使板</a>
+						<a class="dropdown-item"
+							href="<spring:url value='/article/showPageArticles?categoryTitle=惡魔' />">惡魔板</a>
+					</div></li>
+				<li class="nav-item dropdown mx-2"><a
+					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+					role="button" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false"> 商城 </a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="#">首頁</a> <a class="dropdown-item"
+							href="<spring:url value='/order/shoppingCartList' />">購物車</a> <a
+							class="dropdown-item"
+							href="<spring:url value='/order/showHistoryOrder' />">歷史訂單</a>
+					</div></li>
+				<li class="nav-item mx-2"><a class="nav-link"
+					href="<spring:url value='/letter/letterHome' />">漂流瓶</a></li>
+				<c:if test="${LoginOK.permission=='管理員'}">
+					<li class="nav-item dropdown mx-2"><a
+						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+						role="button" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false"> 管理後台 </a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item"
+								href="<spring:url value='/article/showReports' />">檢舉專區</a> <a
+								class="dropdown-item"
+								href="<spring:url value='/member/showMembers' />">帳號管理</a> <a
+								class="dropdown-item"
+								href="<spring:url value='/order/showOrders' />">訂單管理</a><a
+								class="dropdown-item"
+								href="<spring:url value='/product/showProducts' />">商品管理</a>
+						</div></li>
+				</c:if>
+				<li class="nav-item dropdown mx-2 mb-1"><a
+					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+					role="button" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false"> 關於我們 </a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="#">創建理念</a> <a
+							class="dropdown-item" href="#">團隊介紹</a> <a class="dropdown-item"
+							href="#">聯絡我們</a>
+					</div></li>
+			</ul>
+		</div>
+	</nav>
+	<!-- 導覽列 -->
+
+
+	<!-- 文章留言========================================= -->
+	<c:forEach var="entry" varStatus="number" items="${comments_set}">
+		<!-- 左對話氣泡*3=========================== -->
+		<c:if test="${ number.count % 6 == 1 }">
+			<div class="vh-100 p-3 speechArea">
+				<div style="height: 60px;"></div>
+				<div style="height: 3%;"></div>
+				<div class="row m-0 d-flex align-items-center" style="height: 28%;">
+					<div class="col-3 p-0"></div>
+					<div class="col-9 p-0 speechDad">
+						<img class="speech-balloon1"
+							src="<spring:url value='/image/article/speech-bubble-removebg-preview.png' />"
+							style="transform: scaleX(-1);" />
+						<div style="height: 5%;"></div>
+						<div class="d-flex justify-content-start" style="height: 20%;">
+							<c:if test="${not empty LoginOK}">
+								<i class="fas fa-exclamation-circle" style="font-size: 30px;"
+									title="檢舉" onclick="showReportModal('${entry.commentId}')"></i>
+							</c:if>
+						</div>
+						<div class="comment">${entry.content}</div>
+						<div class="commentCount">${number.count}</div>
+						<div class="d-flex justify-content-end commentDate">
+							<fmt:formatDate value="${entry.publishTime}"
+								pattern="yyyy-MM-dd HH:mm" />
+						</div>
+					</div>
+				</div>
+		</c:if>
+		<c:if test="${ number.count % 6 == 2 }">
+			<div style="height: 3%;"></div>
+			<div class="row m-0 d-flex align-items-center" style="height: 28%;">
+				<div class="col-9 p-0 speechDad">
+					<img class="speech-balloon1"
+						src="<spring:url value='/image/article/speech-bubble-removebg-preview.png' />"
+						style="transform: scaleX(-1);" />
+					<div style="height: 5%;"></div>
+					<div class="d-flex justify-content-start" style="height: 20%;">
+						<c:if test="${not empty LoginOK}">
+							<i class="fas fa-exclamation-circle" style="font-size: 30px;"
+								title="檢舉" onclick="showReportModal('${entry.commentId}')"></i>
+						</c:if>
+					</div>
+					<div class="comment">${entry.content}</div>
+					<div class="commentCount">${number.count}</div>
+					<div class="d-flex justify-content-end commentDate">
+						<fmt:formatDate value="${entry.publishTime}"
+							pattern="yyyy-MM-dd HH:mm" />
+					</div>
+				</div>
 			</div>
-			<img
-				src="<spring:url value='/personPage/getUserImage/${article.authorId}' />　"
-				class="rounded-circle border border-dark"
-				style="float: left; height: 100px; width: 100px;">
-			<div class="ml-4 my-auto" style="float: left; height: 100px;">
-				<div>${article.title}${article.category.categoryName}</div>
-				<div>${article.authorName}</div>
-				<div>
+		</c:if>
+		<c:if test="${ number.count % 6 == 3 }">
+			<div style="height: 3%;"></div>
+			<div class="row m-0 d-flex align-items-center" style="height: 28%;">
+				<div class="col-1 p-0"></div>
+				<div class="col-9 p-0 speechDad">
+					<img class="speech-balloon1"
+						src="<spring:url value='/image/article/speech-bubble-removebg-preview.png' />"
+						style="transform: scaleX(-1);" />
+					<div style="height: 5%;"></div>
+					<div class="d-flex justify-content-start" style="height: 20%;">
+						<c:if test="${not empty LoginOK}">
+							<i class="fas fa-exclamation-circle" style="font-size: 30px;"
+								title="檢舉" onclick="showReportModal('${entry.commentId}')"></i>
+						</c:if>
+					</div>
+					<div class="comment">${entry.content}</div>
+					<div class="commentCount">${number.count}</div>
+					<div class="d-flex justify-content-end commentDate">
+						<fmt:formatDate value="${entry.publishTime}"
+							pattern="yyyy-MM-dd HH:mm" />
+					</div>
+				</div>
+			</div>
+		</c:if>
+		<c:if
+			test="${ (number.last&&number.count % 6 == 1&&number.count % 6==2)||number.count % 6 == 3 }">
+			</div>
+		</c:if>
+		<c:if test="${number.count % 6 == 4 }">
+			<!-- 右對話氣泡*3=========================== -->
+			<div class="vh-100 p-3 speechArea" style="left: 72%;">
+				<div style="height: 60px;"></div>
+				<div style="height: 3%;"></div>
+				<div class="row m-0 d-flex align-items-center" style="height: 28%;">
+					<div class="col-9 p-0 speechDad">
+						<img class="speech-balloon1"
+							src="<spring:url value='/image/article/speech-bubble-removebg-preview.png' />" />
+						<div style="height: 5%;"></div>
+						<div class="d-flex justify-content-end" style="height: 20%;">
+							<c:if test="${not empty LoginOK}">
+								<i class="fas fa-exclamation-circle" style="font-size: 30px;"
+									title="檢舉" onclick="showReportModal('${entry.commentId}')"></i>
+							</c:if>
+						</div>
+						<div class="comment">${entry.content}</div>
+						<div class="commentCount">${number.count}</div>
+						<div class="d-flex justify-content-end commentDate">
+							<fmt:formatDate value="${entry.publishTime}"
+								pattern="yyyy-MM-dd HH:mm" />
+						</div>
+					</div>
+					<div class="col-3 p-0"></div>
+				</div>
+		</c:if>
+		<c:if test="${number.count % 6 == 5 }">
+			<div style="height: 3%;"></div>
+			<div class="row m-0 d-flex align-items-center" style="height: 28%;">
+				<div class="col-3 p-0"></div>
+				<div class="col-9 p-0 speechDad">
+					<img class="speech-balloon1"
+						src="<spring:url value='/image/article/speech-bubble-removebg-preview.png' />" />
+					<div style="height: 5%;"></div>
+					<div class="d-flex justify-content-end" style="height: 20%;">
+						<c:if test="${not empty LoginOK}">
+							<i class="fas fa-exclamation-circle" style="font-size: 30px;"
+								title="檢舉" onclick="showReportModal('${entry.commentId}')"></i>
+						</c:if>
+					</div>
+					<div class="comment">${entry.content}</div>
+					<div class="commentCount">${number.count}</div>
+					<div class="d-flex justify-content-end commentDate">
+						<fmt:formatDate value="${entry.publishTime}"
+							pattern="yyyy-MM-dd HH:mm" />
+					</div>
+				</div>
+			</div>
+		</c:if>
+
+		<c:if test="${number.count % 6 == 0 }">
+			<div style="height: 3%;"></div>
+			<div class="row m-0 d-flex align-items-center" style="height: 28%;">
+				<div class="col-1 p-0"></div>
+				<div class="col-9 p-0 speechDad">
+					<img class="speech-balloon1"
+						src="<spring:url value='/image/article/speech-bubble-removebg-preview.png' />" />
+					<div style="height: 5%;"></div>
+					<div class="d-flex justify-content-end" style="height: 20%;">
+						<c:if test="${not empty LoginOK}">
+							<i class="fas fa-exclamation-circle" style="font-size: 30px;"
+								title="檢舉" onclick="showReportModal('${entry.commentId}')"></i>
+						</c:if>
+					</div>
+					<div class="comment">${entry.content}</div>
+					<div class="commentCount">${number.count}</div>
+					<div class="d-flex justify-content-end commentDate">
+						<fmt:formatDate value="${entry.publishTime}"
+							pattern="yyyy-MM-dd HH:mm" />
+					</div>
+				</div>
+			</div>
+		</c:if>
+		<c:if
+			test="${ (number.last&&number.count % 6 == 4&&number.count % 6==5)||number.count % 6 == 0 }">
+			</div>
+		</c:if>
+	</c:forEach>
+
+	<!-- 文章========================================= -->
+	<div class="vh-100">
+		<!-- 標題=========================== -->
+		<div class="bgColor w-100 h-100"></div>
+		<div id="bgGray" class="w-100 h-100"></div>
+		<div class="mx-auto" style="height: 22%;">
+			<div style="height: 60px;"></div>
+			<div id="articleTitle" class="text-center pt-2 mx-auto">
+				<div class="d-flex justify-content-center align-items-center">
+					<h3>${article.title}&nbsp;&nbsp;</h3>
+					<div
+						<c:choose>
+							<c:when test="${article.category.categoryName=='工作'}">
+								class="badge badge-info mr-2 mt-1"
+							</c:when>
+							<c:when test="${article.category.categoryName=='感情'}">
+								class="badge badge-danger mr-2 mt-1"
+							</c:when>
+							<c:when test="${article.category.categoryName=='生活'}">
+								class="badge badge-warning mr-2 mt-1"
+							</c:when>
+							<c:otherwise>
+								class="badge badge-secondary mr-2 mt-1"
+							</c:otherwise>
+						</c:choose>>
+						${article.category.categoryName}</div>
+				</div>
+
+				<div class="pt-1">
+					<img class="rounded-circle border border-dark"
+						style="height: 30px; width: 30px;"
+						src="<spring:url value='/member/getUserImage/${article.authorId}' />" />
+					${article.authorName} &nbsp; &nbsp; &nbsp;
 					<fmt:formatDate value="${article.publishTime}"
 						pattern="yyyy-MM-dd HH:mm" />
 				</div>
 			</div>
-			<img
-				src="<spring:url value='/article/getArticleImage/${article.articleId}' /> "
-				style="max-width: 200px; max-height: 100px;">
-			<div class="" style="clear: both;">${content}</div>
-
-			<div class="d-flex">
-				<c:set var="articleIds"
-					value="${fn:split(LoginOK.likeArticles, ',')}"></c:set>
-				<a href="<spring:url value='/article/likeArticle/${article.articleId}?login=true' />"><input
-					type="button" value="愛心"
-					<c:forEach var="entry" items="${articleIds}">${entry}
-					<c:if test="${entry==''+article.articleId}"> disabled="disabled" style="border:1px solid red;color: red;" </c:if>
-				</c:forEach>></a>${article.likes}
-				留言數：
-				<c:choose>
-					<c:when test="${not empty comments_set}">
-						<c:forEach var="comments" items="${comments_set}"
-							varStatus="number">
-							<c:if test="${number.last}">${number.count}</c:if>
-						</c:forEach>
-					</c:when>
-					<c:otherwise>0</c:otherwise>
-				</c:choose>
-			</div>
-		</div>
-		<!-- 		留言區=========================================== -->
-		<c:forEach var="entry" varStatus="number" items="${comments_set}">
-			<hr>
-			<div style="text-align: right;">
-				<c:if test="${not empty LoginOK}">
-					<input type="button" class="report" value="檢舉"
-						onclick="showReportModal('${entry.commentId}')" />
-				</c:if>
-			</div>
-			<img
-				src="<spring:url value='/personPage/getUserImage/${entry.authorId}' /> "
-				class="rounded-circle border border-dark"
-				style="float: left; height: 100px; width: 100px;">
-			<div class="ml-4 my-auto" style="float: left; height: 100px;">
-				<div>${entry.authorName}</div>
-				<div>
-					B${number.index+1}
-					<fmt:formatDate value="${entry.publishTime}"
-						pattern="yyyy-MM-dd HH:mm" />
+			<div class="d-flex justify-content-center align-items-center p-1">
+				<i id="lastPage" class="fas fa-caret-left"
+					style="font-size: 36px; cursor: pointer; visibility: hidden;"></i>
+				<div class="text-center" style="width: 150px;">
+					<span id="commentPage">1</span> / <span id="totalPage"><fmt:parseNumber
+							integerOnly="true" value="${fn:length(comments_set)/6+1}" /></span>
 				</div>
+				<i id="nextPage" class="fas fa-caret-right"
+					style="font-size: 36px; cursor: pointer;"></i>
 			</div>
-			<div class="" style="clear: both;">${entry.content}</div>
-		</c:forEach>
-	</div>
-	<!-- 	可留言處============================ -->
-	<form method="POST" action="<spring:url value='/article/addComment/${article.articleId} '/> "> 
-		<div class="border w-75 d-flex" style="position: fixed; bottom: 2%;">
-			<img class="rounded-circle border-dark border my-auto"
-				style="width: 50px; height: 50px;"
-				src="<spring:url value='/personPage/getUserImage/${LoginOK.id}' /> ">
-			<p>留言：</p>
-			<textarea class="w-75" name="content" id="" cols="" rows="2"></textarea>
-			<input class="ml-1 my-auto" type="submit" style="height: 40px;"
-				value="送出">
 		</div>
-	</form>
+		<div id="headDad">
+			<!-- 頭的範圍(文章內容都放在裡面)======================= -->
+			<div id="head">
+				<img id="bgImg"
+					src="<spring:url value='/image/article/humaanHead-removebg-preview.png' />" />
+				<div style="height: 7%;">
+					<div class="d-flex justify-content-end pt-2" style="width: 85%;">
+						<c:if test="${not empty LoginOK}">
+							<i class="fas fa-exclamation-circle" style="font-size: 30px;"
+								title="檢舉" onclick="showReportModal('')"></i>
+						</c:if>
+					</div>
+				</div>
+				<div id="articlePicture" class="row">
+					<div class="col-2"></div>
+
+					<div class="col-8">
+						<div class="text-center">
+							<img
+								src="<spring:url value='/article/getArticleImage/${article.articleId}' />"
+								style="max-height: 180px; max-width: 100%;" />
+						</div>
+					</div>
+
+					<div
+						class="col-2 p-0 pl-2 pt-5 d-flex align-items-end justify-content-center">
+						<div class="d-flex align-items-center justify-content-center">
+							<c:set var="articleIds"
+								value="${fn:split(LoginOK.likeArticles, ',')}"></c:set>
+							<a
+								href="<spring:url value='/article/likeArticle/${article.articleId}?login=true' />"
+								style="text-decoration: none; color: black;" id="heartA">
+								<div id="heart">
+									<div id="redHaert"
+										<c:forEach var="entry" items="${articleIds}">
+											<c:if test="${entry==''+article.articleId}">class="like d-flex align-items-center justify-content-center rounded-circle"</c:if>
+										</c:forEach>>
+										<i class="fas fa-heart"
+											style="font-size: 30px; margin-top: 2px;" title="愛心"></i>
+									</div>
+								</div>
+							</a> <span style="margin-left: 3px;">${article.likes}</span>
+						</div>
+					</div>
+				</div>
+
+				<div id="articleContent">
+					<div class="m-2">${content}</div>
+				</div>
+				<div id="commentBtnArea"
+					class="p-2 rounded-pill d-flex align-items-center justify-content-center">
+					<i class="far fa-comment mx-1" style="font-size: 30px;"></i>
+					<div class="m-1">我要留言</div>
+				</div>
+				<!-- 可留言區============================ -->
+				<form method="POST" id="commentForm"
+					action="<spring:url value='/article/addComment/${article.articleId} '/> ">
+					<div id="commentArea">
+						<img id="myCommentBg"
+							src="<spring:url value='/image/article/speech-bubble-removebg-preview.png' />" />
+					</div>
+					<div id="myCommentContent" class="text-center"
+						style="display: none;">
+						<div style="margin-top: 43px; margin-bottom: 8px;">
+							<img class="rounded-circle border-dark border my-auto"
+								style="width: 40px; height: 40px;"
+								src="<spring:url value='/member/getUserImage/${LoginOK.id}' />" />
+							<span>&nbsp; &nbsp; ${LoginOK.memberId}</span>
+						</div>
+						<div class="mt-3 mb-2">
+							<textarea
+								style="width: 70%; resize: none; outline: none; border-radius: 10px; padding: 5px;"
+								name="content" rows="3" placeholder=" 留言..."></textarea>
+						</div>
+						<div id="sendCommentBtn"
+							class="border p-2 rounded-circle d-flex justify-content-center align-items-center">
+							<i class="material-icons"
+								style="font-size: 34px; margin-left: 5px; margin-top: 1px;">subdirectory_arrow_right</i>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 
 	<!-- 檢舉 浮動視窗========== -->
 	<div class="modal fade" id="reportModal" tabindex="-1" role="dialog"
@@ -110,7 +448,7 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				
+
 				<div class="modal-body">
 					<input type="radio" name="reportItem" value="惡意洗版" checked />惡意洗版<br />
 					<input type="radio" name="reportItem" value="惡意攻擊他人" />惡意攻擊他人<br />
@@ -127,8 +465,8 @@
 		</div>
 	</div>
 
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+		integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 		crossorigin="anonymous"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
@@ -138,8 +476,8 @@
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
 		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
 		crossorigin="anonymous"></script>
-	<script
-		src="<spring:url value='/js/article/articleContext.js' /> "></script>
+	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+	<script src="<spring:url value='/js/article/articleContext.js' /> "></script>
 
 </body>
 </html>

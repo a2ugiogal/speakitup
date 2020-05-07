@@ -1,0 +1,214 @@
+@import
+	url("https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap")
+	;
+
+* {
+	box-sizing: border-box;
+	font-family: "Noto Sans TC", sans-serif;
+}
+
+.bgColor {
+	position: absolute;
+	background-color: rgba(248, 191, 210, 0.8);
+	z-index: -101;
+}
+
+#bgGray {
+	position: absolute;
+	background-color: rgba(7, 7, 7, 0.432);
+	z-index: 50;
+	display: none;
+}
+
+#headDad {
+	width: 100%;
+	height: 78%;
+	display: flex;
+	justify-content: center;
+}
+
+#head {
+	width: 60%;
+	height: 100%;
+	max-width: 700px;
+	min-width: 500px;
+	position: relative;
+	bottom: 0px;
+}
+
+#bgImg {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: -100;
+}
+
+#articleTitle {
+	width: 40%;
+	border-radius: 20px;
+	margin-top: 10px;
+	padding: 10px;
+	background-color: rgba(238, 145, 145, 0.445);
+}
+
+#articlePicture {
+	width: 63%;
+	margin-left: 20%;
+}
+
+#articleContent {
+	height: 56%;
+	width: 60%;
+	margin-top: 3%;
+	margin-left: 20%;
+	word-break: break-all;
+	overflow-y: auto;
+}
+
+/*-------滾動條整體樣式----*/
+::-webkit-scrollbar {
+	width: 6px;
+	display: none;
+}
+
+/*滾動條裡面小方塊樣式*/
+::-webkit-scrollbar-thumb {
+	border-radius: 100px;
+	background: rgba(100, 100, 100, 0.5);
+}
+
+/*滾動條裡面軌道樣式*/
+::-webkit-scrollbar-track {
+	background: rgba(0, 0, 0, 0.09);
+}
+
+.speechArea {
+	position: absolute;
+	width: 28%;
+}
+
+.speechDad {
+	height: 100%;
+	position: relative;
+}
+
+.speech-balloon1 {
+	position: absolute;
+	height: 95%;
+	width: 100%;
+	z-index: -90;
+}
+
+.comment {
+	width: 75%;
+	height: 35%;
+	margin-left: 13%;
+	overflow-y: auto;
+}
+
+.commentCount {
+	position: absolute;
+	left: 20%;
+	bottom: 28%;
+	font-weight: 900;
+	font-size: 38px;
+	color: rgba(20, 20, 20, 0.2);
+}
+
+.commentDate {
+	width: 60%;
+	margin-left: 20%;
+	font-size: 10px;
+}
+
+#heart .normal {
+	width: 40px;
+	height: 40px;
+	border: 1px solid black;
+	color: black;
+	cursor: pointer;
+}
+
+#heart .normal:hover {
+	border: 1px solid rgb(172, 79, 79);
+	color: rgb(172, 79, 79);
+}
+
+#heart .like {
+	border: 1px solid red;
+	color: red;
+	cursor: default;
+}
+
+#heart .like:hover {
+	border: 1px solid red;
+	color: red;
+}
+
+/* 我要留言按鈕 */
+#commentBtnArea {
+	position: absolute;
+	left: 48%;
+	bottom: 3%;
+	background-color: rgba(250, 128, 114, 0.795);
+	border: 0px;
+	box-shadow: 5px 5px 10px -5px rgba(0, 0, 0, 0.75);
+	cursor: pointer;
+	z-index: 200;
+}
+
+#commentBtnArea:hover, #commentBtnArea:focus {
+	background: -webkit-gradient(linear, left top, left bottom, from(rgba(250, 128, 114,
+		0.595)), to(rgba(250, 128, 114, 0.795)));
+}
+
+#commentBtnArea:active {
+	background: rgba(250, 128, 114, 0.9);
+}
+
+#commentArea {
+	position: fixed;
+	bottom: 8%;
+	left: 30%;
+	height: 300px;
+	width: 40%;
+	display: none;
+	z-index: 100;
+}
+
+#myCommentBg {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 10px;
+	z-index: -100;
+}
+
+#myCommentContent {
+	position: fixed;
+	bottom: 8%;
+	left: 30%;
+	height: 300px;
+	width: 40%;
+	display: none;
+	z-index: 150;
+}
+
+/* 送出留言按鈕 */
+#sendCommentBtn {
+	background-color: rgb(231, 148, 180);
+	position: absolute;
+	left: 70%;
+	height: 40px;
+	width: 40px;
+	cursor: pointer;
+}
+
+#sendCommentBtn:hover, #sendCommentBtn:focus {
+	background: -webkit-gradient(linear, left top, left bottom, from(rgba(231, 148, 180,
+		0.8)), to(rgba(231, 148, 180, 0.9)));
+}
+
+#sendCommentBtn:active {
+	background: rgb(192, 122, 149);
+}
