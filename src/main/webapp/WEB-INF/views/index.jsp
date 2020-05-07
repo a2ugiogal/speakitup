@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="<spring:url value='/css/index.css' /> " />
 <link rel="stylesheet"
 	href="<spring:url value='/css/register/nav.css' /> " />
-<title>要抒啦--首頁</title>
+<title>首頁--要抒啦</title>
 </head>
 <body>
 	<!-- =======================導覽列================= -->
