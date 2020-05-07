@@ -45,9 +45,9 @@
 			<form class="form-inline mr-5"
 				action="<spring:url value='/product/showPageProducts' /> ">
 				<input class="form-control mr-sm-2" type="search" id="search"
-					placeholder="Search" aria-label="Search" name="search"
-					style="width: 70% !important;" />
-				<button class="btn" type="submit" id="search-btn">Search</button>
+					placeholder="搜尋: 商品名稱" aria-label="Search" name="search"
+					style="width: 70% !important;"/>
+				<button class="btn" type="submit" id="search-btn">搜尋</button>
 			</form>
 		</div>
 		<div class="navbar-nav flex-row ml-auto"

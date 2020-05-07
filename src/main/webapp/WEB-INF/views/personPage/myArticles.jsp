@@ -142,7 +142,7 @@
 					<div class="wrap mr-2 shadow">
 						<div class="search">
 							<input type="search" class="searchTerm p-2"
-								placeholder="輸入關鍵字尋找文章" name="search" value="${searchStr}" />
+								placeholder="搜尋: 文章標題" name="search" value="${searchStr}" />
 							<button type="submit" class="searchButton" style="height: 46px">
 								<i class="bx bx-search"></i>
 							</button>
