@@ -14,13 +14,12 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 	crossorigin="anonymous" />
-<script src="<spring:url value='/js/product/productList.js' />"></script>
 <script src="https://kit.fontawesome.com/041970ba48.js"
 	crossorigin="anonymous"></script>
 <link rel="stylesheet"
 	href="<spring:url value='/css/product/nav.css' /> ">
 <link rel="stylesheet"
-	href="<spring:url value='/css/product/productList.css' />" />
+	href="<spring:url value='/css/product/productHome.css' />" />
 </head>
 <body>
 
@@ -46,7 +45,7 @@
 				action="<spring:url value='/product/showPageProducts' /> ">
 				<input class="form-control mr-sm-2" type="search" id="search"
 					placeholder="搜尋: 商品名稱" aria-label="Search" name="search"
-					style="width: 70% !important;"/>
+					style="width: 70% !important;" />
 				<button class="btn" type="submit" id="search-btn">搜尋</button>
 			</form>
 		</div>
