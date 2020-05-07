@@ -43,7 +43,7 @@ public class SendEmail extends Thread {
 			Properties properties = System.getProperties();
 			// Setup mail server
 			properties.put("mail.smtp.host", host);
-			properties.put("mail.smtp.port", "587");
+			properties.put("mail.smtp.port", "465");
 			properties.put("mail.smtp.ssl.enable", "true");
 			properties.put("mail.smtp.auth", "true");
 			// Get the Session object.// and pass username and password

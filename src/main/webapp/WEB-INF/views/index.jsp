@@ -53,10 +53,11 @@
 				</c:when>
 				<c:otherwise>
 					<div style="width: 150px;">
-						<a class="mr-4" href="#" style="text-decoration: none;"> <img
+						<a class="mr-4" href="<spring:url value='/member/personPage' />"
+							style="text-decoration: none;" id="nav-memberId"> <img
 							src="<spring:url value='/member/getUserImage/${LoginOK.id}' />"
-							width="45px" height="45px" class="rounded-circle mr-2" />
-							${LoginOK.memberId}
+							width="45px" height="45px" class="rounded-circle mr-2"
+							id="nav-memberPicture" /> ${LoginOK.memberId}
 						</a>
 					</div>
 					<a class="navbar-brand mr-5"
@@ -89,10 +90,6 @@
 					</div></li>
 				<li class="nav-item mx-2"><a class="nav-link"
 					href="<spring:url value='/letter/letterHome' />">漂流瓶</a></li>
-
-				<li class="nav-item mx-2"><a class="nav-link"
-					href="<spring:url value='/member/showMyArticles' />">我的文章</a></li>
-
 				<c:if test="${LoginOK.permission=='管理員'}">
 					<li class="nav-item dropdown mx-2"><a
 						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
@@ -109,8 +106,6 @@
 								href="<spring:url value='/product/showProducts' />">商品管理</a>
 						</div></li>
 				</c:if>
-
-
 				<li class="nav-item dropdown mx-2 mb-1"><a
 					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 					role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -118,7 +113,7 @@
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<a class="dropdown-item" href="#">創建理念</a> <a
 							class="dropdown-item" href="#">團隊介紹</a> <a class="dropdown-item"
-							href="#">聯絡我們</a>
+							href="<spring:url value='/aboutUs/contact' />">聯絡我們</a>
 					</div></li>
 			</ul>
 		</div>

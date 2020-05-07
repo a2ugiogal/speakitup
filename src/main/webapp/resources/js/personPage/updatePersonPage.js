@@ -9,18 +9,9 @@ function doFirst() {
 	city = document.getElementById("city");
 	area = document.getElementById("area");
 	address = document.getElementById("address");
-	
+	phone = document.getElementById("phone");
 
 	edit.addEventListener("click", update);
-
-	edit.addEventListener("mouseover", function() {
-		edit.style.border = "2px solid rgb(2, 117, 69)";
-		edit.style.background = "rgb(26, 202, 129)";
-	});
-	edit.addEventListener("mouseout", function() {
-		edit.style.border = "2px solid #fff";
-		edit.style.background = "rgb(118, 206, 169)";
-	});
 
 	// 在更動畫面裡，選擇照片後改變上面顯示的照片
 	fileSelect.addEventListener("change", function() {
@@ -29,30 +20,21 @@ function doFirst() {
 		readFile.addEventListener("load", function() {
 			source = this.result;
 			headPicture.src = source;
-//			fileName.value = fileSelect.value.split(/(\\|\/)/g).pop();
-			headPicture.style.maxWidth = "50%";
-			headPicture.style.maxHeight = "200px";
-			
+			headPicture.style.maxWidth = "120px";
+			headPicture.style.maxHeight = "120px";
 		});
 	});
 }
 
 function update() {
-	
+	alert(phone.innerText);
 	// 下拉式地址
 	new TwCitySelector();
 	// 下拉式地址
-	
-	edit.style.visibility = "hidden";
+
 	fileSelect.style.visibility = "visible";
 	btSubmit.style.visibility = "visible";
 	btCancel.style.visibility = "visible";
-	emailTitle.innerHTML = `<font color='red'>*&nbsp</font>E-mail：&nbsp&nbsp`;
-
-	// 抓原本表格上的值
-	oldemail = personalUpdates[0].innerText;
-	oldphone = personalUpdates[1].innerText;
-	oldaddress = address.innerText;
 
 	// 清空td裡的字
 	for (let i = 0; i < personalUpdates.length; i++) {
@@ -65,17 +47,13 @@ function update() {
 	addressSelect.setAttribute("data-county-value", city.innerText);
 	addressSelect.setAttribute("data-district-value", area.innerText);
 	addressSelect.id = "address";
-	personalUpdates[2].appendChild(addressSelect);
+	personalUpdates[1].appendChild(addressSelect);
 
 	// 動態新增input
-	let updateEmail = document.createElement("input");
 	let updatePhone = document.createElement("input");
 	let updateAddress = document.createElement("input");
-	updateToInput(0, updateEmail, "email", oldemail, "email");
-	updateToInput(1, updatePhone, "text", oldphone, "phone");
-	updateToInput(2, updateAddress, "text", oldaddress, "address");
-	updateEmail.required = true;
-	updateEmail.placeholder = "member@example.com";
+	updateToInput(0, updatePhone, "text", phone.innerText, "phone");
+	updateToInput(1, updateAddress, "text", address.innerText, "address");
 	updatePhone.placeholder = "0912345678";
 	updatePhone.maxLength = "10";
 	updatePhone.addEventListener("keyup", function() {
@@ -87,7 +65,7 @@ function updateToInput(index, inputTitle, inputType, inputValue, inputName) {
 	inputTitle.type = inputType;
 	inputTitle.value = inputValue;
 	inputTitle.name = inputName;
-	inputTitle.className = "updateInput";
+	inputTitle.className = "form-control";
 	personalUpdates[index].appendChild(inputTitle);
 }
 

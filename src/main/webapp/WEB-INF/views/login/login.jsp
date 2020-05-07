@@ -45,7 +45,7 @@
 
 	<!-- =======================導覽列================= -->
 	<nav class="navbar navbar-expand-lg navbar-light fixed-top p-0"
-		id="navBody">
+		style="margin-bottom: 200px" id="navBody">
 		<div class="mr-auto">
 			<button id="hamberger-btn" class="navbar-toggler ml-3" type="button"
 				data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -79,10 +79,11 @@
 				</c:when>
 				<c:otherwise>
 					<div style="width: 150px;">
-						<a class="mr-4" href="#" style="text-decoration: none;"> <img
+						<a class="mr-4" href="<spring:url value='/member/personPage' />"
+							style="text-decoration: none;" id="nav-memberId"> <img
 							src="<spring:url value='/member/getUserImage/${LoginOK.id}' />"
-							width="45px" height="45px" class="rounded-circle mr-2" />
-							${LoginOK.memberId}
+							width="45px" height="45px" class="rounded-circle mr-2"
+							id="nav-memberPicture" /> ${LoginOK.memberId}
 						</a>
 					</div>
 					<a class="navbar-brand mr-5"
@@ -138,7 +139,7 @@
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<a class="dropdown-item" href="#">創建理念</a> <a
 							class="dropdown-item" href="#">團隊介紹</a> <a class="dropdown-item"
-							href="#">聯絡我們</a>
+							href="<spring:url value='/aboutUs/contact' />">聯絡我們</a>
 					</div></li>
 			</ul>
 		</div>

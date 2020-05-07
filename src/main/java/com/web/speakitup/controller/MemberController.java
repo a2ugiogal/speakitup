@@ -306,9 +306,9 @@ public class MemberController {
 				errorMsgMap.put("LoginError", "帳號或密碼錯誤唷");
 			}
 		} catch (RuntimeException ex) {
+			ex.printStackTrace();
 			errorMsgMap.put("LoginError", ex.getMessage());
 		}
-
 		if (errorMsgMap.isEmpty()) {
 			// 存入LoginOK=登入成功
 			session.setAttribute("LoginOK", mb);
@@ -442,6 +442,7 @@ public class MemberController {
 			mb.setId(id);
 			mb.setCity(request.getParameter("county"));
 			mb.setArea(request.getParameter("district"));
+			mb.setStatus(oldmb.getStatus());
 
 			// 取得檔名及照片
 			MultipartFile memberImage = mb.getMemberImage();
@@ -460,7 +461,6 @@ public class MemberController {
 				// 如果沒填照片，使用原來的
 				mb.setPicture(oldmb.getPicture());
 				mb.setFileName(oldmb.getFileName());
-
 			}
 			memberService.updateMember(mb);
 			// 更新session內的使用者資料
