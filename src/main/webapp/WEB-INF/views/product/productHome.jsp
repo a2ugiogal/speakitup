@@ -19,7 +19,7 @@
 <link rel="stylesheet"
 	href="<spring:url value='/css/product/nav.css' /> ">
 <link rel="stylesheet"
-	href="<spring:url value='/css/product/productList.css' />" />
+	href="<spring:url value='/css/product/productHome.css' />" />
 </head>
 <body>
 

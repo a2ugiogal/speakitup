@@ -57,8 +57,9 @@
 				action="<spring:url value='/product/showPageProducts' /> ">
 				<input class="form-control mr-sm-2" type="search" id="search"
 					placeholder="搜尋: 商品名稱" aria-label="Search" name="search"
-					style="width: 70% !important;" value="${searchStr} " />
+					style="width: 70% !important;" value="${searchStr}" />
 				<button class="btn" type="submit" id="search-btn">搜尋</button>
+				<input type="hidden" value="-1" name="pageNo">
 			</form>
 		</div>
 		<div class="navbar-nav flex-row ml-auto"
@@ -103,7 +104,9 @@
 					role="button" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false"> 商城 </a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="#">首頁</a> <a class="dropdown-item"
+						<a class="dropdown-item"
+							href="<spring:url value='/product/productHome' />">首頁</a> <a
+							class="dropdown-item"
 							href="<spring:url value='/order/shoppingCartList' />">購物車</a> <a
 							class="dropdown-item"
 							href="<spring:url value='/order/showHistoryOrder' />">歷史訂單</a>
@@ -208,7 +211,7 @@
 						<div class="col-6 d-flex justify-content-start align-items-center">
 							<ul style="padding-left: 0px !important;">
 								<li><a href="<spring:url value='/product/productHome' />">首頁</a></li>
-								<li>/ 天使</li>
+								<li>/${categoryTitle}</li>
 							</ul>
 						</div>
 						<!-- 下拉式選單 -->
