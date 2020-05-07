@@ -102,7 +102,9 @@
 					role="button" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false"> 商城 </a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="#">首頁</a> <a class="dropdown-item"
+						<a class="dropdown-item"
+							href="<spring:url value='/product/productHome' />">首頁</a> <a
+							class="dropdown-item"
 							href="<spring:url value='/order/shoppingCartList' />">購物車</a> <a
 							class="dropdown-item"
 							href="<spring:url value='/order/showHistoryOrder' />">歷史訂單</a>
@@ -142,8 +144,7 @@
 	<!--================ register===============  -->
 	<div id="bg-color">
 		<div class="container" style="padding: 108px 0px 48px 0px">
-			<div class="card o-hidden border-0 shadow-lg"
-				>
+			<div class="card o-hidden border-0 shadow-lg">
 				<div class="card-body p-0">
 					<!-- Nested Row within Card Body -->
 					<div class="row">
@@ -174,7 +175,7 @@
 										<!-- 選擇檔案 -->
 										<p class="file">
 											<form:input id="fileSelect" path="memberImage" type="file" />
-<!-- 											<input name="memberMultipartFile" type="file" id="fileSelect" /> -->
+											<!-- 											<input name="memberMultipartFile" type="file" id="fileSelect" /> -->
 											<label for="file" class="rounded" style="font-size: 18px;">上傳你的個人照片</label>
 										</p>
 									</div>
@@ -327,7 +328,7 @@
 					<h5 class="font-weight-bold text-uppercase mb-3">商城</h5>
 
 					<ul class="list-unstyled">
-						<li><a href="#!">商城首頁</a></li>
+						<li><a href="<spring:url value='/product/productHome' />">商城首頁</a></li>
 						<li><a href="<spring:url value='/order/shoppingCartList' />">我的購物車</a></li>
 						<li><a href="<spring:url value='/order/showHistoryOrder' />">歷史訂單</a></li>
 					</ul>
@@ -342,7 +343,7 @@
 					<h5 class="font-weight-bold text-uppercase mb-3">關於我們</h5>
 
 					<ul class="list-unstyled">
-						<li><a href="#!">聯絡我們</a></li>
+						<li><a href="<spring:url value='/aboutUs/contact' />">聯絡我們</a></li>
 						<li><a href="#!">服務條款</a></li>
 						<li><a href="#!">隱私權政策</a></li>
 					</ul>

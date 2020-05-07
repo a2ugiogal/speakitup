@@ -68,18 +68,18 @@
 				<div class="row">
 					<c:forEach var="entry" items="${products_map}">
 						<a
-							href="<spring:url value='/product/showProductInfo/${entry.value.productId}'/>"
+							href="<spring:url value='/product/showProductInfo/${entry.key.productId}'/>"
 							class="col-12 col-sm-6 col-lg-4 mt-4">
 							<div class="card border-dark">
 								<img
-									src="<spring:url value='/product/getProductImage/${entry.value.productId}' />"
+									src="<spring:url value='/product/getProductImage/${entry.key.productId}' />"
 									class="card-img-top productImg" />
 								<div class="card-body">
 									<h5 class="card-title"
-										style="text-align: center; font-size: 30px;">${entry.value.productName}</h5>
+										style="text-align: center; font-size: 30px;">${entry.key.productName}</h5>
 									<div class="card-text mt-2"
 										style="text-align: center; font-size: 20px;">$
-										${entry.value.price}</div>
+										${entry.key.price}</div>
 								</div>
 							</div>
 						</a>

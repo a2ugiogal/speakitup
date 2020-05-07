@@ -92,7 +92,9 @@
 					role="button" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false"> 商城 </a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="#">首頁</a> <a class="dropdown-item"
+						<a class="dropdown-item"
+							href="<spring:url value='/product/productHome' />">首頁</a> <a
+							class="dropdown-item"
 							href="<spring:url value='/order/shoppingCartList' />">購物車</a> <a
 							class="dropdown-item"
 							href="<spring:url value='/order/showHistoryOrder' />">歷史訂單</a>
@@ -131,96 +133,96 @@
 
 	<!-- ======= Contact Section ======= -->
 	<div style="background-color: rgb(219, 219, 219)">
-	<section id="contact" class="contact section-bg mt-5">
-		<div class="container">
+		<section id="contact" class="contact section-bg mt-5">
+			<div class="container">
 
-			<div class="section-title">
-				<h2 data-aos="fade-in" class="pb-4">
-					<strong>CONTACT US </strong>
-				</h2>
-				<p data-aos="fade-in">若您有任何問題，歡迎於週一至週五上午10點至下午6點來電洽詢。也歡迎您留下訊息，我們將盡快與您聯繫。</p>
-			</div>
+				<div class="section-title">
+					<h2 data-aos="fade-in" class="pb-4">
+						<strong>CONTACT US </strong>
+					</h2>
+					<p data-aos="fade-in">若您有任何問題，歡迎於週一至週五上午10點至下午6點來電洽詢。也歡迎您留下訊息，我們將盡快與您聯繫。</p>
+				</div>
 
-			<div class="row">
+				<div class="row">
 
-				<div class="col-lg-6">
+					<div class="col-lg-6">
 
-					<div class="row">
-						<div class="col-md-12">
-							<div class="info-box" data-aos="fade-up">
-								<i class="bx bx-map"></i>
-								<h3>Our Address</h3>
-								<p>10608 台北市大安區新生南路一段1號 光華館 2樓 210室</p>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="info-box" data-aos="fade-up">
+									<i class="bx bx-map"></i>
+									<h3>Our Address</h3>
+									<p>10608 台北市大安區新生南路一段1號 光華館 2樓 210室</p>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="info-box mt-4" data-aos="fade-up"
+									data-aos-delay="100">
+									<i class="bx bx-envelope"></i>
+									<h3>Email Us</h3>
+									<p>speak_it_up@ntnu.com</p>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="info-box mt-4" data-aos="fade-up"
+									data-aos-delay="100">
+									<i class="bx bx-phone-call"></i>
+									<h3>Call Us</h3>
+									<p>+886-2-2835-3415</p>
+								</div>
 							</div>
 						</div>
-						<div class="col-md-6">
-							<div class="info-box mt-4" data-aos="fade-up"
-								data-aos-delay="100">
-								<i class="bx bx-envelope"></i>
-								<h3>Email Us</h3>
-								<p>speak_it_up@ntnu.com</p>
+
+					</div>
+
+					<div class="col-lg-6">
+						<form action="#" method="post" role="form" class="php-email-form"
+							data-aos="fade-up">
+							<div class="form-row">
+								<div class="col-md-6 form-group">
+									<input type="text" name="name" class="form-control" id="name"
+										placeholder="您的大名" />
+									<div class="validate"></div>
+								</div>
+								<div class="col-md-6 form-group">
+									<input type="email" class="form-control" name="email"
+										id="email" placeholder="聯絡信箱" />
+									<div class="validate"></div>
+								</div>
 							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="info-box mt-4" data-aos="fade-up"
-								data-aos-delay="100">
-								<i class="bx bx-phone-call"></i>
-								<h3>Call Us</h3>
-								<p>+886-2-2835-3415</p>
+							<div class="form-group">
+								<input type="text" class="form-control" name="subject"
+									id="subject" placeholder="主旨" />
+								<div class="validate"></div>
 							</div>
-						</div>
+							<div class="form-group">
+								<textarea class="form-control" name="message" rows="5"
+									data-rule="required" placeholder="想說的話..."></textarea>
+								<div class="validate"></div>
+							</div>
+							<div class="mb-3">
+								<div class="loading">Loading</div>
+								<div class="error-message"></div>
+								<div class="sent-message">Your message has been sent.
+									Thank you!</div>
+							</div>
+							<div class="text-center">
+								<button type="submit">Send Message</button>
+							</div>
+						</form>
 					</div>
 
 				</div>
-
-				<div class="col-lg-6">
-					<form action="#" method="post" role="form" class="php-email-form"
-						data-aos="fade-up">
-						<div class="form-row">
-							<div class="col-md-6 form-group">
-								<input type="text" name="name" class="form-control" id="name"
-									placeholder="您的大名" />
-								<div class="validate"></div>
-							</div>
-							<div class="col-md-6 form-group">
-								<input type="email" class="form-control" name="email" id="email"
-									placeholder="聯絡信箱" />
-								<div class="validate"></div>
-							</div>
-						</div>
-						<div class="form-group">
-							<input type="text" class="form-control" name="subject"
-								id="subject" placeholder="主旨" />
-							<div class="validate"></div>
-						</div>
-						<div class="form-group">
-							<textarea class="form-control" name="message" rows="5"
-								data-rule="required" placeholder="想說的話..."></textarea>
-							<div class="validate"></div>
-						</div>
-						<div class="mb-3">
-							<div class="loading">Loading</div>
-							<div class="error-message"></div>
-							<div class="sent-message">Your message has been sent. Thank
-								you!</div>
-						</div>
-						<div class="text-center">
-							<button type="submit">Send Message</button>
-						</div>
-					</form>
-				</div>
-
-			</div>
-	</section>
-	<!-- End Contact Section -->
-	<div id="googlemap" class="d-flex justify-content-center pb-5">
-		<iframe
-			src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.7595495555097!2d121.53330871501322!3d25.042232883968556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a97d255598df%3A0x47ea748e8f3f53aa!2z5ZyL56uL6Ie65YyX56eR5oqA5aSn5a24!5e0!3m2!1szh-TW!2stw!4v1586255037278!5m2!1szh-TW!2stw"
-			width="1100" height="350" frameborder="0" style="border: 0;"
-			allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+		</section>
+		<!-- End Contact Section -->
+		<div id="googlemap" class="d-flex justify-content-center pb-5">
+			<iframe
+				src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.7595495555097!2d121.53330871501322!3d25.042232883968556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a97d255598df%3A0x47ea748e8f3f53aa!2z5ZyL56uL6Ie65YyX56eR5oqA5aSn5a24!5e0!3m2!1szh-TW!2stw!4v1586255037278!5m2!1szh-TW!2stw"
+				width="1100" height="350" frameborder="0" style="border: 0;"
+				allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+		</div>
 	</div>
-	</div>
-	
+
 
 	<!--========= footer================= -->
 	<!-- Footer -->
@@ -272,7 +274,7 @@
 					<h5 class="font-weight-bold text-uppercase mb-3">商城</h5>
 
 					<ul class="list-unstyled">
-						<li><a href="#!">商城首頁</a></li>
+						<li><a href="<spring:url value='/product/productHome' />">商城首頁</a></li>
 						<li><a href="<spring:url value='/order/shoppingCartList' />">我的購物車</a></li>
 						<li><a href="<spring:url value='/order/showHistoryOrder' />">歷史訂單</a></li>
 					</ul>
@@ -287,7 +289,7 @@
 					<h5 class="font-weight-bold text-uppercase mb-3">關於我們</h5>
 
 					<ul class="list-unstyled">
-						<li><a href="#!">聯絡我們</a></li>
+						<li><a href="<spring:url value='/aboutUs/contact' />">聯絡我們</a></li>
 						<li><a href="#!">服務條款</a></li>
 						<li><a href="#!">隱私權政策</a></li>
 					</ul>

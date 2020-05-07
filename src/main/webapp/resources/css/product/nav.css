@@ -1,27 +1,3 @@
-<<<<<<< HEAD
-@import url("https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap");
-
-* {
-  box-sizing: border-box;
-  font-family: "Noto Sans TC", sans-serif;
-}
-
-.navbar a {
-  text-decoration: none;
-  color: white !important;
-}
-
-#hamberger-btn {
-  border: 0px;
-}
-
-.dropdown-item {
-  padding: 15px;
-}
-
-.dropdown-item:hover {
-  background-color: rgba(255, 255, 255, 0.185) !important;
-=======
 @import
 	url("https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap")
 	;
@@ -59,43 +35,29 @@ nav a {
 
 .dropdown-item:hover {
 	background-color: rgba(255, 255, 255, 0.185) !important;
->>>>>>> 02fe2d878a78d57bc53cbe51c3d35d8ef335325e
 }
 
 /* nav主要顏色 */
 #navBody {
-<<<<<<< HEAD
-  background-color: rgb(24, 154, 230);
-=======
 	background-color: rgb(24, 154, 230);
->>>>>>> 02fe2d878a78d57bc53cbe51c3d35d8ef335325e
 }
 
 /* 搜尋按鈕顏色 */
 #search-btn {
-<<<<<<< HEAD
-  background-color: rgb(255, 167, 34);
-=======
 	background-color: rgb(255, 167, 34);
->>>>>>> 02fe2d878a78d57bc53cbe51c3d35d8ef335325e
 }
 
 /* 選單內顏色 */
 .dropdown-menu {
-<<<<<<< HEAD
-  padding: 0px;
-  background-color: rgb(24, 154, 230);
-  margin-bottom: 10px;
-=======
 	padding: 0px;
-	background-color: rgb(24, 154, 230);
+	background-color: rgb(13, 149, 228);
 	margin-bottom: 10px;
 	border-width: 0px !important;
 }
 
 /* 頁尾設定  */
 footer {
-	background-color: white ;
+	background-color: white;
 }
 
 footer a {
@@ -124,30 +86,10 @@ footer h5 {
 		height: 38px;
 		text-align: center;
 	}
->>>>>>> 02fe2d878a78d57bc53cbe51c3d35d8ef335325e
 }
 
 /* 漢堡選單的時候 */
 @media only screen and (max-width: 991px) {
-<<<<<<< HEAD
-  #navbarSupportedContent {
-    background-color: rgba(255, 255, 255, 0.185) !important;
-  }
-  .nav-item {
-    margin-left: 25px !important;
-  }
-  .dropdown-menu {
-    background-color: rgba(255, 255, 255, 0.185);
-    margin-bottom: 10px;
-  }
-  .dropdown-item {
-    padding: 10px;
-  }
-  .dropdown-item:hover {
-    background-color: rgba(255, 255, 255, 0.185);
-  }
-}
-=======
 	#navbarSupportedContent {
 		background-color: rgba(255, 255, 255, 0.185) !important;
 	}
@@ -185,4 +127,3 @@ footer h5 {
 		display: none !important;
 	}
 }
->>>>>>> 02fe2d878a78d57bc53cbe51c3d35d8ef335325e
