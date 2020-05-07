@@ -1,0 +1,60 @@
+@import url("https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap");
+
+* {
+  box-sizing: border-box;
+  font-family: "Noto Sans TC", sans-serif;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: white !important;
+}
+
+#hamberger-btn {
+  border: 0px;
+}
+
+.dropdown-item {
+  padding: 15px;
+}
+
+.dropdown-item:hover {
+  background-color: rgba(255, 255, 255, 0.185) !important;
+}
+
+/* nav主要顏色 */
+#navBody {
+  background-color: rgb(24, 154, 230);
+}
+
+/* 搜尋按鈕顏色 */
+#search-btn {
+  background-color: rgb(255, 167, 34);
+}
+
+/* 選單內顏色 */
+.dropdown-menu {
+  padding: 0px;
+  background-color: rgb(24, 154, 230);
+  margin-bottom: 10px;
+}
+
+/* 漢堡選單的時候 */
+@media only screen and (max-width: 991px) {
+  #navbarSupportedContent {
+    background-color: rgba(255, 255, 255, 0.185) !important;
+  }
+  .nav-item {
+    margin-left: 25px !important;
+  }
+  .dropdown-menu {
+    background-color: rgba(255, 255, 255, 0.185);
+    margin-bottom: 10px;
+  }
+  .dropdown-item {
+    padding: 10px;
+  }
+  .dropdown-item:hover {
+    background-color: rgba(255, 255, 255, 0.185);
+  }
+}
