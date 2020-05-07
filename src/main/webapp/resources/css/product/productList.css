@@ -2,17 +2,15 @@
   font-family: "Noto Sans TC", sans-serif;
 }
 
-/* 頁尾設定  */
-footer a {
-  color: #e43c5c !important;
+/* 左側欄設定 */
+#left_list ul li a {
+	color: #495057;
 }
 
-footer h5 {
-  color: black !important;
-}
-
-#footer-introdution {
-  color: rgb(117, 117, 117) !important;
+#left_list ul li a:hover {
+	font-size: 25px;
+	text-decoration: none;
+	color: rgb(236, 130, 31) !important;
 }
 
 /* <!-- 置頂按鈕 設定 --> */

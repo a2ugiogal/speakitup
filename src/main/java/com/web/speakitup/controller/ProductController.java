@@ -52,7 +52,8 @@ public class ProductController {
 	ProductService productService;
 
 	// ==================非管理員===================
-
+	
+	
 	/* 查詢指定商品(搜尋、排序、頁碼) */
 	@GetMapping("/showPageProducts")
 	public String showPageProducts(Model model, HttpServletRequest request, HttpServletResponse response,
@@ -111,9 +112,9 @@ public class ProductController {
 		if (pageNo == -1) {
 			pageNo = 1;
 		}
-
+		
 		// 取得本頁商品資料(Map<Integer, ProductBean>)
-		Map<Integer, ProductBean> productMap = productService.getPageProducts(pageNo, arrange, searchStr, categoryTitle,
+		Map<ProductBean, String> productMap = productService.getPageProducts(pageNo, arrange, searchStr, categoryTitle,
 				categoryName);
 
 		model.addAttribute("searchStr", searchStr);
@@ -195,15 +196,28 @@ public class ProductController {
 	}
 
 	/* 查詢熱門商品 */
-	@GetMapping("/showFamousProducts")
+	@GetMapping("/productHome")
 	public String showFamousProducts(Model model) {
+		int productIdTop;
+		List<Integer> topProductList = new ArrayList<Integer>();
+		List<Integer> botProductList = new ArrayList<Integer>();
+		
 		Map<Integer, ProductBean> angelProductMap = productService.getFamousProducts("天使");
 		Map<Integer, ProductBean> evilProductMap = productService.getFamousProducts("惡魔");
-
+		for(int i = 0;i<3;i++) {
+			productIdTop = (int)(Math.random() * 10);
+			topProductList.add(productIdTop);
+			botProductList.add(productIdTop + 10);
+		}
+		System.out.println(topProductList);
+		System.out.println(botProductList);
 		model.addAttribute("angel_products_map", angelProductMap);
 		model.addAttribute("evil_products_map", evilProductMap);
-
-		return "product/productFamous";
+		
+		model.addAttribute("top_product_list", topProductList);
+		model.addAttribute("bot_product_list", botProductList);
+		
+		return "product/productHome";
 	}
 
 	/* 取得圖片 */
@@ -243,6 +257,26 @@ public class ProductController {
 
 		ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
 		return responseEntity;
+	}
+
+	@ModelAttribute("angelCategoryList")
+	public List<String> getAngelCategory() {
+		Set<CategoryBean> angelBeans = productService.getCategorys("天使");
+		List<String> list = new ArrayList<String>();
+		for (CategoryBean bean : angelBeans) {
+			list.add(bean.getCategoryName());
+		}
+		return list;
+	}
+
+	@ModelAttribute("evilCategoryList")
+	public List<String> getEvilCategory() {
+		Set<CategoryBean> evilBeans = productService.getCategorys("惡魔");
+		List<String> list = new ArrayList<String>();
+		for (CategoryBean bean : evilBeans) {
+			list.add(bean.getCategoryName());
+		}
+		return list;
 	}
 
 	// ==================管理員===================

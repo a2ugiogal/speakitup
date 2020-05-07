@@ -1,5 +1,7 @@
 package com.web.speakitup.dao.impl;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -70,7 +72,7 @@ public class ProductDaoImpl implements ProductDao {
 	// 查詢某一頁的商品資料(頁數, 排序, 搜尋字串)
 	@SuppressWarnings("unchecked")
 	@Override
-	public Map<Integer, ProductBean> getPageProducts(int pageNo, String arrange, String searchStr, String categoryTitle,
+	public Map<ProductBean, String> getPageProducts(int pageNo, String arrange, String searchStr, String categoryTitle,
 			String categoryName) {
 		// 預設的搜尋
 		String hql = "SELECT pb FROM ProductBean pb, CategoryBean cb WHERE pb.category=cb.categoryId "
@@ -78,7 +80,7 @@ public class ProductDaoImpl implements ProductDao {
 				+ "AND cb.categoryName LIKE :categoryName " + "ORDER BY pb.productId DESC";
 		Session session = factory.getCurrentSession();
 		String[] arranges = GlobalService.PRODUCT_ARRANGE; // "time", "popular", "price"
-		Map<Integer, ProductBean> map = new LinkedHashMap<Integer, ProductBean>();
+		Map<ProductBean, String> map = new LinkedHashMap<>();
 		int startRecordNo = (pageNo - 1) * recordsPerPage;
 		List<ProductBean> list = new ArrayList<ProductBean>();
 
@@ -100,7 +102,11 @@ public class ProductDaoImpl implements ProductDao {
 				.setParameter("categoryName", "%" + categoryName + "%").setFirstResult(startRecordNo)
 				.setMaxResults(recordsPerPage).getResultList();
 		for (ProductBean bean : list) {
-			map.put(bean.getProductId(), bean);
+			try {
+				map.put(bean, GlobalService.clobToString(bean.getDetail()));
+			} catch (IOException | SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return map;
 	}

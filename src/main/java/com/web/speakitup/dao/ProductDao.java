@@ -15,7 +15,7 @@ public interface ProductDao {
 
 	long getRecordCounts();
 
-	Map<Integer, ProductBean> getPageProducts(int pageNo, String arrange, String searchStr, String categoryTitle,
+	Map<ProductBean, String> getPageProducts(int pageNo, String arrange, String searchStr, String categoryTitle,
 			String categoryName);
 
 	Map<Integer, ProductBean> getFamousProducts(String categoryTitle);

@@ -53,11 +53,12 @@
 		</div>
 		<div class="navbar-nav flex-row ml-auto"
 			style="position: absolute; right: 250px; top: 10px;">
-			<form class="form-inline mr-5">
+			<form class="form-inline mr-5"
+				action="<spring:url value='/product/showPageProducts' /> ">
 				<input class="form-control mr-sm-2" type="search" id="search"
-					placeholder="Search" aria-label="Search" />
-				<button class="btn d-flex justify-content-center" type="submit"
-					id="search-btn">Search</button>
+					placeholder="搜尋: 商品名稱" aria-label="Search" name="search"
+					style="width: 70% !important;" value="${searchStr} " />
+				<button class="btn" type="submit" id="search-btn">搜尋</button>
 			</form>
 		</div>
 		<div class="navbar-nav flex-row ml-auto"
@@ -154,73 +155,48 @@
 		<section>
 			<div id="procen_text" class="row m-0">
 				<!-- 商品分類子預覽列 -->
-				<div class="col-2 p-0">
+				<div class="col-2 ">
 					<div id="left_list"
-						class="list-group sticky-element dropdown-menuy"
-						style="padding-top: 75px;">
-						<a id="left_list_0" href="#pane-1"
-							class="list-group-item list-group-item-action active"
+						class="list-group sticky-element mt-3 dropdown-menuy">
+						<a id="left_list_0"
+							href="<spring:url value='/product/showPageProducts' />"
+							class="list-group-item list-group-item-action active "
 							data-toggle="list">全部商品</a> <a id="left_list_a" href="#pane-2"
 							class="list-group-item list-group-item-action" data-toggle="list">天使</a>
 						<ul id="list_a">
-							<li><a href="#">a-1</a></li>
-							<li><a href="#">a-2</a></li>
-							<li><a href="#">a-3</a></li>
+							<c:forEach var="angelCategory" items="${angelCategoryList}">
+								<li><a
+									href="<spring:url value='/product/showPageProducts?categoryTitle="天使"&categoryName=${angelCategory}' />">${angelCategory}</a></li>
+							</c:forEach>
 						</ul>
 						<a id="left_list_b" href="#pane-3"
 							class="list-group-item list-group-item-action" data-toggle="list">惡魔</a>
 						<ul id="list_b">
-							<li><a href="#">b-1</a></li>
-							<li><a href="#">b-2</a></li>
-							<li><a href="#">b-3</a></li>
-						</ul>
-						<a id="left_list_c" href="#pane-4"
-							class="list-group-item list-group-item-action" data-toggle="list">組合包</a>
-						<ul id="list_c">
-							<li><a href="#">c-1</a></li>
-							<li><a href="#">c-2</a></li>
-							<li><a href="#">c-3</a></li>
-						</ul>
-						<a id="left_list_d" href="#pane-5"
-							class="list-group-item list-group-item-action" data-toggle="list">限時下殺</a>
-						<ul id="list_d">
-							<li><a href="#">d-1</a></li>
-							<li><a href="#">d-2</a></li>
-							<li><a href="#">d-3</a></li>
+							<c:forEach var="evilCategory" items="${evilCategoryList}">
+								<li><a
+									href="<spring:url value='/product/showPageProducts?categoryTitle="惡魔"&categoryName=${evilCategory}' />">${evilCategory}</a></li>
+							</c:forEach>
 						</ul>
 					</div>
-
 					<!-- 控制商品分類，點擊其中一個展開時，其它關閉 -->
 					<script>
-						$("#left_list_0").click(function() {
-							$("#list_a").hide();
-							$("#list_b").hide();
-							$("#list_c").hide();
-							$("#list_d").hide();
+						$('#left_list_0').click(function() {
+							$('#list_a').hide();
+							$('#list_b').hide();
+							$('#list_c').hide();
+							$('#list_d').hide();
 						});
-						$("#left_list_a").click(function() {
-							$("#list_a").toggle();
-							$("#list_b").hide();
-							$("#list_c").hide();
-							$("#list_d").hide();
+						$('#left_list_a').click(function() {
+							$('#list_a').toggle();
+							$('#list_b').hide();
+							$('#list_c').hide();
+							$('#list_d').hide();
 						});
-						$("#left_list_b").click(function() {
-							$("#list_a").hide();
-							$("#list_b").toggle();
-							$("#list_c").hide();
-							$("#list_d").hide();
-						});
-						$("#left_list_c").click(function() {
-							$("#list_a").hide();
-							$("#list_b").hide();
-							$("#list_c").toggle();
-							$("#list_d").hide();
-						});
-						$("#left_list_d").click(function() {
-							$("#list_a").hide();
-							$("#list_b").hide();
-							$("#list_c").hide();
-							$("#list_d").toggle();
+						$('#left_list_b').click(function() {
+							$('#list_a').hide();
+							$('#list_b').toggle();
+							$('#list_c').hide();
+							$('#list_d').hide();
 						});
 					</script>
 				</div>
@@ -231,7 +207,7 @@
 						<!-- 麵包屑 -->
 						<div class="col-6 d-flex justify-content-start align-items-center">
 							<ul style="padding-left: 0px !important;">
-								<li><a href="#">首頁</a></li>
+								<li><a href="<spring:url value='/product/productHome' />">首頁</a></li>
 								<li>/ 天使</li>
 							</ul>
 						</div>

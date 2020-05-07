@@ -83,7 +83,9 @@
 					role="button" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false"> 商城 </a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="#">首頁</a> <a class="dropdown-item"
+						<a class="dropdown-item"
+							href="<spring:url value='/product/productHome' />">首頁</a> <a
+							class="dropdown-item"
 							href="<spring:url value='/order/shoppingCartList' />">購物車</a> <a
 							class="dropdown-item"
 							href="<spring:url value='/order/showHistoryOrder' />">歷史訂單</a>
@@ -267,7 +269,8 @@
 							<div class="card-body">
 								<h5 class="card-title">熱銷*南歐薰衣草精油*</h5>
 								<p class="card-text">來了來了！來自歐洲的氣息~吸上兩口一夜好眠，限時特惠只要5555元！</p>
-								<a href="#" class="btn btn-danger">前往商城</a>
+								<a href="<spring:url value='/product/productHome' />"
+									class="btn btn-danger">前往商城</a>
 							</div>
 						</div>
 					</div>
@@ -358,7 +361,7 @@
 					<h5 class="font-weight-bold text-uppercase mb-3">商城</h5>
 
 					<ul class="list-unstyled">
-						<li><a href="#!">商城首頁</a></li>
+						<li><a href="<spring:url value='/product/productHome' />">商城首頁</a></li>
 						<li><a href="<spring:url value='/order/shoppingCartList' />">我的購物車</a></li>
 						<li><a href="<spring:url value='/order/showHistoryOrder' />">歷史訂單</a></li>
 					</ul>
@@ -373,7 +376,7 @@
 					<h5 class="font-weight-bold text-uppercase mb-3">關於我們</h5>
 
 					<ul class="list-unstyled">
-						<li><a href="#!">聯絡我們</a></li>
+						<li><a href="<spring:url value='/aboutUs/contact' />">聯絡我們</a></li>
 						<li><a href="#!">服務條款</a></li>
 						<li><a href="#!">隱私權政策</a></li>
 					</ul>

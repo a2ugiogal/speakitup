@@ -1,150 +1,176 @@
-/* 商品詳細的css*/
-
-
-.top_area{      /* logo 登入那塊 */
-    width: 80%;
-    margin: 5px auto;
-    display: flex;
-    flex-direction: row;
-    
+/* 全體字型控制 */
+* {
+	font-family: "Noto Sans TC", sans-serif;
 }
 
-.top-space{
-    width: 70%;
+/* 背景設定 */
+body {
+	background-color: rgba(115, 187, 174, 0.541);
 }
 
-.animateCart{
-    display: none;
-    
+/* 左側欄設定 */
+#left_list ul li a {
+	color: #495057;
 }
 
- ul{       /*取消ul預設的樣式 */
-    padding: 0;
-    margin: 0 auto;
-    height: 80px;
-    list-style: none;
-    background  :#99F7AB;
-    width: 80%;
-    align-items: center;
-} 
-
-a{
-    display: inline-block;
-    text-align: center;
-    padding-top: 20px;
-    margin: 0 auto;
-  }
-
-
-  
-  li.dropdown{
-    display: inline-block;
-    padding-left: 3%;
-    margin-left: 15%;
-   text-align: center;
-  }
-
-  .dropdown-content {
-    width: 120px;
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 3;
-   
-  }
-
-  .dropdown-content a {
-    color: black;
-    /* padding: 12px 16px; */
-    text-decoration: none;
-    display: block;
-   
-  }
-
-  .dropdown:hover .dropdown-content {
-    display: block;
-  }
-
-.main-menu{
-    width: 80%;
-    height: 80px;
-    background: #99F7AB;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: row;
-     
- }
-
-.drop{
-    display: flex;
-    flex-direction: column;
-    z-index: 4;
-    
+#left_list ul li a:hover {
+	font-size: 25px;
+	text-decoration: none;
+	color: rgb(236, 130, 31);
 }
 
-.dropdown-item{
-    display: none;
-    margin: 5px;
-    /* border: 1px solid black; */
-
+/* <!-- 置頂按鈕 設定 --> */
+#myBtn {
+	z-index: 99;
+	/* 初始化不顯示 */
+	/* display: none; */
+	/* fixed = 畫面的絕對位置，所以會跟著跑 */
+	position: fixed;
+	/* 離下面30 pixel */
+	bottom: 30px;
+	/* 離右邊30 pixel */
+	right: 10px;
+	/* 半徑圓 */
+	border-radius: 30px;
+	/* 背景色 */
+	/* background-color: white; */
+	/* 透明度 */
+	opacity: 0.5;
+	/* 游標指過去會變手指 */
+	cursor: pointer;
+	/* 控制按鈕寬度 */
+	width: 50px;
 }
 
-.side_menu{
-    width: 20%;
-    display: flex;
-    flex-direction: column;
-    background-color: #99F7AB;
-    z-index: 2;
-    
+/* 左邊商品分類與導覽列的距離 */
+.sticky-element {
+	position: sticky;
+	top: 90px;
 }
 
-.side_menu div{
-    text-align: center;
-    margin-top: 20px;
-    font: 24px bold;
-    font-family: Arial, Helvetica, sans-serif;
-    
+/* 麵包屑位置 */
+#nav_info>ul>li {
+	display: inline-block;
 }
 
-.center-content{
-    margin: 5% 10% 1% 10%;
-    height: 600px;
-    display: flex; 
-    flex-direction: row;
+/* 商品分類與圖片的距離 */
+#procen_text {
+	margin-top: -20px;
 }
 
-.productBox{
-   margin-left: 50px;
-    width: 100%;
-    height: fit-content;
-    /* background: aqua; */
-    border: 1px solid black;
-    display: flex;
-    flex-direction: column;
+/* 商品分類 消除圓點 */
+#left_list ul {
+	list-style: none;
+	display: none;
+	margin: 0px;
+	padding: 8px 0px 8px 40px;
+	background-color: white;
 }
 
-.topProductBox{
-    display: flex;
-    flex-direction: row;
+#left_list li a {
+	color: black;
 }
 
-img{
-    margin: 5%;
-    height: 20%;
+/* 控制商品分類 次選項 距離 暫時不用 */
+/* #left_list li {
+    margin: 2px 0px 2px -20px;
+    border: 1px solid #f0f;
+  } */
+
+/* 控制與導覽列的距離 */
+.commodity {
+	font-family: "Noto Sans TC", sans-serif;
+	margin-top: 100px;
 }
-/*選商品規格*/
-.itemSelect{
-    border: 1px solid black;
-    border-radius: 5px;
+/* 規格和數量的上下間距 */
+.specification h5 {
+	margin-bottom: 0.1em;
+}
+/* 規格與文字的間距 */
+.specification button {
+	margin-bottom: 1em;
+	/* margin-left: 30px; */
 }
 
-.productDesc{
-    width: 50%;
-    height: fit-content;
-    border: 1px solid black;
-    margin: 50px auto 100px auto;
-    padding-bottom: 50px;
-    padding:10px;
+/* 規格和數量的上下間距 */
+.Quantity {
+	margin-bottom: 0.5em;
+	display: flex;
 }
-
+/* 規格與文字的間距 */
+.Quantity_button1 {
+	margin-bottom: 10px;
+	/* margin-left: 35px; */
+}
+/* input控制 */
+.Enter_the_quantity {
+	background-color: rgba(255, 244, 85, 0.05);
+	border: 1px solid #555;
+	width: 100px;
+	height: 35px;
+	text-align: center;
+}
+/* +號鍵位置調整 */
+.Quantity_button2 {
+	margin-bottom: 10px;
+}
+/* 控制直接購買與input的距離 */
+.buy {
+	margin-left: 2em;
+}
+/* 控制價錢間距 */
+.price h2 {
+	margin-bottom: 30px;
+}
+/* 圖片旁顏色控制 */
+.Commodity_control {
+	width: 100%;
+}
+/* 商品標題文字大小 */
+.Commodity_control h5 {
+	margin-right: 1em;
+}
+/* 商品詳情與頁尾的距離 */
+.Product_content {
+	margin: -24px 0px 50px 10px;
+}
+/* 規格設定 */
+.specification ul {
+	list-style: none;
+}
+/* 控制規格的樣式 */
+.specification li {
+	display: inline-block;
+	width: auto;
+	color: rgb(24, 131, 21);
+	text-align: center;
+}
+/* 刪除規格原有的樣式 */
+.specification input[type="radio"] {
+	display: none;
+}
+/* 給予規格外框 */
+.specification input[type="radio"]+label {
+	margin-right: 5px;
+	padding: 8px;
+	display: inline-block;
+	width: 100%;
+	border-radius: 5px;
+	cursor: pointer;
+	border: 2px solid rgb(24, 131, 21);
+}
+/* 規格選定後的樣式 */
+.specification input[type="radio"]:checked+label {
+	background-color: rgb(24, 131, 21);
+	color: white;
+	border: 2px solid rgb(24, 131, 21);
+}
+/* 鼠標在規格上時的效果 */
+.specification input[type="radio"]+label:hover {
+	background-color: rgb(24, 131, 21);
+	color: white;
+}
+/* 規格設定 */
+.Commodity_control {
+	padding-left: 1em;
+}
