@@ -1,40 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link
-	href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css'
-	rel='stylesheet'>
-<link rel="stylesheet"
-	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-<script type="text/javascript"
-	src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script type="text/javascript"
-	src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-
-<link rel="stylesheet"
-	href="http://jqueryui.com/resources/demos/style.css" />
+<meta charset="UTF-8" />
+<!-- Vendor CSS Files -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 	crossorigin="anonymous" />
+<link
+	href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css'
+	rel='stylesheet'>
+<!-- aos是別人寫好的動畫效果，載入時會浮上來的感覺，不要可拿掉 -->
+<link rel="stylesheet"
+	href="<spring:url value='/css/aboutUs/aos.css' />">
 <!-- my css -->
 <link rel="stylesheet"
-	href="<spring:url value='/css/register/register.css' /> " />
+	href="<spring:url value='/css/aboutUs/contact.css' /> " />
+
 <link rel="stylesheet"
 	href="<spring:url value='/css/register/nav.css' /> " />
-<title>註冊--要抒啦</title>
-
-
+<title>聯絡我們--要抒啦</title>
 </head>
-
 <body>
 	<!-- =======================導覽列================= -->
 	<nav class="navbar navbar-expand-lg navbar-light fixed-top p-0"
@@ -139,143 +129,98 @@
 	</nav>
 	<!-- 導覽列 -->
 
-	<!--================ register===============  -->
-	<div id="bg-color">
-		<div class="container" style="padding: 108px 0px 48px 0px">
-			<div class="card o-hidden border-0 shadow-lg"
-				>
-				<div class="card-body p-0">
-					<!-- Nested Row within Card Body -->
+	<!-- ======= Contact Section ======= -->
+	<div style="background-color: rgb(219, 219, 219)">
+	<section id="contact" class="contact section-bg mt-5">
+		<div class="container">
+
+			<div class="section-title">
+				<h2 data-aos="fade-in" class="pb-4">
+					<strong>CONTACT US </strong>
+				</h2>
+				<p data-aos="fade-in">若您有任何問題，歡迎於週一至週五上午10點至下午6點來電洽詢。也歡迎您留下訊息，我們將盡快與您聯繫。</p>
+			</div>
+
+			<div class="row">
+
+				<div class="col-lg-6">
+
 					<div class="row">
-						<!-- 左邊照片 -->
-						<div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
-						<div class="col-lg-7">
-							<div class="p-5">
-								<div class="text-center">
-									<h1 class="text-gray-900 mb-4">
-										<strong>註冊你的專屬抒發空間</strong>
-									</h1>
-								</div>
-								<!-- ======從這裡開始套 =========-->
-								<form:form class="user" method='POST'
-									modelAttribute="memberBean" id="registerForm"
-									enctype="multipart/form-data">
-									<!-- autocomplete="off"不要讓瀏覽器記住使用者輸入資料的歷史紀錄 -->
-									<!-- 大頭照上傳 -->
-									<div id="boxHeadPicture" class="d-flex justify-content-center">
-										<img
-											src="<spring:url value='/image/personPage/headPicture.jpg' />"
-											width="125px" height="125px" id="headPicture"
-											class="m-x-auto rounded-circle"
-											style="border: 3px solid rgb(196, 190, 190);">
-									</div>
-									<div id="boxFileSelect"
-										class="d-flex justify-content-center mt-3">
-										<!-- 選擇檔案 -->
-										<p class="file">
-											<form:input id="fileSelect" path="memberImage" type="file" />
-<!-- 											<input name="memberMultipartFile" type="file" id="fileSelect" /> -->
-											<label for="file" class="rounded" style="font-size: 18px;">上傳你的個人照片</label>
-										</p>
-									</div>
-									<!-- 性別 -->
-									<div class="d-flex justify-content-center gender mb-2">
-										<input type="radio" class="magic-radio" id="male"
-											name="gender" value="男" required="required" checked
-											<c:if test='${mb.gender=="男"}'>checked='checked'</c:if>>
-										<label for="male" class="mr-2"
-											style="color: rgb(131, 121, 121)">男</label> <input
-											type="radio" class="magic-radio" id="female" name="gender"
-											value="女" required="required" width="16px" height="16px"
-											<c:if test='${mb.gender=="女"}'> checked='checked'</c:if>>
-										<label for="female" class="ml-2"
-											style="color: rgb(131, 121, 121)">女</label>
-									</div>
-
-
-									<div class="form-group row">
-										<!-- ===帳號=== -->
-										<div class="col-sm-10">
-											<input id="userName" name="memberId" value="${mb.memberId}"
-												placeholder="輸入帳號，可用英文字母和數字" required="required" type="text"
-												class="form-control form-control-user"
-												onkeyup="value=value.replace(/[\W]/g,'')"
-												style="font-size: 16px" />
-										</div>
-										<div class="col-sm-1 mb-3">
-											<input type="button" id="btUserName" value="重複檢查"
-												class="btn text-white check" />
-										</div>
-										<!--帳號 error msg -->
-										<div class="errorText col-sm-10 mb-2 " id="userNameText">${errorMsg.errorId}</div>
-										<!-- ===密碼=== -->
-										<div class="col-sm-6 mb-3">
-											<input type="password" name="password"
-												class="form-control form-control-user" id="password"
-												placeholder="輸入密碼8~12字元" maxlength="15" minlength="8"
-												required="required" style="font-size: 16px" />
-										</div>
-										<!-- ===再次輸入密碼=== -->
-										<div class="col-sm-6">
-											<input type="password" class="form-control form-control-user"
-												id="passwordCheck" name="passwordCheck"
-												placeholder="請再次輸入密碼8~12字元" maxlength="15" minlength="8"
-												style="font-size: 16px" />
-										</div>
-										<!-- 密碼error msg -->
-										<div style="display: none;" id="passwordError"
-											class="errorText col-sm-10 mb-2 ">密碼不相符</div>
-										<!-- email -->
-										<div class="col-sm-10">
-											<input id="email" name="email" value="${mb.email}"
-												placeholder="輸入email" required="required" type="email"
-												class="form-control form-control-user"
-												style="font-size: 16px" />
-										</div>
-										<div class="col-sm-1 mb-3">
-											<input type="button" id="btEmail" value="重複檢查"
-												class="btn text-white check" />
-										</div>
-										<!-- email err msg -->
-										<div class="errorText col-sm-10 mb-2" id="emailText">${errorMsg.errorEmail}</div>
-
-										<div class="col-sm-10 mb-3">
-											<input name="phone" type="text" value="${mb.phone}"
-												class="form-control form-control-user" placeholder="輸入手機號碼"
-												maxlength="10" onkeyup="value=value.replace(/[^\d]/g,'')"
-												style="font-size: 16px" />
-										</div>
-
-										<!-- 生日 -->
-										<div class="col-sm-10 mb-3">
-											<input id="datepicker" name="birthday" placeholder="選擇您的生日"
-												value="${mb.birthday}" type="text" autocomplete="off"
-												required="required" class="form-control form-control-user"
-												style="font-size: 16px" />
-										</div>
-
-										<!-- 地址 -->
-										<div role="tw-city-selector" id="address"
-											class="col-sm-10 my-style-selector"></div>
-										<div class="col-sm-10">
-											<input name="address" value="${mb.address}" type="text"
-												class="form-control form-control-user mb-3"
-												placeholder="輸入地址" style="font-size: 16px" />
-										</div>
-									</div>
-									<input class="btn btn-primary btn-user btn-block mt-2"
-										id="btSubmit" type="submit" style="font-size: 16px"
-										value="註冊帳號" />
-								</form:form>
+						<div class="col-md-12">
+							<div class="info-box" data-aos="fade-up">
+								<i class="bx bx-map"></i>
+								<h3>Our Address</h3>
+								<p>10608 台北市大安區新生南路一段1號 光華館 2樓 210室</p>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="info-box mt-4" data-aos="fade-up"
+								data-aos-delay="100">
+								<i class="bx bx-envelope"></i>
+								<h3>Email Us</h3>
+								<p>speak_it_up@ntnu.com</p>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="info-box mt-4" data-aos="fade-up"
+								data-aos-delay="100">
+								<i class="bx bx-phone-call"></i>
+								<h3>Call Us</h3>
+								<p>+886-2-2835-3415</p>
 							</div>
 						</div>
 					</div>
+
 				</div>
+
+				<div class="col-lg-6">
+					<form action="#" method="post" role="form" class="php-email-form"
+						data-aos="fade-up">
+						<div class="form-row">
+							<div class="col-md-6 form-group">
+								<input type="text" name="name" class="form-control" id="name"
+									placeholder="您的大名" />
+								<div class="validate"></div>
+							</div>
+							<div class="col-md-6 form-group">
+								<input type="email" class="form-control" name="email" id="email"
+									placeholder="聯絡信箱" />
+								<div class="validate"></div>
+							</div>
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" name="subject"
+								id="subject" placeholder="主旨" />
+							<div class="validate"></div>
+						</div>
+						<div class="form-group">
+							<textarea class="form-control" name="message" rows="5"
+								data-rule="required" placeholder="想說的話..."></textarea>
+							<div class="validate"></div>
+						</div>
+						<div class="mb-3">
+							<div class="loading">Loading</div>
+							<div class="error-message"></div>
+							<div class="sent-message">Your message has been sent. Thank
+								you!</div>
+						</div>
+						<div class="text-center">
+							<button type="submit">Send Message</button>
+						</div>
+					</form>
+				</div>
+
 			</div>
-
-		</div>
+	</section>
+	<!-- End Contact Section -->
+	<div id="googlemap" class="d-flex justify-content-center pb-5">
+		<iframe
+			src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.7595495555097!2d121.53330871501322!3d25.042232883968556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a97d255598df%3A0x47ea748e8f3f53aa!2z5ZyL56uL6Ie65YyX56eR5oqA5aSn5a24!5e0!3m2!1szh-TW!2stw!4v1586255037278!5m2!1szh-TW!2stw"
+			width="1100" height="350" frameborder="0" style="border: 0;"
+			allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
 	</div>
-
+	</div>
+	
 
 	<!--========= footer================= -->
 	<!-- Footer -->
@@ -360,16 +305,28 @@
 	</footer>
 	<!-- Footer -->
 
-
-
-	<!-- 下拉式地址 -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/tw-city-selector@2.1.0/dist/tw-city-selector.min.js"></script>
-
-	<script>
-		new TwCitySelector();
-	</script>
-	<!-- 下拉式地址 -->
+	<!-- ========================modal============================ -->
+	<!-- Modal for subscribe-->
+	<div class="modal fade" id="my-modal-subscribe" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalLabel_sub"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel_sub">Modal title</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">...</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -382,26 +339,8 @@
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
 		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
 		crossorigin="anonymous"></script>
-	<script type="text/javascript"
-		src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
-	<script type="text/javascript"
-		src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 	<!-- Template Main JS File -->
-	<script src="<spring:url value='/js/register/register.js' /> "></script>
-	<script>
-		let date = new Date();
-		let year = date.getFullYear();
-		let month = date.getMonth() + 1;
-		let day = date.getDate();
-		let now = year + "-" + month + "-" + day;
-		$(function() {
-			$("#datepicker").datepicker({
-				changeMonth : true,
-				changeYear : true,
-				yearRange : "-150:+0",
-				maxDate : now,
-				dateFormat : "yy-mm-dd"
-			});
-		});
-	</script>
+	<script src="<spring:url value='/js/aboutUs/aos.js' />"></script>
+	<script src="<spring:url value='/js/aboutUs/contact.js' />"></script>
+</body>
 </html>

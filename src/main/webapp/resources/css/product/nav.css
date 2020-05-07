@@ -9,7 +9,7 @@
 
 nav a {
 	text-decoration: none;
-	color: rgb(24, 24, 24) !important;
+	color: white !important;
 }
 
 #nav-memberId:hover {
@@ -39,7 +39,7 @@ nav a {
 
 /* nav主要顏色 */
 #navBody {
-	background-color: #39c592;
+	background-color: rgb(24, 154, 230);
 }
 
 /* 搜尋按鈕顏色 */
@@ -50,7 +50,7 @@ nav a {
 /* 選單內顏色 */
 .dropdown-menu {
 	padding: 0px;
-	background-color: #5bc9a0;
+	background-color: rgb(24, 154, 230);
 	margin-bottom: 10px;
 	border-width: 0px !important;
 }

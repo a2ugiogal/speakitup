@@ -7,151 +7,329 @@
 <head>
 <meta charset="UTF-8">
 <title>要抒啦--購物區</title>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+<!-- 載入 Bootstrap 的CSS -->
+<link
+	href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/cerulean/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-LV/SIoc08vbV9CCeAwiz7RJZMI5YntsH8rGov0Y2nysmepqMWVvJqds6y0RaxIXT"
 	crossorigin="anonymous" />
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+	integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+	crossorigin="anonymous"></script>
+<!-- icon -->
+<script src="https://kit.fontawesome.com/041970ba48.js"
+	crossorigin="anonymous"></script>
 
+
+<script src="<spring:url value='/js/product/productList.js' />"></script>
 <link rel="stylesheet"
 	href="<spring:url value='/css/product/productList.css' />" />
-<script src="<spring:url value='/js/product/productList.js' />"></script>
+<link rel="stylesheet"
+	href="<spring:url value='/css/product/nav.css' />" />
 </head>
 <body>
-	<%-- 	<jsp:include page="../fragment/topForLogin.jsp" /> --%>
-	<div class="product">
-		<div class="w-75 m-auto">
-			<a href="<spring:url value='/product/showPageProducts?pageNo=-1' />">全部商品</a>
-			<a
-				href="<spring:url value='/product/showPageProducts?categoryTitle=天使&pageNo=-1' />">天使商品</a>
-			<a
-				href="<spring:url value='/product/showPageProducts?categoryTitle=天使&categoryName=日常用品&pageNo=-1' />">日常用品</a>
-			<a
-				href="<spring:url value='/product/showPageProducts?categoryTitle=天使&categoryName=紓壓小物&pageNo=-1' />">紓壓小物</a>
-			<a
-				href="<spring:url value='/product/showPageProducts?categoryTitle=惡魔&pageNo=-1' />">惡魔商品</a>
-			<!-- 搜尋選擇列=================================== -->
-			<form action="<spring:url value='/product/showPageProducts' />"
-				id="searchForm">
-				<div class="row">
-					<div class="input-group my-3 col-9 ">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><img
-								src="<spring:url value= '/image/product/search.png'/>"
-								class="productImg" /></span>
-						</div>
-						<input type="search" class="form-control" placeholder="搜尋: 商品名稱"
-							name="search" aria-label="Sizing example input"
-							aria-describedby="inputGroup-sizing-default" value="${searchStr}" />
-						<div class="input-group-append">
-							<button class="btn btn-outline-secondary" id="button-addon2">搜尋</button>
-						</div>
-					</div>
-					<div
-						class="col-3 my-3 d-flex justify-content-end align-items-center">
-						<span style="font-size: 10px;">排序：</span> <select name="arrange"
-							id="arrange">
-							<option value="time"
-								<c:if test="${arrange=='time'}"> selected </c:if>>最新</option>
-							<option value="popular"
-								<c:if test="${arrange=='popular'}"> selected </c:if>>熱門</option>
-							<option value="price"
-								<c:if test="${arrange=='price'}"> selected </c:if>>價格</option>
-						</select>
-					</div>
-					<input type="hidden" value="-1" name="pageNo"> <input
-						type="hidden" value="${categoryTitle}" name="categoryTitle"><input
-						type="hidden" value="${categoryName}" name="categoryName">
-				</div>
-			</form>
-			<!-- products=================================== -->
-			<div id="products">
-				<div class="row">
-					<c:forEach var="entry" items="${products_map}">
-						<a
-							href="<spring:url value='/product/showProductInfo/${entry.value.productId}'/>"
-							class="col-12 col-sm-6 col-lg-4 mt-4">
-							<div class="card border-dark">
-								<img
-									src="<spring:url value='/product/getProductImage/${entry.value.productId}' />"
-									class="card-img-top productImg" />
-								<div class="card-body">
-									<h5 class="card-title"
-										style="text-align: center; font-size: 30px;">${entry.value.productName}</h5>
-									<div class="card-text mt-2"
-										style="text-align: center; font-size: 20px;">$
-										${entry.value.price}</div>
-								</div>
-							</div>
-						</a>
-					</c:forEach>
-				</div>
-			</div>
-			<!-- 頁碼列=================================== -->
-			<div class="row">
-				<div id="pages"
-					class="col d-flex justify-content-center align-items-center">
-					<a
-						href="<spring:url value='/product/showPageProducts?pageNo=${pageNo-1}&search=${searchStr}&arrange=${arrange}&categoryTitle=${categoryTitle}&categoryName=${categoryName}'/>"
-						<c:if test="${pageNo==1}">style="visibility: hidden;"</c:if>>
-						<button class="btPage">
-							<img
-								src="<spring:url value='/image/product/上一頁.png' />"
-								style="max-width: 90%;" />
-						</button>
-					</a> <a
-						href="<spring:url value='/product/showPageProducts?pageNo=1&search=${searchStr}&arrange=${arrange}&categoryTitle=${categoryTitle}&categoryName=${categoryName}'/>"
-						<c:if test="${pageNo==1}">style="visibility: hidden;"</c:if>>
-						<button class="btPage">1</button>
-					</a> <span <c:if test="${pageNo==1}">style="visibility: hidden;"</c:if>>．．．</span>
-
-
-					<form action="<spring:url value='/product/showPageProducts' />"
-						id="pageForm">
-						<span>第</span> <select name="pageNo" id="nowPage">
-							<c:forEach var="pages" begin="1" end="${totalPages}">
-								<option value="${pages}"
-									<c:if test="${pages==pageNo}"> selected </c:if>>${pages}</option>
-							</c:forEach>
-						</select> <span>頁</span> <input type="hidden" name="search"
-							value="${searchStr}"> <input type="hidden"
-							value="${arrange}" name="arrange"><input type="hidden"
-							value="${categoryTitle}" name="categoryTitle"><input
-							type="hidden" value="${categoryName}" name="categoryName">
-					</form>
-
-
-					<span
-						<c:if test="${pageNo==totalPages}">style="visibility: hidden;"</c:if>>．．．</span>
-
-
-					<a
-						href="<spring:url value='/product/showPageProducts?pageNo=${totalPages}&search=${searchStr}&arrange=${arrange}&categoryTitle=${categoryTitle}&categoryName=${categoryName}'/>"
-						<c:if test="${pageNo==totalPages}">style="visibility: hidden;"</c:if>>
-						<button class="btPage">${totalPages}</button>
-					</a> <a
-						href="<spring:url value='/product/showPageProducts?pageNo=${pageNo+1}&search=${searchStr}&arrange=${arrange}&categoryTitle=${categoryTitle}&categoryName=${categoryName}'/>"
-						<c:if test="${pageNo==totalPages}">style="visibility: hidden;"</c:if>>
-						<button class="btPage">
-							<img
-								src="<spring:url value='/image/product/下一頁.png' />"
-								style="max-width: 90%;" />
-						</button>
-					</a>
-				</div>
-			</div>
+	<!-- =======================導覽列================= -->
+	<nav class="navbar navbar-expand-lg navbar-light fixed-top p-0"
+		style="margin-bottom: 200px" id="navBody">
+		<div class="mr-auto">
+			<button id="hamberger-btn" class="navbar-toggler ml-3" type="button"
+				data-toggle="collapse" data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<a class="navbar-brand ml-3" href="<spring:url value='/' />"> <img
+				src="<spring:url value='/image/logo/logo_trans_92px.png' /> "
+				height="50px" /> 要抒拉
+			</a>
 		</div>
+		<div class="navbar-nav flex-row ml-auto"
+			style="position: absolute; right: 250px; top: 10px;">
+			<form class="form-inline mr-5">
+				<input class="form-control mr-sm-2" type="search" id="search"
+					placeholder="Search" aria-label="Search" />
+				<button class="btn d-flex justify-content-center" type="submit"
+					id="search-btn">Search</button>
+			</form>
+		</div>
+		<div class="navbar-nav flex-row ml-auto"
+			style="position: absolute; right: 0; top: 10px;">
+			<!-- ==========判斷是否登入======== -->
+			<c:choose>
+				<c:when test="${empty LoginOK}">
+					<a class="navbar-brand mr-5"
+						href="<spring:url value='/member/login' />">登入</a>
+					<a class="navbar-brand mr-5"
+						href="<spring:url value='/member/register' />">註冊</a>
+				</c:when>
+				<c:otherwise>
+					<div style="width: 150px;">
+						<a class="mr-4" href="<spring:url value='/member/personPage' />"
+							style="text-decoration: none;" id="nav-memberId"> <img
+							src="<spring:url value='/member/getUserImage/${LoginOK.id}' />"
+							width="45px" height="45px" class="rounded-circle mr-2"
+							id="nav-memberPicture" /> ${LoginOK.memberId}
+						</a>
+					</div>
+					<a class="navbar-brand mr-5"
+						href="<spring:url value='/member/logout' />">登出</a>
+				</c:otherwise>
+			</c:choose>
+		</div>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item dropdown mx-2"><a
+					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+					role="button" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false"> 論壇 </a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item"
+							href="<spring:url value='/article/showPageArticles?categoryTitle=天使' />">天使板</a>
+						<a class="dropdown-item"
+							href="<spring:url value='/article/showPageArticles?categoryTitle=惡魔' />">惡魔板</a>
+					</div></li>
+				<li class="nav-item dropdown mx-2"><a
+					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+					role="button" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false"> 商城 </a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="#">首頁</a> <a class="dropdown-item"
+							href="<spring:url value='/order/shoppingCartList' />">購物車</a> <a
+							class="dropdown-item"
+							href="<spring:url value='/order/showHistoryOrder' />">歷史訂單</a>
+					</div></li>
+				<li class="nav-item mx-2"><a class="nav-link"
+					href="<spring:url value='/letter/letterHome' />">漂流瓶</a></li>
+				<c:if test="${LoginOK.permission=='管理員'}">
+					<li class="nav-item dropdown mx-2"><a
+						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+						role="button" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false"> 管理後台 </a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item"
+								href="<spring:url value='/article/showReports' />">檢舉專區</a> <a
+								class="dropdown-item"
+								href="<spring:url value='/member/showMembers' />">帳號管理</a> <a
+								class="dropdown-item"
+								href="<spring:url value='/order/showOrders' />">訂單管理</a><a
+								class="dropdown-item"
+								href="<spring:url value='/product/showProducts' />">商品管理</a>
+						</div></li>
+				</c:if>
+				<li class="nav-item dropdown mx-2 mb-1"><a
+					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+					role="button" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false"> 關於我們 </a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="#">創建理念</a> <a
+							class="dropdown-item" href="#">團隊介紹</a> <a class="dropdown-item"
+							href="<spring:url value='/aboutUs/contact' />">聯絡我們</a>
+					</div></li>
+			</ul>
+		</div>
+	</nav>
+	<!-- 導覽列 -->
+	<!-- 商城頁面  上方圖示-->
+	<div class="mall">
+		<section>
+			<div
+				class="jumbotron jumbotron-fluid jumbotron-bg d-flex align-items-end">
+				<div class="container jumbotron-text text-white p-4">
+					<h1 class="display-4" style="font-weight: bold; color: white;">
+						買到剁手手！年終出清！</h1>
+					<p class="lead">This is a modified jumbotron that occupies the
+						entire horizontal space of its parent.</p>
+				</div>
+			</div>
+		</section>
+		<section>
+			<div id="procen_text" class="row m-0">
+				<!-- 商品分類子預覽列 -->
+				<div class="col-2 p-0">
+					<div id="left_list"
+						class="list-group sticky-element dropdown-menuy"
+						style="padding-top: 75px;">
+						<a id="left_list_0" href="#pane-1"
+							class="list-group-item list-group-item-action active"
+							data-toggle="list">全部商品</a> <a id="left_list_a" href="#pane-2"
+							class="list-group-item list-group-item-action" data-toggle="list">天使</a>
+						<ul id="list_a">
+							<li><a href="#">a-1</a></li>
+							<li><a href="#">a-2</a></li>
+							<li><a href="#">a-3</a></li>
+						</ul>
+						<a id="left_list_b" href="#pane-3"
+							class="list-group-item list-group-item-action" data-toggle="list">惡魔</a>
+						<ul id="list_b">
+							<li><a href="#">b-1</a></li>
+							<li><a href="#">b-2</a></li>
+							<li><a href="#">b-3</a></li>
+						</ul>
+						<a id="left_list_c" href="#pane-4"
+							class="list-group-item list-group-item-action" data-toggle="list">組合包</a>
+						<ul id="list_c">
+							<li><a href="#">c-1</a></li>
+							<li><a href="#">c-2</a></li>
+							<li><a href="#">c-3</a></li>
+						</ul>
+						<a id="left_list_d" href="#pane-5"
+							class="list-group-item list-group-item-action" data-toggle="list">限時下殺</a>
+						<ul id="list_d">
+							<li><a href="#">d-1</a></li>
+							<li><a href="#">d-2</a></li>
+							<li><a href="#">d-3</a></li>
+						</ul>
+					</div>
+
+					<!-- 控制商品分類，點擊其中一個展開時，其它關閉 -->
+					<script>
+						$("#left_list_0").click(function() {
+							$("#list_a").hide();
+							$("#list_b").hide();
+							$("#list_c").hide();
+							$("#list_d").hide();
+						});
+						$("#left_list_a").click(function() {
+							$("#list_a").toggle();
+							$("#list_b").hide();
+							$("#list_c").hide();
+							$("#list_d").hide();
+						});
+						$("#left_list_b").click(function() {
+							$("#list_a").hide();
+							$("#list_b").toggle();
+							$("#list_c").hide();
+							$("#list_d").hide();
+						});
+						$("#left_list_c").click(function() {
+							$("#list_a").hide();
+							$("#list_b").hide();
+							$("#list_c").toggle();
+							$("#list_d").hide();
+						});
+						$("#left_list_d").click(function() {
+							$("#list_a").hide();
+							$("#list_b").hide();
+							$("#list_c").hide();
+							$("#list_d").toggle();
+						});
+					</script>
+				</div>
+				<!-- 商品頁面 -->
+				<div class="col-9 p-0 ml-3">
+					<!-- 控制麵包和下拉式選單在同一行 -->
+					<div id="nav_info" class="row m-0 my-1 px-2">
+						<!-- 麵包屑 -->
+						<div class="col-6 d-flex justify-content-start align-items-center">
+							<ul style="padding-left: 0px !important;">
+								<li><a href="#">首頁</a></li>
+								<li>/ 天使</li>
+							</ul>
+						</div>
+						<!-- 下拉式選單 -->
+						<div class="col-6 d-flex justify-content-end align-items-center">
+							<form action="<spring:url value='/product/showPageProducts' />"
+								id="searchForm">
+								<span> <select name="arrange" id="arrange"
+									class="YourLocation_1" style="margin-left: 8.5em;">
+										<option value="price"
+											<c:if test="${arrange=='price'}"> selected </c:if>>商品價格
+											⇧</option>
+										<!-- 									<option value="Taoyuan">商品價格 ⇩</option> -->
+										<option value="popular"
+											<c:if test="${arrange=='popular'}"> selected </c:if>>銷售數量
+											⇧</option>
+										<!-- 									<option value="Miaoli">銷售數量 ⇩</option> -->
+										<option value="time"
+											<c:if test="${arrange=='time'}"> selected </c:if>>最新⇧</option>
+								</select>
+								</span> <input type="hidden" value="-1" name="pageNo"> <input
+									type="hidden" value="${categoryTitle}" name="categoryTitle"><input
+									type="hidden" value="${categoryName}" name="categoryName"><input
+									type="hidden" value="${searchStr}" name="search">
+							</form>
+						</div>
+					</div>
+					<!-- 商品 -->
+
+					<div class="row">
+						<c:forEach var="entry" items="${products_map}">
+							<a
+								href="<spring:url value='/product/showProductInfo/${entry.key.productId}'/>"
+								style="text-decoration: none;">
+								<div
+									class="col-lg-6 col-xl-4 p-0 py-3 d-flex justify-content-center">
+									<div class="card text-center h-100 border-0 box-shadow">
+										<img
+											src="<spring:url value='/product/getProductImage/${entry.key.productId}' />"
+											class="card-img-top img_high" />
+										<div class="card-body">
+											<h5 class="card-title" style="font-weight: bold;">${entry.key.productName}</h5>
+											<p class="card-text" style="color: #495057">${entry.value}</p>
+										</div>
+										<div class="card-footer border-top-0 bg-white">
+											<div class="btn-group" role="group" aria-label="First group"></div>
+											<span style="color: #495057 !important;">$
+												${entry.key.price}</span> <a href="#"
+												class="btn btn-outline-secondary btn-sm mt-2 d-block text-primary">
+												<i class="fas fa-shopping-cart mr-1"></i>加入購物車
+											</a>
+										</div>
+									</div>
+								</div>
+							</a>
+						</c:forEach>
+					</div>
+
+					<!-- 分頁+下拉式選單 -->
+					<nav aria-label="Page navigation example">
+						<ul class="pagination">
+							<li class="page-item"
+								<c:if test="${pageNo==1}">style="visibility: hidden;"</c:if>><a
+								class="page-link"
+								href="<spring:url value='/product/showPageProducts?pageNo=${pageNo-1}&search=${searchStr}&arrange=${arrange}&categoryTitle=${categoryTitle}&categoryName=${categoryName}'/>">Previous</a>
+							</li>
+							<li class="page-item"
+								<c:if test="${pageNo==1}">style="visibility: hidden;"</c:if>><a
+								class="page-link"
+								href="<spring:url value='/product/showPageProducts?pageNo=1&search=${searchStr}&arrange=${arrange}&categoryTitle=${categoryTitle}&categoryName=${categoryName}'/>">1</a></li>
+							<form action="<spring:url value='/product/showPageProducts' />"
+								id="pageForm">
+								<span><select name="pageNo" id="nowPage">
+										<c:forEach var="pages" begin="1" end="${totalPages}">
+											<option value="${pages}"
+												<c:if test="${pages==pageNo}"> selected </c:if>>${pages}</option>
+										</c:forEach>
+								</select></span> <input type="hidden" name="search" value="${searchStr}">
+								<input type="hidden" value="${arrange}" name="arrange"><input
+									type="hidden" value="${categoryTitle}" name="categoryTitle"><input
+									type="hidden" value="${categoryName}" name="categoryName">
+							</form>
+							<li class="page-item"
+								<c:if test="${pageNo==totalPages}">style="visibility: hidden;"</c:if>><a
+								class="page-link"
+								href="<spring:url value='/product/showPageProducts?pageNo=${totalPages}&search=${searchStr}&arrange=${arrange}&categoryTitle=${categoryTitle}&categoryName=${categoryName}'/>">${totalPages}</a></li>
+							<li class="page-item"
+								<c:if test="${pageNo==totalPages}">style="visibility: hidden;"</c:if>><a
+								class="page-link"
+								href="<spring:url value='/product/showPageProducts?pageNo=${pageNo+1}&search=${searchStr}&arrange=${arrange}&categoryTitle=${categoryTitle}&categoryName=${categoryName}'/>">Next</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</section>
 	</div>
 
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
-		integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-		crossorigin="anonymous"></script>
+
 </body>
 </html>

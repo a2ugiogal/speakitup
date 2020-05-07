@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>要抒啦--論壇首頁</title>
+<title>我的文章--要抒啦</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
@@ -56,10 +56,11 @@
 				</c:when>
 				<c:otherwise>
 					<div style="width: 150px;">
-						<a class="mr-4" href="#" style="text-decoration: none;"> <img
+						<a class="mr-4" href="<spring:url value='/member/personPage' />"
+							style="text-decoration: none;" id="nav-memberId"> <img
 							src="<spring:url value='/member/getUserImage/${LoginOK.id}' />"
-							width="45px" height="45px" class="rounded-circle mr-2" />
-							${LoginOK.memberId}
+							width="45px" height="45px" class="rounded-circle mr-2"
+							id="nav-memberPicture" /> ${LoginOK.memberId}
 						</a>
 					</div>
 					<a class="navbar-brand mr-5"
@@ -108,8 +109,6 @@
 								href="<spring:url value='/product/showProducts' />">商品管理</a>
 						</div></li>
 				</c:if>
-
-
 				<li class="nav-item dropdown mx-2 mb-1"><a
 					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 					role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -117,7 +116,7 @@
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<a class="dropdown-item" href="#">創建理念</a> <a
 							class="dropdown-item" href="#">團隊介紹</a> <a class="dropdown-item"
-							href="#">聯絡我們</a>
+							href="<spring:url value='/aboutUs/contact' />">聯絡我們</a>
 					</div></li>
 			</ul>
 		</div>
@@ -140,8 +139,8 @@
 					<!-- 搜尋欄 -->
 					<div class="wrap mr-2 shadow">
 						<div class="search">
-							<input type="search" class="searchTerm p-2" placeholder="輸入關鍵字尋找文章"
-								name="search" value="${searchStr}" />
+							<input type="search" class="searchTerm p-2"
+								placeholder="輸入關鍵字尋找文章" name="search" value="${searchStr}" />
 							<button type="submit" class="searchButton" style="height: 46px">
 								<i class="bx bx-search"></i>
 							</button>
@@ -186,28 +185,28 @@
 							<!-- 文章分類 -->
 							<span class="badge mr-2 mt-1 text-white"
 								<c:choose>
-				<c:when test="${entry.key.category.categoryTitle=='惡魔'}">
-					style="background-color: #005caf;"
-				</c:when>
-				<c:otherwise>
-					style="background-color: pink;"
-				</c:otherwise>
-			</c:choose>>${entry.key.category.categoryTitle}</span>
+									<c:when test="${entry.key.category.categoryTitle=='惡魔'}">
+										style="background-color: #005caf;"
+									</c:when>
+									<c:otherwise>
+										style="background-color: pink;"
+									</c:otherwise>
+								</c:choose>>${entry.key.category.categoryTitle}</span>
 							<span
 								<c:choose>
-				<c:when test="${entry.key.category.categoryName=='工作'}">
-					class="badge badge-info mr-2 mt-1"
-				</c:when>
-				<c:when test="${entry.key.category.categoryName=='感情'}">
-					class="badge badge-danger mr-2 mt-1"
-				</c:when>
-				<c:when test="${entry.key.category.categoryName=='生活'}">
-					class="badge badge-warning mr-2 mt-1"
-				</c:when>
-				<c:otherwise>
-					class="badge badge-secondary mr-2 mt-1"
-				</c:otherwise>
-			</c:choose>>${entry.key.category.categoryName}</span>
+									<c:when test="${entry.key.category.categoryName=='工作'}">
+										class="badge badge-info mr-2 mt-1"
+									</c:when>
+									<c:when test="${entry.key.category.categoryName=='感情'}">
+										class="badge badge-danger mr-2 mt-1"
+									</c:when>
+									<c:when test="${entry.key.category.categoryName=='生活'}">
+										class="badge badge-warning mr-2 mt-1"
+									</c:when>
+									<c:otherwise>
+										class="badge badge-secondary mr-2 mt-1"
+									</c:otherwise>
+								</c:choose>>${entry.key.category.categoryName}</span>
 							<!-- 文章內容預覽 -->
 							<p class="JQellipsis">${entry.value}</p>
 							<!-- 文章資訊列 -->
@@ -223,13 +222,11 @@
 									class="h6 ml-1 text-secondary">${entry.key.likes}</span></i>
 								<!-- 留言數 -->
 								<i class="my-0 p-0 h5 bx bx-message-detail col-1 text-info"><span
-									class="h6 ml-1 text-secondary"><c:choose>
+									class="h6 ml-1 text-secondary"> <c:choose>
 											<c:when test="${not empty entry.key.articleComments}">
 												<c:forEach var="comments"
 													items="${entry.key.articleComments}" varStatus="number">
-													<c:if test="${number.last}">
-										${number.count} 
-										</c:if>
+													<c:if test="${number.last}">${number.count}</c:if>
 												</c:forEach>
 											</c:when>
 											<c:otherwise>0</c:otherwise>

@@ -99,19 +99,18 @@ public class MemberDaoImpl implements MemberDao {
 		Session session = factory.getCurrentSession();
 		if (mb.getPicture() == null) {
 			String hql = "UPDATE MemberBean m SET m.phone = :phone, m.city = :city, "
-					+ "m.area = :area, m.address = :address,m.status = :status, "
-					+ "WHERE m.id = :id";
+					+ "m.area = :area, m.address = :address, m.status = :status " + "WHERE m.id = :id";
 			session.createQuery(hql).setParameter("phone", mb.getPhone()).setParameter("city", mb.getCity())
 					.setParameter("area", mb.getArea()).setParameter("address", mb.getAddress())
 					.setParameter("status", mb.getStatus()).setParameter("id", mb.getId()).executeUpdate();
 		} else {
 			String hql = "UPDATE MemberBean m SET  m.phone = :phone, m.city = :city, "
-					+ "m.area = :area, m.address = :address, m.fileName = :fileName,m.status = :status, "
-					+ "m.picture = :picture WHERE m.id = :id";
+					+ "m.area = :area, m.address = :address, m.fileName = :fileName, "
+					+ "m.picture = :picture, m.status = :status WHERE m.id = :id";
 			session.createQuery(hql).setParameter("phone", mb.getPhone()).setParameter("city", mb.getCity())
 					.setParameter("area", mb.getArea()).setParameter("address", mb.getAddress())
-					.setParameter("fileName", mb.getFileName()).setParameter("status", mb.getStatus())
-					.setParameter("picture", mb.getPicture()).setParameter("id", mb.getId()).executeUpdate();
+					.setParameter("fileName", mb.getFileName()).setParameter("picture", mb.getPicture())
+					.setParameter("status", mb.getStatus()).setParameter("id", mb.getId()).executeUpdate();
 		}
 		n++;
 		return n;

@@ -17,9 +17,9 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet" />
 <link rel="stylesheet"
-	href="<spring:url value='/css/article/nav.css' /> " />
-<link rel="stylesheet"
 	href="<spring:url value='/css/article/articleContent.css' /> " />
+<link rel="stylesheet"
+	href="<spring:url value='/css/article/nav.css' /> " />
 <script type="text/javascript">
 	redHeart = document.getElementById("redHeart");
 	normal = document.getElementsByClassName("normal")[0];

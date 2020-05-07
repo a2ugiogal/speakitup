@@ -1,23 +1,177 @@
-.row a{
-    text-decoration: none;
-    color: black;
-}
-.product{
-    width: 70%;
-}
-.productImg{
-    width: 80%;
-    margin:auto;
-}
-#pages{
-    text-align: center;
-}
-.btPage{
-    height: 30px;
-    width: 30px;
-    margin: 5px;
-}
-#pages{
-    margin: 20px;
+* {
+  font-family: "Noto Sans TC", sans-serif;
 }
 
+/* 頁尾設定  */
+footer a {
+  color: #e43c5c !important;
+}
+
+footer h5 {
+  color: black !important;
+}
+
+#footer-introdution {
+  color: rgb(117, 117, 117) !important;
+}
+
+/* <!-- 置頂按鈕 設定 --> */
+#myBtn {
+  z-index: 99;
+  /* 初始化不顯示 */
+  /* display: none; */
+  /* fixed = 畫面的絕對位置，所以會跟著跑 */
+  position: fixed;
+  /* 離下面30 pixel */
+  bottom: 30px;
+  /* 離右邊30 pixel */
+  right: 10px;
+  /* 半徑圓 */
+  border-radius: 30px;
+  /* 背景色 */
+  /* background-color: white; */
+  /* 透明度 */
+  opacity: 0.5;
+  /* 游標指過去會變手指 */
+  cursor: pointer;
+  /* 控制按鈕寬度 */
+  width: 50px;
+}
+
+/* 商城頁面上的圖片 */
+.jumbotron-bg {
+  background-image: url(https://images.pexels.com/photos/15964/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260);
+  background-position: center 0;
+  background-size: cover;
+  min-height: 400px;
+}
+
+/* 文字後增加區塊 */
+.jumbotron-text {
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+/* 商品外框 */
+.box-shadow {
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+/* 鼠標移到商品上時會放大 */
+.box-shadow:hover {
+  transform: scale(1.05, 1.05);
+}
+
+@media only screen and (max-width: 1680px) {
+  /* 固定商品圖片大小 */
+  .img_high {
+    height: 350px;
+    width: 350px;
+  }
+
+  .card {
+    width: 350px;
+  }
+}
+
+@media only screen and (max-width: 1500px) {
+  /* 固定商品圖片大小 */
+  .img_high {
+    height: 300px;
+    width: 300px;
+  }
+
+  .card {
+    width: 300px;
+  }
+}
+
+@media only screen and (min-width: 1681px) {
+  /* 固定商品圖片大小 */
+  .img_high {
+    height: 400px;
+    width: 400px;
+  }
+
+  .card {
+    width: 400px;
+  }
+}
+
+/* 左邊商品分類與導覽列的距離 */
+.sticky-element {
+  position: sticky;
+  top: 90px;
+}
+
+/* 分頁至中 */
+.pagination {
+  padding-top: 10px;
+  justify-content: center;
+}
+
+/* 商品篩選靠右 */
+#nav_info > div > ul {
+  display: inline-block;
+  list-style: none;
+  width: 80%;
+  white-space: nowrap;
+}
+
+/* 麵包屑位置 */
+#nav_info > div> ul > li {
+  display: inline-block;
+}
+
+/* 商品分類與圖片的距離 */
+#procen_text {
+  margin-top: -20px;
+}
+
+/* 統一字型及背景顏色 */
+.mall {
+  font-family: "Noto Sans TC", sans-serif;
+  background-color: rgba(255, 220, 124, 0.801);
+}
+
+/* 分頁控制 */
+.pagination a {
+  color: black !important;
+  /* float: left; */
+  padding: 8px 16px;
+  /* text-decoration: none; */
+  margin: 0 5px;
+}
+
+/* 商品分類 消除圓點 */
+#left_list ul {
+  list-style: none;
+  display: none;
+  margin: 0px;
+  padding: 8px 0px 8px 40px;
+  background-color: white;
+}
+
+#left_list li a {
+  color: black !important;
+}
+
+/* 控制商品分類 次選項 距離 暫時不用 */
+/* #left_list li {
+  margin: 2px 0px 2px -20px;
+  border: 1px solid #f0f;
+} */
+
+/* 導覽列下面的下拉式選單 */
+.YourLocation_1 {
+  margin-top: 10px;
+  padding: 6px;
+  border: 1px solid #dfdfdf;
+}
+
+/* 控制頁尾下拉式選單 */
+.YourLocation_2 {
+  padding: 6px;
+  border: 1px solid #dfdfdf;
+}
