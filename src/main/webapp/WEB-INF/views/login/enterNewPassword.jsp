@@ -22,7 +22,7 @@
 <link rel="stylesheet"
 	href="<spring:url value='/css/register/nav.css' /> " />
 <script src="<spring:url value='/js/login/enterNewPswd.js' /> "></script>
-<title>Reset Password</title>
+<title>重設密碼--要抒啦</title>
 </head>
 <body>
 	<!-- =======================導覽列================= -->

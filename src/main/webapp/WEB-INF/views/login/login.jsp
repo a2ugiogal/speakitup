@@ -28,7 +28,7 @@
 <link rel="stylesheet"
 	href="<spring:url value='/css/login/login.css' /> " />
 <script src="<spring:url value='/js/login/login.js' /> " /></script>
-<title>Login</title>
+<title>登入--要抒啦</title>
 </head>
 <script type="text/javascript">
 	$(document).ready(function() {

@@ -20,7 +20,7 @@
 <link rel="stylesheet"
 	href="<spring:url value='/css/register/nav.css' /> " />
 <script src="<spring:url value='/js/login/enterEmail.js'  /> "></script>
-<title>Forget Password</title>
+<title>忘記密碼--要抒啦</title>
 </head>
 <body>
 	<!-- =======================導覽列================= -->
@@ -158,8 +158,9 @@
 											<div id="emailError" style="display: none;"
 												class="errorText mt-3 ml-3">Email格式不符</div>
 											<input type="submit"
-												class="btn btn-primary btn-user btn-block mt-4" role="button"
-												id="submitbtn" disabled style="font-size: 16px">
+												class="btn btn-primary btn-user btn-block mt-4"
+												role="button" id="submitbtn" disabled
+												style="font-size: 16px">
 										</form>
 										<hr>
 										<div class="text-center">

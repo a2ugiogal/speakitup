@@ -30,7 +30,7 @@
 	href="<spring:url value='/css/register/register.css' /> " />
 <link rel="stylesheet"
 	href="<spring:url value='/css/register/nav.css' /> " />
-<title>Register</title>
+<title>註冊--要抒啦</title>
 
 
 </head>
