@@ -1,6 +1,7 @@
 package com.web.speakitup.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Writer;
 import java.sql.Blob;
 import java.sql.Clob;
@@ -219,7 +220,7 @@ public class ArticleController {
 	/*-----------------------------------喜歡文章----------------------------------------------------*/
 
 	@GetMapping("/likeArticle/{articleId}")
-	public void likeArticle(@PathVariable("articleId") int articleId, HttpSession session, HttpServletRequest request,
+	public void likeArticle(@PathVariable("articleId") int articleId, HttpSession session,
 			HttpServletResponse response) {
 
 //		String loginTrue = request.getParameter("login");
@@ -234,12 +235,12 @@ public class ArticleController {
 		MemberBean newMb = memberService.getMember(mb.getId());
 		session.setAttribute("LoginOK", newMb);
 
+		ArticleBean newAb = articleService.getArticle(articleId);
+		String likes = newAb.getLikes().toString();
 		response.setCharacterEncoding("UTF-8");
-		Writer os = null;
-
 		try {
-			os = response.getWriter();
-			os.write(ab.getLikes());
+			PrintWriter out = response.getWriter();
+			out.print(likes);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -250,7 +251,7 @@ public class ArticleController {
 
 	/*---------------------------------檢舉文章或留言------------------------------------------------------*/
 
-	@PostMapping("/report")
+	@GetMapping("/report")
 	public void addReport(HttpSession session, HttpServletRequest request) {
 
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");

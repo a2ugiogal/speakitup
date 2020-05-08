@@ -16,27 +16,21 @@
 	crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet" />
-<link rel="stylesheet"
-	href="<spring:url value='/css/article/articleContent.css' /> " />
+<c:choose>
+	<c:when test="${article.category.categoryTitle=='天使'}">
+		<link rel="stylesheet"
+			href="<spring:url value='/css/article/articleContentAngel.css' /> " />
+	</c:when>
+	<c:otherwise>
+		<link rel="stylesheet"
+			href="<spring:url value='/css/article/articleContentEvil.css' /> " />
+	</c:otherwise>
+</c:choose>
+
 <link rel="stylesheet"
 	href="<spring:url value='/css/article/nav.css' /> " />
-<script type="text/javascript">
-	redHeart = document.getElementById("redHeart");
-	normal = document.getElementsByClassName("normal")[0];
-	likeNum = document.getElementById("likeNum");
-	normal.addEventListener("click", function () {
-	    xhr = new XMLHttpRequest();
-	    xhr.open(
-	      "GET",
-	      "/article/likeArticle/"+${article.articleId},
-	      false
-	      );
-	      xhr.send();
-	      likeNum.innerText = xhr.responseText;
-	      redHeart.classList.remove("normal");
-	      redHeart.classList.add("like");
-	  });
-	</script>
+<link rel="stylesheet"
+	href="<spring:url value='/css/loginModel.css' /> " />
 </head>
 <body>
 	<!-- =======================導覽列================= -->
@@ -148,7 +142,8 @@
 	<c:forEach var="entry" varStatus="number" items="${comments_set}">
 		<!-- 左對話氣泡*3=========================== -->
 		<c:if test="${ number.count % 6 == 1 }">
-			<div class="vh-100 p-3 speechArea">
+			<div class="vh-100 p-3 speechArea"
+				<c:if test="${number.count!=1}"> style="display: none;" </c:if>>
 				<div style="height: 60px;"></div>
 				<div style="height: 3%;"></div>
 				<div class="row m-0 d-flex align-items-center" style="height: 28%;">
@@ -219,14 +214,12 @@
 					</div>
 				</div>
 			</div>
-		</c:if>
-		<c:if
-			test="${ (number.last&&number.count % 6 == 1&&number.count % 6==2)||number.count % 6 == 3 }">
 			</div>
 		</c:if>
 		<c:if test="${number.count % 6 == 4 }">
 			<!-- 右對話氣泡*3=========================== -->
-			<div class="vh-100 p-3 speechArea" style="left: 72%;">
+			<div class="vh-100 p-3 speechArea"
+				style="left: 72%; <c:if test="${number.count!=4}"> display: none; </c:if>">
 				<div style="height: 60px;"></div>
 				<div style="height: 3%;"></div>
 				<div class="row m-0 d-flex align-items-center" style="height: 28%;">
@@ -296,9 +289,9 @@
 					</div>
 				</div>
 			</div>
+			</div>
 		</c:if>
-		<c:if
-			test="${ (number.last&&number.count % 6 == 4&&number.count % 6==5)||number.count % 6 == 0 }">
+		<c:if test="${number.last&&number.count%3!=0}">
 			</div>
 		</c:if>
 	</c:forEach>
@@ -344,8 +337,20 @@
 				<i id="lastPage" class="fas fa-caret-left"
 					style="font-size: 36px; cursor: pointer; visibility: hidden;"></i>
 				<div class="text-center" style="width: 150px;">
-					<span id="commentPage">1</span> / <span id="totalPage"><fmt:parseNumber
-							integerOnly="true" value="${fn:length(comments_set)/6+1}" /></span>
+					<span id="commentPage">1</span> / <span id="totalPage"> <c:set
+							var="commentsLength" value="${fn:length(comments_set)}"></c:set>
+						<c:choose>
+							<c:when test="${commentsLength%6==0}">
+								<fmt:parseNumber integerOnly="true"
+									value="${fn:length(comments_set)/6}" />
+							</c:when>
+							<c:otherwise>
+								<fmt:parseNumber integerOnly="true"
+									value="${fn:length(comments_set)/6+1}" />
+							</c:otherwise>
+						</c:choose>
+
+					</span>
 				</div>
 				<i id="nextPage" class="fas fa-caret-right"
 					style="font-size: 36px; cursor: pointer;"></i>
@@ -380,19 +385,23 @@
 						<div class="d-flex align-items-center justify-content-center">
 							<c:set var="articleIds"
 								value="${fn:split(LoginOK.likeArticles, ',')}"></c:set>
-							<a
-								href="<spring:url value='/article/likeArticle/${article.articleId}?login=true' />"
-								style="text-decoration: none; color: black;" id="heartA">
-								<div id="heart">
-									<div id="redHaert"
-										<c:forEach var="entry" items="${articleIds}">
-											<c:if test="${entry==''+article.articleId}">class="like d-flex align-items-center justify-content-center rounded-circle"</c:if>
-										</c:forEach>>
-										<i class="fas fa-heart"
-											style="font-size: 30px; margin-top: 2px;" title="愛心"></i>
-									</div>
+
+							<div id="heart">
+								<div id="${article.articleId}"
+									<c:choose>
+										<c:when test="${empty LoginOK}">onclick="loginModel()"</c:when>
+										<c:otherwise>onclick="likeIt()"</c:otherwise>
+									</c:choose>
+									class="normal d-flex align-items-center justify-content-center rounded-circle"
+									<c:forEach var="entry" items="${articleIds}">
+											<c:if test="${entry==''+article.articleId}">style="border: 1px solid red;color: red;cursor: default;" </c:if>
+									</c:forEach>
+									style="border: 1px solid black; color: black;">
+									<i class="fas fa-heart"
+										style="font-size: 30px; margin-top: 2px;" title="愛心"></i>
 								</div>
-							</a> <span style="margin-left: 3px;">${article.likes}</span>
+							</div>
+							<span style="margin-left: 3px;" id="likeNum">${article.likes}</span>
 						</div>
 					</div>
 				</div>
@@ -400,7 +409,12 @@
 				<div id="articleContent">
 					<div class="m-2">${content}</div>
 				</div>
+
 				<div id="commentBtnArea"
+					<c:choose>
+						<c:when test="${empty LoginOK}">onclick="loginModel()"</c:when>
+						<c:otherwise>onclick="wantComment()"</c:otherwise>
+					</c:choose>
 					class="p-2 rounded-pill d-flex align-items-center justify-content-center">
 					<i class="far fa-comment mx-1" style="font-size: 30px;"></i>
 					<div class="m-1">我要留言</div>
@@ -448,7 +462,6 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-
 				<div class="modal-body">
 					<input type="radio" name="reportItem" value="惡意洗版" checked />惡意洗版<br />
 					<input type="radio" name="reportItem" value="惡意攻擊他人" />惡意攻擊他人<br />
@@ -464,6 +477,29 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- 登入浮動視窗============================= -->
+	<div class="modal fade" id="ignismyModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="">
+						<span>×</span>
+					</button>
+				</div>
+
+				<div class="modal-body">
+					<p class="h3 ml-3 mb-2">請登入再抒唷！</p>
+					<p>
+						<button type="button" class="btn btn-light ml-3">Login
+							Now</button>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
 
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"
 		integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="

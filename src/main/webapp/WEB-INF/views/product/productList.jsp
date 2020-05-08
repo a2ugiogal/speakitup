@@ -283,7 +283,7 @@
 								href="<spring:url value='/product/showPageProducts?pageNo=1&search=${searchStr}&arrange=${arrange}&categoryTitle=${categoryTitle}&categoryName=${categoryName}'/>">1</a></li>
 							<form action="<spring:url value='/product/showPageProducts' />"
 								id="pageForm">
-								<span><select name="pageNo" id="nowPage">
+								<span><select name="pageNo" id="nowPage" class="YourLocation_2">
 										<c:forEach var="pages" begin="1" end="${totalPages}">
 											<option value="${pages}"
 												<c:if test="${pages==pageNo}"> selected </c:if>>${pages}</option>

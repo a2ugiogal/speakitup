@@ -46,7 +46,7 @@
 					value="${fn:split(LoginOK.likeArticles, ',')}"></c:set>
 				<a href="<spring:url value='/article/likeArticle/${article.articleId}?login=true' />"><input
 					type="button" value="愛心"
-					<c:forEach var="entry" items="${articleIds}">${entry}
+					<c:forEach var="entry" items="${articleIds}">
 					<c:if test="${entry==''+article.articleId}"> disabled="disabled" style="border:1px solid red;color: red;" </c:if>
 				</c:forEach>></a>${article.likes}
 				留言數：

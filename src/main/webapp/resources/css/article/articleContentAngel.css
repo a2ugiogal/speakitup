@@ -103,6 +103,7 @@
 	width: 75%;
 	height: 35%;
 	margin-left: 13%;
+	word-break: break-all;
 	overflow-y: auto;
 }
 
@@ -121,6 +122,14 @@
 	font-size: 10px;
 }
 
+#heart .normal:hover {
+	/* width: 40px;
+  height: 40px; */
+	border: 1px solid rgb(172, 79, 79);
+	color: rgb(172, 79, 79);
+	/* cursor: pointer; */
+}
+
 #heart .normal {
 	width: 40px;
 	height: 40px;
@@ -129,21 +138,13 @@
 	cursor: pointer;
 }
 
-#heart .normal:hover {
-	border: 1px solid rgb(172, 79, 79);
-	color: rgb(172, 79, 79);
-}
-
-#heart .like {
-	border: 1px solid red;
-	color: red;
-	cursor: default;
-}
-
-#heart .like:hover {
-	border: 1px solid red;
-	color: red;
-}
+/* #heart .like {
+  width: 40px;
+  height: 40px;
+  border: 1px solid red;
+  color: red;
+  cursor: default;
+} */
 
 /* 我要留言按鈕 */
 #commentBtnArea {

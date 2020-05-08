@@ -80,7 +80,7 @@
 							src="<spring:url value='/article/getArticleImage/${entry.value.articleId}' /> "
 							style="max-width: 200px; max-height: 100px;" /> 
 							<img
-							src="<spring:url value='/personPage/getUserImage/${entry.value.authorId}' /> "
+							src="<spring:url value='/member/getUserImage/${entry.value.authorId}' /> "
 							class="rounded-circle border border-dark"
 							style="height: 100px; width: 100px;" />
 						<div class="ml-4 my-auto" style="height: 100px;">
