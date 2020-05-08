@@ -142,6 +142,7 @@
 		</div>
 	</nav>
 	<!-- 導覽列 -->
+
 	<!-- 商城頁面  上方圖示-->
 	<div class="mall">
 		<section>
@@ -158,26 +159,60 @@
 		<section>
 			<div id="procen_text" class="row m-0">
 				<!-- 商品分類子預覽列 -->
-				<div class="col-2 ">
+				<div class="col-2">
 					<div id="left_list"
 						class="list-group sticky-element mt-3 dropdown-menuy">
-						<a id="left_list_0"
+						<a id="left_list_0" style="font-size: 20px;"
 							href="<spring:url value='/product/showPageProducts' />"
-							class="list-group-item list-group-item-action active "
-							data-toggle="list">全部商品</a> <a id="left_list_a" href="#pane-2"
-							class="list-group-item list-group-item-action" data-toggle="list">天使</a>
-						<ul id="list_a">
+							<c:choose>
+								<c:when test="${categoryTitle==''}">
+									class="list-group-item list-group-item-action active"
+								</c:when>
+								<c:otherwise>
+									class="list-group-item list-group-item-action"
+								</c:otherwise>
+							</c:choose>>全部商品</a>
+						<a id="left_list_a" href="#pane-2" data-toggle="list"
+							style="font-size: 20px;"
+							<c:choose>
+								<c:when test="${categoryTitle=='天使'}">
+									class="list-group-item list-group-item-action active"
+								</c:when>
+								<c:otherwise>
+									class="list-group-item list-group-item-action"
+								</c:otherwise>
+							</c:choose>>天使</a>
+
+						<ul id="list_a"
+							<c:if test="${categoryTitle=='天使'}">style="display: block"</c:if>>
+							<li><a
+								href="<spring:url value='/product/showPageProducts?categoryTitle=天使' />"
+								<c:if test="${categoryTitle=='天使'&&categoryName==''}">style="color: rgb(73, 105, 247) !important; font-weight: bold;"</c:if>>全部</a></li>
 							<c:forEach var="angelCategory" items="${angelCategoryList}">
 								<li><a
-									href="<spring:url value='/product/showPageProducts?categoryTitle="天使"&categoryName=${angelCategory}' />">${angelCategory}</a></li>
+									<c:if test="${categoryTitle=='天使'&&categoryName==angelCategory}">style="color: rgb(73, 105, 247) !important; font-weight: bold;"</c:if>
+									href="<spring:url value='/product/showPageProducts?categoryTitle=天使&categoryName=${angelCategory}' />">${angelCategory}</a></li>
 							</c:forEach>
 						</ul>
-						<a id="left_list_b" href="#pane-3"
-							class="list-group-item list-group-item-action" data-toggle="list">惡魔</a>
-						<ul id="list_b">
+						<a id="left_list_b" href="#pane-3" data-toggle="list"
+							style="font-size: 20px;"
+							<c:choose>
+								<c:when test="${categoryTitle=='惡魔'}">
+									class="list-group-item list-group-item-action active"
+								</c:when>
+								<c:otherwise>
+									class="list-group-item list-group-item-action"
+								</c:otherwise>
+							</c:choose>>惡魔</a>
+						<ul id="list_b"
+							<c:if test="${categoryTitle=='惡魔'}">style="display: block"</c:if>>
+							<li><a
+								<c:if test="${categoryTitle=='惡魔'&&categoryName==''}">style="color: rgb(73, 105, 247) !important; font-weight: bold;"</c:if>
+								href="<spring:url value='/product/showPageProducts?categoryTitle=惡魔' />">全部</a></li>
 							<c:forEach var="evilCategory" items="${evilCategoryList}">
 								<li><a
-									href="<spring:url value='/product/showPageProducts?categoryTitle="惡魔"&categoryName=${evilCategory}' />">${evilCategory}</a></li>
+									<c:if test="${categoryTitle=='惡魔'&&categoryName==evilCategory}">style="color: rgb(73, 105, 247) !important; font-weight: bold;"</c:if>
+									href="<spring:url value='/product/showPageProducts?categoryTitle=惡魔&categoryName=${evilCategory}' />">${evilCategory}</a></li>
 							</c:forEach>
 						</ul>
 					</div>
@@ -211,7 +246,22 @@
 						<div class="col-6 d-flex justify-content-start align-items-center">
 							<ul style="padding-left: 0px !important;">
 								<li><a href="<spring:url value='/product/productHome' />">首頁</a></li>
-								<li>/${categoryTitle}</li>
+								<c:choose>
+									<c:when test="${categoryTitle!=''}">
+										<li>/</li>
+										<li><a
+											href="<spring:url value='/product/showPageProducts?categoryTitle=${categoryTitle}' />">${categoryTitle}</a></li>
+									</c:when>
+									<c:otherwise>
+										<li>/</li>
+										<li><a
+											href="<spring:url value='/product/showPageProducts' />">全部</a></li>
+									</c:otherwise>
+								</c:choose>
+								<c:if test="${categoryName!=''}">
+									<li>/</li>
+									<li class="ml-1">${categoryName}</li>
+								</c:if>
 							</ul>
 						</div>
 						<!-- 下拉式選單 -->
@@ -283,7 +333,8 @@
 								href="<spring:url value='/product/showPageProducts?pageNo=1&search=${searchStr}&arrange=${arrange}&categoryTitle=${categoryTitle}&categoryName=${categoryName}'/>">1</a></li>
 							<form action="<spring:url value='/product/showPageProducts' />"
 								id="pageForm">
-								<span><select name="pageNo" id="nowPage">
+								<span><select name="pageNo" id="nowPage"
+									class="YourLocation_2">
 										<c:forEach var="pages" begin="1" end="${totalPages}">
 											<option value="${pages}"
 												<c:if test="${pages==pageNo}"> selected </c:if>>${pages}</option>
@@ -309,6 +360,88 @@
 		</section>
 	</div>
 
+	<!--========= footer================= -->
+	<!-- Footer -->
+	<footer class="page-footer font-small stylish-color-dark pt-2">
+		<!-- Footer Links -->
+		<div class="container text-center text-md-left mt-3">
+			<!-- Grid row -->
+			<div class="row">
+				<div
+					class="col-md-2 d-flex justify-content-center align-items-center">
+					<img
+						src="https://github.com/sun0722a/yaoshula/blob/master/src/logo/logo_trans_140px.png?raw=true"
+						width="120px" alt="" />
+				</div>
+				<!-- Grid column -->
+
+				<div class="col-md-4 mx-auto">
+					<!-- Content -->
+					<h5 class="font-weight-bold text-uppercase mb-3">要抒啦！ 網路論壇&商城
+					</h5>
+					<p id="footer-introdution" class="text-secondary">
+						是個能夠預期回應溫度的論壇空間。希望在亂世間提供一個烏托邦式的空間，讓大家可以盡情釋放壓力，得到慰藉❤️。</p>
+					<div class="d-flex"></div>
+				</div>
+				<!-- Grid column -->
+
+				<hr class="clearfix w-100 d-md-none" />
+
+				<!-- Grid column -->
+				<div class="col-md-2 mx-auto">
+					<!-- Links -->
+					<h5 class="font-weight-bold text-uppercase mb-3">論壇</h5>
+
+					<ul class="list-unstyled">
+						<li><a
+							href="<spring:url value='/article/showPageArticles?categoryTitle=天使' />">天使版</a></li>
+						<li><a
+							href="<spring:url value='/article/showPageArticles?categoryTitle=惡魔' />">惡魔版</a></li>
+						<li><a href="<spring:url value='/letter/letterHome' />">漂流信</a></li>
+					</ul>
+				</div>
+				<!-- Grid column -->
+
+				<hr class="clearfix w-100 d-md-none" />
+
+				<!-- Grid column -->
+				<div class="col-md-2 mx-auto">
+					<!-- Links -->
+					<h5 class="font-weight-bold text-uppercase mb-3">商城</h5>
+
+					<ul class="list-unstyled">
+						<li><a href="<spring:url value='/product/productHome' />">商城首頁</a></li>
+						<li><a href="<spring:url value='/order/shoppingCartList' />">我的購物車</a></li>
+						<li><a href="<spring:url value='/order/showHistoryOrder' />">歷史訂單</a></li>
+					</ul>
+				</div>
+				<!-- Grid column -->
+
+				<hr class="clearfix w-100 d-md-none" />
+
+				<!-- Grid column -->
+				<div class="col-md-2 mx-auto">
+					<!-- Links -->
+					<h5 class="font-weight-bold text-uppercase mb-3">關於我們</h5>
+
+					<ul class="list-unstyled">
+						<li><a href="<spring:url value='/aboutUs/contact' />">聯絡我們</a></li>
+						<li><a href="#!">服務條款</a></li>
+						<li><a href="#!">隱私權政策</a></li>
+					</ul>
+				</div>
+				<!-- Grid column -->
+			</div>
+			<!-- Grid row -->
+		</div>
+
+		<!-- Copyright -->
+		<div class="footer-copyright text-center mt-0 pb-3"
+			style="font-size: 15px;">© 2020 Copyright © 2020 Speak It Up.
+			All rights reserved</div>
+		<!-- Copyright -->
+	</footer>
+	<!-- Footer -->
 
 </body>
 </html>

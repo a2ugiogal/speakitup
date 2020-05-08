@@ -10,13 +10,13 @@ body {
 
 /* 左側欄設定 */
 #left_list ul li a {
+	font-size: 18px;
 	color: #495057;
 }
 
 #left_list ul li a:hover {
 	font-size: 25px;
 	text-decoration: none;
-	color: rgb(236, 130, 31);
 }
 
 /* <!-- 置頂按鈕 設定 --> */

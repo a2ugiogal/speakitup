@@ -52,8 +52,7 @@ public class ProductController {
 	ProductService productService;
 
 	// ==================非管理員===================
-	
-	
+
 	/* 查詢指定商品(搜尋、排序、頁碼) */
 	@GetMapping("/showPageProducts")
 	public String showPageProducts(Model model, HttpServletRequest request, HttpServletResponse response,
@@ -112,7 +111,7 @@ public class ProductController {
 		if (pageNo == -1) {
 			pageNo = 1;
 		}
-		
+
 		// 取得本頁商品資料(Map<Integer, ProductBean>)
 		Map<ProductBean, String> productMap = productService.getPageProducts(pageNo, arrange, searchStr, categoryTitle,
 				categoryName);
@@ -201,11 +200,11 @@ public class ProductController {
 		int productIdTop;
 		List<Integer> topProductList = new ArrayList<Integer>();
 		List<Integer> botProductList = new ArrayList<Integer>();
-		
+
 		Map<Integer, ProductBean> angelProductMap = productService.getFamousProducts("天使");
 		Map<Integer, ProductBean> evilProductMap = productService.getFamousProducts("惡魔");
-		for(int i = 0;i<3;i++) {
-			productIdTop = (int)(Math.random() * 10);
+		for (int i = 0; i < 3; i++) {
+			productIdTop = (int) (Math.random() * 10);
 			topProductList.add(productIdTop);
 			botProductList.add(productIdTop + 10);
 		}
@@ -213,10 +212,10 @@ public class ProductController {
 		System.out.println(botProductList);
 		model.addAttribute("angel_products_map", angelProductMap);
 		model.addAttribute("evil_products_map", evilProductMap);
-		
+
 		model.addAttribute("top_product_list", topProductList);
 		model.addAttribute("bot_product_list", botProductList);
-		
+
 		return "product/productHome";
 	}
 

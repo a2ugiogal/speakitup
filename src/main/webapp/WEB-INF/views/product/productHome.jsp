@@ -132,13 +132,14 @@
 	<!-- 置頂按鈕 設定 -->
 	<a href="#top"><img id="myBtn"
 		src="https://png.pngtree.com/png-clipart/20190705/original/pngtree-vector-up-arrow-icon-png-image_4272127.jpg"></a>
+
 	<div style="height: 100vh;">
 		<div
 			style="position: relative; height: 100vh; z-index: -1; top: 60px;">
-			<img src="<spring:url value='/image/product/productInfo.jpg'/> "
-				style="height: 100%; width: 100%;">
+						<img src="<spring:url value='/image/product/productInfo.jpg'/> "
+							style="height: 100%; width: 100%;">
+						<div id="text3d" data-text="商城">商城</div>
 		</div>
-		<div id="text3d" data-text="商城">商城</div>
 	</div>
 
 
@@ -149,7 +150,7 @@
 			<div id="carousel-card1" class="carousel slide" data-interval="5000">
 				<div class="carousel-inner">
 					<div class="carousel-item px-10 active">
-						<div class="row">
+						<div class="row m-0">
 							<c:forEach var="entry" items="${angel_products_map}"
 								varStatus="number">
 								<c:if test="${number.count % 2 == 1}">
@@ -174,7 +175,7 @@
 						</div>
 					</div>
 					<div class="carousel-item px-10">
-						<div class="row">
+						<div class="row m-0">
 							<c:forEach var="entry" items="${angel_products_map}"
 								varStatus="number">
 								<c:if test="${number.count % 2 == 0}">
@@ -216,7 +217,7 @@
 			<div id="carousel-card2" class="carousel slide" data-interval="5000">
 				<div class="carousel-inner">
 					<div class="carousel-item px-10 active">
-						<div class="row">
+						<div class="row m-0">
 							<c:forEach var="entry" items="${evil_products_map}"
 								varStatus="number">
 								<c:if test="${number.count % 2 == 1}">
@@ -241,7 +242,7 @@
 						</div>
 					</div>
 					<div class="carousel-item px-10">
-						<div class="row">
+						<div class="row m-0">
 							<c:forEach var="entry" items="${evil_products_map}"
 								varStatus="number">
 								<c:if test="${number.count % 2 == 0}">

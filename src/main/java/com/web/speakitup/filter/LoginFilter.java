@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -19,10 +20,8 @@ import javax.servlet.http.HttpSession;
 
 import com.web.speakitup.model.MemberBean;
 
-@WebFilter(urlPatterns = { "/*" }, initParams = { 
-		@WebInitParam(name = "url_2", value = "/member/showMyArticles"),
-		@WebInitParam(name = "url_3", value = "/member/personPage"), 
-		@WebInitParam(name = "url_4", value = "/order/*"),
+@WebFilter(urlPatterns = { "/*" }, initParams = { @WebInitParam(name = "url_2", value = "/member/showMyArticles"),
+		@WebInitParam(name = "url_3", value = "/member/personPage"), @WebInitParam(name = "url_4", value = "/order/*"),
 		@WebInitParam(name = "url_5", value = "/article/likeArticle/*"),
 		@WebInitParam(name = "url_6", value = "/article/addComment/*"),
 		@WebInitParam(name = "url_7", value = "/article/addArticle"),
@@ -51,9 +50,9 @@ public class LoginFilter implements Filter {
 		if (request instanceof HttpServletRequest && response instanceof HttpServletResponse) {
 			HttpServletRequest req = (HttpServletRequest) request;
 			HttpServletResponse resp = (HttpServletResponse) response;
-			
+
 			String servletPath = req.getServletPath();
-			
+
 			req.isRequestedSessionIdValid();
 			contextPath = req.getContextPath();
 			HttpSession session = req.getSession();
@@ -64,11 +63,13 @@ public class LoginFilter implements Filter {
 				} else {
 					session = req.getSession();
 					session.setAttribute("target", servletPath);
-					resp.sendRedirect(contextPath + "/member/login");
+					req.setAttribute("loginFilter", "true");
+					RequestDispatcher rd = request.getRequestDispatcher("/member/login");
+					rd.forward(request, response);
 					return;
 				}
 			} else { // 如果不用登入 就直接交棒給要執行的程式
-				chain.doFilter(request,response);
+				chain.doFilter(request, response);
 				// 通知瀏覽器必須先以 Last-Modified or ETag送出請求來詢問Server，本網頁是否有較新的版本，
 				// 如果Server回應沒有，才可以使用快取區內的網頁，否則必須再次送出請求取得更新的版本
 				resp.setHeader("Cache-Control", "no-cache");
@@ -80,7 +81,7 @@ public class LoginFilter implements Filter {
 				resp.setDateHeader("Expires", 0);
 				// 為了與 HTTP 1.0 相容，加入此回應標頭
 				resp.setHeader("Pragma", "no-cache");
-				resp.addHeader( "Cache-Control", "must-revalidate" );
+				resp.addHeader("Cache-Control", "must-revalidate");
 			}
 
 		} else {
@@ -89,7 +90,7 @@ public class LoginFilter implements Filter {
 
 	}
 
-	//檢查是否在登入的狀態
+	// 檢查是否在登入的狀態
 	private boolean checkLogin(HttpServletRequest req) {
 		HttpSession session = req.getSession();
 		MemberBean loginToken = (MemberBean) session.getAttribute("LoginOK");

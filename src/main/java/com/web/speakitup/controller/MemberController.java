@@ -263,7 +263,10 @@ public class MemberController {
 
 	/* 前往登入 */
 	@GetMapping("/login")
-	public String loginForm(HttpSession session) {
+	public String loginForm(HttpSession session, HttpServletRequest request) {
+		if (request.getAttribute("loginFilter") == null) {
+			session.removeAttribute("target");
+		}
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
 		if (mb != null) {
 			return "redirect:/";

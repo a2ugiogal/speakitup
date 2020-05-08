@@ -27,7 +27,6 @@ function doFirst() {
 }
 
 function update() {
-	alert(phone.innerText);
 	// 下拉式地址
 	new TwCitySelector();
 	// 下拉式地址

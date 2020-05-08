@@ -19,12 +19,6 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
 	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
 	crossorigin="anonymous"></script>
-<!-- <link rel="stylesheet" -->
-<!-- 	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.css"> -->
-<!-- <link rel="stylesheet" -->
-<!-- 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"> -->
-<!-- <link rel="stylesheet" -->
-<!-- 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
 <link
 	href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/cerulean/bootstrap.min.css"
 	rel="stylesheet"
@@ -33,8 +27,6 @@
 <!-- icon -->
 <script src="https://kit.fontawesome.com/041970ba48.js"
 	crossorigin="anonymous"></script>
-<!-- <script -->
-<!-- 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
 <link rel="stylesheet"
 	href="<spring:url value='/css/product/productInfo.css' />">
 
@@ -60,12 +52,14 @@
 		</div>
 		<div class="navbar-nav flex-row ml-auto"
 			style="position: absolute; right: 250px; top: 10px;">
-			<!-- 			<form class="form-inline mr-5"> -->
-			<!-- 				<input class="form-control mr-sm-2" type="search" id="search" -->
-			<!-- 					placeholder="Search" aria-label="Search" /> -->
-			<!-- 				<button class="btn d-flex justify-content-center" type="submit" -->
-			<!-- 					id="search-btn">Search</button> -->
-			<!-- 			</form> -->
+			<form class="form-inline mr-5"
+				action="<spring:url value='/product/showPageProducts' /> ">
+				<input class="form-control mr-sm-2" type="search" id="search"
+					placeholder="搜尋: 商品名稱" aria-label="Search" name="search"
+					style="width: 70% !important;" />
+				<button class="btn" type="submit" id="search-btn">搜尋</button>
+				<input type="hidden" value="-1" name="pageNo">
+			</form>
 		</div>
 		<div class="navbar-nav flex-row ml-auto"
 			style="position: absolute; right: 0; top: 10px;">
@@ -118,8 +112,6 @@
 					</div></li>
 				<li class="nav-item mx-2"><a class="nav-link"
 					href="<spring:url value='/letter/letterHome' />">漂流瓶</a></li>
-				<li class="nav-item mx-2"><a class="nav-link"
-					href="<spring:url value='/product/showProductInfo/1' />">商品細節</a></li>
 				<c:if test="${LoginOK.permission=='管理員'}">
 					<li class="nav-item dropdown mx-2"><a
 						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
@@ -159,23 +151,57 @@
 				<div class="col-2 ">
 					<div id="left_list"
 						class="list-group sticky-element mt-3 dropdown-menuy">
-						<a id="left_list_0"
+						<a id="left_list_0" style="font-size: 20px;"
 							href="<spring:url value='/product/showPageProducts' />"
-							class="list-group-item list-group-item-action active "
-							data-toggle="list">全部商品</a> <a id="left_list_a" href="#pane-2"
-							class="list-group-item list-group-item-action" data-toggle="list">天使</a>
-						<ul id="list_a">
+							<c:choose>
+								<c:when test="${categoryTitle==''}">
+									class="list-group-item list-group-item-action active"
+								</c:when>
+								<c:otherwise>
+									class="list-group-item list-group-item-action"
+								</c:otherwise>
+							</c:choose>>全部商品</a>
+						<a id="left_list_a" href="#pane-2" data-toggle="list"
+							style="font-size: 20px;"
+							<c:choose>
+								<c:when test="${categoryTitle=='天使'}">
+									class="list-group-item list-group-item-action active"
+								</c:when>
+								<c:otherwise>
+									class="list-group-item list-group-item-action"
+								</c:otherwise>
+							</c:choose>>天使</a>
+
+						<ul id="list_a"
+							<c:if test="${categoryTitle=='天使'}">style="display: block"</c:if>>
+							<li><a
+								href="<spring:url value='/product/showPageProducts?categoryTitle=天使' />"
+								<c:if test="${categoryTitle=='天使'&&categoryName==''}">style="color: rgb(73, 105, 247) !important; font-weight: bold;"</c:if>>全部</a></li>
 							<c:forEach var="angelCategory" items="${angelCategoryList}">
 								<li><a
-									href="<spring:url value='/product/showPageProducts?categoryTitle="天使"&categoryName=${angelCategory}' />">${angelCategory}</a></li>
+									<c:if test="${categoryTitle=='天使'&&categoryName==angelCategory}">style="color: rgb(73, 105, 247) !important; font-weight: bold;"</c:if>
+									href="<spring:url value='/product/showPageProducts?categoryTitle=天使&categoryName=${angelCategory}' />">${angelCategory}</a></li>
 							</c:forEach>
 						</ul>
-						<a id="left_list_b" href="#pane-3"
-							class="list-group-item list-group-item-action" data-toggle="list">惡魔</a>
-						<ul id="list_b">
+						<a id="left_list_b" href="#pane-3" data-toggle="list"
+							style="font-size: 20px;"
+							<c:choose>
+								<c:when test="${categoryTitle=='惡魔'}">
+									class="list-group-item list-group-item-action active"
+								</c:when>
+								<c:otherwise>
+									class="list-group-item list-group-item-action"
+								</c:otherwise>
+							</c:choose>>惡魔</a>
+						<ul id="list_b"
+							<c:if test="${categoryTitle=='惡魔'}">style="display: block"</c:if>>
+							<li><a
+								<c:if test="${categoryTitle=='惡魔'&&categoryName==''}">style="color: rgb(73, 105, 247) !important; font-weight: bold;"</c:if>
+								href="<spring:url value='/product/showPageProducts?categoryTitle=惡魔' />">全部</a></li>
 							<c:forEach var="evilCategory" items="${evilCategoryList}">
 								<li><a
-									href="<spring:url value='/product/showPageProducts?categoryTitle="惡魔"&categoryName=${evilCategory}' />">${evilCategory}</a></li>
+									<c:if test="${categoryTitle=='惡魔'&&categoryName==evilCategory}">style="color: rgb(73, 105, 247) !important; font-weight: bold;"</c:if>
+									href="<spring:url value='/product/showPageProducts?categoryTitle=惡魔&categoryName=${evilCategory}' />">${evilCategory}</a></li>
 							</c:forEach>
 						</ul>
 					</div>
