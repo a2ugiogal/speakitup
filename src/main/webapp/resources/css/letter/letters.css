@@ -1,76 +1,587 @@
-body {
-	margin: 0;
-	padding: 0;
-	display: flex;
+body{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #fff;
+    font-family: 'Noto Sans TC', sans-serif;
+    
+}
+
+#showMyLetters{
+    position: relative;
+    width: 75%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(400px,1fr));
+    grid-template-rows: auto;
+    gap: 0 40px;
+    margin-right: 100px;
+}
+
+.watchReply:hover, .back:hover{
+    color: cadetblue;
+    cursor: pointer;
+    
+}
+
+.letterBox{
+    margin: 10px;
+/*     border: 1px solid #000000; */
+/*     border-radius: 7px 7px 7px 7px; */
+/*     -moz-border-radius: 7px 7px 7px 7px; */
+/*     -webkit-border-radius: 7px 7px 7px 7px; */
+    -webkit-box-shadow: 10px 10px 10px -6px rgba(0,0,0,0.75);
+-moz-box-shadow: 10px 10px 10px -6px rgba(0,0,0,0.75);
+box-shadow: 10px 10px 10px -6px rgba(0,0,0,0.75);
+    border-radius: 0px 61px 0px 61px;
+-moz-border-radius: 0px 61px 0px 61px;
+-webkit-border-radius: 0px 61px 0px 61px;
+border: 3px solid #1d336b;
+}
+
+ .letterBox{
+    position: relative;
+    height: 600px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+/*     border: 1px solid #000; */
+/*     border-radius: 5px; */
+   border-radius: 0px 61px 0px 61px;
+-moz-border-radius: 0px 61px 0px 61px;
+-webkit-border-radius: 0px 61px 0px 61px;
+border: 3px solid #1d336b;
+}
+
+
+ .sendBox{
+    position: absolute;
+    width:100%;
+    height: 600px;
+    background: #fff;
+	overflow:hidden;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+      border-radius: 0px 61px 0px 61px;
+	-moz-border-radius: 0px 61px 0px 61px;
+	-webkit-border-radius: 0px 61px 0px 61px;
+	border: 3px solid #1d336b;
+ word-break:break-all;
+    overflow-y:auto;
+}
+
+ .replyBox{
+    position: absolute;
+    width:100%;
+    height: 600px;
+    background: #fff;
+    overflow:hidden;
+    justify-content: center;
+    align-items: center;
+    z-index: -1;
+       border-radius: 0px 61px 0px 61px;
+-moz-border-radius: 0px 61px 0px 61px;
+-webkit-border-radius: 0px 61px 0px 61px;
+border: 3px solid #1d336b;
+ word-break:break-all;
+    overflow-y:auto;
+} 
+
+
+.sendBoxBotDevil, .sendBoxBotAngel{
+    display: flex;
+    flex-direction: row;
+    /* align-items: center; */
+    justify-content: space-between;
+}
+
+
+/*---------------天使按鈕----------------*/
+
+.angelLabel{
+    position: fixed;
+    width: 150px;
+    height: 60px;
+    top: 0;
+    right: 40px;
+    cursor: pointer;
+    margin: 20px 20px;
+}
+
+.angelLabel input{
+    opacity: 0;
+}
+
+
+/*長長的軌道*/
+.angelLabel .check{
+    position: absolute;
+     top: 0; 
+    left: 0; 
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    /* background: #101010; */
+    background: rgb(236, 234, 234);
+    border-radius: 40px;
+    -webkit-box-shadow: 7px 8px 7px -5px rgba(0,0,0,0.4);
+    -moz-box-shadow: 7px 8px 7px -5px rgba(0,0,0,0.4);
+    box-shadow: 7px 8px 7px -5px rgba(0,0,0,0.4);
+}
+
+/*一開始checkBox按鈕左邊，所以左邊是(before)發亮的*/
+.angelLabel .check::before{
+    content: '';
+    position: absolute;
+    top: calc(50% - 4px);
+    left: -30px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgb(247, 123, 56);
+    transition: 0.3s;
+    box-shadow: 0 0 5px rgb(247, 123, 56),
+                0 0 10px rgb(247, 123, 56),
+                0 0 20px rgb(247, 123, 56),
+                0 0 40px rgb(247, 123, 56),
+                0 0 80px rgb(247, 123, 56);
+}
+
+/*checked到後左邊的(before)變白色*/
+.angelLabel input:checked ~ .check::before{
+    background: #fff;
+    box-shadow: none;
+}
+
+
+/*一開始按鈕還在左邊時右邊的燈(after)不會亮*/
+.angelLabel .check::after{
+    content: '';
+    position: absolute;
+    top: calc(50% - 4px);
+    right: -35px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    box-shadow: none;
+    transition: 0.3s;
+}
+
+/*checked到後右邊的(after)變藍色*/
+.angelLabel input:checked ~ .check::after{
+    background: #0088CB;
+    box-shadow: 0 0 5px #0088CB,
+                0 0 10px #0088CB,
+                0 0 20px #0088CB,
+                0 0 40px #0088CB,
+                0 0 80px #0088CB;
+}
+
+/*滑動的按鈕*/
+.angelLabel .btn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80px;
+    height: 60px;
+    border-radius: 40px;
+    background: rgb(212, 208, 208);
+    transition: 0.3s;   /*按鈕滑動的延遲*/
+    box-shadow: inset 0 -20px 15px #a7a2a2,
+                inset 0 20px 15px #d1cbcb;
+}
+/*這個before是按鈕左半部主要的顏色*/
+.angelLabel .btn::before {
+    content: '';  /*沒有這個會做不出左右的漸層*/
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 35px;
+    height: 60px;
+    background: rgb(228, 224, 224);
+    border-top-left-radius: 60px;    /*讓左半部曾憲橢圓*/
+    border-bottom-left-radius: 60px;  
+    box-shadow: inset -5px -5px 15px rgb(236, 231, 231,.2);   /*白色背景左邊的陰影*/
+    filter: blur(2px);
+}
+
+/*這個after是左半部按鈕的漸層*/
+.angelLabel .btn::after {
+    content: '';  /*沒有這個會做不出左右的漸層*/
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 35px;
+    height: 60px;
+    background: rgb(228, 224, 224);
+    border-top-right-radius: 60px;    /*讓左半部曾憲橢圓*/
+    border-bottom-right-radius: 60px;  
+    box-shadow: inset -5px -5px 15px rgba(206, 201, 201,.2);      /*左邊按鈕*/
+    filter: blur(2px);
+}
+
+.angelLabel input:checked ~ .btn {
+    left: 50%;
+  
+}
+
+/*天使信回饋與檢舉的按紐*/
+
+.sendBoxBotAngel ul{
+    position: relative;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    /* padding: 20px 0; */
+    width: 200px;
+
+}
+
+.sendBoxBotAngel ul::before{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,.05);
+    /* bottom: -50%; */
+    pointer-events: none;
+    z-index: 1;
+}
+
+.sendBoxBotAngel ul li{
+    position: relative;
+    list-style: none;
+    text-align: center;
+    margin: 0 30px auto auto;
+  
+}
+
+.sendBoxBotAngel ul li label{
+    position: relative;
+}
+
+.sendBoxBotAngel ul li label input[type="checkbox"]{
+    position: absolute;
+    opacity: 0;
+   
+}
+
+/* 裝圖案的div */
+.sendBoxBotAngel label .iconBox{
+    width: 60px;
+    height: 60px;
+    background: rgb(243, 243, 243);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+     border: 3px solid rgb(243, 242, 242);
+     border-radius: 10px;
+     transition: 0.5s;
+     /* box-shadow: 12px 12px 15px rgba(255,255,255,1),
+                3px 3px 5px rgba(0,0,0,0.1); */
+                -webkit-box-shadow: 9px 9px 6px -8px rgba(0,0,0,0.46);
+                -moz-box-shadow: 9px 9px 6px -8px rgba(0,0,0,0.46);
+                box-shadow: 9px 9px 6px -8px rgba(0,0,0,0.46);
+             
+    cursor: pointer;
+}
+
+/*圖案*/
+.sendBoxBotAngel ul li label .iconBox i{
+    font-size: 30px;
+    color: #7ea9dd;
+    transition: 0.5s;
+}
+
+.sendBoxBotAngel ul li label input[type="checkbox"]:checked ~ .iconBox{
+    box-shadow: inset -2px -2px 5px rgba(255,255,255,1),
+                inset 3px 3px 5px rgba(0,0,0,0.1);
+                
+} 
+
+.sendBoxBotAngel ul li label input[type="checkbox"]:checked ~ .iconBox i{
+    transform: scale(0.95);
+              
+}
+
+
+
+
+
+/*--------------------------惡魔-----------------------------------------*/
+
+.watchReplyDevil:hover, .backDevil:hover{
+    color: cadetblue;
+    cursor: pointer;
+}
+.watchReplyDevil{
+font-size: 1.1rem;
+}
+
+ .letterBoxDevil{
+    position: relative;
+    width:100%;
+    height: 600px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid #0ACDFF;
+    border-radius: 5px;
+    margin: 10px;
+    box-shadow: 0px 0px 8px 2px #0ACDFF;
+    color: rgb(207, 207, 207);
+}
+
+
+
+
+ .sendBoxDevil{
+    position: absolute;
+    width:100%;
+    height: 600px;
+    background: #020202;
+/*     padding: auto auto 5px 5px; */
+    font-size: 0.9rem;
+	overflow:hidden;
 	justify-content: center;
-	align-items: center;
-	min-height: 100vh;
-	background: aliceblue;
-	font-family: 'Noto Sans TC', sans-serif;
-	font-size: 0.8rem;
+    align-items: center;
+    z-index: 1;
+    word-break:break-all;
+    overflow-y:auto;
 }
 
-.watchReply:hover, .back:hover {
-	color: cadetblue;
-	cursor: pointer;
+ .replyBoxDevil{
+    position: absolute;
+    width:100%;
+    height: 600px;
+    background: #020202;
+    overflow: hidden;
+    font-size: 0.9rem;
+    justify-content: center;
+    align-items: center;
+    z-index: -1;
+    word-break:break-all;
+    overflow-y:auto;
+} 
+
+/*惡魔回饋與檢舉的按紐*/
+
+
+.sendBoxBotDevil ul{
+    position: relative;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    width: 180px;
 }
 
-.container {
-	position: relative;
-	width: 70%;
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-	grid-template-rows: auto;
-	gap: 0 40px;
+.sendBoxBotDevil ul::before{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,.05);
+    pointer-events: none;
+    z-index: 1;
 }
 
-.letterBox {
-	margin: 20px;
-	border: 1px solid #000000;
-	border-radius: 7px 7px 7px 7px;
-	-moz-border-radius: 7px 7px 7px 7px;
-	-webkit-border-radius: 7px 7px 7px 7px;
-	-webkit-box-shadow: 10px 10px 10px -6px rgba(0, 0, 0, 0.75);
-	-moz-box-shadow: 10px 10px 10px -6px rgba(0, 0, 0, 0.75);
-	box-shadow: 10px 10px 10px -6px rgba(0, 0, 0, 0.75);
+.sendBoxBotDevil ul li{
+    position: relative;
+    list-style: none;
+    text-align: center;
+    margin: 0 30px auto auto;
 }
 
-.container .letterBox {
-	position: relative;
-	width: 300px; 
-	height : 600px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	border: 1px solid #000;
-	border-radius: 5px;
-	height: 600px
+.sendBoxBotDevil ul li label{
+    position: relative;
 }
 
-.sendBox {
-	padding:15px;
-	position: absolute;
-	height: 600px;
-	width: 300px;
-	background: #fff;
-	overflow: hidden;
-	justify-content: center;
-	align-items: center;
-	border: 1px solid #000;
-	border-radius: 5px;
-	z-index: 1;
+.sendBoxBotDevil ul li label input[type="checkbox"]{
+    position: absolute;
+    opacity: 0;
 }
 
-.replyBox {
-	padding:15px;
-	position: absolute;
-	height: 600px;
-	width: 300px;
-	background: #fff;
-	overflow: hidden;
-	justify-content: center;
-	align-items: center;
-	border: 1px solid #000;
-	border-radius: 5px;
-	z-index: -1;
+/* 裝圖案的div */
+.sendBoxBotDevil label .iconBox{
+    width: 60px;
+    height: 60px;
+    background: #101010;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+     border: 3px solid #000;
+     border-radius: 10px;
+     transition: 0.5s;
+     cursor: pointer;
+}
+
+/*圖案*/
+.sendBoxBotDevil ul li label .iconBox i{
+    font-size: 30px;
+    color: #222;
+    transition: 0.5s;
+}
+
+.sendBoxBotDevil ul li label input[type="checkbox"]:checked ~ .iconBox{
+    background: #000;
+    border: 3px solid #fff;
+    box-shadow: 0 0 10px rgba(33, 156, 243,.5),
+                0 0 20px rgba(33, 156, 243,.5),
+                0 0 30px rgba(33, 156, 243,.5),
+                inset 0 0 10px rgba(33, 156, 243,1);
+} 
+
+.sendBoxBotDevil ul li label input[type="checkbox"]:checked ~ .iconBox i{
+    color: #fff;
+    text-shadow: 0 0 10px rgba(33,156,243,1),
+                0 0 10px rgba(33,156,243,1);
+              
+}
+
+
+
+
+
+/*---------------惡魔按鈕----------------*/
+
+.devilLabel{
+    position: fixed;
+    width: 150px;
+    height: 60px;
+    top: 0;
+    right: 40px;
+    cursor: pointer;
+    margin: 20px 20px;
+}
+
+.devilLabel input{
+    opacity: 0;
+}
+
+
+/*長長的軌道*/
+.devilLabel .check{
+    position: absolute;
+     top: 0; 
+    left: 0; 
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    background: #101010;
+    /* background: rgb(218, 209, 209); */
+    border-radius: 40px;
+    /* -webkit-box-shadow: 7px 8px 7px -3px rgba(0,0,0,0.75);
+    -moz-box-shadow: 7px 8px 7px -3px rgba(0,0,0,0.75);
+    box-shadow: 7px 8px 7px -3px rgba(0,0,0,0.75); */
+}
+
+/*一開始checkBox按鈕左邊，所以左邊是(before)發亮的*/
+.devilLabel .check::before{
+    content: '';
+    position: absolute;
+    top: calc(50% - 4px);
+    left: -30px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgb(247, 123, 56);
+    transition: 0.3s;
+    box-shadow: 0 0 5px rgb(247, 123, 56),
+                0 0 10px rgb(247, 123, 56),
+                0 0 20px rgb(247, 123, 56),
+                0 0 40px rgb(247, 123, 56),
+                0 0 80px rgb(247, 123, 56);
+}
+
+/*checked到後左邊的(before)變白色*/
+.devilLabel input:checked ~ .check::before{
+    background: black;
+    /* background: #fff; */
+    box-shadow: none;
+}
+
+
+/*一開始按鈕還在左邊時右邊的燈(after)不會亮*/
+.devilLabel .check::after{
+    content: '';
+    position: absolute;
+    top: calc(50% - 4px);
+    right: -35px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    box-shadow: none;
+    transition: 0.3s;
+}
+
+/*checked到後右邊的(after)變藍色*/
+.devilLabel input:checked ~ .check::after{
+    background: #0088CB;
+    box-shadow: 0 0 5px #0088CB,
+                0 0 10px #0088CB,
+                0 0 20px #0088CB,
+                0 0 40px #0088CB,
+                0 0 80px #0088CB;
+}
+
+/*滑動的按鈕*/
+.devilLabel .btn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80px;
+    height: 60px;
+    border-radius: 40px;
+    background: #333;
+    /* background: rgb(236, 231, 231); */
+    transition: 0.3s;   /*按鈕滑動的延遲*/
+    box-shadow: inset 0 -20px 15px #292929,
+                inset 0 20px 15px #292929;
+    /* box-shadow: inset 0 -20px 15px #757474,
+                inset 0 20px 15px #ddd6d6; */
+}
+/*這個before是按鈕左半部主要的顏色*/
+.devilLabel .btn::before {
+    content: '';  /*沒有這個會做不出左右的漸層*/
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 35px;
+    height: 60px;
+    background: #252525;
+    /* background: rgb(236, 231, 231); */
+    border-top-left-radius: 60px;    /*讓左半部曾憲橢圓*/
+    border-bottom-left-radius: 60px;  
+    box-shadow: inset -5px -5px 15px rgba(0,0,0,.3);   /*左邊的陰影*/ 
+    /* box-shadow: inset -5px -5px 15px rgba(207, 199, 199, 0.486);   白色背景左邊的陰影 */
+    filter: blur(2px);
+}
+
+/*這個after是左半部按鈕的漸層*/
+.devilLabel .btn::after {
+    content: '';  /*沒有這個會做不出左右的漸層*/
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 35px;
+    height: 60px;
+    background: #252525;
+    /* background: rgb(236, 231, 231); */
+    border-top-right-radius: 60px;    /*讓左半部曾憲橢圓*/
+    border-bottom-right-radius: 60px;  
+    box-shadow: inset -5px -5px 15px rgba(0,0,0,.3);   /*左邊的陰影*/
+    /* box-shadow: inset -5px -5px 15px rgba(206, 201, 201, 0.445);     */
+    filter: blur(2px);
+}
+
+.devilLabel input:checked ~ .btn {
+    left: 50%;
+  
 }
