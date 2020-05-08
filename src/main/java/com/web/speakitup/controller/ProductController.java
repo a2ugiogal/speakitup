@@ -194,7 +194,7 @@ public class ProductController {
 		}
 	}
 
-	/* 查詢熱門商品 */
+	/* 前往商城首頁 */
 	@GetMapping("/productHome")
 	public String showFamousProducts(Model model) {
 		int productIdTop;
@@ -208,11 +208,8 @@ public class ProductController {
 			topProductList.add(productIdTop);
 			botProductList.add(productIdTop + 10);
 		}
-		System.out.println(topProductList);
-		System.out.println(botProductList);
 		model.addAttribute("angel_products_map", angelProductMap);
 		model.addAttribute("evil_products_map", evilProductMap);
-
 		model.addAttribute("top_product_list", topProductList);
 		model.addAttribute("bot_product_list", botProductList);
 

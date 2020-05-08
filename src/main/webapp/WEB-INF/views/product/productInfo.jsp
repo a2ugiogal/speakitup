@@ -29,7 +29,6 @@
 	crossorigin="anonymous"></script>
 <link rel="stylesheet"
 	href="<spring:url value='/css/product/productInfo.css' />">
-
 <link rel="stylesheet"
 	href="<spring:url value='/css/product/nav.css' /> " />
 </head>
@@ -262,58 +261,66 @@
 									</span>
 								</div>
 								<!-- 規格 -->
-								<div class="specification row pb-2">
-									<div class="col-12">
-										<c:if test="${title1!=''}">
-											<span style='display: inline-block; padding-top: 8px;'>
-												<h5 class="text-dark">${title1}：</h5>
-											</span>
-											<ul
-												style="padding-left: 0px !important; display: inline-block;">
-												<c:forEach var="entry" items="${content1}">
-													<li><input id="${entry}" type="radio" name="content1"
-														value="${entry}" required="required"><label
-														for="${entry}">${entry}</label></li>
-												</c:forEach>
-											</ul>
-										</c:if>
-									</div>
+								<form action="" name="buyForm">
+									<div class="specification row pb-2">
+										<div class="col-12">
+											<c:if test="${title1!=''}">
+												<span style='display: inline-block; padding-top: 8px;'>
+													<h5 class="text-dark">${title1}：</h5>
+												</span>
+												<ul
+													style="padding-left: 0px !important; display: inline-block;">
+													<c:forEach var="entry" items="${content1}"
+														varStatus="count">
+														<li><input id="${entry}" type="radio" name="content1"
+															value="${entry}"
+															<c:if test="${count.first}">checked</c:if>><label
+															for="${entry}">${entry}</label></li>
+													</c:forEach>
+												</ul>
+											</c:if>
+										</div>
 
-									<div class="col-12">
-										<c:if test="${title2!=''}">
-											<span style='display: inline-block; padding-top: 8px;'>
-												<h5 class="text-dark">${title2}：</h5>
-											</span>
-											<ul
-												style="padding-left: 0px !important; display: inline-block;">
-												<c:forEach var="entry2" items="${content2}">
-													<li><input id="${entry2}" type="radio" name="content2"
-														required="required" value="${entry2}"><label
-														for="${entry2}">${entry2}</label></li>
-												</c:forEach>
-											</ul>
-										</c:if>
-									</div>
+										<div class="col-12">
+											<c:if test="${title2!=''}">
+												<span style='display: inline-block; padding-top: 8px;'>
+													<h5 class="text-dark">${title2}：</h5>
+												</span>
+												<ul
+													style="padding-left: 0px !important; display: inline-block;">
+													<c:forEach var="entry2" items="${content2}"
+														varStatus="count">
+														<li><input id="${entry2}" type="radio"
+															name="content2" value="${entry2}"
+															<c:if test="${count.first}">checked</c:if>> <label
+															for="${entry2}">${entry2}</label></li>
+													</c:forEach>
+												</ul>
+											</c:if>
+										</div>
 
 
-									<div class="col-12 Quantity pb-4">
-										<span style='display: inline-block;'>
-											<h5 class="text-dark">數量 ：</h5>
-										</span> <input style="display: inline; background-color: white;"
-											class="Enter_the_quantity"
-											onkeyup="value=value.replace(/[^\d]/g,'') "
-											onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))"
-											id="Text2" name="qty" value="1" type="number" min="1">
+										<div class="col-12 Quantity pb-4">
+											<span style='display: inline-block;'>
+												<h5 class="text-dark">數量 ：</h5>
+											</span> <input style="display: inline; background-color: white;"
+												class="Enter_the_quantity"
+												onkeyup="value=value.replace(/[^\d]/g,'') "
+												onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))"
+												id="Text2" name="qty" value="1" type="number" min="1">
+										</div>
 									</div>
-								</div>
-								<div>
-									<button type="button" class="btn btn-outline-danger">
-										加入購物車<i class="fas fa-shopping-cart"></i>
-									</button>
-									<button type="button" class="btn btn-outline-danger buy">
-										<a>直接購買</a>
-									</button>
-								</div>
+									<div>
+										<button type="submit" class="btn btn-outline-danger"
+											onclick="buyForm.action='<spring:url value="/order/shoppingCart" />'; ">
+											加入購物車<i class="fas fa-shopping-cart"></i>
+										</button>
+										<button type="submit" class="btn btn-outline-danger buy"
+											onclick="buyForm.action='<spring:url value="/order/checkOrder" />';">
+											<a>直接購買</a>
+										</button>
+									</div>
+								</form>
 							</div>
 						</div>
 					</div>

@@ -1,109 +1,267 @@
-
-.top_area{      /* logo 登入那塊 */
-    width: 80%;
-    margin: 5px auto;
-    display: flex;
-    flex-direction: row;
-    
+* {
+	font-family: "Noto Sans TC", sans-serif;
 }
 
-
-
-.logo{    /* 論壇logo */
-    /* width: 10%; */
-    /* margin: auto 40px ; */
+/* 購物車與導覽列的位置 */
+.commodity {
+	font-family: "Noto Sans TC", sans-serif;
+	padding-top: 100px;
+	/* background-color: rgba(144, 170, 122, 0.541); */
+	background-color: rgba(226, 196, 188, 0.541);
+}
+/* 原先用來控制與頁尾的距離 */
+.Product_content {
+	margin-bottom: 100px;
+}
+/* 給予購物車外框及陰影 */
+.shopping-cart {
+	background-color: rgba(248, 248, 248, 0.336);
+	border: #92888a solid 1px;
+	border-radius: 2em;
+	padding: 30px;
+	-webkit-box-shadow: 6px 8px 14px 0px rgba(176, 176, 176, 1);
+	-moz-box-shadow: 6px 8px 14px 0px rgba(176, 176, 176, 1);
+	box-shadow: 6px 8px 14px 0px rgba(176, 176, 176, 1);
+}
+/* 購物車的字體大小與位置 */
+.History_Title {
+	padding-left: 30px;
+	font-size: 2em;
+	padding-bottom: 0.3em;
 }
 
-.top-space{
-    width: 70%;
-    
+/* Global settings */
+/* Global "table" column settings */
+/* 購物車標題，商品名稱、商品規格、商品價格、商品數量、總金額位置 */
+.product-span {
+  float: left;
+  width: 10%;
+}
+.product-checkbox {
+  float: left;
+  width: 5%;
+}
+.product-check {
+  float: left;
+  width: 5%;
+}
+.product-image {
+  float: left;
+  width: 15%;
 }
 
-.login{
-    width:10%;
-    margin-top: 10px;
+.product-format {
+  float: left;
+  width: 20%;
 }
 
-
-
- ul{       /*取消ul預設的樣式 */
-    padding: 0;
-    margin: 0 auto;
-    height: 80px;
-    list-style: none;
-    background  :#99F7AB;
-    width: 80%;
-    align-items: center;
-} 
-
-
-li a{
-    display: inline-block;
-    color: black;
-    text-align: center;
-    padding-top: 20px;
-    text-decoration: none;
-    margin: 0 auto;
-    
-  }
-  
-  li.dropdown{
-    display: inline-block;
-    padding-left: 3%;
-    margin-left: 15%;
-   text-align: center;
-  }
-
-  .dropdown-content {
-    width: 120px;
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 3;
-   
-  }
-
-  .dropdown-content a {
-    color: black;
-    /* padding: 12px 16px; */
-    text-decoration: none;
-    display: block;
-   
-  }
-
-  .dropdown:hover .dropdown-content {
-    display: block;
-  }
-
-.main-menu{
-    width: 80%;
-    height: 80px;
-    background: #99F7AB;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: row;
-     
- }
-
-.drop{
-    display: flex;
-    flex-direction: column;
-    z-index: 4;
-    
+.product-details {
+  float: left;
+  width: 20%;
 }
 
-.dropdown-item{
-    display: none;
-    margin: 5px;
-    /* border: 1px solid black; */
-
+.product-price {
+  float: left;
+  width: 10%;
 }
 
-/* 購物車 */
-.cart-box{
-    min-height: 600px;
-    width: 80%;
-    border: 1px solid black;
-    margin: 0 auto;
+.product-quantity {
+  float: left;
+  width: 10%;
+}
+
+.product-line-price {
+  float: left;
+  width: 10%;
+  white-space: nowrap;
+}
+
+.product-removal {
+  float: left;
+  width: 5%;
+  white-space: nowrap;
+}
+
+/* This is used as the traditional .clearfix class */
+/* 用於排版 */
+.group:before, .shopping-cart:before, .column-labels:before, .product:before,
+	.totals-item:before, .group:after, .shopping-cart:after, .column-labels:after,
+	.product:after, .totals-item:after {
+	content: "";
+	display: table;
+}
+/* 用於排版 */
+.group:after, .shopping-cart:after, .column-labels:after, .product:after,
+	.totals-item:after {
+	clear: both;
+}
+
+/* Apply clearfix in a few places */
+/* Apply dollar signs */
+/* 數字前加入$字號 */
+.product .product-price:before, .product .product-line-price:before,
+	.totals-value:before {
+	content: "$";
+}
+/* 標題字體顏色 */
+label {
+	color: #aaa;
+}
+
+/* Column headers */
+/* 標題與下方的距離 */
+.column-labels label {
+	height: 40px;
+	padding-bottom: 15px;
+	margin-bottom: 15px;
+	border-bottom: 1px solid #eee;
+	color: black;
+}
+
+/* Product entries */
+.product {
+	margin-bottom: 20px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #eee;
+}
+
+.product .product-image {
+	text-align: center;
+}
+
+.product .product-image img {
+	width: 100px;
+}
+
+.product .product-details .product-title {
+	margin-right: 20px;
+}
+
+.product .product-details .product-description {
+	margin: 5px 20px 5px 0;
+	line-height: 1.4em;
+}
+
+.product .product-quantity input {
+	width: 70px;
+}
+
+.product .remove-product {
+	border: 0;
+	padding: 4px 8px;
+	background-color: #c66;
+	color: #fff;
+	font-size: 12px;
+	border-radius: 3px;
+}
+
+.product .remove-product:hover {
+	background-color: #a44;
+}
+
+/* Totals section */
+.totals .totals-item {
+	float: right;
+	clear: both;
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.totals .totals-item label {
+	float: left;
+	clear: both;
+	width: 79%;
+	text-align: right;
+	color: black;
+}
+
+.totals .totals-item .totals-value {
+	float: right;
+	width: 21%;
+	text-align: right;
+}
+
+.checkout {
+	float: right;
+	border: 0;
+	margin-top: 20px;
+	padding: 6px 25px;
+	background-color: #6b6;
+	color: #fff;
+	font-size: 25px;
+	border-radius: 3px;
+}
+
+.checkout:hover {
+	background-color: #494;
+}
+
+/* Make adjustments for tablet 頁面縮小控制*/
+@media screen and (max-width: 650px) {
+	.shopping-cart {
+		margin: 0;
+		padding-top: 20px;
+		border-top: 1px solid #eee;
+	}
+	.column-labels {
+		display: none;
+	}
+	.product-image {
+		float: right;
+		width: auto;
+	}
+	.product-image img {
+		margin: 0 0 10px 10px;
+	}
+	.product-details {
+		float: none;
+		margin-bottom: 10px;
+		width: auto;
+	}
+	.product-price {
+		clear: both;
+		width: 70px;
+	}
+	.product-quantity {
+		width: 100px;
+	}
+	.product-quantity input {
+		margin-left: 20px;
+	}
+	.product-quantity:before {
+		content: "x";
+	}
+	.product-removal {
+		width: auto;
+	}
+	.product-line-price {
+		float: right;
+		width: 70px;
+	}
+}
+/* Make more adjustments for phone 頁面縮小控制*/
+@media screen and (max-width: 350px) {
+	.product-removal {
+		float: right;
+	}
+	.product-line-price {
+		float: right;
+		clear: left;
+		width: auto;
+		margin-top: 10px;
+	}
+	.product .product-line-price:before {
+		content: "Item Total: $";
+	}
+	.totals .totals-item label {
+		width: 60%;
+	}
+	.totals .totals-item .totals-value {
+		width: 40%;
+	}
+}
+
+/* checkbox控制 */
+input[type='checkbox'] {
+	zoom: 2;
 }

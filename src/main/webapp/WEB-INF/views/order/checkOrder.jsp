@@ -7,267 +7,365 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>要抒拉--確認訂單</title>
-
+<title>確認訂單--要抒拉</title>
+<!-- 載入 Bootstrap 的CSS -->
+<link
+	href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/cerulean/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-LV/SIoc08vbV9CCeAwiz7RJZMI5YntsH8rGov0Y2nysmepqMWVvJqds6y0RaxIXT"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+	integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+	crossorigin="anonymous"></script>
 <script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+	crossorigin="anonymous"></script>
+<!-- icon -->
+<script src="https://kit.fontawesome.com/041970ba48.js"
+	crossorigin="anonymous"></script>
+<script src="<spring:url value='/js/order/check.js' />"></script>
 <link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.css">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	href="<spring:url value='/css/product/nav.css' /> " />
 <link rel="stylesheet"
 	href="<spring:url value='/css/order/check.css' />">
-<script src="<spring:url value='/js/order/shoppingCart.js' />"></script>
 <!-- 下拉式地址 -->
 <script
 	src="https://cdn.jsdelivr.net/npm/tw-city-selector@2.1.0/dist/tw-city-selector.min.js"></script>
-
 <script>
 	new TwCitySelector();
 </script>
 <!-- 下拉式地址 -->
-</head>
 <style>
-a {
-	color: black;
-}
-
-#a-style a {
-	text-decoration: none;
-}
 /*下拉式選單地址*/
 #address select {
-	font: 16px Tahoma;
-	height: 30px;
-	margin-right: 5px;
+	margin-right: 10px;
+	padding-left: 0.5em;
 }
 </style>
-
-<body class="bg-light">
-
-	<div class="top_area">
-
-		<div class="logo">
-			<a href="<spring:url value='/' />"> <img
-				src="<spring:url value='/image/logo.png' />"
-				style="width: 100px; height: 100px;" alt="">
+</head>
+<body>
+	<!-- =======================導覽列================= -->
+	<nav class="navbar navbar-expand-lg navbar-light fixed-top p-0"
+		style="margin-bottom: 200px" id="navBody">
+		<div class="mr-auto">
+			<button id="hamberger-btn" class="navbar-toggler ml-3" type="button"
+				data-toggle="collapse" data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<a class="navbar-brand ml-3" href="<spring:url value='/' />"> <img
+				src="<spring:url value='/image/logo/logo_trans_92px.png' /> "
+				height="50px" /> 要抒拉
 			</a>
 		</div>
-		<div class="top-space"></div>
-		<c:choose>
-			<c:when test="${ ! empty LoginOK }">
-				<a href="<spring:url value='/login/logout' />"> 登出 <i
-					class="fas fa-sign-out-alt"></i>
-				</a>
-			</c:when>
-			<c:otherwise>
-				<a href="<spring:url value='/login/login'/>"> 登入 </a>
-			</c:otherwise>
-		</c:choose>
-	</div>
-	<ul id="a-style">
-		<div class="test">
-			<li class="dropdown"><i class="fas fa-bullhorn"></i> <a
-				href="#home">論壇</a>
-				<div class="dropdown-content">
-					<a href="#">惡魔版</a> <a href="#">天使版</a>
-				</div></li>
-			<li class="dropdown"><i class="fas fa-shopping-bag"></i> <a
-				href="#news">商城</a>
-				<div class="dropdown-content">
-					<a href="#">購物區</a> <a href="#">購物車</a> <a href="#">歷史訂單</a>
-				</div></li>
-			<li class="dropdown"><i class="fas fa-user-friends"></i> <a
-				href="">關於我們</a>
-				<div class="dropdown-content">
-					<a href="#">創建理念</a> <a href="#">團隊介紹</a> <a href="#">關於我們</a>
-				</div></li>
+		<div class="navbar-nav flex-row ml-auto"
+			style="position: absolute; right: 250px; top: 10px;"></div>
+		<div class="navbar-nav flex-row ml-auto"
+			style="position: absolute; right: 0; top: 10px;">
+			<!-- ==========判斷是否登入======== -->
+			<c:choose>
+				<c:when test="${empty LoginOK}">
+					<a class="navbar-brand mr-5"
+						href="<spring:url value='/member/login' />">登入</a>
+					<a class="navbar-brand mr-5"
+						href="<spring:url value='/member/register' />">註冊</a>
+				</c:when>
+				<c:otherwise>
+					<div style="width: 150px;">
+						<a class="mr-4" href="<spring:url value='/member/personPage' />"
+							style="text-decoration: none;" id="nav-memberId"> <img
+							src="<spring:url value='/member/getUserImage/${LoginOK.id}' />"
+							width="45px" height="45px" class="rounded-circle mr-2"
+							id="nav-memberPicture" /> ${LoginOK.memberId}
+						</a>
+					</div>
+					<a class="navbar-brand mr-5"
+						href="<spring:url value='/member/logout' />">登出</a>
+				</c:otherwise>
+			</c:choose>
 		</div>
-	</ul>
 
-	<div class="cart-box p-2">
-		<h1 class="m-0">確認訂單</h1>
-		<!-- 標題======================================== -->
-		<div class="items-menu border border-dark">
-			<!-- <hr style="background: black;" /> -->
-			<div class="row p-2">
-				<div
-					class="col-1 h4 m-0 d-flex justify-content-center align-items-center ">
-					<input type="checkbox" id="allCheck" onchange="changeAll()"
-						disabled />
-				</div>
-				<div
-					class="col-2 h6 m-0 d-flex justify-content-start align-items-center">
-					全選</div>
-				<div
-					class="col-2 h5 m-0 d-flex justify-content-center align-items-center">
-					商品名稱</div>
-				<div
-					class="col-3 h5 m-0 d-flex justify-content-center align-items-center">
-					規格</div>
-				<div
-					class="col-1 h5 m-0 d-flex justify-content-center align-items-center">
-					單價</div>
-				<div
-					class="col-1 h5 m-0 d-flex justify-content-center align-items-center">
-					數量</div>
-				<div
-					class="col-1 h5 m-0 d-flex justify-content-center align-items-center">
-					總價</div>
-				<div class="col-1 d-flex justify-content-center align-items-center"></div>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item dropdown mx-2"><a
+					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+					role="button" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false"> 論壇 </a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item"
+							href="<spring:url value='/article/showPageArticles?categoryTitle=天使' />">天使板</a>
+						<a class="dropdown-item"
+							href="<spring:url value='/article/showPageArticles?categoryTitle=惡魔' />">惡魔板</a>
+					</div></li>
+				<li class="nav-item dropdown mx-2"><a
+					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+					role="button" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false"> 商城 </a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item"
+							href="<spring:url value='/product/productHome' />">首頁</a> <a
+							class="dropdown-item"
+							href="<spring:url value='/order/shoppingCartList' />">購物車</a> <a
+							class="dropdown-item"
+							href="<spring:url value='/order/showHistoryOrder' />">歷史訂單</a>
+					</div></li>
+				<li class="nav-item mx-2"><a class="nav-link"
+					href="<spring:url value='/letter/letterHome' />">漂流瓶</a></li>
+				<c:if test="${LoginOK.permission=='管理員'}">
+					<li class="nav-item dropdown mx-2"><a
+						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+						role="button" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false"> 管理後台 </a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item"
+								href="<spring:url value='/article/showReports' />">檢舉專區</a> <a
+								class="dropdown-item"
+								href="<spring:url value='/member/showMembers' />">帳號管理</a> <a
+								class="dropdown-item"
+								href="<spring:url value='/order/showOrders' />">訂單管理</a><a
+								class="dropdown-item"
+								href="<spring:url value='/product/showProducts' />">商品管理</a>
+						</div></li>
+				</c:if>
+				<li class="nav-item dropdown mx-2 mb-1"><a
+					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+					role="button" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false"> 關於我們 </a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="#">創建理念</a> <a
+							class="dropdown-item" href="#">團隊介紹</a> <a class="dropdown-item"
+							href="<spring:url value='/aboutUs/contact' />">聯絡我們</a>
+					</div></li>
+			</ul>
+		</div>
+	</nav>
+	<!-- 導覽列 -->
+
+	<!-- 商城頁面 -->
+	<div id="bg-color">
+		<div id="Confirm_Order">
+			<!-- 訂單商品 -->
+			<span>確認訂單</span>
+			<div style="background-color: white;">
+				<section>
+					<!-- 商品分類 -->
+					<div id="procentext" class="row ">
+						<!-- 商品 -->
+						<div class="col-12">
+							<div class="shopping-cart">
+								<div class="column-labels procentext_list">
+									<label>商品名稱</label> <label>商品規格</label> <label>商品價格</label> <label>商品數量</label>
+									<label>總金額</label>
+								</div>
+								<c:forEach var="cartMap" varStatus="vs"
+									items="${ShoppingCart.content}">
+									<c:forEach var="orderMap" items="${cartMap.value}">
+										<c:forEach var="checkedMap" items="${ShoppingCart.checkedMap}">
+											<c:if test="${checkedMap.key==cartMap.key}">
+												<c:if test="${checkedMap.value=='y'}">
+													<div class="product procentext_list">
+														<div style="text-align: center;">
+															<img
+																src="<spring:url value='/product/getProductImage/${orderMap.key.productId}'/>">
+														</div>
+														<div>
+															<h5 style="color: rgb(73, 80, 87)">${orderMap.key.productName}</h5>
+														</div>
+														<div>
+															<!-- 如果沒有規格 就寫無 -->
+															<c:choose>
+																<c:when
+																	test="${(orderMap.key.formatContent1=='')&&(orderMap.key.formatContent2=='')}">無 </c:when>
+																<c:otherwise>
+																	<c:choose>
+																		<c:when test="${(orderMap.key.formatContent2=='')}">
+																			<span>${orderMap.key.formatContent1}</span>
+																		</c:when>
+																		<c:otherwise>
+																			<span style="color: #5B616A;">${orderMap.key.formatContent1}
+																				${orderMap.key.formatContent2}</span>
+																		</c:otherwise>
+																	</c:choose>
+																</c:otherwise>
+															</c:choose>
+														</div>
+														<div class="product-price">${orderMap.key.unitPrice}</div>
+														<div class="product-quantity">
+															<input type="number" value="${orderMap.key.quantity}"
+																min="1" disabled />
+														</div>
+														<div class="product-price singlePrice">${orderMap.key.unitPrice*orderMap.key.quantity}</div>
+													</div>
+												</c:if>
+											</c:if>
+										</c:forEach>
+									</c:forEach>
+								</c:forEach>
+								<div class="totals_view">
+									<div>總金額</div>
+									<div class="totals-value" id="totalPrice"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
 			</div>
-
-			<hr class="m-0" style="background: black;" />
-
-			<!-- 內容物=================================== -->
-
-
-			<c:forEach var="cartMap" varStatus="vs"
-				items="${ShoppingCart.content}">
-
-				<c:forEach var="orderMap" items="${cartMap.value}">
-					<c:forEach var="checkedMap" items="${ShoppingCart.checkedMap}">
-						<c:if test="${checkedMap.key==cartMap.key}">
-
-							<c:if test="${checkedMap.value=='y'}">
-
-								<div class="row p-2 cartItem">
+			<span>訂單資訊</span>
+			<!-- 訂單資訊 -->
+			<div style="background-color: white;">
+				<div class="card border-0 ">
+					<form class="needs-validation"
+						action="<spring:url value='/order/orderCheck'/>">
+						<div class="row" style="padding: 1em;">
+							<div style="width: 35%; min-width: 500px;" class="col-4">
+								<img src="<spring:url value='/image/order/616216.jpg' />"
+									style="width: 100%;">
+							</div>
+							<!-- flex-column:橫向變成直向, -->
+							<div style="width: 35%; min-width: 500px;"
+								class="d-flex flex-column form-group " style="margin-left: 2em;">
+								<div class="form-group">
+									<label for="name" class="pt-3 mr-1"
+										style="text-align: left; font-size: 1.5em;"> 姓名</label> <input
+										style="width: 45%; padding-left: 0.5em; font-size: 1.5em;"
+										type="text" id="name" name="name" placeholder="Name" required>
+								</div>
+								<div class="form-group" style="font-size: 1.5em;">
+									<label for="zone" class=" mr-1 " style="text-align: left;">地址</label>
+									<span> <span role="tw-city-selector" id="address"
+										style="font-size: inherit;"
+										data-county-value="${LoginOK.city}"
+										data-district-value="${LoginOK.area}"></span>
+									</span><br>
 									<div
-										class="col-1 d-flex justify-content-center align-items-center">
-										<input type="checkbox" class="choose" disabled
-											<c:if test="${checkedMap.value=='y'}"> checked </c:if>
-											onchange="changeChoose('${checkedMap.key}',${vs.index})" />
-									</div>
-									<div
-										class="col-2 d-flex justify-content-center align-items-center">
-
-										<img
-											src="<spring:url value='/product/getProductImage/${orderMap.key.productId}'/>"
-											style="max-width: 80%; max-height: 150px;" />
-
-									</div>
-									<div
-										class="col-2 h4 m-0 d-flex justify-content-center align-items-center">
-										${orderMap.key.productName}</div>
-									<div
-										class="col-3 h5 m-0 d-flex justify-content-center align-items-center">
-										<!-- 如果沒有規格 就寫無 -->
-										<c:choose>
-											<c:when
-												test="${(orderMap.key.formatContent1=='')&&(orderMap.key.formatContent2=='')}">無 </c:when>
-											<c:otherwise>
-												<c:choose>
-													<c:when test="${(orderMap.key.formatContent2=='')}">
-														<span>${orderMap.key.formatContent1}</span>
-													</c:when>
-													<c:otherwise>
-														<span style="color: #5B616A;">${orderMap.key.formatContent1}
-															${orderMap.key.formatContent2}</span>
-													</c:otherwise>
-												</c:choose>
-											</c:otherwise>
-										</c:choose>
-									</div>
-									<div
-										class="col-1 h5 m-0 d-flex justify-content-center align-items-center">
-										$ <span class="singlePrice">${orderMap.key.unitPrice}</span>
-									</div>
-									<div
-										class="col-1 h5 m-0 d-flex justify-content-center align-items-center"
-										style="padding: 0px;">
-
-										<!-- 無法更動數量 -->
-										<span style="color: #5B616A;">${orderMap.key.quantity}</span>
-									</div>
-									<div
-										class="col-1 h5 m-0 d-flex justify-content-center align-items-center ">
-										$ <span class="singleTotal">${orderMap.key.unitPrice*orderMap.key.quantity}</span>
-
-									</div>
-									<div
-										class="col-1 d-flex justify-content-center align-items-center">
-										<i class="fas fa-check"></i>
+										style="width: 70%; float: left; margin-top: 5px; margin-left: 2.4em;">
+										<input name="address" class=""
+											style="width: 100%; padding-left: 0.5em;" type="text"
+											required value="${LoginOK.address}">
 									</div>
 								</div>
-							</c:if>
-						</c:if>
-					</c:forEach>
-				</c:forEach>
-			</c:forEach>
-
-
-
-			<hr class="m-0" style="background: black;" />
-			<!-- 總金額================================================= -->
-			<div class="row p-2">
-				<div class="col-5"></div>
-				<div
-					class="col-4 h4 m-0 d-flex justify-content-center align-items-center">
-					總金額： $ <span id="totalPrice" class="mr-5"> </span> <span><a
-						href="<spring:url value='/product/showProductInfo/${productId}'/> ">返回<i
-							class="fas fa-arrow-left "></i></a></span>
+								<div class="form-group">
+									<label for="name" class="pt-3 mr-1"
+										style="text-align: left; font-size: 1.5em;">電話</label> <input
+										style="width: 45%; padding-left: 0.5em; font-size: 1.5em;"
+										placeholder="Phone" name="phone" value="${LoginOK.phone}"
+										maxlength="10" onkeyup="value=value.replace(/[^\d]/g,'')"
+										required>
+								</div>
+								<div class="form-group">
+									<label for="" class="pt-3 mr-1"
+										style="text-align: left; font-size: 1.5em;">付款方式</label> <select
+										name="" id=""
+										style="padding-left: 0.5em; width: 8.7em; font-size: 1.5em;">
+										<option value="">貨到付款</option>
+									</select>
+								</div>
+								<input type="hidden" name="buyCartStr" value="${buyCartStr}">
+							</div>
+							<div style="width: 30%;">
+								<textarea name="note" id="" class="annotation5" placeholder="備註"></textarea>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12 text-center">
+								<button type="submit" class="btn btn-primary">確認付款</button>
+							</div>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
 	</div>
 
 
-
-
-	<form action="<spring:url value='/order/orderCheck'/>">
-
-		<div class="items-menu border border-dark p-2"
-			style="width: 80%; margin: 50px 10% 0 10%;">
-			<h2>訂單資訊</h2>
-			<hr style="background: black;">
-			<div class="row p-2">
-
-				<div class="formBox col-7">
-
-					<!-- 					<label for="orderInfo" class="col-sm-6">訂單資訊</label> -->
-
-					<div class="form-group row">
-						<label for="name" class="col-sm-3 ml-3">姓名</label> <input
-							type="text" class="form-control  col-6" name="name" value=""
-							placeholder="Name" required="required">
-					</div>
-					<div class="form-group row">
-						<label for="address" class="col-sm-3 ml-3">地址</label>
-						<div role="tw-city-selector" id="address" class="col-4"
-							data-county-value="${LoginOK.city}"
-							data-district-value="${LoginOK.area}"></div>
-						<input name="address" value="${LoginOK.address}" type="text"
-							class="contentText form-control col-3" placeholder="Address"
-							required="required" />
-					</div>
-					<div class="form-group row">
-						<label for="address" class="col-sm-3 ml-3">電話</label> <input
-							type="text" class="form-control col-6" name="phone"
-							value="${LoginOK.phone}" placeholder="Phone" maxlength="10"
-							onkeyup="value=value.replace(/[^\d]/g,'')" required="required">
-					</div>
-					<div class="form-group row">
-						<label for="payment" class="col-sm-3 ml-3">付款方式</label> <select
-							class="form-control form-control-sm col-6">
-							<option>信用卡付款</option>
-						</select>
-					</div>
-					<input type="hidden" name="buyCartStr" value="${buyCartStr}">
-					<button type="submit" class="btn btn-primary ml-3">送出</button>
+	<!--========= footer================= -->
+	<!-- Footer -->
+	<footer class="page-footer font-small stylish-color-dark pt-2">
+		<!-- Footer Links -->
+		<div class="container text-center text-md-left mt-3">
+			<!-- Grid row -->
+			<div class="row">
+				<div
+					class="col-md-2 d-flex justify-content-center align-items-center">
+					<img
+						src="https://github.com/sun0722a/yaoshula/blob/master/src/logo/logo_trans_140px.png?raw=true"
+						width="120px" alt="" />
 				</div>
-				<div class="textAreaBox col-3">
-					<label for="">備註</label>
-					<textarea class="form-control w-75 h-50" name="note"></textarea>
-				</div>
+				<!-- Grid column -->
 
+				<div class="col-md-4 mx-auto">
+					<!-- Content -->
+					<h5 class="font-weight-bold text-uppercase mb-3">要抒啦！ 網路論壇&商城
+					</h5>
+					<p id="footer-introdution" class="text-secondary">
+						是個能夠預期回應溫度的論壇空間。希望在亂世間提供一個烏托邦式的空間，讓大家可以盡情釋放壓力，得到慰藉❤️。</p>
+					<div class="d-flex"></div>
+				</div>
+				<!-- Grid column -->
+
+				<hr class="clearfix w-100 d-md-none" />
+
+				<!-- Grid column -->
+				<div class="col-md-2 mx-auto">
+					<!-- Links -->
+					<h5 class="font-weight-bold text-uppercase mb-3">論壇</h5>
+
+					<ul class="list-unstyled">
+						<li><a
+							href="<spring:url value='/article/showPageArticles?categoryTitle=天使' />">天使版</a></li>
+						<li><a
+							href="<spring:url value='/article/showPageArticles?categoryTitle=惡魔' />">惡魔版</a></li>
+						<li><a href="<spring:url value='/letter/letterHome' />">漂流信</a></li>
+					</ul>
+				</div>
+				<!-- Grid column -->
+
+				<hr class="clearfix w-100 d-md-none" />
+
+				<!-- Grid column -->
+				<div class="col-md-2 mx-auto">
+					<!-- Links -->
+					<h5 class="font-weight-bold text-uppercase mb-3">商城</h5>
+
+					<ul class="list-unstyled">
+						<li><a href="<spring:url value='/product/productHome' />">商城首頁</a></li>
+						<li><a href="<spring:url value='/order/shoppingCartList' />">我的購物車</a></li>
+						<li><a href="<spring:url value='/order/showHistoryOrder' />">歷史訂單</a></li>
+					</ul>
+				</div>
+				<!-- Grid column -->
+
+				<hr class="clearfix w-100 d-md-none" />
+
+				<!-- Grid column -->
+				<div class="col-md-2 mx-auto">
+					<!-- Links -->
+					<h5 class="font-weight-bold text-uppercase mb-3">關於我們</h5>
+
+					<ul class="list-unstyled">
+						<li><a href="<spring:url value='/aboutUs/contact' />">聯絡我們</a></li>
+						<li><a href="#!">服務條款</a></li>
+						<li><a href="#!">隱私權政策</a></li>
+					</ul>
+				</div>
+				<!-- Grid column -->
 			</div>
-
+			<!-- Grid row -->
 		</div>
-	</form>
 
+		<!-- Copyright -->
+		<div class="footer-copyright text-center mt-0 pb-3"
+			style="font-size: 15px;">© 2020 Copyright © 2020 Speak It Up.
+			All rights reserved</div>
+		<!-- Copyright -->
+	</footer>
+	<!-- Footer -->
 
 </body>
 </html>

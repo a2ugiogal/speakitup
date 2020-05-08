@@ -1,8 +1,7 @@
 function doFirst() {
-	count = document.getElementsByClassName("count");
 	allCheck = document.getElementById("allCheck");
 	choose = document.getElementsByClassName("choose");
-	
+
 	for (let i = 0; i < choose.length; i++) {
 		choose[i].addEventListener("change", checkMoney);
 	}
@@ -31,6 +30,12 @@ function checkMoney() {
 		}
 	}
 	allCheck.checked = allChecked;
+}
+
+function checkShoppingCart(ShoppingCart) {
+	if (ShoppingCart == null) {
+		alert('購物車內無商品，前往購物')
+	}
 }
 
 window.addEventListener("load", doFirst);
