@@ -99,7 +99,12 @@ public class OrderController {
 
 	/* 前往訂單確認 */
 	@GetMapping("/orderList")
-	public String orderList() {
+	public String orderList(HttpSession session) {
+		// 取出session物件裡的購物車資料
+		ShoppingCart cart = (ShoppingCart) session.getAttribute("ShoppingCart");
+		if (cart == null) {
+			return "forward:/product/productHome";
+		}
 		return "order/checkOrder";
 	}
 
@@ -262,10 +267,8 @@ public class OrderController {
 						if (pfb.getFormatContent1().equals(oib.getFormatContent1())
 								&& pfb.getFormatContent2().equals(oib.getFormatContent2())) {
 							if (pfb.getStock() - oib.getQuantity() < 0) {
-								errorMsg.put("stock", pb.getProductName() + "的" + pfb.getFormatContent1() + " "
-										+ pfb.getFormatContent2() + " 庫存量不足!<br>庫存：" + pfb.getStock());
-
-								return "order/shoppingCart";
+								errorMsg.put(pb.getProductName(), pb.getProductName() + "的" + pfb.getFormatContent1()
+										+ " " + pfb.getFormatContent2() + " 庫存量不足!<br>庫存：" + pfb.getStock() + "<br>");
 							}
 						}
 					}
@@ -273,8 +276,11 @@ public class OrderController {
 					items.add(oib);
 				}
 			}
-
 		}
+		if (!errorMsg.isEmpty()) {
+			return "order/shoppingCart";
+		}
+
 		// 裝入OrderBean
 		ob.setOrderItems(items);
 

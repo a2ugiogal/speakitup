@@ -18,12 +18,12 @@ body{
     
 }
 
-.info_img{
-	width:50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+/* .info_img{ */
+/* 	width:50%; */
+/*     display: flex; */
+/*     justify-content: center; */
+/*     align-items: center; */
+/* } */
 
 .info_img img{
     width: 700px;
@@ -56,6 +56,7 @@ ul{
 
 /*四個按鈕那邊*/
 .btn{
+	text-align: center;
     width: 200px;
     height: 50px;
     border-radius: 25px;
@@ -71,6 +72,7 @@ ul{
 }
 
 .btnError{
+	text-align: center;
 	width: 200px;
     height: 50px;
     border-radius: 25px;
@@ -143,8 +145,8 @@ a{
     }
 
     .intro-container{
-/*     	align-items:center; */
-/*        justify-content: center; */
+    	align-items:center;
+       justify-content: center;
      
     }
 

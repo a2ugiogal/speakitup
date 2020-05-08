@@ -58,8 +58,8 @@ public class LetterServiceImpl implements LetterService{
 //	}
 	
 	@Override
-	public List<LetterBean> getAllLettersByMemberSend(String memberId,String status) {
-		return dao.getAllLettersByMemberSend(memberId,status);
+	public List<LetterBean> getAllLettersByMemberSend(String memberId,String status,String letterCategory) {
+		return dao.getAllLettersByMemberSend(memberId,status,letterCategory);
 	}
 
 

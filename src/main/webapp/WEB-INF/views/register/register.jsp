@@ -208,7 +208,8 @@
 												class="btn text-white check" />
 										</div>
 										<!--帳號 error msg -->
-										<div class="errorText col-sm-10 mb-2 " id="userNameText">${errorMsg.errorId}</div>
+										<div class="errorText col-sm-10 mb-2 " id="userNameText">
+											<form:errors path='memberId' />${errorMsg.errorId}</div>
 										<!-- ===密碼=== -->
 										<div class="col-sm-6 mb-3">
 											<input type="password" name="password"
@@ -238,7 +239,8 @@
 												class="btn text-white check" />
 										</div>
 										<!-- email err msg -->
-										<div class="errorText col-sm-10 mb-2" id="emailText">${errorMsg.errorEmail}</div>
+										<div class="errorText col-sm-10 mb-2" id="emailText">
+											<form:errors path='email' />${errorMsg.errorEmail}</div>
 
 										<div class="col-sm-10 mb-3">
 											<input name="phone" type="text" value="${mb.phone}"

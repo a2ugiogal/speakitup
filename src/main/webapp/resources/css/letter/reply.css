@@ -26,11 +26,7 @@
 
 
 body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
- 
+    background:#2F394D;
 }
 
 /*天使區照片*/
@@ -50,29 +46,34 @@ body{
 
 
 /*整個頁面*/
-.container{
-    position: relative;
+.mainContent{
+	width: 1800px;
+    height:700px;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    width: 1300px;
+    flex-direction:row;
+    justify-content: center;
     transform-style: preserve-3d;
 }
 
+.midSpace{
+	width:100%;
+	height:200px;
+}
 
 /*最上層的box*/
-.container .box{
+.mainContent .box{
     position: relative;
     width: 500px;
     height: 600px;
-    margin: 20px 0;
-    perspective: 1000px;
+     margin-right: 100px;
+    margin-left: 100px;
+    perspective: 1500px;
     overflow: hidden;
     transform-style: preserve-3d;
 }
 
 /*第二層的box(照片層)*/
-.container .box .imgBox{
+.mainContent .box .imgBox{
     position: absolute;
     top:0;
     left: 0;
@@ -84,13 +85,13 @@ body{
 }
 
 /*當hover到照片的box時*/
-.container .box:hover .imgBox{
+.mainContent .box:hover .imgBox{
     transform: rotateX(-90deg);
     opacity: 0;
 }
 
 /*照片層*/
-.container .box .imgBox img{
+.mainContent .box .imgBox img{
     position: absolute;
     top:0;
     left: 0;
@@ -100,7 +101,7 @@ body{
 }
 
 /*天使區的內容*/
-.container .box .contentBoxHappy{
+.mainContent .box .contentBoxHappy{
     font-size: 1.2rem;
     position: absolute;
     top: 0;
@@ -121,7 +122,7 @@ body{
 }
 
 /*惡魔區的內容*/
-.container .box .contentBoxSad{
+.mainContent .box .contentBoxSad{
     font-size: 1.1rem;
     position: absolute;
     top: 0;
@@ -142,7 +143,7 @@ body{
 }
 
 /*hover到天使區*/
-.container .box:hover .contentBoxHappy{
+.mainContent .box:hover .contentBoxHappy{
     
     transform: rotateX(0deg);
     opacity: 1;
@@ -150,7 +151,7 @@ body{
 
 
 /*hover到惡魔區*/
-.container .box:hover .contentBoxSad{
+.mainContent .box:hover .contentBoxSad{
     color: rgb(210, 222, 235);
     transform: rotateX(0deg);
     opacity: 1;

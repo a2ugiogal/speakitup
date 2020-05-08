@@ -10,6 +10,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.google.gson.annotations.Expose;
+
 @Entity
 @Table(name="Letters")
 public class LetterBean implements Serializable{
@@ -21,12 +23,15 @@ public class LetterBean implements Serializable{
 	@GeneratedValue(generator = "increment")
 	@GenericGenerator(name = "increment", strategy = "native")
 	private Integer letterId;
-	private String 	letterTitle;
-	private String 	letterWriter;
+	@Expose
+	private String letterTitle;
+	private String letterWriter;
 	private String sendTime;
+	@Expose
 	private String letterContent;
 	private String letterCategory;
 	private String letterReplier;
+	@Expose
 	private String replyContent;
 	private String status;
 	private String feedBack;

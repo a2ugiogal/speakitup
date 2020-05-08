@@ -78,10 +78,10 @@ public class LetterDaoImpl implements LetterDao {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<LetterBean> getAllLettersByMemberSend(String memberId,String status) {
+	public List<LetterBean> getAllLettersByMemberSend(String memberId,String status,String letterCategory) {
 		Session session = factory.getCurrentSession();
-		String hql = "FROM LetterBean l WHERE l.letterWriter = :memberId AND l.status = :status";
-		return session.createQuery(hql).setParameter("memberId", memberId).setParameter("status", status).getResultList();
+		String hql = "FROM LetterBean l WHERE l.letterWriter = :memberId AND l.status = :status AND l.letterCategory = :letterCategory";
+		return session.createQuery(hql).setParameter("memberId", memberId).setParameter("status", status).setParameter("letterCategory", letterCategory).getResultList();
 	}
 
 	@Override
