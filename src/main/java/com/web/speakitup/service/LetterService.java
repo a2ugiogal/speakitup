@@ -18,6 +18,6 @@ public interface LetterService {
 	public void updateLetterOccupied(int letterId,String status);
 	
 //	public Map<String,LetterBean> getAllLettersByMemberSend(String memberId,String status);
-	public List<LetterBean> getAllLettersByMemberSend(String memberId,String status);
+	public List<LetterBean> getAllLettersByMemberSend(String memberId,String status,String letterCategory);
 	
 }

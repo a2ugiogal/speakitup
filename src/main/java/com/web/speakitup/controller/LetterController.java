@@ -1,19 +1,27 @@
 package com.web.speakitup.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.web.speakitup._00_init.GlobalService;
 import com.web.speakitup.model.LetterBean;
 import com.web.speakitup.model.MemberBean;
@@ -246,7 +254,7 @@ public class LetterController {
 			@RequestParam("replyContent") String replyContent) {
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
 		String replyierId = mb.getMemberId();
-		
+
 		System.out.println("replyierId" + replyierId);
 		System.out.println("letterId" + letterId);
 		System.out.println("replyContent" + replyContent);
@@ -256,7 +264,6 @@ public class LetterController {
 		lb = new LetterBean(letterId, replyierId, replyContent, "y");
 		letterService.updateReply(lb);
 
-		
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		String replyDay = simpleDateFormat.format(new java.util.Date());
 		mb.setLastReplyDate(replyDay);
@@ -264,15 +271,70 @@ public class LetterController {
 
 		return "redirect:/letter/letterHome";
 	}
-	
+
+//	@GetMapping("/myLetters")
+//	public String myLetters(HttpSession session,Model model,HttpServletRequest request,HttpServletResponse response) {
+//		response.setCharacterEncoding("UTF-8");
+//		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
+//		String memberId = mb.getMemberId();
+//		String letterCategory = request.getParameter("type");
+//		System.out.println("type:" +letterCategory);
+//		List<LetterBean> letters=  letterService.getAllLettersByMemberSend(memberId, GlobalService.LETTER_STATUS_DONE,letterCategory);
+//		model.addAttribute("letters", letters);
+//		model.addAttribute("letterCategory", letterCategory);
+//		return "driftLetter/letters";
+////		return "driftLetter/letters";
+//	}
+
 	@GetMapping("/myLetters")
-	public String myLetters(HttpSession session) {
-		
+	public String myLetters(HttpSession session, Model model, HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
+		response.setCharacterEncoding("UTF-8");
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
 		String memberId = mb.getMemberId();
-		List<LetterBean> letters=  letterService.getAllLettersByMemberSend(memberId, GlobalService.LETTER_STATUS_DONE);
-		session.setAttribute("letters", letters);
+//		String letterCategory = request.getParameter("type");
+		String letterCategory = "天使";
+//		System.out.println("type:" + letterCategory);
+		List<LetterBean> letters = letterService.getAllLettersByMemberSend(memberId, GlobalService.LETTER_STATUS_DONE,
+				letterCategory);
+//		Gson gson=new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+//		try(PrintWriter out = response.getWriter()){
+//			out.write(gson.toJson(letters));
+//			out.flush();
+//		}
+//
+//		System.out.println(gson.toJson(letters));
+
+		model.addAttribute("letters", letters);
+		model.addAttribute("letterCategory", letterCategory);
+		
+//		return "driftLetter/letters";
 		return "driftLetter/letters";
+	}
+
+	@GetMapping("/myLetters/{category}")
+	public void myLetters(@PathVariable("category") String category, HttpSession session, HttpServletResponse response,HttpServletRequest request)
+			throws IOException {
+//		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+//		response.setContentType("application/json; charset=UTF-8");
+		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
+		String memberId = mb.getMemberId();
+		String letterCategory;
+		if (category.equals("devil")) {
+			letterCategory = "惡魔";
+		} else {
+			letterCategory = "天使";
+		}
+		List<LetterBean> letters = letterService.getAllLettersByMemberSend(memberId, GlobalService.LETTER_STATUS_DONE,
+				letterCategory);
+		System.out.println("letterCategory" + letterCategory);
+		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+		try (PrintWriter out = response.getWriter()) {
+			out.write(gson.toJson(letters));
+			out.flush();
+			
+		}
 	}
 
 }
