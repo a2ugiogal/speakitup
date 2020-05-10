@@ -15,7 +15,9 @@ public interface LetterService {
 	
 	public void updateReply(LetterBean lb);
 	
-	public void updateLetterOccupied(int letterId,String status);
+	public void updateLetterStatus(int letterId,String status);
+	
+	public void updateLetterFeedback(int letterId,String feedback);
 	
 //	public Map<String,LetterBean> getAllLettersByMemberSend(String memberId,String status);
 	public List<LetterBean> getAllLettersByMemberSend(String memberId,String status,String letterCategory);

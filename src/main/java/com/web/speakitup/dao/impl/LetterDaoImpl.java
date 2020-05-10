@@ -85,9 +85,15 @@ public class LetterDaoImpl implements LetterDao {
 	}
 
 	@Override
-	public void updateLetterOccupied(int letterId, String status) {
+	public void updateLetterStatus(int letterId, String status) {
 		String hql = "UPDATE LetterBean l SET l.status = :status WHERE l.letterId =:letterId";
 		factory.getCurrentSession().createQuery(hql).setParameter("status", status).setParameter("letterId", letterId).executeUpdate();
+	}
+
+	@Override
+	public void updateLetterFeedback(int letterId, String feedback) {
+		String hql = "UPDATE LetterBean l set l.feedback = :feedback WHERE l.letterId = :id";
+		factory.getCurrentSession().createQuery(hql).setParameter("feedback", feedback).setParameter("id", letterId).executeUpdate();
 	}
 	
 }

@@ -162,7 +162,7 @@ public class LetterController {
 				// 更新信件狀態 讓信件無法被其他會員取得 會員在同一天也只能拿到同樣的一封
 				mb.setLetterOftheDay(letterId);
 				memberService.updateLetterOftheDay(memberId, letterId);
-				letterService.updateLetterOccupied(letterId, GlobalService.LETTER_STATUS_OCCUPIED);
+				letterService.updateLetterStatus(letterId, GlobalService.LETTER_STATUS_OCCUPIED);
 
 				System.out.println("信件作者:" + lb.getLetterWriter());
 				System.out.println("回覆類型: " + lb.getLetterCategory());
@@ -218,7 +218,7 @@ public class LetterController {
 				// 把取得的letterId傳進mb物件裡面並更新
 				mb.setLetterOftheDay(letterId);
 				memberService.updateLetterOftheDay(memberId, letterId);
-				letterService.updateLetterOccupied(letterId, GlobalService.LETTER_STATUS_OCCUPIED);
+				letterService.updateLetterStatus(letterId, GlobalService.LETTER_STATUS_OCCUPIED);
 
 				session.setAttribute("lb", lb);
 				System.out.println("信件作者:" + lb.getLetterWriter());
@@ -272,52 +272,27 @@ public class LetterController {
 		return "redirect:/letter/letterHome";
 	}
 
-//	@GetMapping("/myLetters")
-//	public String myLetters(HttpSession session,Model model,HttpServletRequest request,HttpServletResponse response) {
-//		response.setCharacterEncoding("UTF-8");
-//		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
-//		String memberId = mb.getMemberId();
-//		String letterCategory = request.getParameter("type");
-//		System.out.println("type:" +letterCategory);
-//		List<LetterBean> letters=  letterService.getAllLettersByMemberSend(memberId, GlobalService.LETTER_STATUS_DONE,letterCategory);
-//		model.addAttribute("letters", letters);
-//		model.addAttribute("letterCategory", letterCategory);
-//		return "driftLetter/letters";
-////		return "driftLetter/letters";
-//	}
 
+	//剛進來我的信件時，預設先給他天使類型的信件
 	@GetMapping("/myLetters")
 	public String myLetters(HttpSession session, Model model, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		response.setCharacterEncoding("UTF-8");
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
 		String memberId = mb.getMemberId();
-//		String letterCategory = request.getParameter("type");
 		String letterCategory = "天使";
-//		System.out.println("type:" + letterCategory);
 		List<LetterBean> letters = letterService.getAllLettersByMemberSend(memberId, GlobalService.LETTER_STATUS_DONE,
 				letterCategory);
-//		Gson gson=new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-//		try(PrintWriter out = response.getWriter()){
-//			out.write(gson.toJson(letters));
-//			out.flush();
-//		}
-//
-//		System.out.println(gson.toJson(letters));
-
 		model.addAttribute("letters", letters);
 		model.addAttribute("letterCategory", letterCategory);
-		
-//		return "driftLetter/letters";
 		return "driftLetter/letters";
 	}
-
+	
+	//進去頁面後 要切換信件類型時就採取AJAX的方式變換
 	@GetMapping("/myLetters/{category}")
 	public void myLetters(@PathVariable("category") String category, HttpSession session, HttpServletResponse response,HttpServletRequest request)
 			throws IOException {
-//		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-//		response.setContentType("application/json; charset=UTF-8");
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
 		String memberId = mb.getMemberId();
 		String letterCategory;
@@ -328,13 +303,29 @@ public class LetterController {
 		}
 		List<LetterBean> letters = letterService.getAllLettersByMemberSend(memberId, GlobalService.LETTER_STATUS_DONE,
 				letterCategory);
-		System.out.println("letterCategory" + letterCategory);
 		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 		try (PrintWriter out = response.getWriter()) {
 			out.write(gson.toJson(letters));
 			out.flush();
 			
 		}
+	}
+	
+	@PostMapping("/deleteLetter")
+	public void deleteLetters(@RequestParam("id") int letterId,HttpSession session) {
+		System.out.println("要刪除的信件ID" + letterId);
+		letterService.updateLetterFeedback(letterId, GlobalService.LETTER_BADFEEDBACK);
+		
+		return;
+	}	
+	
+	
+	@PostMapping("/likeLetter")
+	public void likeLetters(@RequestParam("id") int letterId,HttpSession session) {
+		System.out.println("喜歡的信件ID" + letterId);
+		letterService.updateLetterFeedback(letterId, GlobalService.LETTER_FEEDBACK);
+		
+		return;
 	}
 
 }

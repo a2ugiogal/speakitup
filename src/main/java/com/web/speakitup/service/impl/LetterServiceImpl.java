@@ -65,8 +65,16 @@ public class LetterServiceImpl implements LetterService{
 
 
 	@Override
-	public void updateLetterOccupied(int letterId, String status) {
-		dao.updateLetterOccupied(letterId, status);
+	public void updateLetterStatus(int letterId, String status) {
+		dao.updateLetterStatus(letterId, status);
+		
+	}
+
+
+
+	@Override
+	public void updateLetterFeedback(int letterId, String feedback) {
+		dao.updateLetterFeedback(letterId, feedback);
 		
 	}
 }

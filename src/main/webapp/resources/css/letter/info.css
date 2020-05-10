@@ -10,7 +10,7 @@ body{
     
 }
 
-.container{
+.mainContent{
     width: 90vw;
     height: 100vh;
     display: grid;
@@ -27,6 +27,7 @@ body{
 
 .info_img img{
     width: 700px;
+    margin-top:100px;
 }
 
 
@@ -35,12 +36,13 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    
+    margin-left:50px;
 }
 
 
 /*簡介文字大小*/
 ul{
+	margin-left:20px;
 	font-size:1.3rem;
 }
 
@@ -50,14 +52,14 @@ ul{
 
 .btnGroup{
     display: grid;
-	grid-template-columns: 1fr 1fr;
+	grid-template-columns: 1fr 1fr 1fr;
 }
 
 
 /*四個按鈕那邊*/
 .btn{
 	text-align: center;
-    width: 200px;
+    width: 180px;
     height: 50px;
     border-radius: 25px;
     font-size: 1.1rem;
@@ -94,35 +96,65 @@ a{
     color: #fff;
 }
 
+@media screen and (max-width:1500px){
+	
+		.info_img img{
+        width: 600px;
+        margin-top:100px;
+    }
 
+	}
 
 @media screen and (max-width:1200px){
+	
+	.intro-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left:50px;
+}
+	
     .info_img img{
-    	margin:10px;
-        width: 400px;
+    	margin:150px auto auto 100px;
+        width: 450px;
     }
 	
 	
     ul{
-        font-size: 1.1rem;
+    	
+        font-size: 0.9rem;
     }
     
     .btnGroup{
     display: grid;
-	grid-template-columns: 1fr 1fr;
+	grid-template-columns: 1fr 1fr 1fr;
 	
 }
 	.btn,.btnError{
-		width:200px;
+	font-size:0.9rem;
+		width:120px;
+		height: 40px;
 	}
     
 }
 
 
-@media screen and (max-width:1000px){
 
+@media screen and (max-width:1000px){
+	
+	.mainContent{
+	
+    width: 90vw;
+    height: 100vh;
+	display:flex;
+	flex-direction:row;
+	justify-content:space-around;
+    
+}
+	
     .info_img img{
-        width: 350px;
+    	margin-top:100px;
+        width: 400px;
     }
 
     ul{
@@ -136,41 +168,33 @@ a{
 }
 
 @media screen and (max-width:900px){
-    .info_img{
-        display: none;
+	
+	.info_img{
+	width:fit-content;
+	height:fit-content;
+	}
+	
+     .info_img img{
+        width: 300px;
     }
-
-    .container{
-        grid-template-columns: 1fr;
-    }
-
-    .intro-container{
-    	align-items:center;
-       justify-content: center;
-     
-    }
-
-
-/*     .formTop{ */
-/*         text-align: center; */
-/*     } */
 
     h1{
         font-size: 2.4rem;
     }
 
     ul{
-        font-size: 1rem;
+    width:400px;
+        font-size: 0.8rem;
     }
 
     .btn,.btnError{
-        width: 150px;
-       	font-size:1rem;
+        width: 90px;
+       	font-size:0.7rem;
     }
     
  	.btnGroup{
     display: grid;
-/* 	grid-template-columns: 1fr 1fr; */
+	grid-template-columns: 1fr 1fr 1fr;
 	justify-content: center;
   	align-items: center; 
  	
@@ -178,8 +202,10 @@ a{
  	 
 }
 
-@media screen and (max-width:400px){
+@media screen and (max-width:600px){
+	
 
+	
     .intro-container{
         width: 100%;
     }
@@ -188,6 +214,9 @@ a{
         display: none;
     }
 
+	.info_img img{
+	 display: none;
+	}
 
     ul{
         font-size: 1.2rem;

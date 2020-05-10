@@ -49,6 +49,9 @@ public class GlobalService {
 	public static final String LETTER_STATUS_DONE = "y";
 	public static final String LETTER_STATUS_UNDONE = "n";
 	public static final String LETTER_STATUS_OCCUPIED = "o";	
+	public static final String LETTER_STATUS_DELETE = "d";
+	public static final String LETTER_FEEDBACK = "like";
+	public static final String LETTER_BADFEEDBACK = "dislike";
 	public static final String LETTER_TYPE_ANGEL = "天使";
 	public static final String LETTER_TYPE_DEVIL = "惡魔";
 	public String getSystemName() { // systemName ${SYSTEM.systemName}

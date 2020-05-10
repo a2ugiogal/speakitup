@@ -22,6 +22,7 @@ public class LetterBean implements Serializable{
 	@Id
 	@GeneratedValue(generator = "increment")
 	@GenericGenerator(name = "increment", strategy = "native")
+	@Expose
 	private Integer letterId;
 	@Expose
 	private String letterTitle;
@@ -34,12 +35,13 @@ public class LetterBean implements Serializable{
 	@Expose
 	private String replyContent;
 	private String status;
-	private String feedBack;
+	@Expose
+	private String feedback;
 	
 	
 	
 	public LetterBean(Integer letterId, String letterTitle, String letterWriter, String sendTime, String letterContent,
-			String letterCategory, String letterReplier, String replyContent, String status, String feedBack) {
+			String letterCategory, String letterReplier, String replyContent, String status, String feedback) {
 		super();
 		this.letterId = letterId;
 		this.letterTitle = letterTitle;
@@ -50,7 +52,7 @@ public class LetterBean implements Serializable{
 		this.letterReplier = letterReplier;
 		this.replyContent = replyContent;
 		this.status = status;
-		this.feedBack = feedBack;
+		this.feedback = feedback;
 	}
 	
 	
@@ -143,11 +145,11 @@ public class LetterBean implements Serializable{
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public String getFeedBack() {
-		return feedBack;
+	public String getFeedback() {
+		return feedback;
 	}
-	public void setFeedBack(String feedBack) {
-		this.feedBack = feedBack;
+	public void setFeedback(String feedback) {
+		this.feedback = feedback;
 	}
 	
 	

@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
     <link rel="stylesheet" href="<spring:url value='/css/letter/sendAngel.css' /> ">
     <link rel="stylesheet" href="<spring:url value='/css/letter/nav.css' /> ">
+<link rel="stylesheet" href="<spring:url value='/css/letter/leaves.css' /> ">
     <script src="<spring:url value='/js/letter/forSend.js' /> "></script>
 <title>寄封天使信</title>
 </head>
@@ -124,8 +125,10 @@
 			</ul>
 		</div>
 	</nav>
+
+<div class="mainContent">
 	<div class="midSpace"></div>
-<form action ="<spring:url value='/letter/sendAngel' />" method="POST">
+	<form action ="<spring:url value='/letter/sendAngel' />" method="POST">
  <div class="container-fluid">
 
         <!-- Outer Row -->
@@ -172,6 +175,46 @@
       </div>
       </div>
       </form>
+      
+      <section class="leavesDiv">
+         <div class="set">
+             <div><img src="<spring:url value='/image/letter/leaves.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
+             <div><img src="<spring:url value='/image/letter/leaves.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
+             <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
+             <div><img src="<spring:url value='/image/letter/leaves.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
+             <div><img src="<spring:url value='/image/letter/leaves.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
+             <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
+         </div>
+         <div class="set set2">
+            <div><img src="<spring:url value='/image/letter/leaves.png' /> " ></div>
+            <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
+            <div><img src="<spring:url value='/image/letter/leaves.png' /> " ></div>
+            <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
+            <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
+            <div><img src="<spring:url value='/image/letter/leaves.png' /> " ></div>
+            <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
+            <div><img src="<spring:url value='/image/letter/leaves.png' /> " ></div>
+            <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
+            <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
+        </div>
+        <div class="set set3">
+            <div><img src="<spring:url value='/image/letter/leaves.png' /> " ></div>
+            <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
+            <div><img src="<spring:url value='/image/letter/leaves.png' /> " ></div>
+            <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
+            <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
+            <div><img src="<spring:url value='/image/letter/leaves.png' /> " ></div>
+            <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
+            <div><img src="<spring:url value='/image/letter/leaves.png' /> " ></div>
+            <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
+            <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
+        </div>
+     </section>
+</div>	
 
 </body>
 </html>

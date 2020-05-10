@@ -13,12 +13,14 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 	crossorigin="anonymous" />
+    
     <link rel="stylesheet" href="<spring:url value='/css/letter/send.css' /> ">
-    <link rel="stylesheet" href="<spring:url value='/css/letter/nav.css' /> ">
+        <link rel="stylesheet" href="<spring:url value='/css/letter/nav.css' /> ">
     <script src="<spring:url value='/js/letter/sendReply.js' /> " ></script>
 <title>寄信</title>
 </head>
 <body>
+	  
 <!-- =======================導覽列================= -->
 	<nav class="navbar navbar-expand-lg navbar-light fixed-top p-0"
 		style="margin-bottom: 200px" id="navBody">

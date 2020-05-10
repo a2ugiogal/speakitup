@@ -13,9 +13,10 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 <link rel="stylesheet" href="<spring:url value='/css/letter/letters.css' /> ">
 <link rel="stylesheet" href="<spring:url value='/css/letter/nav.css' /> ">
-<script src="<spring:url value='/js/letter/lettersNew.js' /> "></script>
+
 <title>我的信件</title>
 </head>
 <body>
@@ -124,7 +125,9 @@
 			</ul>
 		</div>
 	</nav>
-	<div id="showMyLetters">
+	
+	
+	<div id="showMyLetters" class="mainBox animated fadeIn">
 			<c:if test="${letterCategory == '天使'}">
 					<c:forEach var='letters' items='${letters}' varStatus="letterNo">
 						<!--1-->
@@ -135,22 +138,33 @@
 								<h3>${letterCategory}</h3>
 								<h3>寄信內容</h3>
 								<p>${letters.letterContent}</p>
+<%-- 								<div id="${letters.letterId}" style="display:none"></div> --%>
 								<div class="sendBoxBotAngel">
 								<div class="watchReply">看回信</div>
-								<div>
+								<div class="btnDiv">
 								<ul>
                             <li>
                              <label class="feedbackBtnAngel">
-                                 <input type="checkbox">
-                                 <div class="iconBox">
-                                     <i class="far fa-handshake"></i>
-                                  </div>
+                             	<c:choose>
+	                             	<c:when test="${letters.feedback == 'like'}">
+	                             		 <input type="checkbox" checked="checked" class="like${letters.letterId}">
+	                                 <div class="iconBox" onclick="likeFeedback(${letters.letterId})">
+	                                     <i class="far fa-handshake"></i>
+	                                  </div>
+	                             	</c:when>
+	                             	<c:otherwise>
+		                             	<input type="checkbox"  class="like${letters.letterId}">
+	                                 	<div class="iconBox" onclick="likeFeedback(${letters.letterId})" >
+	                                     	<i class="far fa-handshake"></i>
+	                                  </div>
+	                             	</c:otherwise>
+                             	</c:choose>      
                               </label>
                             </li>
                             <li>
                              <label class="hateBtn">
-                                 <input type="checkbox">
-                                 <div class="iconBox">
+                                 <input type="checkbox" class="hate${letters.letterId}">
+                                 <div class="iconBox" onclick="deleteFeedback(${letters.letterId})">
                                      <i class="fas fa-exclamation-triangle"></i>
                                   </div>
                               </label>
@@ -199,87 +213,66 @@
         <span class="btn"></span>
     </label>
 	
-	<!--========= footer================= -->
-	<!-- Footer -->
-<!-- 	<footer class="page-footer font-small stylish-color-dark pt-2"> -->
-<!-- 		<!-- Footer Links --> -->
-<!-- 		<div class="container text-center text-md-left mt-3"> -->
-<!-- 			<!-- Grid row --> -->
-<!-- 			<div class="row"> -->
-<!-- 				<div -->
-<!-- 					class="col-md-2 d-flex justify-content-center align-items-center"> -->
-<!-- 					<img -->
-<!-- 						src="https://github.com/sun0722a/yaoshula/blob/master/src/logo/logo_trans_140px.png?raw=true" -->
-<!-- 						width="120px" alt="" /> -->
-<!-- 				</div> -->
-<!-- 				Grid column -->
+	<!-- 給予喜歡的浮動視窗 -->
+	<div class="modal fade" id="likeModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5>要給予對方正面回饋嗎</h5>
+					<button type="button" class="close closeBtn" data-dismiss="modal"
+						aria-label="" >
+						<span>×</span>
+					</button>
+				</div>
 
-<!-- 				<div class="col-md-4 mx-auto"> -->
-<!-- 					Content -->
-<!-- 					<h5 class="font-weight-bold text-uppercase mb-3">要抒啦！ 網路論壇&商城 -->
-<!-- 					</h5> -->
-<!-- 					<p id="footer-introdution" class="text-secondary"> -->
-<!-- 						是個能夠預期回應溫度的論壇空間。希望在亂世間提供一個烏托邦式的空間，讓大家可以盡情釋放壓力，得到慰藉❤️。</p> -->
-<!-- 					<div class="d-flex"></div> -->
-<!-- 				</div> -->
-<!-- 				Grid column -->
+				<div class="modal-body">
+				<input type="hidden" id="likeLetterId">
+					
+					<p>
+						<button type="button" id="sendLike" class="btn btn-light ml-3">沒錯</button>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class="modal fade" id="unlikeModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5>要給予對方負面回饋嗎</h5>
+					<button type="button" class="close closeBtn" data-dismiss="modal"
+						aria-label="" >
+						<span>×</span>
+					</button>
+				</div>
 
-<!-- 				<hr class="clearfix w-100 d-md-none" /> -->
-
-<!-- 				Grid column -->
-<!-- 				<div class="col-md-2 mx-auto"> -->
-<!-- 					Links -->
-<!-- 					<h5 class="font-weight-bold text-uppercase mb-3">論壇</h5> -->
-
-<!-- 					<ul class="list-unstyled"> -->
-<!-- 						<li><a -->
-<%-- 							href="<spring:url value='/article/showPageArticles?categoryTitle=天使' />">天使版</a></li> --%>
-<!-- 						<li><a -->
-<%-- 							href="<spring:url value='/article/showPageArticles?categoryTitle=惡魔' />">惡魔版</a></li> --%>
-<%-- 						<li><a href="<spring:url value='/letter/letterHome' />">漂流信</a></li> --%>
-<!-- 					</ul> -->
-<!-- 				</div> -->
-<!-- 				Grid column -->
-
-<!-- 				<hr class="clearfix w-100 d-md-none" /> -->
-
-<!-- 				Grid column -->
-<!-- 				<div class="col-md-2 mx-auto"> -->
-<!-- 					Links -->
-<!-- 					<h5 class="font-weight-bold text-uppercase mb-3">商城</h5> -->
-
-<!-- 					<ul class="list-unstyled"> -->
-<%-- 						<li><a href="<spring:url value='/product/productHome' />">商城首頁</a></li> --%>
-<%-- 						<li><a href="<spring:url value='/order/shoppingCartList' />">我的購物車</a></li> --%>
-<%-- 						<li><a href="<spring:url value='/order/showHistoryOrder' />">歷史訂單</a></li> --%>
-<!-- 					</ul> -->
-<!-- 				</div> -->
-<!-- 				Grid column -->
-
-<!-- 				<hr class="clearfix w-100 d-md-none" /> -->
-
-<!-- 				Grid column -->
-<!-- 				<div class="col-md-2 mx-auto"> -->
-<!-- 					Links -->
-<!-- 					<h5 class="font-weight-bold text-uppercase mb-3">關於我們</h5> -->
-
-<!-- 					<ul class="list-unstyled"> -->
-<%-- 						<li><a href="<spring:url value='/aboutUs/contact' />">聯絡我們</a></li> --%>
-<!-- 						<li><a href="#!">服務條款</a></li> -->
-<!-- 						<li><a href="#!">隱私權政策</a></li> -->
-<!-- 					</ul> -->
-<!-- 				</div> -->
-<!-- 				Grid column -->
-<!-- 			</div> -->
-<!-- 			<!-- Grid row --> -->
-<!-- 		</div> -->
-
-<!-- 		<!-- Copyright --> -->
-<!-- 		<div class="footer-copyright text-center mt-0 pb-3" -->
-<!-- 			style="font-size: 15px;">© 2020 Copyright © 2020 Speak It Up. -->
-<!-- 			All rights reserved</div> -->
-<!-- 		<!-- Copyright --> -->
-<!-- 	</footer> -->
-	<!-- Footer -->
+				<div class="modal-body">
+				<input type="hidden" id="unlikeLetterId">
+					
+					<p>
+						<button type="button" class="btn btn-light ml-3" id="sendUnlike">沒錯</button>
+					</p>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+		integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+		integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+		crossorigin="anonymous"></script>
+	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+	<script src="<spring:url value='/js/letter/letters.js' /> "></script>
 </body>
 </html>
