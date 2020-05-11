@@ -8,24 +8,25 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>商品細節--要抒啦</title>
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-	integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-	crossorigin="anonymous"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-	crossorigin="anonymous"></script>
-<link
-	href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/cerulean/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-LV/SIoc08vbV9CCeAwiz7RJZMI5YntsH8rGov0Y2nysmepqMWVvJqds6y0RaxIXT"
-	crossorigin="anonymous">
+
+
 <!-- icon -->
 <script src="https://kit.fontawesome.com/041970ba48.js"
+	crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+	crossorigin="anonymous" />
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+	integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+	integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
 	crossorigin="anonymous"></script>
 <script src="<spring:url value='/js/product/productInfo.js' /> "></script>
 <link rel="stylesheet"
@@ -36,10 +37,39 @@
 	href="<spring:url value='/css/loginModel.css' /> " />
 <script type="text/javascript">
 	function addShoppinCart() {
-		buyForm = document.getElementById("buyForm");
-		buyForm.action = "<spring:url value='/order/shoppingCart' />";
-		buyForm.method = "GET";
-		buyForm.submit();
+		var cart = $('.addToCartLoc');
+		var imgtodrag = $('body').find('.productImg').find('img').eq(0);
+		if (imgtodrag) {
+			var imgclone = imgtodrag.clone().offset({
+				top : imgtodrag.offset().top,
+				left : imgtodrag.offset().left
+			}).css({
+				'opacity' : '0.8',
+				'position' : 'absolute',
+				'height' : '150px',
+				'width' : '150px',
+				'z-index' : '1031'
+			}).appendTo($('body')).animate({
+				'top' : cart.offset().top + 10,
+				'left' : cart.offset().left + 10,
+				'width' : 75,
+				'height' : 75
+			}, 1000, 'easeInOutExpo');
+
+			imgclone.animate({
+				'width' : 0,
+				'height' : 0
+			}, function() {
+				$(this).detach()
+			});
+		}
+		
+		setTimeout(function() {
+			buyForm = document.getElementById("buyForm");
+			buyForm.action = "<spring:url value='/order/shoppingCart' />";
+			buyForm.method = "GET";
+			buyForm.submit();
+		}, 3000);
 	}
 
 	function buyNow() {
@@ -47,6 +77,10 @@
 		buyForm.action = "<spring:url value='/order/checkOrder' />";
 		buyForm.method = "GET";
 		buyForm.submit();
+	}
+	
+	function loginModel() {
+		$("#ignismyModal").modal("show");
 	}
 </script>
 </head>
@@ -121,7 +155,7 @@
 							href="<spring:url value='/product/productHome' />">商城</a></li>
 					</c:when>
 					<c:otherwise>
-						<li class="nav-item dropdown mx-2"><a
+						<li class="nav-item dropdown mx-2 addToCartLoc"><a
 							class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> 商城 </a>
@@ -268,17 +302,22 @@
 					</div>
 					<div class="row p-5"
 						style="background-color: rgba(248, 248, 248, 0.336)">
-						<div style="width: 35%;">
+						<div style="width: 35%;" class="productImg">
 							<img
 								src="<spring:url value='/product/getProductImage/${product.productId}' />"
-								style="width: 100%;">
+								style="width: 100%;" alt="item">
 						</div>
 						<div class="Commodity_control" style="margin: 0px; width: 65%;">
 							<div class="pl-4">
 								<div class="Product_title">
+
 									<span>
 										<h3 class="text-dark">${product.productName}</h3>
+
 									</span>
+<!-- 									<div class="addToCartLoc"> -->
+<!-- 										<i class="fas fa-shopping-cart"></i> -->
+<!-- 									</div> -->
 								</div>
 								<span>&nbsp</span>
 								<div>
@@ -337,7 +376,7 @@
 										</div>
 									</div>
 									<div>
-										<button type="button" class="btn btn-outline-danger"
+										<button type="button" class="addToCart btn btn-outline-danger"
 											<c:choose>
 												<c:when test="${empty LoginOK}">onclick="loginModel()"</c:when>
 												<c:otherwise>onclick="addShoppinCart()"</c:otherwise>
@@ -474,5 +513,14 @@
 			</div>
 		</div>
 	</div>
+<<<<<<< HEAD
+
+
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+
+=======
+>>>>>>> e92b6d9a6b730f33c2d9d7f182e9dd99bb6c838d
 </body>
 </html>

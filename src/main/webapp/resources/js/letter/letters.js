@@ -61,10 +61,10 @@ function success(response,type){
 	for(i=0;i<response.length;i++){
 		inner+="<div class='"+class1+"'>";
 		inner+="<div class='"+class2+"'>";
-		inner+="<h2>"+(i+1)+"</h2>";
-		inner+="<h2>"+response[i].letterTitle+"</h2>";
-		inner+="<h3>惡魔</h3>";
-		inner+="<h3>寄信內容</h3>";
+		inner+="<p><h2>"+(i+1)+"</h2></p>";
+		inner+="<p><h2>"+response[i].letterTitle+"</h2></p>";
+		inner+="<p><h3>惡魔</h3></p>";
+		inner+="<p><h5>"+response[i].sendTime+"</h5></p>";
 		inner+="<p>"+response[i].letterContent+"</p>";
 		inner+="<div class='"+class3+"'>";	
 		inner+="<div class='watchReply'>看回信</div>";
@@ -98,7 +98,7 @@ function success(response,type){
 		inner+="</div>";
 		inner+="</div>";
 		inner+="<div class='"+class5+" animated'>";
-		inner+="<h3>回信內容</h3>";
+		inner+="<p><h3>回信內容</h3></p>";
 		inner+="<p>"+response[i].replyContent+"</p>";
 		inner+="<div class='back'>返回</div>";
 		inner+="</div>";
@@ -137,69 +137,67 @@ function back(){
     });
 }
 //正面回饋鈕
-function likeFeedback(id){
+//function likeFeedback(id){
+//	$('#likeFeedback').click((e)=>{
+//		e.preventDefault();
+//		id = $('#likeLetterId').val();
+//		alert(id)
+//		$('.hate'+id).prop('checked',false);
+//		xhr = new XMLHttpRequest();
+//	     $.ajax({
+//    		url : "/speakitup/letter/likeLetter?id=" + id,
+//    		type : "POST",
+//    		success : function() {
+//    			
+//    		}
+//    	});
+//	})
+//	
+//	
+//
+//
+//
+//
+////覆面回饋鈕
+////function deleteFeedback(id){
+//		$('#hateFeedback').click((e)=>{
+//			e.preventDefault();
+//			id = $('#hateLetterId').val();
+//			alert(id)
+//			$('.like'+id).prop('checked',false);
+//			xhr = new XMLHttpRequest();
+//		     $.ajax({
+//		 		url : "/speakitup/letter/deleteLetter?id=" + id,
+//		 		type : "POST",
+//		 		success : function(){
+//		 		}
+//		 	});
+//		})
+//	
+////}
 
-//	if($('.like'+id.value).prop('checked') == false || $('.like'+id.value).prop('checked') == null){		
-		$('#likeModal').modal("show");
-		likeLetterId.value = id;
-//	}
-	
-//	if($('.like'+id.value).prop('checked') == true){
-//		
-//	}	
+function likeFeedback(id){
+	$('.hate'+id).prop('checked',false);
+     xhr = new XMLHttpRequest();
+     $.ajax({
+ 		url : "/speakitup/letter/likeLetter?id=" + id,
+ 		type : "POST",
+ 		success : function(){}
+ 	});
+//     $("#likeModal").modal("hide");
+     //如果按了不喜歡就不能有喜歡 兩個鍵不會同時一起壓下去
+
 	
 }
-
-$("#sendLike").on("click",function(e){
-		e.preventDefault();
-		id = document.getElementById("likeLetterId");
-	     xhr = new XMLHttpRequest();
-	     $.ajax({
-     		url : "/speakitup/letter/likeLetter?id=" + id.value,
-     		type : "POST",
-     		success : function(response) {
-     			
-     		}
-     	});
-	     $("#likeModal").modal("hide");
-	     //如果按了不喜歡就不能有喜歡 兩個鍵不會同時一起壓下去
-	     $('.hate'+id.value).prop('checked',false);
-	   
-	});
 
 //覆面回饋鈕
 function deleteFeedback(id){
-	$('#unlikeModal').modal("show");
-	unlikeLetterId.value = id;
-	
-}
-
-
-$("#sendUnlike").on("click",function(e){
-	e.preventDefault();
-	id = document.getElementById("unlikeLetterId");
+	$('.like'+id).prop('checked',false);
      xhr = new XMLHttpRequest();
      $.ajax({
- 		url : "/speakitup/letter/deleteLetter?id=" + id.value,
+ 		url : "/speakitup/letter/deleteLetter?id=" + id,
  		type : "POST",
- 		success : function(response){
- 			
- 		}
+ 		success : function(){}
  	});
-     $("#unlikeModal").modal("hide");
-     $('.like'+id.value).prop('checked',false);
-});
-
-//按下叉叉讓按鈕的狀態回覆成false
-$('.closeBtn').click((e)=>{
-	e.preventDefault();
-	likeId = $("#likeLetterId").val();
-	unlikeId = $("#unlikeLetterId").val();
-	if(unlikeId == null){
-		$('.like'+likeId).prop('checked',false);
-	}else{		
-		$('.hate'+unlikeId).prop('checked',false);
-	}
-})
-
+}
 

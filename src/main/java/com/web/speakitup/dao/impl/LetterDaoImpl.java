@@ -80,7 +80,7 @@ public class LetterDaoImpl implements LetterDao {
 	@Override
 	public List<LetterBean> getAllLettersByMemberSend(String memberId,String status,String letterCategory) {
 		Session session = factory.getCurrentSession();
-		String hql = "FROM LetterBean l WHERE l.letterWriter = :memberId AND l.status = :status AND l.letterCategory = :letterCategory";
+		String hql = "FROM LetterBean l WHERE l.letterWriter = :memberId AND l.status = :status AND l.letterCategory = :letterCategory ORDER BY l.sendTime DESC";
 		return session.createQuery(hql).setParameter("memberId", memberId).setParameter("status", status).setParameter("letterCategory", letterCategory).getResultList();
 	}
 

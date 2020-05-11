@@ -52,7 +52,7 @@ body{
    border-radius: 0px 61px 0px 61px;
 	-moz-border-radius: 0px 61px 0px 61px;
 	-webkit-border-radius: 0px 61px 0px 61px;
-	border: 3px solid #1d336b;
+/* 	border: 3px solid #1d336b; */
 }
 
 
@@ -71,6 +71,9 @@ body{
 	border: 3px solid #1d336b;
  	word-break:break-all;
     overflow-y:auto;
+    font-size: 1.1rem;
+    padding-left:10px;
+	padding-right:10px;
 }
 
  .replyBox{
@@ -88,6 +91,9 @@ body{
 	border: 3px solid #1d336b;
  	word-break:break-all;
     overflow-y:auto;
+    font-size: 1.1rem;
+    padding-left:10px;
+    padding-right:10px;
 } 
 
 
@@ -329,9 +335,10 @@ font-size: 1.1rem;
     justify-content: center;
     align-items: center;
     border: 3px solid #0ACDFF;
-    border-radius: 5px;
+    border-radius: 8px;
     box-shadow: 0px 0px 8px 2px #0ACDFF;
     color: rgb(207, 207, 207);
+    margin-bottom:50px;
 }
 
 
@@ -340,30 +347,34 @@ font-size: 1.1rem;
  .sendBoxDevil{
     position: absolute;
     width:100%;
-    height: 600px;
+    height: 580px;
     background: #020202;
 /*     padding: auto auto 5px 5px; */
-    font-size: 0.9rem;
+    font-size: 1.1rem;
 	overflow:hidden;
 	justify-content: center;
     align-items: center;
     z-index: 1;
     word-break:break-all;
     overflow-y:auto;
+    padding-left:10px;
+	padding-right:10px;
 }
 
  .replyBoxDevil{
     position: absolute;
     width:100%;
-    height: 600px;
+    height: 580px;
     background: #020202;
     overflow: hidden;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
     justify-content: center;
     align-items: center;
     z-index: -1;
     word-break:break-all;
     overflow-y:auto;
+    padding-left:10px;
+	padding-right:10px;
 } 
 
 /*惡魔回饋與檢舉的按紐*/
