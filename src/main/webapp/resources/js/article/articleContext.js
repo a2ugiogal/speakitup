@@ -126,10 +126,8 @@ function showReportModal(commentId) {
 	  xhr = new XMLHttpRequest();
 	  xhr.open(
 	    "GET",
-	    "/speakitup/article/report?commentId=" +
-	      commentIdInput.value +
-	      "&reportItem=" +
-	      reportItem,
+	    "/speakitup/article/report?reportItem=" +
+	    reportItem,
 	    false
 	  );
 	  xhr.send();

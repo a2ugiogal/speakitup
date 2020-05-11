@@ -103,18 +103,26 @@
 						<a class="dropdown-item"
 							href="<spring:url value='/article/showPageArticles?categoryTitle=惡魔' />">惡魔板</a>
 					</div></li>
-				<li class="nav-item dropdown mx-2"><a
-					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-					role="button" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false"> 商城 </a>
-					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item"
-							href="<spring:url value='/product/productHome' />">首頁</a> <a
-							class="dropdown-item"
-							href="<spring:url value='/order/shoppingCartList' />">購物車</a> <a
-							class="dropdown-item"
-							href="<spring:url value='/order/showHistoryOrder' />">歷史訂單</a>
-					</div></li>
+				<c:choose>
+					<c:when test="${empty LoginOK}">
+						<li class="nav-item mx-2"><a class="nav-link"
+							href="<spring:url value='/product/productHome' />">商城</a></li>
+					</c:when>
+					<c:otherwise>
+						<li class="nav-item dropdown mx-2"><a
+							class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+							role="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false"> 商城 </a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item"
+									href="<spring:url value='/product/productHome' />">首頁</a> <a
+									class="dropdown-item"
+									href="<spring:url value='/order/shoppingCartList' />">購物車</a> <a
+									class="dropdown-item"
+									href="<spring:url value='/order/showHistoryOrder' />">歷史訂單</a>
+							</div></li>
+					</c:otherwise>
+				</c:choose>
 				<li class="nav-item mx-2"><a class="nav-link"
 					href="<spring:url value='/letter/letterHome' />">漂流瓶</a></li>
 				<c:if test="${LoginOK.permission=='管理員'}">

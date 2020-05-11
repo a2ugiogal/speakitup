@@ -8,29 +8,38 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>商品細節--要抒啦</title>
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-	integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-	crossorigin="anonymous"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-	crossorigin="anonymous"></script>
-<link
-	href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/cerulean/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-LV/SIoc08vbV9CCeAwiz7RJZMI5YntsH8rGov0Y2nysmepqMWVvJqds6y0RaxIXT"
-	crossorigin="anonymous">
+
+
 <!-- icon -->
 <script src="https://kit.fontawesome.com/041970ba48.js"
 	crossorigin="anonymous"></script>
+	<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+	crossorigin="anonymous" />
+<%-- <script src="<spring:url value='/js/product/productInfo.js' /> "></script> --%>
 <link rel="stylesheet"
 	href="<spring:url value='/css/product/productInfo.css' />">
 <link rel="stylesheet"
 	href="<spring:url value='/css/product/nav.css' /> " />
+<link rel="stylesheet"
+	href="<spring:url value='/css/loginModel.css' /> " />
+<script type="text/javascript">
+	function addShoppinCart() {
+		buyForm = document.getElementById("buyForm");
+		buyForm.action = "<spring:url value='/order/shoppingCart' />";
+		buyForm.method = "GET";
+		buyForm.submit();
+
+	}
+
+	function buyNow() {
+		buyForm = document.getElementById("buyForm");
+		buyForm.action = "<spring:url value='/order/checkOrder' />";
+		buyForm.method = "GET";
+		buyForm.submit();
+	}
+</script>
 </head>
 
 <body>
@@ -97,18 +106,26 @@
 						<a class="dropdown-item"
 							href="<spring:url value='/article/showPageArticles?categoryTitle=惡魔' />">惡魔板</a>
 					</div></li>
-				<li class="nav-item dropdown mx-2"><a
-					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-					role="button" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false"> 商城 </a>
-					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item"
-							href="<spring:url value='/product/productHome' />">首頁</a> <a
-							class="dropdown-item"
-							href="<spring:url value='/order/shoppingCartList' />">購物車</a> <a
-							class="dropdown-item"
-							href="<spring:url value='/order/showHistoryOrder' />">歷史訂單</a>
-					</div></li>
+				<c:choose>
+					<c:when test="${empty LoginOK}">
+						<li class="nav-item mx-2"><a class="nav-link"
+							href="<spring:url value='/product/productHome' />">商城</a></li>
+					</c:when>
+					<c:otherwise>
+						<li class="nav-item dropdown mx-2"><a
+							class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+							role="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false"> 商城 </a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item"
+									href="<spring:url value='/product/productHome' />">首頁</a> <a
+									class="dropdown-item"
+									href="<spring:url value='/order/shoppingCartList' />">購物車</a> <a
+									class="dropdown-item"
+									href="<spring:url value='/order/showHistoryOrder' />">歷史訂單</a>
+							</div></li>
+					</c:otherwise>
+				</c:choose>
 				<li class="nav-item mx-2"><a class="nav-link"
 					href="<spring:url value='/letter/letterHome' />">漂流瓶</a></li>
 				<c:if test="${LoginOK.permission=='管理員'}">
@@ -242,17 +259,20 @@
 					</div>
 					<div class="row p-5"
 						style="background-color: rgba(248, 248, 248, 0.336)">
-						<div style="width: 35%;">
+						<div style="width: 35%;" class="productImg">
 							<img
 								src="<spring:url value='/product/getProductImage/${product.productId}' />"
-								style="width: 100%;">
+								style="width: 100%;" alt="item" >
 						</div>
 						<div class="Commodity_control" style="margin: 0px; width: 65%;">
 							<div class="pl-4">
 								<div class="Product_title">
+
 									<span>
 										<h3 class="text-dark">${product.productName}</h3>
+
 									</span>
+									<div class="addToCartLoc" ><i class="fas fa-shopping-cart"></i></div>
 								</div>
 								<span>&nbsp</span>
 								<div>
@@ -261,7 +281,7 @@
 									</span>
 								</div>
 								<!-- 規格 -->
-								<form action="" name="buyForm">
+								<form action="" name="buyForm" id="buyForm">
 									<div class="specification row pb-2">
 										<div class="col-12">
 											<c:if test="${title1!=''}">
@@ -311,14 +331,17 @@
 										</div>
 									</div>
 									<div>
-										<button type="submit" class="btn btn-outline-danger"
-											onclick="buyForm.action='<spring:url value="/order/shoppingCart" />'; ">
+										<button type="button" class="btn btn-outline-danger"
+											
+											<c:choose>
+												<c:when test="${empty LoginOK}">onclick="loginModel()"</c:when>
+												<c:otherwise>onclick="addShoppinCart()"</c:otherwise>
+											</c:choose>  id="addToCart">
 											加入購物車<i class="fas fa-shopping-cart"></i>
 										</button>
-										<button type="submit" class="btn btn-outline-danger buy"
-											onclick="buyForm.action='<spring:url value="/order/checkOrder" />';">
-											<a>直接購買</a>
-										</button>
+										<button type="button" class="btn btn-outline-danger buy"
+											onclick="buyNow()">直接購買</button>
+											
 									</div>
 								</form>
 							</div>
@@ -419,5 +442,51 @@
 		<!-- Copyright -->
 	</footer>
 	<!-- Footer -->
+
+
+
+	<!-- 登入浮動視窗============================= -->
+	<div class="modal fade" id="ignismyModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="">
+						<span>×</span>
+					</button>
+				</div>
+
+				<div class="modal-body">
+					<p class="h3 ml-3 mb-2">請登入再抒唷！</p>
+					<p>
+						<a
+							href="<spring:url value='/member/login?target=/product/showProductInfo/${product.productId}&loginFilter=true' />"
+							style="text-decoration: none; color: black;">
+							<button type="button" class="btn btn-light ml-3">Login
+								Now</button>
+						</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+		
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+		integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+		crossorigin="anonymous"></script>
+<!-- 		<script src="https://code.jquery.com/jquery-3.4.1.js"></script> -->
+			<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+		<script src="<spring:url value='/js/product/addToCart.js' /> "></script>
+	
+
 </body>
 </html>
