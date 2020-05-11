@@ -117,7 +117,6 @@ function showReportModal(commentId) {
 	      reportItem = reportItems[i].value;
 	    }
 	  }
-	  alert(reportItem);
 	  xhr = new XMLHttpRequest();
 	  xhr.open(
 	    "GET",

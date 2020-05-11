@@ -67,7 +67,6 @@ public class MemberController {
 	ArticleService articleService;
 
 	/* 取得會員的照片 */
-	@SuppressWarnings("unused")
 	@GetMapping("/getUserImage/{id}")
 	public ResponseEntity<byte[]> getUserImage(@PathVariable int id, Model model, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
@@ -101,6 +100,7 @@ public class MemberController {
 		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
 		String mimeType = context.getMimeType(filename);
 		MediaType mediaType = MediaType.valueOf(mimeType);
+		headers.setContentType(mediaType);
 		ResponseEntity<byte[]> responseEntity = new ResponseEntity<byte[]>(media, headers, HttpStatus.OK);
 		return responseEntity;
 	}

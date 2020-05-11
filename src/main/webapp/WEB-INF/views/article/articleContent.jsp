@@ -304,21 +304,21 @@
 		<div class="mx-auto" style="height: 22%;">
 			<div style="height: 60px;"></div>
 			<div id="articleTitle" class="text-center pt-2 mx-auto">
-				<div class="d-flex justify-content-center align-items-center">
-					<h3>${article.title}&nbsp;&nbsp;</h3>
+				<div class="d-flex justify-content-center align-items-center mb-1">
+					<h3 style="margin: 0px !important">${article.title}&nbsp;&nbsp;&nbsp;</h3>
 					<div
 						<c:choose>
 							<c:when test="${article.category.categoryName=='工作'}">
-								class="badge badge-info mr-2 mt-1"
+								class="badge badge-info mr-2"
 							</c:when>
 							<c:when test="${article.category.categoryName=='感情'}">
-								class="badge badge-danger mr-2 mt-1"
+								class="badge badge-danger mr-2"
 							</c:when>
 							<c:when test="${article.category.categoryName=='生活'}">
-								class="badge badge-warning mr-2 mt-1"
+								class="badge badge-warning mr-2"
 							</c:when>
 							<c:otherwise>
-								class="badge badge-secondary mr-2 mt-1"
+								class="badge badge-secondary mr-2"
 							</c:otherwise>
 						</c:choose>>
 						${article.category.categoryName}</div>
@@ -379,7 +379,7 @@
 					<div class="col-8">
 						<div class="text-center">
 							<img
-								src="<spring:url value='/article/getArticleImage/${article.articleId}' />"
+								<c:if test="${not empty article.image}">src="<spring:url value='/article/getArticleImage/${article.articleId}' />"</c:if>
 								style="max-height: 180px; max-width: 100%;" />
 						</div>
 					</div>

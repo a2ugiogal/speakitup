@@ -16,7 +16,7 @@
     background: aliceblue;
 }
 
- .container
+ .mainContainer
 {
     position: relative;
     max-width: 1200px;
@@ -26,7 +26,7 @@
     flex-wrap: wrap;
 }
 
-.container .card
+.mainContainer .letterCard
 {
     position: relative;
     display: flex;
@@ -38,7 +38,7 @@
 
 
 /*左邊的卡片*/
-.container .card .contentBox{
+.mainContainer .letterCard .contentBox{
     position: relative;
     width: 600px;
     height: 400px;
@@ -48,7 +48,7 @@
 }
 
 /*左邊卡片的內容*/
-.container .card .contentBox .content
+.mainContainer .letterCard .contentBox .content
 {
     position: absolute;
     top: 0;
@@ -65,21 +65,21 @@
 }
 
 
-.container .card .content p
+.mainContainer .letterCard .content p
 {
     margin-top: 10px;
     color: black;
      
 }
 
-.container .card .content h4{
+.mainContainer .letterCard .content h4{
     color: black;
     font-size: 30px;
 }
 
 
 
-.container .card .replyContentBox
+.mainContainer .letterCard .replyContentBox
 {
     position: relative;
     width: 600px;
@@ -93,20 +93,20 @@
     
 }
 
-.container .card .replyContentBox h2
+.mainContainer .letterCard .replyContentBox h2
 {
     font-size: 30px;
     color: black;
 }
 
-.container .card .replyContentBox p
+.mainContainer .letterCard .replyContentBox p
 {
     margin-top: 10px;
     color: black;
      
 }
 
-.container .card .replyContentBox a
+.mainContainer .letterCard .replyContentBox a
 {
     display: inline-block;
     margin-top: 15px;
@@ -116,7 +116,7 @@
     border: 1px solid blue;
 }
 
-.container .card .replyContent::before{
+.mainContainer .letterCard .replyContent::before{
     content: '';
     position: absolute;
     top: -50px;
@@ -138,12 +138,12 @@ textarea{
 
 @media (max-width: 1000px)
 {
-    .container .card
+    .mainContainer .letterCard
     {
         flex-direction: column;
     }
 
-    .container .card .contentBox{
+    .mainContainer .letterCard .contentBox{
         width: 450px;
         height: 500px;
         left: 0;
@@ -151,7 +151,7 @@ textarea{
 
     }
 
-    .container .card .replyContentBox
+    .mainContainer .letterCard .replyContentBox
     {
         width: 450px;
         height: auto;

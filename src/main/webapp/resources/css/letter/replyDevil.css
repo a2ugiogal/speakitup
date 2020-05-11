@@ -2,42 +2,193 @@
 	margin :0;
 	padding:0;
 	box-sizing: border-box;
+	 font-family: 'Noto Sans TC', sans-serif;
 }
 
 
 body{
-    background: #3A405A;
+    background: #050517;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #contentLength {
     color: #7E6B8F;
-    font-family: 'Noto Sans TC', sans-serif;
 }
 
-h4{
-	font-family: 'Noto Sans TC', sans-serif;
-}
 
-#letterContent{
-    display: flex;
-    box-sizing: border-box;
-    height: 200px;
-    margin : 0 auto;
-    outline:none;
-    border:none;
-    border-bottom:1px solid #3D5E8D;
-    letter-spacing:1px;
-    resize:none;
-}
+/* #letterContent{ */
+/*     display: flex; */
+/*     box-sizing: border-box; */
+/*     height: 200px; */
+/*     margin : 0 auto; */
+/*     outline:none; */
+/*     border:none; */
+/*     border-bottom:1px solid #3D5E8D; */
+/*     letter-spacing:1px; */
+/*     resize:none; */
+/* } */
 
-#cardBody{
-    border-radius: 20px 20px 20px 20px;
-}
+/* #cardBody{ */
+/*     border-radius: 20px 20px 20px 20px; */
+/* } */
 
-#titleInput2
+/* #titleInput2 */
+/* { */
+/* 	background:transparent; */
+/* 	border:none; */
+/* 	outline:none; */
+/* 	border-bottom:1px solid #3D5E8D; */
+/* } */
+
+
+ .mainContainer
 {
-	background:transparent;
-	border:none;
-	outline:none;
-	border-bottom:1px solid #3D5E8D;
+    position: relative;
+    max-width: 1200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.mainContainer .letterCard
+{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 100px 0;
+}
+
+
+/*左邊的卡片*/
+.mainContainer .letterCard .contentBox{
+    position: relative;
+    width: 600px;
+    height: 400px;
+     box-sizing: border-box;
+     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+     z-index:-1;
+}
+
+/*左邊卡片的內容*/
+.mainContainer .letterCard .contentBox .content
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 0.9rem;
+    object-fit: cover; 
+    background: rgb(247, 242, 224);
+    z-index: 1;
+    padding: 20px 60px 100px 60px;
+    opacity: 0.7;
+    box-sizing: border-box;
+}
+
+
+.mainContainer .letterCard .content p
+{
+    margin-top: 10px;
+    color: black;
+     
+}
+
+.mainContainer .letterCard .content h4{
+    color: black;
+    font-size: 30px;
+}
+
+
+
+.mainContainer .letterCard .replyContentBox
+{
+    position: relative;
+    width: 600px;
+    height: 400px;
+    background: #E4DEE4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+
+    
+}
+
+.mainContainer .letterCard .replyContentBox h2
+{
+    font-size: 30px;
+    color: black;
+}
+
+.mainContainer .letterCard .replyContentBox p
+{
+    margin-top: 10px;
+    color: black;
+     
+}
+
+.mainContainer .letterCard .replyContentBox a
+{
+    display: inline-block;
+    margin-top: 15px;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    border: 1px solid blue;
+}
+
+.mainContainer .letterCard .replyContent::before{
+    content: '';
+    position: absolute;
+    top: -50px;
+    bottom: -50px;
+    left: 0;
+    right: 0;
+    background: #E4DEE4;
+    z-index: -1;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+}  
+
+textarea{
+    outline: none;
+    background: none;
+    border: none;
+    resize: none;
+    border-bottom: 1px solid black;
+}
+
+@media (max-width: 1000px)
+{
+    .mainContainer .letterCard
+    {
+        flex-direction: column;
+    }
+
+    .mainContainer .letterCard .contentBox{
+        width: 450px;
+        height: 500px;
+        left: 0;
+        font-size: 0.8rem;
+
+    }
+
+    .mainContainer .letterCard .replyContentBox
+    {
+        width: 450px;
+        height: auto;
+        right: 0;
+        padding: 30px;
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    
 }

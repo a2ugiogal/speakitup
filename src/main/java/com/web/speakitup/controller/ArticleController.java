@@ -2,7 +2,6 @@ package com.web.speakitup.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Writer;
 import java.sql.Blob;
 import java.sql.Clob;
 import java.sql.SQLException;
@@ -65,7 +64,6 @@ public class ArticleController {
 	/*----------------------------------所有的文章-----------------------------------------------------*/
 
 	@GetMapping("/showPageArticles")
-
 	public String ShowPageArticles(HttpServletRequest request, Model model) {
 		// 先取得所有的篩選條件 預設是空的 不管有沒有條件都會來run這個方法
 		String arrange = request.getParameter("arrange") == null ? "" : request.getParameter("arrange");
@@ -112,18 +110,12 @@ public class ArticleController {
 		ab.setAuthorId(mb.getId());
 		ab.setAuthorName(mb.getMemberId());
 		ab.setContent(clobContent);
-		System.out.println("memberId" + mb.getMemberId());
 
 		ArticleCategoryBean acb = articleService.getCategory(categoryTitle, categoryName);
 		// 把種類的外鍵存進去
 		ab.setCategory(acb);
 		// 存文章標題
 		ab.setTitle(title);
-
-		System.out.println("categoryTitle" + categoryTitle);
-		System.out.println("categoryName: " + categoryName);
-		System.out.println("content: " + content);
-		System.out.println("title: " + title);
 
 		// 取得照片
 		MultipartFile articleImage = ab.getArticleImage();
@@ -144,6 +136,10 @@ public class ArticleController {
 
 			}
 		}
+		ab.setLikes(0);
+		ab.setStatus("正常");
+		Timestamp ts = new java.sql.Timestamp(System.currentTimeMillis());
+		ab.setPublishTime(ts);
 
 		articleService.insertArticle(ab);
 		Integer articleId = ab.getArticleId();
@@ -157,7 +153,6 @@ public class ArticleController {
 	// 文章新增成功 轉跳這
 	@GetMapping("/addSuccess")
 	public String addSuccess(@ModelAttribute("articleId") int articleId, Model model) throws IOException, SQLException {
-		System.out.println("222articleId: " + articleId);
 		ArticleBean ab = articleService.getArticle(articleId);
 		String content = GlobalService.clobToString(ab.getContent());
 		model.addAttribute("article", ab);
@@ -236,7 +231,8 @@ public class ArticleController {
 		session.setAttribute("LoginOK", newMb);
 
 		ArticleBean newAb = articleService.getArticle(articleId);
-		String likes = newAb.getLikes().toString();
+//		String likes = newAb.getLikes().toString();
+		int likes = newAb.getLikes();
 		response.setCharacterEncoding("UTF-8");
 		try {
 			PrintWriter out = response.getWriter();
@@ -254,7 +250,7 @@ public class ArticleController {
 	@GetMapping("/report")
 	public void addReport(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
-		String commentIdStr = request.getParameter("commentId")==null?"":request.getParameter("commentId");
+		String commentIdStr = request.getParameter("commentId") == null ? "" : request.getParameter("commentId");
 		// 檢舉項目
 		String reportItem = request.getParameter("reportItem");
 		if (commentIdStr.trim() == "") {
@@ -420,7 +416,6 @@ public class ArticleController {
 	public ResponseEntity<byte[]> getArticleImage(@PathVariable int articleId, Model model, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 
-		String filepath = "/resources/images/NoImage.jpg";
 		byte[] media = null;
 		HttpHeaders headers = new HttpHeaders();
 		String filename = "";
@@ -435,22 +430,15 @@ public class ArticleController {
 				try {
 					len = (int) blob.length();
 					media = blob.getBytes(1, len);
+					String mimeType = context.getMimeType(filename);
+					MediaType mediaType = MediaType.valueOf(mimeType);
+					headers.setContentType(mediaType);
 				} catch (SQLException e) {
 					throw new RuntimeException("getUserImage發生SQLException" + e.getMessage());
 				}
-			} else {
-				media = GlobalService.toByteArray(context, filepath);
-				filename = filepath;
 			}
-
-		} else {
-			media = GlobalService.toByteArray(context, filepath);
-			filename = filepath;
 		}
 		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
-		String mimeType = context.getMimeType(filename);
-		MediaType mediaType = MediaType.valueOf(mimeType);
-		headers.setContentType(mediaType);
 		ResponseEntity<byte[]> responseEntity = new ResponseEntity<byte[]>(media, headers, HttpStatus.OK);
 		return responseEntity;
 	}

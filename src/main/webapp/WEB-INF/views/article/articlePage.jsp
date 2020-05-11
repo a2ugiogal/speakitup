@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %> 
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,8 +12,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 	crossorigin="anonymous">
-<script
-	src="<spring:url value='/js/article/articlePage.js' /> "></script>
+<script src="<spring:url value='/js/article/articlePage.js' /> "></script>
 </head>
 <body>
 	<div class="w-75 m-auto">
@@ -46,8 +45,8 @@
 			<div id="searchTop" class="row">
 				<div class="input-group my-3 col-9 ">
 					<div class="input-group-prepend">
-						<span class="input-group-text">
-						<img src="<spring:url value='/image/product/search.png' /> " /></span>
+						<span class="input-group-text"> <img
+							src="<spring:url value='/image/product/search.png' /> " /></span>
 					</div>
 					<input type="search" class="form-control" placeholder="搜尋: 文章標題"
 						name="search" aria-label="Sizing example input"
@@ -77,9 +76,8 @@
 						class="d-flex mx-auto justify-content-center align-items-center"
 						style="text-align: center;">
 						<img
-							src="<spring:url value='/article/getArticleImage/${entry.value.articleId}' /> "
-							style="max-width: 200px; max-height: 100px;" /> 
-							<img
+							<c:if test="${not empty entry.value.image}">src="<spring:url value='/article/getArticleImage/${entry.value.articleId}' /> "</c:if>
+							style="max-width: 200px; max-height: 100px;" /> <img
 							src="<spring:url value='/member/getUserImage/${entry.value.authorId}' /> "
 							class="rounded-circle border border-dark"
 							style="height: 100px; width: 100px;" />

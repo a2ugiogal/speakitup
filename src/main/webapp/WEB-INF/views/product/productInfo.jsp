@@ -27,10 +27,28 @@
 <!-- icon -->
 <script src="https://kit.fontawesome.com/041970ba48.js"
 	crossorigin="anonymous"></script>
+<script src="<spring:url value='/js/product/productInfo.js' /> "></script>
 <link rel="stylesheet"
 	href="<spring:url value='/css/product/productInfo.css' />">
 <link rel="stylesheet"
 	href="<spring:url value='/css/product/nav.css' /> " />
+<link rel="stylesheet"
+	href="<spring:url value='/css/loginModel.css' /> " />
+<script type="text/javascript">
+	function addShoppinCart() {
+		buyForm = document.getElementById("buyForm");
+		buyForm.action = "<spring:url value='/order/shoppingCart' />";
+		buyForm.method = "GET";
+		buyForm.submit();
+	}
+
+	function buyNow() {
+		buyForm = document.getElementById("buyForm");
+		buyForm.action = "<spring:url value='/order/checkOrder' />";
+		buyForm.method = "GET";
+		buyForm.submit();
+	}
+</script>
 </head>
 
 <body>
@@ -97,18 +115,26 @@
 						<a class="dropdown-item"
 							href="<spring:url value='/article/showPageArticles?categoryTitle=惡魔' />">惡魔板</a>
 					</div></li>
-				<li class="nav-item dropdown mx-2"><a
-					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-					role="button" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false"> 商城 </a>
-					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item"
-							href="<spring:url value='/product/productHome' />">首頁</a> <a
-							class="dropdown-item"
-							href="<spring:url value='/order/shoppingCartList' />">購物車</a> <a
-							class="dropdown-item"
-							href="<spring:url value='/order/showHistoryOrder' />">歷史訂單</a>
-					</div></li>
+				<c:choose>
+					<c:when test="${empty LoginOK}">
+						<li class="nav-item mx-2"><a class="nav-link"
+							href="<spring:url value='/product/productHome' />">商城</a></li>
+					</c:when>
+					<c:otherwise>
+						<li class="nav-item dropdown mx-2"><a
+							class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+							role="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false"> 商城 </a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item"
+									href="<spring:url value='/product/productHome' />">首頁</a> <a
+									class="dropdown-item"
+									href="<spring:url value='/order/shoppingCartList' />">購物車</a> <a
+									class="dropdown-item"
+									href="<spring:url value='/order/showHistoryOrder' />">歷史訂單</a>
+							</div></li>
+					</c:otherwise>
+				</c:choose>
 				<li class="nav-item mx-2"><a class="nav-link"
 					href="<spring:url value='/letter/letterHome' />">漂流瓶</a></li>
 				<c:if test="${LoginOK.permission=='管理員'}">
@@ -261,7 +287,7 @@
 									</span>
 								</div>
 								<!-- 規格 -->
-								<form action="" name="buyForm">
+								<form action="" name="buyForm" id="buyForm">
 									<div class="specification row pb-2">
 										<div class="col-12">
 											<c:if test="${title1!=''}">
@@ -311,14 +337,15 @@
 										</div>
 									</div>
 									<div>
-										<button type="submit" class="btn btn-outline-danger"
-											onclick="buyForm.action='<spring:url value="/order/shoppingCart" />'; ">
+										<button type="button" class="btn btn-outline-danger"
+											<c:choose>
+												<c:when test="${empty LoginOK}">onclick="loginModel()"</c:when>
+												<c:otherwise>onclick="addShoppinCart()"</c:otherwise>
+											</c:choose>>
 											加入購物車<i class="fas fa-shopping-cart"></i>
 										</button>
-										<button type="submit" class="btn btn-outline-danger buy"
-											onclick="buyForm.action='<spring:url value="/order/checkOrder" />';">
-											<a>直接購買</a>
-										</button>
+										<button type="button" class="btn btn-outline-danger buy"
+											onclick="buyNow()">直接購買</button>
 									</div>
 								</form>
 							</div>
@@ -419,5 +446,33 @@
 		<!-- Copyright -->
 	</footer>
 	<!-- Footer -->
+
+
+
+	<!-- 登入浮動視窗============================= -->
+	<div class="modal fade" id="ignismyModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="">
+						<span>×</span>
+					</button>
+				</div>
+
+				<div class="modal-body">
+					<p class="h3 ml-3 mb-2">請登入再抒唷！</p>
+					<p>
+						<a
+							href="<spring:url value='/member/login?target=/product/showProductInfo/${product.productId}&loginFilter=true' />"
+							style="text-decoration: none; color: black;">
+							<button type="button" class="btn btn-light ml-3">Login
+								Now</button>
+						</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
