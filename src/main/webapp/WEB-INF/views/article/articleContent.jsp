@@ -340,16 +340,20 @@
 					<span id="commentPage">1</span> / <span id="totalPage"> <c:set
 							var="commentsLength" value="${fn:length(comments_set)}"></c:set>
 						<c:choose>
-							<c:when test="${commentsLength%6==0}">
-								<fmt:parseNumber integerOnly="true"
-									value="${fn:length(comments_set)/6}" />
-							</c:when>
+							<c:when test="${commentsLength==0}">1</c:when>
 							<c:otherwise>
-								<fmt:parseNumber integerOnly="true"
-									value="${fn:length(comments_set)/6+1}" />
+								<c:choose>
+									<c:when test="${commentsLength%6==0}">
+										<fmt:parseNumber integerOnly="true"
+											value="${fn:length(comments_set)/6}" />
+									</c:when>
+									<c:otherwise>
+										<fmt:parseNumber integerOnly="true"
+											value="${fn:length(comments_set)/6+1}" />
+									</c:otherwise>
+								</c:choose>
 							</c:otherwise>
 						</c:choose>
-
 					</span>
 				</div>
 				<i id="nextPage" class="fas fa-caret-right"
@@ -463,11 +467,16 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<input type="radio" name="reportItem" value="惡意洗版" checked />惡意洗版<br />
-					<input type="radio" name="reportItem" value="惡意攻擊他人" />惡意攻擊他人<br />
-					<input type="radio" name="reportItem" value="包含色情、血腥等，令人不舒服之內容" />包含色情、血腥等，令人不舒服之內容<br />
-					<input type="radio" name="reportItem" value="包含廣告、商業宣傳之內容" />包含廣告、商業宣傳之內容<br />
-					<input type="radio" name="reportItem" value="與本板主題無關" />與本板主題無關
+					<input type="radio" name="reportItem" value="惡意洗版" id="惡意洗版"
+						checked /><label for="惡意洗版">惡意洗版</label><br /> <input
+						type="radio" name="reportItem" value="惡意攻擊他人" id="惡意攻擊他人" /><label
+						for="惡意攻擊他人">惡意攻擊他人</label><br /> <input type="radio"
+						name="reportItem" value="包含色情、血腥等，令人不舒服之內容" id="包含色情、血腥等，令人不舒服之內容" /><label
+						for="包含色情、血腥等，令人不舒服之內容">包含色情、血腥等，令人不舒服之內容</label><br /> <input
+						type="radio" name="reportItem" value="包含廣告、商業宣傳之內容"
+						id="包含廣告、商業宣傳之內容" /><label for="包含廣告、商業宣傳之內容">包含廣告、商業宣傳之內容</label><br />
+					<input type="radio" name="reportItem" value="與本板主題無關" id="與本板主題無關" /><label
+						for="與本板主題無關">與本板主題無關</label>
 				</div>
 				<input type="hidden" id="commentIdInput" value="">
 				<div class="modal-footer">
@@ -492,8 +501,12 @@
 				<div class="modal-body">
 					<p class="h3 ml-3 mb-2">請登入再抒唷！</p>
 					<p>
-						<button type="button" class="btn btn-light ml-3">Login
-							Now</button>
+						<a
+							href="<spring:url value='/member/login?target=/article/showArticleContent/${article.articleId}&loginFilter=true' />"
+							style="text-decoration: none; color: black;">
+							<button type="button" class="btn btn-light ml-3 login">
+								Login Now</button>
+						</a>
 					</p>
 				</div>
 			</div>
@@ -513,7 +526,7 @@
 		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
 		crossorigin="anonymous"></script>
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
-	<script src="<spring:url value='/js/article/articleContext.js' /> "></script>
+	<script src="<spring:url value='/js/article/articleContent.js' /> "></script>
 
 </body>
 </html>

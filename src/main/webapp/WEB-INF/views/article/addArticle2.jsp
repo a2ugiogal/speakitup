@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,18 +12,17 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="<spring:url value='/css/article/addArticle.css' />" />
-<link rel="stylesheet" href="<spring:url value='/css/article/nav.css' />" />
 <script src="<spring:url value='/js/article/addArticle.js' /> "></script>
 </head>
 <body>
-	<form:form modelAttribute="articleBean" enctype="multipart/form-data">
+	<form:form  modelAttribute="articleBean" enctype="multipart/form-data">
 		<div class="w-75 border p-3">
 			<h1>發表新文章</h1>
 			主板： <select class="m-2" style="width: 150px;" name="categoryTitle">
 				<option value="天使">天使</option>
 				<option value="惡魔">惡魔</option>
-			</select> 副板： <select class="m-2" style="width: 150px;" name="categoryName">
+			</select> 
+			副板： <select class="m-2" style="width: 150px;" name="categoryName">
 				<option value="生活">生活</option>
 				<option value="感情">感情</option>
 				<option value="工作">工作</option>
@@ -35,7 +34,7 @@
 			</div>
 			<img id="articlePicture" />
 			<div class="form-group m-2">
-				<form:input type="file" id="fileSelect" path="articleImage" />
+				<form:input type="file" id="fileSelect" path="articleImage"/>
 			</div>
 			<div class="form-group m-2">
 				<textarea class="form-control" name="contentStr" rows="10"

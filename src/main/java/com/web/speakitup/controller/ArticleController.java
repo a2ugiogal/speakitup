@@ -252,10 +252,9 @@ public class ArticleController {
 	/*---------------------------------檢舉文章或留言------------------------------------------------------*/
 
 	@GetMapping("/report")
-	public void addReport(HttpSession session, HttpServletRequest request) {
-
+	public void addReport(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
-		String commentIdStr = request.getParameter("commentId");
+		String commentIdStr = request.getParameter("commentId")==null?"":request.getParameter("commentId");
 		// 檢舉項目
 		String reportItem = request.getParameter("reportItem");
 		if (commentIdStr.trim() == "") {
@@ -273,6 +272,12 @@ public class ArticleController {
 			ReportCommentBean bean = new ReportCommentBean(null, commentId, cb.getAuthorName(), cb.getPublishTime(),
 					cb.getContent(), mb.getMemberId(), reportItem);
 			articleService.insertReportComment(bean);
+		}
+		try {
+			PrintWriter out = response.getWriter();
+			out.print("");
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 
 		return;

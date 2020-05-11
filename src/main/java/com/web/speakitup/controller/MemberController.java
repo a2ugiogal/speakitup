@@ -266,6 +266,9 @@ public class MemberController {
 		if (request.getAttribute("loginFilter") == null) {
 			session.removeAttribute("target");
 		}
+		
+		session.setAttribute("target", request.getParameter("target"));
+		
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
 		if (mb != null) {
 			return "redirect:/";
