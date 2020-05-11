@@ -312,19 +312,31 @@ public class LetterController {
 	}
 	
 	@PostMapping("/deleteLetter")
-	public void deleteLetters(@RequestParam("id") int letterId,HttpSession session) {
-		System.out.println("要刪除的信件ID" + letterId);
+	public void deleteLetters(@RequestParam("id") int letterId,HttpSession session,HttpServletResponse response) {
+		System.out.println("不喜歡的信件ID" + letterId);
+		response.setCharacterEncoding("UTF-8");
 		letterService.updateLetterFeedback(letterId, GlobalService.LETTER_BADFEEDBACK);
-		
+		try {
+			PrintWriter out = response.getWriter();
+			out.print("");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return;
 	}	
 	
 	
 	@PostMapping("/likeLetter")
-	public void likeLetters(@RequestParam("id") int letterId,HttpSession session) {
+	public void likeLetters(@RequestParam("id") int letterId,HttpSession session,HttpServletResponse response) {
 		System.out.println("喜歡的信件ID" + letterId);
+		response.setCharacterEncoding("UTF-8");
 		letterService.updateLetterFeedback(letterId, GlobalService.LETTER_FEEDBACK);
-		
+		try {
+			PrintWriter out = response.getWriter();
+			out.print("");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return;
 	}
 

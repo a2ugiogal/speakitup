@@ -27,6 +27,7 @@ public class LetterBean implements Serializable{
 	@Expose
 	private String letterTitle;
 	private String letterWriter;
+	@Expose
 	private String sendTime;
 	@Expose
 	private String letterContent;
