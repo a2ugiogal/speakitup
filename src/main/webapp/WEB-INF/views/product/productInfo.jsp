@@ -28,6 +28,7 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
 	integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
 	crossorigin="anonymous"></script>
+<script src="<spring:url value='/js/product/productInfo.js' /> "></script>
 <link rel="stylesheet"
 	href="<spring:url value='/css/product/productInfo.css' />">
 <link rel="stylesheet"
@@ -36,6 +37,7 @@
 	href="<spring:url value='/css/loginModel.css' /> " />
 <script type="text/javascript">
 	function addShoppinCart() {
+<<<<<<< HEAD
 
 		var cart = $('.addToCartLoc');
 		var imgtodrag = $('body').find('.productImg').find('img').eq(0);
@@ -72,6 +74,12 @@
 		}, 3000);
 		
 
+=======
+		buyForm = document.getElementById("buyForm");
+		buyForm.action = "<spring:url value='/order/shoppingCart' />";
+		buyForm.method = "GET";
+		buyForm.submit();
+>>>>>>> e92b6d9a6b730f33c2d9d7f182e9dd99bb6c838d
 	}
 
 	function buyNow() {
@@ -80,10 +88,13 @@
 		buyForm.method = "GET";
 		buyForm.submit();
 	}
+<<<<<<< HEAD
 	
 	function loginModel() {
 		$("#ignismyModal").modal("show");
 	}
+=======
+>>>>>>> e92b6d9a6b730f33c2d9d7f182e9dd99bb6c838d
 </script>
 </head>
 
@@ -157,7 +168,11 @@
 							href="<spring:url value='/product/productHome' />">商城</a></li>
 					</c:when>
 					<c:otherwise>
+<<<<<<< HEAD
 						<li class="nav-item dropdown mx-2 addToCartLoc"><a
+=======
+						<li class="nav-item dropdown mx-2"><a
+>>>>>>> e92b6d9a6b730f33c2d9d7f182e9dd99bb6c838d
 							class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> 商城 </a>
@@ -378,7 +393,11 @@
 										</div>
 									</div>
 									<div>
+<<<<<<< HEAD
 										<button type="button" class="addToCart btn btn-outline-danger"
+=======
+										<button type="button" class="btn btn-outline-danger"
+>>>>>>> e92b6d9a6b730f33c2d9d7f182e9dd99bb6c838d
 											<c:choose>
 												<c:when test="${empty LoginOK}">onclick="loginModel()"</c:when>
 												<c:otherwise>onclick="addShoppinCart()"</c:otherwise>
@@ -515,11 +534,14 @@
 			</div>
 		</div>
 	</div>
+<<<<<<< HEAD
 
 
 	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
 
+=======
+>>>>>>> e92b6d9a6b730f33c2d9d7f182e9dd99bb6c838d
 </body>
 </html>
