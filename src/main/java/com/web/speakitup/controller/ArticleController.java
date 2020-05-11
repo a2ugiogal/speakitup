@@ -36,6 +36,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -65,7 +66,6 @@ public class ArticleController {
 	/*----------------------------------所有的文章-----------------------------------------------------*/
 
 	@GetMapping("/showPageArticles")
-
 	public String ShowPageArticles(HttpServletRequest request, Model model) {
 		// 先取得所有的篩選條件 預設是空的 不管有沒有條件都會來run這個方法
 		String arrange = request.getParameter("arrange") == null ? "" : request.getParameter("arrange");
@@ -255,7 +255,7 @@ public class ArticleController {
 	public void addReport(HttpSession session, HttpServletRequest request) {
 
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
-		String commentIdStr = request.getParameter("commentId");
+		String commentIdStr = request.getParameter("commentId") == null ? "" : request.getParameter("commentId");
 		// 檢舉項目
 		String reportItem = request.getParameter("reportItem");
 		if (commentIdStr.trim() == "") {
