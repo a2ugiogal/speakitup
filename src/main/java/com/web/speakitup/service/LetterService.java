@@ -1,5 +1,6 @@
 package com.web.speakitup.service;
 
+
 import java.util.List;
 import java.util.Map;
 
@@ -21,5 +22,8 @@ public interface LetterService {
 	
 //	public Map<String,LetterBean> getAllLettersByMemberSend(String memberId,String status);
 	public List<LetterBean> getAllLettersByMemberSend(String memberId,String status,String letterCategory);
+	
+	
+	
 	
 }

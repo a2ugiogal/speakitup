@@ -16,7 +16,7 @@
 	rel="stylesheet"
 	integrity="sha384-LV/SIoc08vbV9CCeAwiz7RJZMI5YntsH8rGov0Y2nysmepqMWVvJqds6y0RaxIXT"
 	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
 	integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
 	crossorigin="anonymous"></script>
 <script
@@ -27,54 +27,15 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
 	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
 	crossorigin="anonymous"></script>
+	<script src="<spring:url value='/js/order/shoppingCart.js' />"></script>
 <!-- icon -->
 <script src="https://kit.fontawesome.com/041970ba48.js"
 	crossorigin="anonymous"></script>
 <link rel="stylesheet"
 	href="<spring:url value='/css/order/shoppingCart.css' />">
-<script src="<spring:url value='/js/order/shoppingCart.js' />"></script>
+
 <link rel="stylesheet"
 	href="<spring:url value='/css/register/nav.css' /> " />
-<script type="text/javascript">
-	var n;
-	var key;
-	function deleteCart(n) {
-		document.forms[0].action = "<spring:url value='/order/updateShoppingCart?cmd=DEL&productFormatId="
-				+ n + "' />";
-		document.forms[0].method = "POST";
-		document.forms[0].submit();
-	}
-	function modifyQuantity(key, index) {
-		var x = "newQty" + index;
-		var newQty = document.getElementById(x).value;
-		document.forms[0].action = "<spring:url value='/order/updateShoppingCart?cmd=QTY&productFormatId="
-				+ key + "&newQty=" + newQty + "' />";
-		document.forms[0].method = "POST";
-		document.forms[0].submit();
-	}
-	function modifyFormat(key, index) {
-		var x = "newFmt" + index;
-		var newFmt = document.getElementById(x).value;
-		document.forms[0].action = "<spring:url value='/order/updateShoppingCart?cmd=FMT&productFormatId="
-				+ key + "&newFmt=" + newFmt + "' />";
-		document.forms[0].method = "POST";
-		document.forms[0].submit();
-	}
-	function changeChoose(key, index) {
-		var choose = document.getElementsByClassName("choose")[index].checked;
-		document.forms[0].action = "<spring:url value='/order/updateShoppingCart?cmd=CHS&productFormatId="
-				+ key + "&choose=" + choose + "' />";
-		document.forms[0].method = "POST";
-		document.forms[0].submit();
-	}
-	function changeAll() {
-		var chooseAll = document.getElementById("allCheck").checked;
-		document.forms[0].action = "<spring:url value='/order/updateShoppingCart?cmd=CSA&chooseAll="
-				+ chooseAll + "' />";
-		document.forms[0].method = "POST";
-		document.forms[0].submit();
-	}
-</script>
 </head>
 <body>
 	<!-- =======================導覽列================= -->
@@ -205,7 +166,7 @@
 						</div>
 
 
-						<form action="<spring:url value='/order/orderList' />">
+						<form action="" id="checkShoppingCart">
 							<c:forEach var="cartMap" varStatus="vs"
 								items="${ShoppingCart.content}">
 								<c:forEach var="orderMap" items="${cartMap.value}">
@@ -259,7 +220,7 @@
 										<div class="product-quantity">
 											<input type="number" name="count" id="newQty${vs.index}"
 												style="max-width: 100%;"
-												onchange="modifyQuantity('${cartMap.key}',${vs.index})"
+												onchange="modifyQuantity(${cartMap.key},${vs.index})"
 												value="${orderMap.key.quantity}" min="1">
 										</div>
 										<div class="product-line-price singleTotal">${orderMap.key.unitPrice*orderMap.key.quantity}</div>
@@ -285,7 +246,7 @@
 									</div>
 								</div>
 							</div>
-							<button type="submit" class="checkout" role="button"
+							<button type="button" class="checkout" role="button"
 								onclick="checkShoppingCart(${ShoppingCart})">Checkout</button>
 						</form>
 					</div>
@@ -379,5 +340,8 @@
 		<!-- Copyright -->
 	</footer>
 	<!-- Footer -->
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+	<script src="<spring:url value='/js/order/cartAjax.js' /> " ></script>
+		
 </body>
 </html>

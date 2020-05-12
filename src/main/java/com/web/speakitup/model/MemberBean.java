@@ -41,16 +41,20 @@ public class MemberBean implements Serializable{
 	private String permission;
 	private String likeArticles;
 	private String authToken;
-	private String lastSendDate;
-	private String lastReplyDate;
+	private String sendQuota;
+	private String replyQuota;
 	private Integer letterOftheDay;
 	@Transient
 	private MultipartFile memberImage;
 
+	
+	
+	
+	
 	public MemberBean(Integer id, String memberId, String password, String gender, Date birthday, String email,
 			String phone, String city, String area, String address, String fileName, Blob picture, Timestamp createTime,
-			String status, String permission, String likeArticles, String authToken, String lastSendDate,
-			String lastReplyDate,Integer letterOftheDay) {
+			String status, String permission, String likeArticles, String authToken, String sendQuota,
+			String replyQuota, Integer letterOftheDay) {
 		super();
 		this.id = id;
 		this.memberId = memberId;
@@ -69,13 +73,11 @@ public class MemberBean implements Serializable{
 		this.permission = permission;
 		this.likeArticles = likeArticles;
 		this.authToken = authToken;
-		this.lastSendDate = lastSendDate;
-		this.lastReplyDate = lastReplyDate;
+		this.sendQuota = sendQuota;
+		this.replyQuota = replyQuota;
 		this.letterOftheDay = letterOftheDay;
 	}
-	
-	
-	
+
 	public MemberBean(Integer id, String email, String phone, String city, String area, String address,
 			String fileName,Blob picture) {
 		super();
@@ -240,21 +242,14 @@ public class MemberBean implements Serializable{
 		this.authToken = authToken;
 	}
 
-	public String getLastSendDate() {
-		return lastSendDate;
+	public String getSendQuota() {
+		return sendQuota;
 	}
 
-	public void setLastSendDate(String lastSendDate) {
-		this.lastSendDate = lastSendDate;
+	public void setSendQuota(String sendQuota) {
+		this.sendQuota = sendQuota;
 	}
 
-	public String getLastReplyDate() {
-		return lastReplyDate;
-	}
-
-	public void setLastReplyDate(String lastReplyDate) {
-		this.lastReplyDate = lastReplyDate;
-	}
 
 	public MultipartFile getMemberImage() {
 		return memberImage;
@@ -274,6 +269,14 @@ public class MemberBean implements Serializable{
 
 	public void setLetterOftheDay(Integer letterOftheDay) {
 		this.letterOftheDay = letterOftheDay;
+	}
+
+	public String getReplyQuota() {
+		return replyQuota;
+	}
+
+	public void setReplyQuota(String replyQuota) {
+		this.replyQuota = replyQuota;
 	}
 
 }

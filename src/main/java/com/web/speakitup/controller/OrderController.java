@@ -1,5 +1,7 @@
 package com.web.speakitup.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
@@ -9,6 +11,7 @@ import java.util.Set;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,14 +110,15 @@ public class OrderController {
 		}
 		return "order/checkOrder";
 	}
-
 	/* 加入購物車 */
-	@GetMapping("/shoppingCart")
-	public String shoppingCart(Model model, HttpServletRequest request, HttpSession session) {
+	@PostMapping("/shoppingCart")
+	public void shoppingCart(Model model, HttpServletRequest request, HttpSession session,HttpServletResponse response) {
+		response.setCharacterEncoding("UTF-8");
 		// 取出session物件裡的購物車資料
 		ShoppingCart cart = (ShoppingCart) session.getAttribute("ShoppingCart");
 
 		// 如果session內沒有購物車物件 就新建一個session物件
+		
 		if (cart == null) {
 			cart = new ShoppingCart();
 			session.setAttribute("ShoppingCart", cart);
@@ -123,13 +127,20 @@ public class OrderController {
 		// 取得瀏覽器傳來的資料
 		String productIdStr = session.getAttribute("productId").toString();
 		Integer productId = Integer.parseInt(productIdStr.trim());
-
+		System.out.println("peoductId" + productId);
 		// 如果無規格讓content的值為空字串，以便與資料庫進行比對
 		String content1 = request.getParameter("content1") == null ? "" : request.getParameter("content1");
 		String content2 = request.getParameter("content2") == null ? "" : request.getParameter("content2");
 		String qtyStr = request.getParameter("qty");
+		
 		if (qtyStr == null) {
-			return "forward:/product/showProductInfo/" + productId;
+			try {
+				PrintWriter out = response.getWriter();
+				out.print("");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return;
 		}
 		Integer qty = Integer.parseInt(qtyStr.trim());
 
@@ -146,16 +157,28 @@ public class OrderController {
 			}
 		}
 		// 如果找不到規格相同的商品，就不做事
+		
 		if (productFormatId == 0) {
-			return "forward:/product/showProductInfo/" + productId;
+			try {
+				PrintWriter out = response.getWriter();
+				out.print("");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return;
 		}
 		// 把資料封裝進OrderItemBean
 		OrderItemBean oib = new OrderItemBean(null, productId, pb.getProductName(), content1, content2, pb.getPrice(),
 				qty, null);
 		// 為了之後能抓選取的勾勾(預設為勾起來)[y, n]
 		cart.addToCart(productFormatId, oib, formats);
-
-		return "forward:/product/showProductInfo/" + productId;
+		try {
+			PrintWriter out = response.getWriter();
+			out.print("");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return;
 	}
 
 	/* 前往購物車 */
@@ -166,11 +189,20 @@ public class OrderController {
 
 	/* 修改購物車內的商品資料(刪除商品、修改數量、修改規格、修改單選、修改全選) */
 	@PostMapping("/updateShoppingCart")
-	public String updateShoppingCart(HttpServletRequest request, HttpSession session) {
+	public void updateShoppingCart(HttpServletRequest request, HttpSession session,HttpServletResponse response) {
 		// 如果找不到購物車(通常是Session逾時)，回到首頁
+		response.setCharacterEncoding("UTF-8");
+		System.out.println("000");
 		ShoppingCart sc = (ShoppingCart) session.getAttribute("ShoppingCart");
+		System.out.println(sc);
 		if (sc == null) {
-			return "redirect:/";
+			try {
+				PrintWriter out = response.getWriter();
+				out.print("");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return;
 		}
 
 		// cmd可能是DEL或是QTY或是FMT或是CHS或是CSA
@@ -179,17 +211,42 @@ public class OrderController {
 		int productFormatId = 0;
 		if (productFormatIdStr != null) {
 			productFormatId = Integer.parseInt(productFormatIdStr);
+			try {
+				PrintWriter out = response.getWriter();
+				out.print("");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return;
 		}
 
 		if (cmd.equalsIgnoreCase("DEL")) {
 			// 刪除購物車內的某項商品
 			sc.deleteProduct(productFormatId);
+			System.out.println("刪除０");
+			try {
+				System.out.println("刪除");
+				PrintWriter out = response.getWriter();
+				out.print("");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return;
 		} else if (cmd.equalsIgnoreCase("QTY")) {
+			System.out.println("修改數量");
 			// 修改某項商品的數量
 			String newQtyStr = request.getParameter("newQty");
 			int newQty = Integer.parseInt(newQtyStr.trim());
 			sc.changeQty(productFormatId, newQty);
+			try {
+				PrintWriter out = response.getWriter();
+				out.print("");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return;
 		} else if (cmd.equalsIgnoreCase("FMT")) {
+			System.out.println("修改規格");
 			// 修改某項商品的規格
 			String[] newFmt = request.getParameter("newFmt").split(",");
 			String content1 = null;
@@ -201,16 +258,46 @@ public class OrderController {
 				content1 = newFmt[0];
 			}
 			sc.changeFormat(productFormatId, content1, content2);
+			try {
+				PrintWriter out = response.getWriter();
+				out.print("");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return;
 		} else if (cmd.equalsIgnoreCase("CHS")) {
+			System.out.println("修改選擇");
 			// 修改某項商品的選擇項
 			String choose = request.getParameter("choose");
 			sc.changeChecked(productFormatId, choose);
+			try {
+				PrintWriter out = response.getWriter();
+				out.print("");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return;
 		} else if (cmd.equalsIgnoreCase("CSA")) {
+			System.out.println("修改全部選擇");
 			// 修改全部商品的選擇項
 			String chooseAll = request.getParameter("chooseAll");
 			sc.changeAllChecked(chooseAll);
+			try {
+				PrintWriter out = response.getWriter();
+				out.print("");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return;
 		}
-		return "order/shoppingCart";
+		
+//		try {
+//			PrintWriter out = response.getWriter();
+//			out.print("");
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		return;
 	}
 
 	/* 儲存會員的訂單 */

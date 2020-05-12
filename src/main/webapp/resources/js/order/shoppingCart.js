@@ -7,6 +7,7 @@ function doFirst() {
 	}
 
 	checkMoney();
+	
 }
 
 // 計算總金額(有勾選的)
@@ -39,3 +40,5 @@ function checkShoppingCart(ShoppingCart) {
 }
 
 window.addEventListener("load", doFirst);
+
+

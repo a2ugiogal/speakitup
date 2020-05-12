@@ -1,7 +1,10 @@
 package com.web.speakitup.service;
 
+import java.io.IOException;
 import java.sql.Blob;
 import java.util.Map;
+
+import org.springframework.scheduling.annotation.Scheduled;
 
 import com.web.speakitup.model.MemberBean;
 
@@ -23,14 +26,20 @@ public interface MemberService {
 
 	public MemberBean getEmailValid(String emailCode);
 	
-	public void updateSendDate(String memberId,String sendDate);
+	public void updateSendQuota(String memberId,String sendQuota);
 	
-	public void updateReplyDate(String memberId,String replyDate);
+	public void updateReplyQuota(String memberId,String replyQuota);
 	
 	public void updateLetterOftheDay(String memberId,int letterId);
 	
 	public int updateMemberPassword(String memberId, String passwordNew);
 
 	public MemberBean getMember(int id);
+	
+	//去執行定時工作=>清空漂流信
+	public void letterScheduleWork() throws IOException;
+	
+	//清空漂流信
+	public void clearLetteroftheday();
 
 }

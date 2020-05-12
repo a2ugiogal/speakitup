@@ -1,13 +1,16 @@
 package com.web.speakitup.service.impl;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import com.web.speakitup._00_init.GlobalService;
 import com.web.speakitup.dao.LetterDao;
 import com.web.speakitup.model.LetterBean;
 import com.web.speakitup.service.LetterService;
@@ -77,4 +80,7 @@ public class LetterServiceImpl implements LetterService{
 		dao.updateLetterFeedback(letterId, feedback);
 		
 	}
+
+	
+
 }

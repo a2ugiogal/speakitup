@@ -633,4 +633,7 @@ public class MemberController {
 
 		return "redirect:/member/showManageMemberInfo/{id}?reportTimes=" + reportTimes;
 	}
+	
+	
+	
 }
