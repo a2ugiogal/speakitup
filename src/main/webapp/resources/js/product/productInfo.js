@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 
 
 
@@ -9,16 +9,11 @@ function addShoppinCart(qty,content1,content2) {
 		+content1.value +"&content2=" + content2.value,
 		type : 'POST',
 		success : function() {}
-=======
-//按下加入購物車的小小動畫
-$(document).ready(function() {
-	$("#joinCart").click(function() {
-		$(".cartIcon").change();
->>>>>>> d6feb26c51c61c420a4be8862e508af60ad7b78b
 	});
 	addCartAnimation()
 }
-
+	
+	
 function addCartnoContent2(qty,content1){
 	xhr = new XMLHttpRequest();
 	$.ajax({
@@ -68,7 +63,7 @@ function addCartAnimation(){
 		});
 	}
 }
-<<<<<<< HEAD
+
 
 function buyNow() {
 	buyForm = document.getElementById("buyForm");
@@ -77,6 +72,4 @@ function buyNow() {
 	buyForm.submit();
 }
 
-=======
->>>>>>> d6feb26c51c61c420a4be8862e508af60ad7b78b
 
