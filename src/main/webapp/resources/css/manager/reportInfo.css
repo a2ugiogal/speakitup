@@ -1,0 +1,93 @@
+#pageBg{
+	background: rgb(230, 230, 230);
+}
+.contentBox{
+	background: rgba(255, 255, 255, 0.438);
+}
+.reportInfo_title {
+  padding-top: 60px;
+}
+.text_title1 {
+  font-size: 1.3em;
+}
+.text_title2 {
+  font-size: 1.2em;
+}
+.text_title3 {
+  font-size: 2em;
+}
+.badge{
+	font-size: 15px;
+}
+.button_button button {
+  position: relative;
+  height: 40px;
+  width: 100px;
+  /* margin: 0 35px; */
+  border-radius: 30px;
+  border: none;
+  outline: none;
+  background: #111;
+  color: #fff;
+  font-size: 20px;
+  letter-spacing: 2px;
+  /* 定義所有字母均為大寫 */
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.button_button1 button:hover {
+  background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+  background-size: 400%;
+}
+.button_button2 button:hover {
+  background: linear-gradient(90deg, #fa7199, #f5ce62, #e43603, #fa7199);
+  background-size: 400%;
+}
+.button_button button:first-child:before,
+.button_button button:last-child:before {
+  content: "";
+  position: absolute;
+  background: inherit;
+  top: -1px;
+  right: -1px;
+  bottom: -1px;
+  left: -1px;
+  border-radius: 40px;
+  filter: blur(5px);
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+.button_button button:first-child:hover:before,
+.button_button button:last-child:hover:before {
+  opacity: 1;
+  z-index: -1;
+}
+.button_button button:hover {
+  z-index: 1;
+  /* infinite 動畫就會無止盡的播放下去 */
+  animation: animate 8s linear infinite;
+}
+@keyframes animate {
+  0% {
+    background-position: 0%;
+  }
+  100% {
+    background-position: 400%;
+  }
+}
+
+/*-------滾動條整體樣式----*/
+.text_title2::-webkit-scrollbar {
+  width: 6px;
+}
+
+/*滾動條裡面小方塊樣式*/
+.text_title2::-webkit-scrollbar-thumb {
+  border-radius: 100px;
+  background: rgba(100, 100, 100, 0.5);
+}
+
+/*滾動條裡面軌道樣式*/
+.text_title2::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.09);
+}

@@ -35,7 +35,58 @@
 	href="<spring:url value='/css/product/nav.css' /> " />
 <link rel="stylesheet"
 	href="<spring:url value='/css/loginModel.css' /> " />
+<<<<<<< HEAD
 
+=======
+<script type="text/javascript">
+	function addShoppinCart() {
+		var cart = $('.addToCartLoc');
+		var imgtodrag = $('body').find('.productImg').find('img').eq(0);
+		if (imgtodrag) {
+			var imgclone = imgtodrag.clone().offset({
+				top : imgtodrag.offset().top,
+				left : imgtodrag.offset().left
+			}).css({
+				'opacity' : '0.8',
+				'position' : 'absolute',
+				'height' : '150px',
+				'width' : '150px',
+				'z-index' : '1031'
+			}).appendTo($('body')).animate({
+				'top' : cart.offset().top + 10,
+				'left' : cart.offset().left + 10,
+				'width' : 75,
+				'height' : 75
+			}, 1000, 'easeInOutExpo');
+
+			imgclone.animate({
+				'width' : 0,
+				'height' : 0
+			}, function() {
+				$(this).detach()
+			});
+		}
+		
+		setTimeout(function() {
+			buyForm = document.getElementById("buyForm");
+			buyForm.action = "<spring:url value='/order/shoppingCart' />";
+			buyForm.method = "GET";
+			buyForm.submit();
+		}, 3000);
+	}
+
+	function buyNow() {
+		buyForm = document.getElementById("buyForm");
+		buyForm.action = "<spring:url value='/order/checkOrder' />";
+		buyForm.method = "GET";
+		buyForm.submit();
+	}
+	
+	function loginModel() {
+		$("#ignismyModal").modal("show");
+	}
+</script>
+>>>>>>> d6feb26c51c61c420a4be8862e508af60ad7b78b
 </head>
 
 <body>
@@ -310,6 +361,7 @@
 										</div>
 									</div>
 									<div>
+<<<<<<< HEAD
 									
 									<c:choose>
 										
@@ -344,6 +396,15 @@
 										</c:otherwise>
 									</c:choose>										
 										
+=======
+										<button type="button" class="addToCart btn btn-outline-danger"
+											<c:choose>
+												<c:when test="${empty LoginOK}">onclick="loginModel()"</c:when>
+												<c:otherwise>onclick="addShoppinCart()"</c:otherwise>
+											</c:choose>>
+											加入購物車<i class="fas fa-shopping-cart"></i>
+										</button>
+>>>>>>> d6feb26c51c61c420a4be8862e508af60ad7b78b
 										<button type="button" class="btn btn-outline-danger buy"
 											onclick="buyNow()">直接購買</button>
 									</div>

@@ -2,7 +2,6 @@ package com.web.speakitup.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Writer;
 import java.sql.Blob;
 import java.sql.Clob;
 import java.sql.SQLException;
@@ -36,7 +35,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -70,11 +68,11 @@ public class ArticleController {
 		// 先取得所有的篩選條件 預設是空的 不管有沒有條件都會來run這個方法
 		String arrange = request.getParameter("arrange") == null ? "" : request.getParameter("arrange");
 		String searchStr = request.getParameter("search") == null ? "" : request.getParameter("search");
-		String categoryTitle = request.getParameter("categoryTitle") == null ? ""
+		String categoryTitle = request.getParameter("categoryTitle") == null ? "天使"
 				: request.getParameter("categoryTitle");
 		String categoryName = request.getParameter("categoryName") == null ? "" : request.getParameter("categoryName");
 
-		Map<Integer, ArticleBean> articleMap = articleService.getArticles(arrange, searchStr, categoryTitle,
+		Map<ArticleBean, String> articleMap = articleService.getArticles(arrange, searchStr, categoryTitle,
 				categoryName);
 
 		model.addAttribute("searchStr", searchStr);
@@ -89,7 +87,6 @@ public class ArticleController {
 	/*--------------------------------新增文章空白表單---------------------------------------------------*/
 	@GetMapping("/addArticle")
 	public String addArticle(Model model) {
-
 		ArticleBean articleBean = new ArticleBean();
 		model.addAttribute("articleBean", articleBean);
 		return "article/addArticle";
@@ -112,18 +109,12 @@ public class ArticleController {
 		ab.setAuthorId(mb.getId());
 		ab.setAuthorName(mb.getMemberId());
 		ab.setContent(clobContent);
-		System.out.println("memberId" + mb.getMemberId());
 
 		ArticleCategoryBean acb = articleService.getCategory(categoryTitle, categoryName);
 		// 把種類的外鍵存進去
 		ab.setCategory(acb);
 		// 存文章標題
 		ab.setTitle(title);
-
-		System.out.println("categoryTitle" + categoryTitle);
-		System.out.println("categoryName: " + categoryName);
-		System.out.println("content: " + content);
-		System.out.println("title: " + title);
 
 		// 取得照片
 		MultipartFile articleImage = ab.getArticleImage();
@@ -144,6 +135,10 @@ public class ArticleController {
 
 			}
 		}
+		ab.setLikes(0);
+		ab.setStatus("正常");
+		Timestamp ts = new java.sql.Timestamp(System.currentTimeMillis());
+		ab.setPublishTime(ts);
 
 		articleService.insertArticle(ab);
 		Integer articleId = ab.getArticleId();
@@ -157,7 +152,6 @@ public class ArticleController {
 	// 文章新增成功 轉跳這
 	@GetMapping("/addSuccess")
 	public String addSuccess(@ModelAttribute("articleId") int articleId, Model model) throws IOException, SQLException {
-		System.out.println("222articleId: " + articleId);
 		ArticleBean ab = articleService.getArticle(articleId);
 		String content = GlobalService.clobToString(ab.getContent());
 		model.addAttribute("article", ab);
@@ -236,7 +230,7 @@ public class ArticleController {
 		session.setAttribute("LoginOK", newMb);
 
 		ArticleBean newAb = articleService.getArticle(articleId);
-		String likes = newAb.getLikes().toString();
+		int likes = newAb.getLikes();
 		response.setCharacterEncoding("UTF-8");
 		try {
 			PrintWriter out = response.getWriter();
@@ -245,15 +239,13 @@ public class ArticleController {
 			e.printStackTrace();
 		}
 
-//		return "redirect:/article/showArticleContent/{articleId}";
 		return;
 	}
 
 	/*---------------------------------檢舉文章或留言------------------------------------------------------*/
 
 	@GetMapping("/report")
-	public void addReport(HttpSession session, HttpServletRequest request) {
-
+	public void addReport(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
 		String commentIdStr = request.getParameter("commentId") == null ? "" : request.getParameter("commentId");
 		// 檢舉項目
@@ -273,6 +265,12 @@ public class ArticleController {
 			ReportCommentBean bean = new ReportCommentBean(null, commentId, cb.getAuthorName(), cb.getPublishTime(),
 					cb.getContent(), mb.getMemberId(), reportItem);
 			articleService.insertReportComment(bean);
+		}
+		try {
+			PrintWriter out = response.getWriter();
+			out.print("");
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 
 		return;
@@ -350,28 +348,32 @@ public class ArticleController {
 				int count = articleService.getReportItemCount(cmd, id, reportItems[i]);
 				request.setAttribute("item" + i, count);
 			}
+			ArticleBean ab = null;
 			if (cmd.equals("article") || (cmd.equals("deleteArticle"))) {
-				ArticleBean ab = articleService.getArticle(id);
-				String content = "";
-				Clob clob = null;
-				if (ab != null) {
-					try {
-						clob = ab.getContent();
-						if (clob != null) {
-							content = GlobalService.clobToString(clob);
-						}
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-				}
-
-				model.addAttribute("article", ab);
-				model.addAttribute("content", content);
+				ab = articleService.getArticle(id);
 			}
 			if (cmd.equals("comment") || cmd.equals("deleteComment")) {
 				CommentBean cb = articleService.getComment(id);
+				ab = cb.getArticle();
+
 				model.addAttribute("comment", cb);
 			}
+
+			String content = "";
+			Clob clob = null;
+			if (ab != null) {
+				try {
+					clob = ab.getContent();
+					if (clob != null) {
+						content = GlobalService.clobToString(clob);
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+
+			model.addAttribute("article", ab);
+			model.addAttribute("content", content);
 			model.addAttribute("cmd", cmd);
 			model.addAttribute("id", id);
 		}
@@ -382,8 +384,6 @@ public class ArticleController {
 	@GetMapping("/deleteArticle/{cmd}/{id}")
 	public String deleteArticle(@PathVariable("cmd") String cmd, @PathVariable("id") int id) {
 
-		System.out.println("cmd" + cmd);
-		System.out.println("id" + id);
 		if (cmd.equals("article")) {
 			ArticleBean ab = articleService.getArticle(id);
 			ab.setStatus("刪除");
@@ -415,7 +415,6 @@ public class ArticleController {
 	public ResponseEntity<byte[]> getArticleImage(@PathVariable int articleId, Model model, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 
-		String filepath = "/resources/images/NoImage.jpg";
 		byte[] media = null;
 		HttpHeaders headers = new HttpHeaders();
 		String filename = "";
@@ -430,22 +429,15 @@ public class ArticleController {
 				try {
 					len = (int) blob.length();
 					media = blob.getBytes(1, len);
+					String mimeType = context.getMimeType(filename);
+					MediaType mediaType = MediaType.valueOf(mimeType);
+					headers.setContentType(mediaType);
 				} catch (SQLException e) {
 					throw new RuntimeException("getUserImage發生SQLException" + e.getMessage());
 				}
-			} else {
-				media = GlobalService.toByteArray(context, filepath);
-				filename = filepath;
 			}
-
-		} else {
-			media = GlobalService.toByteArray(context, filepath);
-			filename = filepath;
 		}
 		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
-		String mimeType = context.getMimeType(filename);
-		MediaType mediaType = MediaType.valueOf(mimeType);
-		headers.setContentType(mediaType);
 		ResponseEntity<byte[]> responseEntity = new ResponseEntity<byte[]>(media, headers, HttpStatus.OK);
 		return responseEntity;
 	}

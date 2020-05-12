@@ -13,8 +13,6 @@ function doFirst() {
     nextPage.style.visibility = "hidden";
   }
 
-  // $("#commentBtnArea").click();
-
   // 送出留言
   commentForm = document.getElementById("commentForm");
   $("#sendCommentBtn").click(function () {
@@ -26,11 +24,6 @@ function doFirst() {
     commentForm.submit();
   });
 
-  // 按愛心
-// normal = document.getElementsByClassName("normal")[0];
-// normal.addEventListener("click", function () {
-//    
-// });
 }
 
 
@@ -59,16 +52,17 @@ function wantComment() {
 
 // 按愛心
 function likeIt(){
-	if (this.style.color != "red") {
+	normal = document.getElementsByClassName("normal")[0];
+	if (normal.style.color != "red") {
 	      xhr = new XMLHttpRequest();
-	      id = this.id;
+	      id = normal.id;
 	      xhr.open("GET", "/speakitup/article/likeArticle/" + id, false);
 	      xhr.send();
 	      likeNum = document.getElementById("likeNum");
 	      likeNum.innerText = xhr.responseText;
-	      this.style.color = "red";
-	      this.style.border = "1px solid red";
-	      this.style.cursor = "default";
+	      normal.style.color = "red";
+	      normal.style.border = "1px solid red";
+	      normal.style.cursor = "default";
 	    }
 }
 
@@ -126,10 +120,11 @@ function showReportModal(commentId) {
 	  xhr = new XMLHttpRequest();
 	  xhr.open(
 	    "GET",
-	    "/speakitup/article/report?reportItem=" +
-	    reportItem,
+	    "/speakitup/article/report?reportItem=" + reportItem + "&commentId=" + commentIdInput.value,
 	    false
 	  );
+	  xhr.setRequestHeader("Content-Type",
+		"application/x-www-form-urlencoded");
 	  xhr.send();
 	  $("#reportModal").modal("hide");
 	});

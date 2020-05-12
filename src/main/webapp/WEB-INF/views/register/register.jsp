@@ -174,9 +174,9 @@
 										class="d-flex justify-content-center mt-3">
 										<!-- 選擇檔案 -->
 										<p class="file">
-											<form:input id="fileSelect" path="memberImage" type="file" />
+											<form:input id="fileSelect" path="memberImage" type="file" cssStyle="visibility: hidden;" />
 											<!-- 											<input name="memberMultipartFile" type="file" id="fileSelect" /> -->
-											<label for="file" class="rounded" style="font-size: 18px;">上傳你的個人照片</label>
+											<label for="fileSelect" class="rounded" style="font-size: 18px;">上傳你的個人照片</label>
 										</p>
 									</div>
 									<!-- 性別 -->

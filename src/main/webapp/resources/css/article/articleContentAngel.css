@@ -51,6 +51,10 @@
 	background-color: rgba(238, 145, 145, 0.445);
 }
 
+.badge{
+	font-size: 15px;
+}
+
 #articlePicture {
 	width: 63%;
 	margin-left: 20%;
