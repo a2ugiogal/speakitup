@@ -361,7 +361,7 @@
 										</div>
 									</div>
 									<div>
-<<<<<<< HEAD
+
 									
 									<c:choose>
 										
@@ -395,16 +395,6 @@
 											</button>
 										</c:otherwise>
 									</c:choose>										
-										
-=======
-										<button type="button" class="addToCart btn btn-outline-danger"
-											<c:choose>
-												<c:when test="${empty LoginOK}">onclick="loginModel()"</c:when>
-												<c:otherwise>onclick="addShoppinCart()"</c:otherwise>
-											</c:choose>>
-											加入購物車<i class="fas fa-shopping-cart"></i>
-										</button>
->>>>>>> d6feb26c51c61c420a4be8862e508af60ad7b78b
 										<button type="button" class="btn btn-outline-danger buy"
 											onclick="buyNow()">直接購買</button>
 									</div>
