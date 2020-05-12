@@ -173,7 +173,6 @@
 			</div>
 			<!-- 這是一組開始 -->
 			<c:forEach var="entry" items="${articles_map}">
-
 				<div class="nayma-timeline-block">
 					<!-- 藍色點點 -->
 					<div class="nayma-timeline-img"></div>
@@ -229,18 +228,18 @@
 								</p>
 								<!-- 愛心數 -->
 								<i class="my-0 p-0 h5 bx bx-heart-circle col-1 text-danger"><span
-									class="h6 ml-1 text-secondary">${entry.key.likes}</span></i>
+									class="h6 ml-1 text-secondary"><i>${entry.key.likes}</i></span></i>
 								<!-- 留言數 -->
 								<i class="my-0 p-0 h5 bx bx-message-detail col-1 text-info"><span
-									class="h6 ml-1 text-secondary"> <c:choose>
-											<c:when test="${not empty entry.key.articleComments}">
-												<c:forEach var="comments"
-													items="${entry.key.articleComments}" varStatus="number">
-													<c:if test="${number.last}">${number.count}</c:if>
-												</c:forEach>
-											</c:when>
-											<c:otherwise>0</c:otherwise>
-										</c:choose></span></i>
+									class="h6 ml-1 text-secondary"><i> <c:choose>
+												<c:when test="${not empty entry.key.articleComments}">
+													<c:forEach var="comments"
+														items="${entry.key.articleComments}" varStatus="number">
+														<c:if test="${number.last}">${number.count}</c:if>
+													</c:forEach>
+												</c:when>
+												<c:otherwise>0</c:otherwise>
+											</c:choose></i></span></i>
 							</div>
 						</div>
 						<!-- 文章照片 -->

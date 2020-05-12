@@ -1,0 +1,269 @@
+@import
+	url("https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap")
+	;
+
+* {
+	box-sizing: border-box;
+	font-family: "Noto Sans TC", sans-serif;
+}
+
+/* 置頂按鈕 設定 */
+#myBtn {
+	z-index: 99;
+	/* 初始化不顯示 */
+	/* display: none; */
+	/* fixed = 畫面的絕對位置，所以會跟著跑 */
+	position: fixed;
+	/* 離下面30 pixel */
+	bottom: 30px;
+	/* 離右邊30 pixel */
+	right: 50px;
+	/* 半徑圓 */
+	border-radius: 30px;
+	/* 背景色 */
+	background-color: white;
+	/* 透明度 */
+	opacity: 0.5;
+	/* 游標指過去會變手指 */
+	cursor: pointer;
+	/* 控制按鈕寬度 */
+	width: 50px;
+}
+
+body, html, #article_list {
+	scroll-behavior: smooth;
+}
+
+/* 背景色 */
+.bg-color {
+	/* background-color: rgb(60, 111, 189); */
+	background-color: rgb(40, 89, 146);
+}
+
+/* 新增文章按鈕 */
+#addArticleBtn {
+	-webkit-box-shadow: 6px 8px 14px 0px rgba(176, 176, 176, 1);
+	-moz-box-shadow: 6px 8px 14px 0px rgba(176, 176, 176, 1);
+	box-shadow: -6px 4px 14px 0px rgba(176, 176, 176, 1);
+}
+
+#addArticleBtn:hover {
+	cursor: pointer;
+}
+
+#showHint {
+	position: absolute;
+	z-index: 200;
+	left: 240px;
+	top: 60px;
+	font-size: 18px;
+	background-color: white;
+	-webkit-box-shadow: 6px 8px 14px 0px rgba(176, 176, 176, 1);
+	-moz-box-shadow: 6px 8px 14px 0px rgba(176, 176, 176, 1);
+	box-shadow: 6px 8px 14px 0px rgba(176, 176, 176, 1);
+}
+
+/* 左邊欄 */
+#left_list {
+	background-color: white;
+	-webkit-box-shadow: 6px 8px 14px 0px rgba(176, 176, 176, 1);
+	-moz-box-shadow: 6px 8px 14px 0px rgba(176, 176, 176, 1);
+	box-shadow: 6px 8px 14px 0px rgba(176, 176, 176, 1);
+}
+
+.select_list {
+	border: 1px solid rgba(105, 105, 105, 0.199);
+	font-size: 22px;
+	color: #555555;
+	/* color: #c51616; */
+	padding: 20px 0px 20px 0px;
+	margin: 0px;
+}
+
+.select_list:hover{
+  background-color: #55555541;
+}
+
+.list_active:hover {
+	background-color: #555555;
+}
+
+.list_active {
+	background-color: #555555;
+	/* background-color: #ac0101; */
+	color: rgb(255, 255, 255);
+}
+
+::-webkit-scrollbar {
+	display: none;
+}
+
+/* 裂開特效 */
+section {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100vh;
+	z-index: 1000;
+	pointer-events: none;
+}
+
+section .side {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+section .side#side1 {
+	clip-path: polygon(0% 0%, 51% 31%, 8% 49%, 64% 68%, 15% 79%, 59% 94%, 0% 100%);
+}
+
+section .side#side2 {
+	clip-path: polygon(0% 0%, 51% 31%, 8% 49%, 64% 68%, 15% 79%, 59% 94%, 0% 100%, 100%
+		100%, 100% 0%);
+}
+
+.contentBx {
+	padding-top: 204vh;
+}
+
+#content {
+	position: relative;
+}
+
+/* 文章卡片 */
+.badge {
+	font-size: 15px;
+}
+
+.nayma-container {
+	width: 90%;
+	max-width: 1170px;
+	margin: 0 auto;
+}
+
+.nayma-container::after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+#nayma-timeline {
+	position: relative;
+	padding: 2em 0;
+	margin-top: 2em;
+	margin-bottom: 2em;
+}
+
+#nayma-timeline::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 18px;
+	height: 100%;
+	width: 4px;
+	background: rgba(0, 0, 0, 0.15);
+}
+
+.nayma-timeline-block {
+	position: relative;
+	margin: 2em 0;
+}
+
+.nayma-timeline-block:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.nayma-timeline-block:first-child {
+	margin-top: 0;
+}
+
+.nayma-timeline-block:last-child {
+	margin-bottom: 0;
+}
+
+.nayma-timeline-img {
+	background: #005caf;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	box-shadow: 0 0 0 4px white, inset 0 2px 0 rgba(0, 0, 0, 0.08), 0 3px 0
+		4px rgba(0, 0, 0, 0.05);
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
+.nayma-timeline-content {
+	position: relative;
+	margin-left: 60px;
+	background: white;
+	border-radius: 0.25em;
+	padding: 1em;
+	box-shadow: 0 2px 7px rgba(0, 0, 0, 0.15);
+}
+
+.nayma-timeline-content:hover{
+  cursor: pointer;
+}
+
+.nayma-timeline-content:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.nayma-timeline-content h2 {
+	color: #303e49;
+}
+
+.nayma-timeline-content p, .nayma-timeline-content {
+	font-size: 12px;
+	font-size: 0.7125rem;
+}
+
+.nayma-timeline-content .nayma-timeline-content {
+	display: inline-block;
+}
+
+.nayma-timeline-content p {
+	font-weight: 300;
+	margin: 1em 0;
+	line-height: 1.6;
+}
+
+.nayma-timeline-content::before {
+	content: "";
+	position: absolute;
+	top: 16px;
+	right: 100%;
+	height: 0;
+	width: 0;
+	border: 7px solid transparent;
+	border-right: 7px solid white;
+}
+
+@media only screen and (min-width: 768px) {
+	.nayma-timeline-content h2 {
+		font-size: 20px;
+		font-size: 1.25rem;
+	}
+	.nayma-timeline-content p {
+		font-size: 16px;
+		font-size: 0.9rem;
+	}
+}
+
+#by-date:hover, #by-popular:hover {
+	height: 46px;
+	border: #005caf 2px solid;
+	background-color: #fff !important;
+	color: #005caf !important;
+}
