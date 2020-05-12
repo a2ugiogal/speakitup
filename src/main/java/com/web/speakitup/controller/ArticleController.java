@@ -231,7 +231,6 @@ public class ArticleController {
 		session.setAttribute("LoginOK", newMb);
 
 		ArticleBean newAb = articleService.getArticle(articleId);
-//		String likes = newAb.getLikes().toString();
 		int likes = newAb.getLikes();
 		response.setCharacterEncoding("UTF-8");
 		try {
@@ -241,7 +240,6 @@ public class ArticleController {
 			e.printStackTrace();
 		}
 
-//		return "redirect:/article/showArticleContent/{articleId}";
 		return;
 	}
 
@@ -351,28 +349,32 @@ public class ArticleController {
 				int count = articleService.getReportItemCount(cmd, id, reportItems[i]);
 				request.setAttribute("item" + i, count);
 			}
+			ArticleBean ab = null;
 			if (cmd.equals("article") || (cmd.equals("deleteArticle"))) {
-				ArticleBean ab = articleService.getArticle(id);
-				String content = "";
-				Clob clob = null;
-				if (ab != null) {
-					try {
-						clob = ab.getContent();
-						if (clob != null) {
-							content = GlobalService.clobToString(clob);
-						}
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-				}
-
-				model.addAttribute("article", ab);
-				model.addAttribute("content", content);
+				ab = articleService.getArticle(id);
 			}
 			if (cmd.equals("comment") || cmd.equals("deleteComment")) {
 				CommentBean cb = articleService.getComment(id);
+				ab = cb.getArticle();
+
 				model.addAttribute("comment", cb);
 			}
+
+			String content = "";
+			Clob clob = null;
+			if (ab != null) {
+				try {
+					clob = ab.getContent();
+					if (clob != null) {
+						content = GlobalService.clobToString(clob);
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+
+			model.addAttribute("article", ab);
+			model.addAttribute("content", content);
 			model.addAttribute("cmd", cmd);
 			model.addAttribute("id", id);
 		}
@@ -383,8 +385,6 @@ public class ArticleController {
 	@GetMapping("/deleteArticle/{cmd}/{id}")
 	public String deleteArticle(@PathVariable("cmd") String cmd, @PathVariable("id") int id) {
 
-		System.out.println("cmd" + cmd);
-		System.out.println("id" + id);
 		if (cmd.equals("article")) {
 			ArticleBean ab = articleService.getArticle(id);
 			ab.setStatus("刪除");

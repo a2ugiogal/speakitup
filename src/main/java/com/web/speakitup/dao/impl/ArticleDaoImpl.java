@@ -46,21 +46,21 @@ public class ArticleDaoImpl implements ArticleDao {
 	@Override
 	public void insertComment(CommentBean cb) {
 		Session session = factory.getCurrentSession();
-		session.save(cb);
+		session.saveOrUpdate(cb);
 	}
 
 	// 新增檢舉文章資料
 	@Override
 	public void insertReportArticle(ReportArticleBean rab) {
 		Session session = factory.getCurrentSession();
-		session.save(rab);
+		session.saveOrUpdate(rab);
 	}
 
 	// 新增檢舉留言資料
 	@Override
 	public void insertReportComment(ReportCommentBean rcb) {
 		Session session = factory.getCurrentSession();
-		session.save(rcb);
+		session.saveOrUpdate(rcb);
 	}
 
 	// 刪除檢舉文章資料

@@ -34,11 +34,11 @@ public class ProductDaoImpl implements ProductDao {
 	public ProductDaoImpl() {
 	}
 
-	// 新增文章資料
+	// 新增商品資料
 	@Override
 	public void insertProduct(ProductBean pb) {
 		Session session = factory.getCurrentSession();
-		session.save(pb);
+		session.saveOrUpdate(pb);
 	}
 
 	// 計算搜尋的商品總共有幾頁
