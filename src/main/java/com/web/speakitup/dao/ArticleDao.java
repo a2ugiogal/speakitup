@@ -28,7 +28,7 @@ public interface ArticleDao {
 
 //	long getRecordCounts();
 
-	Map<Integer, ArticleBean> getArticles(String arrange, String searchStr, String categoryTitle, String categoryName);
+	Map<ArticleBean, String> getArticles(String arrange, String searchStr, String categoryTitle, String categoryName);
 
 	Map<ArticleBean, String> getPersonArticles(String arrange, String searchStr, MemberBean mb);
 

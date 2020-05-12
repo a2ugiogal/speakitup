@@ -68,11 +68,11 @@ public class ArticleController {
 		// 先取得所有的篩選條件 預設是空的 不管有沒有條件都會來run這個方法
 		String arrange = request.getParameter("arrange") == null ? "" : request.getParameter("arrange");
 		String searchStr = request.getParameter("search") == null ? "" : request.getParameter("search");
-		String categoryTitle = request.getParameter("categoryTitle") == null ? ""
+		String categoryTitle = request.getParameter("categoryTitle") == null ? "天使"
 				: request.getParameter("categoryTitle");
 		String categoryName = request.getParameter("categoryName") == null ? "" : request.getParameter("categoryName");
 
-		Map<Integer, ArticleBean> articleMap = articleService.getArticles(arrange, searchStr, categoryTitle,
+		Map<ArticleBean, String> articleMap = articleService.getArticles(arrange, searchStr, categoryTitle,
 				categoryName);
 
 		model.addAttribute("searchStr", searchStr);
@@ -87,7 +87,6 @@ public class ArticleController {
 	/*--------------------------------新增文章空白表單---------------------------------------------------*/
 	@GetMapping("/addArticle")
 	public String addArticle(Model model) {
-
 		ArticleBean articleBean = new ArticleBean();
 		model.addAttribute("articleBean", articleBean);
 		return "article/addArticle";

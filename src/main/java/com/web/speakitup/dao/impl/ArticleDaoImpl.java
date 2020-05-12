@@ -109,7 +109,7 @@ public class ArticleDaoImpl implements ArticleDao {
 	// 查詢文章
 	@SuppressWarnings("unchecked")
 	@Override
-	public Map<Integer, ArticleBean> getArticles(String arrange, String searchStr, String categoryTitle,
+	public Map<ArticleBean, String> getArticles(String arrange, String searchStr, String categoryTitle,
 			String categoryName) {
 		// 預設的搜尋
 		String hql = "SELECT ab FROM ArticleBean ab, ArticleCategoryBean acb WHERE ab.category=acb.categoryId "
@@ -117,7 +117,7 @@ public class ArticleDaoImpl implements ArticleDao {
 				+ "AND acb.categoryName LIKE :categoryName " + "AND ab.status= :status " + "ORDER BY ab.likes DESC";
 		Session session = factory.getCurrentSession();
 		String[] arranges = GlobalService.ARTICLE_ARRANGE; // "popular", "time"
-		Map<Integer, ArticleBean> map = new LinkedHashMap<Integer, ArticleBean>();
+		Map<ArticleBean, String> map = new LinkedHashMap<>();
 		List<ArticleBean> list = new ArrayList<ArticleBean>();
 
 		// 判斷要如何排列
@@ -134,7 +134,12 @@ public class ArticleDaoImpl implements ArticleDao {
 				.setParameter("categoryTitle", "%" + categoryTitle + "%")
 				.setParameter("categoryName", "%" + categoryName + "%").setParameter("status", "正常").getResultList();
 		for (ArticleBean bean : list) {
-			map.put(bean.getArticleId(), bean);
+			try {
+				String content = GlobalService.clobToString(bean.getContent());
+				map.put(bean, content);
+			} catch (IOException | SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return map;
 	}
