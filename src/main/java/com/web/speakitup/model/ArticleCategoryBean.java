@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
+
 @Entity
 @Table(name = "ArticleCategory")
 public class ArticleCategoryBean implements Serializable{
@@ -20,8 +22,11 @@ public class ArticleCategoryBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Expose
 	private Integer categoryId;
+	@Expose
 	private String categoryTitle;
+	@Expose
 	private String categoryName;
 	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
 	private Set<ArticleBean> articles = new LinkedHashSet<>();

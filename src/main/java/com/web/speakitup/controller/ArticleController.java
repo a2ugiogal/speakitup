@@ -38,6 +38,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.web.speakitup._00_init.GlobalService;
 import com.web.speakitup.model.ArticleBean;
 import com.web.speakitup.model.ArticleCategoryBean;
@@ -82,6 +84,44 @@ public class ArticleController {
 		model.addAttribute("articles_map", articleMap);
 
 		return "article/articlePage";
+	}
+
+	/*----------------------------------所有的文章(ajax)-----------------------------------------------------*/
+
+	@GetMapping("/showPageArticlesAjax")
+	public void ShowPageArticlesAjax(HttpServletRequest request, Model model, HttpServletResponse response) {
+		response.setContentType("application/json; charset=utf-8");
+
+		try (PrintWriter out = response.getWriter();) {
+			// 先取得所有的篩選條件 預設是空的 不管有沒有條件都會來run這個方法
+			String arrange = request.getParameter("arrange") == null ? "" : request.getParameter("arrange");
+			String searchStr = request.getParameter("search") == null ? "" : request.getParameter("search");
+			String categoryTitle = request.getParameter("categoryTitle") == null ? "天使"
+					: request.getParameter("categoryTitle");
+			String categoryName = request.getParameter("categoryName") == null ? ""
+					: request.getParameter("categoryName");
+
+			Map<ArticleBean, String> articleMap = articleService.getArticles(arrange, searchStr, categoryTitle,
+					categoryName);
+
+			
+			
+			
+			List<Map<String, Object>> articles = new ArrayList<Map<String, Object>>();
+
+			for (ArticleBean bean : articleMap.keySet()) {
+				Map<String, Object> map = new LinkedHashMap<String, Object>();
+				map.put("article", bean);
+				map.put("content", articleMap.get(bean));
+				articles.add(map);
+			}
+
+			Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+			out.write(gson.toJson(articles));
+			out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/*--------------------------------新增文章空白表單---------------------------------------------------*/
