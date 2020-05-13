@@ -95,5 +95,7 @@ public class LetterDaoImpl implements LetterDao {
 		String hql = "UPDATE LetterBean l set l.feedback = :feedback WHERE l.letterId = :id";
 		factory.getCurrentSession().createQuery(hql).setParameter("feedback", feedback).setParameter("id", letterId).executeUpdate();
 	}
+
+	
 	
 }

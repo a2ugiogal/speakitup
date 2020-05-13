@@ -1,6 +1,7 @@
 package com.web.speakitup.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Blob;
 import java.sql.Clob;
 import java.sql.SQLException;
@@ -143,7 +144,7 @@ public class ProductController {
 	/* 查詢商品詳細資料 */
 	@GetMapping("/showProductInfo/{productId}")
 	public String showProductInfo(Model model, @PathVariable("productId") Integer productId, HttpSession session) {
-
+		
 		Clob clob = null;
 		String detail = "";
 		ProductFormatBean firstProductFormat = null;
@@ -187,13 +188,10 @@ public class ProductController {
 			model.addAttribute("content2", contentSet2);
 			model.addAttribute("detail", detail);
 			session.setAttribute("productId", productId);
-
-			return "product/productInfo";
-		} else { // 如果找不到Id，回商城首頁
-			return "redirect:index";
 		}
+		return "product/productInfo";
 	}
-
+	
 	/* 前往商城首頁 */
 	@GetMapping("/productHome")
 	public String showFamousProducts(Model model) {

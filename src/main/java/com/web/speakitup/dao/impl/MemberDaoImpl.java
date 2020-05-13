@@ -158,17 +158,17 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public void updateSendDate(String memberId, String sendDate) {
+	public void updateSendQuota(String memberId, String sendQuota) {
 		Session session = factory.getCurrentSession();
-		String hql = "UPDATE MemberBean m SET m.lastSendDate = :sendDate WHERE m.memberId = :memberId";
-		session.createQuery(hql).setParameter("sendDate", sendDate).setParameter("memberId", memberId).executeUpdate();
+		String hql = "UPDATE MemberBean m SET m.sendQuota = :sendQuota WHERE m.memberId = :memberId";
+		session.createQuery(hql).setParameter("sendQuota", sendQuota).setParameter("memberId", memberId).executeUpdate();
 	}
 
 	@Override
-	public void updateReplyDate(String memberId, String replyDate) {
+	public void updateReplyQuota(String memberId, String replyQuota) {
 		Session session = factory.getCurrentSession();
-		String hql = "UPDATE MemberBean m SET m.lastReplyDate = :replyDate WHERE m.memberId = :memberId";
-		session.createQuery(hql).setParameter("replyDate", replyDate).setParameter("memberId", memberId)
+		String hql = "UPDATE MemberBean m SET m.replyQuota = :replyQuota WHERE m.memberId = :memberId";
+		session.createQuery(hql).setParameter("replyQuota", replyQuota).setParameter("memberId", memberId)
 				.executeUpdate();
 
 	}
@@ -203,5 +203,11 @@ public class MemberDaoImpl implements MemberDao {
 				.setParameter("address", mb.getAddress()).setParameter("id", mb.getId()).executeUpdate();
 
 	}
-
+	
+	@Override
+	public void clearLetteroftheday() {
+		String hql = "UPDATE MemberBean m SET m.letterOftheDay =:letterOftheDay WHERE m.letterOftheDay IS NOT NULL";
+		factory.getCurrentSession().createQuery(hql).setParameter("letterOftheDay",null).executeUpdate();
+		System.out.println("clearSuccess");
+	}
 }

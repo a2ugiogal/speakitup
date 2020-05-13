@@ -1,11 +1,14 @@
 package com.web.speakitup.service.impl;
 
+import java.io.IOException;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.web.speakitup._00_init.GlobalService;
 import com.web.speakitup.dao.MemberDao;
 import com.web.speakitup.model.MemberBean;
 import com.web.speakitup.service.MemberService;
@@ -82,14 +85,14 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void updateSendDate(String memberId, String sendDate) {
-		dao.updateSendDate(memberId, sendDate);
+	public void updateSendQuota(String memberId, String sendQuota) {
+		dao.updateSendQuota(memberId, sendQuota);
 
 	}
 
 	@Override
-	public void updateReplyDate(String memberId, String replyDate) {
-		dao.updateReplyDate(memberId, replyDate);
+	public void updateReplyQuota(String memberId, String replyQuota) {
+		dao.updateReplyQuota(memberId, replyQuota);
 	}
 
 	
@@ -109,6 +112,23 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void updateLetterOftheDay(String memberId, int letterId) {
 		dao.updateLetterOftheDay(memberId, letterId);
+	}
+
+	
+	@Override
+	public void clearLetteroftheday() {
+		System.out.println("clear的Service區域");
+		dao.clearLetteroftheday();
+	}
+
+	@Override
+	@Scheduled(cron = "40 56 14 * * *")
+	public void letterScheduleWork() throws IOException{
+		System.out.println("執行定期工作"); 
+		String [] cmds = {"curl", "http://localhost:8080/speakitup/scheduledWork"};
+		ProcessBuilder process = new ProcessBuilder(cmds);
+		process.start();
+	
 	}
 
 

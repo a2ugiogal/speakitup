@@ -46,29 +46,21 @@ public class LetterController {
 
 		System.out.println("memberId : " + mb.getMemberId());
 
-		String lastSendDate = mb.getLastSendDate();
-		System.out.println("上次寄信日期:" + lastSendDate);
-
-		String lastReplyDate = mb.getLastReplyDate();
-		System.out.println("上次回信日期:" + lastReplyDate);
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		String today = simpleDateFormat.format(new java.util.Date());
-//		System.out.println("今天日期" + today);
-
+		String sendQuota = mb.getSendQuota();
+		String replyQuota = mb.getReplyQuota();
+		System.out.println("本日寄信扣打:" + sendQuota);
 		// 如果當天寄過信或是寄信欄是不是空的 就不能寄
-		if (lastSendDate != null && lastSendDate.equals(today)) {
+		if (sendQuota.equals("false")) {
 			System.out.println("不能寄信");
 			session.setAttribute("sendError", "不能寄信");
 
 		}
-
-		// 如果當天回過信或是回信欄不是空的 就不能回
-		if (lastReplyDate != null && lastReplyDate.equals(today)) {
-			System.out.println("不能回信");
-			session.setAttribute("replyError", "不能回信");
+		if(replyQuota.equals("false")) {
+			System.out.println("本日已寄");
+			session.setAttribute("replyError", "不能寄信");
 		}
-
 		return "driftLetter/letterInfo";
+		
 	}
 
 	// 寄信區
@@ -99,17 +91,16 @@ public class LetterController {
 
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
 		String memberId = mb.getMemberId();
-
 		// 取得現在日期 擺入信件資訊
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		String sendDay = simpleDateFormat.format(new java.util.Date());
-
+		
 		LetterBean lb = new LetterBean(null, title, memberId, content, sendDay, GlobalService.LETTER_TYPE_ANGEL, "n");
 		letterService.saveLetter(lb);
-
-		mb.setLastSendDate(sendDay);
-		memberService.updateSendDate(memberId, sendDay);
-
+		
+		mb.setSendQuota("false");
+		memberService.updateSendQuota(memberId, mb.getSendQuota());
+		System.out.println("mb.getSendQuota: "+mb.getSendQuota());
 		return "redirect:/letter/letterHome";
 	}
 
@@ -120,16 +111,15 @@ public class LetterController {
 
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
 		String memberId = mb.getMemberId();
-
 		// 取得現在日期 擺入信件資訊
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		String sendDay = simpleDateFormat.format(new java.util.Date());
-
+		
 		LetterBean lb = new LetterBean(null, title, memberId, content, sendDay, GlobalService.LETTER_TYPE_DEVIL, "n");
 		letterService.saveLetter(lb);
-		mb.setLastSendDate(sendDay);
-		memberService.updateSendDate(memberId, sendDay);
-
+		
+		mb.setSendQuota("false");
+		memberService.updateSendQuota(memberId, mb.getSendQuota());
 		return "redirect:/letter/letterHome";
 
 	}
@@ -164,12 +154,6 @@ public class LetterController {
 				memberService.updateLetterOftheDay(memberId, letterId);
 				letterService.updateLetterStatus(letterId, GlobalService.LETTER_STATUS_OCCUPIED);
 
-				System.out.println("信件作者:" + lb.getLetterWriter());
-				System.out.println("回覆類型: " + lb.getLetterCategory());
-				System.out.println("內容" + lb.getLetterContent());
-				System.out.println("title:" + lb.getLetterTitle());
-				System.out.println("信件狀態:" + lb.getStatus());
-
 			} catch (ArrayIndexOutOfBoundsException e) {
 				System.out.println("無惡魔信可回");
 				session.setAttribute("noLetters", "noLetters");
@@ -182,9 +166,6 @@ public class LetterController {
 		} else {
 			lb = letterService.getLetter(letterIdoftheDay);
 			session.setAttribute("lb", lb);
-			System.out.println("信件作者:" + lb.getLetterWriter());
-			System.out.println("內容" + lb.getLetterContent());
-			System.out.println("title:" + lb.getLetterTitle());
 			return "driftLetter/replyDevil";
 		}
 
@@ -221,9 +202,6 @@ public class LetterController {
 				letterService.updateLetterStatus(letterId, GlobalService.LETTER_STATUS_OCCUPIED);
 
 				session.setAttribute("lb", lb);
-				System.out.println("信件作者:" + lb.getLetterWriter());
-				System.out.println("內容" + lb.getLetterContent());
-				System.out.println("title:" + lb.getLetterTitle());
 
 			} catch (ArrayIndexOutOfBoundsException e) {
 				System.out.println("無天使信可回");
@@ -237,10 +215,6 @@ public class LetterController {
 		} else {
 			LetterBean lb = letterService.getLetter(letterIdoftheDay);
 			session.setAttribute("lb", lb);
-			System.out.println("信件作者:" + lb.getLetterWriter());
-			System.out.println("內容" + lb.getLetterContent());
-			System.out.println("title:" + lb.getLetterTitle());
-			System.out.println("type:" + lb.getLetterCategory());
 
 			return "driftLetter/replyAngel";
 
@@ -255,20 +229,13 @@ public class LetterController {
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
 		String replyierId = mb.getMemberId();
 
-		System.out.println("replyierId" + replyierId);
-		System.out.println("letterId" + letterId);
-		System.out.println("replyContent" + replyContent);
-
 		LetterBean lb = letterService.getLetter(letterId);
 		// 把資訊存入原本的信件裡
 		lb = new LetterBean(letterId, replyierId, replyContent, "y");
 		letterService.updateReply(lb);
-
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		String replyDay = simpleDateFormat.format(new java.util.Date());
-		mb.setLastReplyDate(replyDay);
-		memberService.updateReplyDate(replyierId, replyDay);
-
+		
+		mb.setReplyQuota("false");
+		memberService.updateReplyQuota(replyierId, mb.getReplyQuota());
 		return "redirect:/letter/letterHome";
 	}
 
@@ -305,6 +272,7 @@ public class LetterController {
 				letterCategory);
 		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 		try (PrintWriter out = response.getWriter()) {
+			System.out.println(gson.toJson(letters));
 			out.write(gson.toJson(letters));
 			out.flush();
 			
@@ -339,5 +307,7 @@ public class LetterController {
 		}
 		return;
 	}
+	
+	
 
 }
