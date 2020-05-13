@@ -117,7 +117,7 @@ public class OrderController {
 		response.setCharacterEncoding("UTF-8");
 		// 取出session物件裡的購物車資料
 		ShoppingCart cart = (ShoppingCart) session.getAttribute("ShoppingCart");
-
+		System.out.println("0000"+cart);
 		// 如果session內沒有購物車物件 就新建一個session物件
 		
 		if (cart == null) {
@@ -229,7 +229,9 @@ public class OrderController {
 			String newQtyStr = request.getParameter("newQty");
 			int newQty = Integer.parseInt(newQtyStr.trim());
 			sc.changeQty(productFormatId, newQty);
-		
+			System.out.println("更動數量");
+			System.out.println("newQtyStr" + newQty);
+			session.setAttribute("ShoppingCart", sc);
 		} else if (cmd.equalsIgnoreCase("FMT")) {
 			System.out.println("修改規格");
 			// 修改某項商品的規格
@@ -257,7 +259,7 @@ public class OrderController {
 			sc.changeAllChecked(chooseAll);
 			
 		}
-		session.setAttribute("ShoppingCart", sc);
+
 		try {
 			PrintWriter out = response.getWriter();
 			out.print("");

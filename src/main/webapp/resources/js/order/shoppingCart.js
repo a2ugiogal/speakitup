@@ -53,29 +53,39 @@ function allChecked() {
 $('.singleQty').change((e)=>{
 	var productPrice = $(e.target).parent().prev().text();
 	var singleQty = $(e.target).val()
-	singleTotal = productPrice * singleQty
-	$(e.target).parent().next().text(singleTotal);
+	var productFormatId = $(e.target).attr('id').replace("newQty","");
+	alert(productFormatId)
+	xhr = new XMLHttpRequest();
+	 $.ajax({
+	 url : "/speakitup/order/updateShoppingCart?cmd=QTY&productFormatId=" + productFormatId +
+	 "&newQty=" + singleQty,
+	 type : 'POST',
+	 success : function(){}
+	 });
+	 singleTotal = productPrice * singleQty
+		$(e.target).parent().next().text(singleTotal);
+	
 	checkMoney();
 
 })
 
 //刪除商品
-$('.remove-product').click((e)=>{
-	var productFormatId = $(e.target).parent().parent().find('.product-format').attr('id');
-	alert(productFormatId)
-	
-//	if(productFormatId){
-//		productFormatId = 0;
-//	}
-	xhr = new XMLHttpRequest();
-	 $.ajax({
-	 url : "/speakitup/order/updateShoppingCart?cmd=DEL&productFormatId=" + productFormatId,
-	 type : 'POST',
-	 success : function(){}
-	 });
-	 $(e.target).parent().parent().remove();
-		checkMoney();
-})
+//$('.remove-product').click((e)=>{
+//	var productFormatId = $(e.target).parent().parent().find('.product-format').attr('id');
+//	alert(productFormatId)
+//	
+////	if(productFormatId){
+////		productFormatId = 0;
+////	}
+//	xhr = new XMLHttpRequest();
+//	 $.ajax({
+//	 url : "/speakitup/order/updateShoppingCart?cmd=DEL&productFormatId=" + productFormatId,
+//	 type : 'POST',
+//	 success : function(){}
+//	 });
+//	 $(e.target).parent().parent().remove();
+//		checkMoney();
+//})
 
 //更改規格
 $('.changeFormat').change((e)=>{
