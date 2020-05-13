@@ -51,7 +51,7 @@
 	background-color: rgba(238, 145, 145, 0.445);
 }
 
-.badge{
+.badge {
 	font-size: 15px;
 }
 
@@ -216,4 +216,28 @@
 
 #sendCommentBtn:active {
 	background: rgb(192, 122, 149);
+}
+
+#turnBackBtn {
+	position: fixed;
+	left: 5px;
+	top: 70px;
+	height: 40px;
+	width: 100px;
+	color: rgb(253, 253, 253);
+	background-color: rgba(228, 65, 47, 0.795);
+	border: 0px;
+	border-radius: 20px;
+	box-shadow: 5px 5px 10px -5px rgba(0, 0, 0, 0.75);
+	cursor: pointer;
+	z-index: 200;
+}
+
+#turnBackBtn:hover, #turnBackBtn:focus {
+	background: -webkit-gradient(linear, left top, left bottom, from(rgba(228, 65, 47,
+		0.795)), to(rgba(192, 54, 39, 0.795)));
+}
+
+#turnBackBtn:active {
+	background: rgba(192, 54, 39, 0.795);
 }

@@ -402,11 +402,11 @@
 			var side1 = document.getElementById("side1");
 			// scroll的s記得是小寫而不是大寫
 			window.addEventListener("scroll", function() {
-				side1.style.left = -window.pageYOffset + "px";
+				side1.style.left = -window.pageYOffset*7 + "px";
 			});
 			var side2 = document.getElementById("side2");
 			window.addEventListener("scroll", function() {
-				side2.style.left = window.pageYOffset + "px";
+				side2.style.left = window.pageYOffset*7 + "px";
 			});
 		</script>
 	</c:if>

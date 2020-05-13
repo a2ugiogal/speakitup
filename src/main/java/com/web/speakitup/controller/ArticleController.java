@@ -80,7 +80,7 @@ public class ArticleController {
 		model.addAttribute("categoryTitle", categoryTitle);
 		model.addAttribute("categoryName", categoryName);
 		model.addAttribute("articles_map", articleMap);
-
+		
 		return "article/articlePage";
 	}
 
@@ -191,7 +191,7 @@ public class ArticleController {
 	/*---------------------------------------------------------------------------------------*/
 	// 取得文章內容
 	@GetMapping("/showArticleContent/{articleId}")
-	public String ShowArticleContent(@PathVariable int articleId, Model model, HttpSession session)
+	public String ShowArticleContent(@PathVariable int articleId, Model model, HttpSession session, HttpServletRequest request)
 			throws IOException, SQLException {
 
 		ArticleBean ab = articleService.getArticle(articleId);
@@ -207,7 +207,7 @@ public class ArticleController {
 		session.setAttribute("article", ab);
 		model.addAttribute("content", content);
 		model.addAttribute("comments_set", comments);
-
+		
 		return "article/articleContent";
 	}
 
