@@ -122,7 +122,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	@Scheduled(cron = "40 56 14 * * *")
+	@Scheduled(cron = "00 00 12 * * *")
 	public void letterScheduleWork() throws IOException{
 		System.out.println("執行定期工作"); 
 		String [] cmds = {"curl", "http://localhost:8080/speakitup/scheduledWork"};

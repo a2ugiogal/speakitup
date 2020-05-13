@@ -20,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.web.speakitup.model.MemberBean;
 import com.web.speakitup.model.OrderBean;
@@ -157,7 +158,7 @@ public class OrderController {
 			}
 		}
 		// 如果找不到規格相同的商品，就不做事
-		
+		System.out.println("productFormatId" + productFormatId);
 		if (productFormatId == 0) {
 			try {
 				PrintWriter out = response.getWriter();
@@ -188,8 +189,9 @@ public class OrderController {
 	}
 
 	/* 修改購物車內的商品資料(刪除商品、修改數量、修改規格、修改單選、修改全選) */
-	@GetMapping("/updateShoppingCart")
-	public void updateShoppingCart(HttpServletRequest request, HttpSession session,HttpServletResponse response) {
+	@PostMapping("/updateShoppingCart")
+	public void updateShoppingCart(@RequestParam(value="productFormatId", defaultValue="0") Integer productFormatId,
+								   @RequestParam("cmd")String cmd, HttpServletRequest request, HttpSession session,HttpServletResponse response) {
 		// 如果找不到購物車(通常是Session逾時)，回到首頁
 		response.setCharacterEncoding("UTF-8");
 		System.out.println("000");
@@ -206,14 +208,19 @@ public class OrderController {
 		}
 
 		// cmd可能是DEL或是QTY或是FMT或是CHS或是CSA
-		String cmd = request.getParameter("cmd");
-		String productFormatIdStr = request.getParameter("productFormatId");
-		int productFormatId = 0;
-		if (productFormatIdStr != null) {
-			productFormatId = Integer.parseInt(productFormatIdStr);
-		}
+//		String cmd = request.getParameter("cmd");
+		
+		
+//		String productFormatIdStr = request.getParameter("productFormatId");
+//		int productFormatId = 0;
+//		if (productFormatIdStr != null) {
+//			productFormatId = Integer.parseInt(productFormatIdStr);
+//		}
+		
+		
 		if (cmd.equalsIgnoreCase("DEL")) {
 			// 刪除購物車內的某項商品
+			System.out.println("刪除近來");
 			sc.deleteProduct(productFormatId);
 
 			
@@ -250,6 +257,7 @@ public class OrderController {
 			sc.changeAllChecked(chooseAll);
 			
 		}
+		session.setAttribute("ShoppingCart", sc);
 		try {
 			PrintWriter out = response.getWriter();
 			out.print("");
