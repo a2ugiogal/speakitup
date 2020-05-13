@@ -272,6 +272,7 @@ public class LetterController {
 				letterCategory);
 		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 		try (PrintWriter out = response.getWriter()) {
+			System.out.println(gson.toJson(letters));
 			out.write(gson.toJson(letters));
 			out.flush();
 			
