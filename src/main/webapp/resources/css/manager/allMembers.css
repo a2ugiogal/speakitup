@@ -1,0 +1,19 @@
+.Reportspacing {
+  padding-top: 30px;
+}
+#Authority_content:hover {
+  background-color: #aaa;
+  color: #ffffff;
+}
+.nav-pills .nav-link,
+.nav-pills .show > .nav-link {
+  color: rgb(117, 75, 75);
+}
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: rgb(119, 99, 99) !important;
+}
+#button-addon2:hover {
+  background-color: rgb(119, 99, 99) !important;
+}

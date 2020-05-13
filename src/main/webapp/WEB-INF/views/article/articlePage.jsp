@@ -47,14 +47,11 @@
 		</div>
 		<div class="navbar-nav flex-row ml-auto"
 			style="position: absolute; right: 250px; top: 10px;">
-			<form class="form-inline mr-5"
-				action="<spring:url value='/article/showPageArticles' />">
 				<input class="form-control mr-sm-2" type="search" id="search"
 					placeholder="搜尋: 文章標題" aria-label="Search" name="search"
 					style="width: 70% !important;" value="${searchStr}" />
 				<button class="btn" type="submit" id="search-btn">搜尋</button>
-				<input type="hidden" value="${categoryTitle}" name="categoryTitle">
-			</form>
+				<input type="hidden" value="${categoryTitle}" name="categoryTitle" id="categoryTitle">
 		</div>
 		<div class="navbar-nav flex-row ml-auto"
 			style="position: absolute; right: 0; top: 10px;">
@@ -402,11 +399,11 @@
 			var side1 = document.getElementById("side1");
 			// scroll的s記得是小寫而不是大寫
 			window.addEventListener("scroll", function() {
-				side1.style.left = -window.pageYOffset + "px";
+				side1.style.left = -window.pageYOffset*7 + "px";
 			});
 			var side2 = document.getElementById("side2");
 			window.addEventListener("scroll", function() {
-				side2.style.left = window.pageYOffset + "px";
+				side2.style.left = window.pageYOffset*7 + "px";
 			});
 		</script>
 	</c:if>

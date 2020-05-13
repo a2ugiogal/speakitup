@@ -26,6 +26,11 @@ function doFirst() {
 
 }
 
+//送出留言
+function sendComment(articleId){
+	
+}
+
 
 // 登入浮動視窗
 function loginModel() {

@@ -23,6 +23,8 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.OrderBy;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.annotations.Expose;
+
 @Entity
 @Table(name = "Articles")
 public class ArticleBean implements Serializable{
@@ -30,17 +32,25 @@ public class ArticleBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Expose
 	private Integer articleId;
+	@Expose
 	private String title;
+	@Expose
 	private Integer authorId;
+	@Expose
 	private String authorName;
+	@Expose
 	private Timestamp publishTime;
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "FK_ArticleCategoryBean_Category")
+	@Expose
 	private ArticleCategoryBean category;
 	private Clob content;
+	@Expose
 	private String fileName;
 	private Blob image;
+	@Expose
 	private Integer likes;
 	private String status;
 	@Transient
@@ -48,6 +58,7 @@ public class ArticleBean implements Serializable{
 	
 	@OneToMany(mappedBy = "article", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	@OrderBy(clause = "publishTime")
+	@Expose
 	Set<CommentBean> articleComments = new LinkedHashSet<>();
 
 	public ArticleBean(Integer articleId, String title, Integer authorId, String authorName, Timestamp publishTime,

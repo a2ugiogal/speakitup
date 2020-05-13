@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
+
 @Entity
 @Table(name = "Comments")
 public class CommentBean implements Serializable{
@@ -21,10 +23,15 @@ public class CommentBean implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Expose
 	private Integer commentId;
+	@Expose
 	private Integer authorId;
+	@Expose
 	private String authorName;
+	@Expose
 	private Timestamp publishTime;
+	@Expose
 	private String content;
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "FK_ArticleBean_Article")
