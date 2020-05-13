@@ -209,7 +209,7 @@
 										<div class="product-price">${orderMap.key.unitPrice}</div>
 										<div class="product-quantity">
 											<input type="number" name="count" id="newQty${vs.index}"
-												style="max-width: 100%;"
+												style="max-width: 100%;" class="singleQty"
 												onchange="modifyQuantity(${cartMap.key},${vs.index})"
 												value="${orderMap.key.quantity}" min="1">
 										</div>
@@ -341,7 +341,8 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
 	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
 	crossorigin="anonymous"></script>
-	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>	
+<script src="<spring:url value='/js/order/cartJq.js' />"></script>
 <script src="<spring:url value='/js/order/shoppingCart.js' />"></script>
 		
 </body>
