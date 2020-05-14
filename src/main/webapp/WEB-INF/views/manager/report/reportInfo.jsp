@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>要抒啦管理員--文章檢舉內容</title>
+<title>文章檢舉內容--要抒啦管理員</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
@@ -233,9 +233,9 @@
 				<c:if test="${cmd == 'comment'|| cmd == 'deleteComment'}">
 					<div class="my-5 py-4 pl-4 mx-auto"
 						style="background: rgba(255, 255, 255, 0.438);">
-						<div class="text_title3">留言：</div>
-						<div class="pt-3 pl-3 text_title2">${comment.content}</div>
-						<div class="row button_button py-3 ">
+						<div class="text_title3 pl-2">留言：</div>
+						<div class="pt-3 pl-5 text_title2">${comment.content}</div>
+						<div class="row button_button pt-4 pb-3">
 							<div
 								class="col-6 d-flex justify-content-center align-items-center my-2 button_button1">
 								<a href="<c:url value='/article/deleteArticle/${cmd}/${id}'/>">
@@ -255,7 +255,7 @@
 				<!-- 右 -->
 				<div class=" mb-2 px-1 contentBox">
 					<div
-						class="w-100 pb-2 pt-4 d-flex align-items-center justify-content-between">
+						class="w-100 pb-2 pt-5 d-flex align-items-center justify-content-between">
 						<div class="text_title3 pl-5">${article.title}</div>
 						<div class="text_title2 pr-5" style="float: right;">
 							<span class="badge mr-2 text-white"

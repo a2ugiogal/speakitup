@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>要抒啦管理員--檢舉專區</title>
+<title>檢舉專區--要抒啦管理員</title>
 <link
 	href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/cerulean/bootstrap.min.css"
 	rel="stylesheet"
