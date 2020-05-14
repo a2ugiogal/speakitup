@@ -36,14 +36,25 @@ $(function() {
 			});
 });
 
-/* AJAX */
+/* AJAX(搜尋) */
 $("#search-btn").click(function(e) {
+	ajax();
+});
+
+/* AJAX(排序) */
+$("#arrange").change(function (e) {
+	ajax();
+});
+
+function ajax(){
 	$.ajax({
 		  type: "GET",
 		  url: "/speakitup/article/showPageArticlesAjax",
 		  data: {
 		    search: $("#search").val(),
+		    arrange:$('#arrange').val(),
 		    categoryTitle: $("#categoryTitle").val(),
+		    categoryName: $("#categoryName").val(),
 		  },
 		  dataType: "json",
 		  success: function (response) {
@@ -126,4 +137,6 @@ $("#search-btn").click(function(e) {
 		    article_list.html(htmlStr);
 		  },
 		});
-});
+}
+
+

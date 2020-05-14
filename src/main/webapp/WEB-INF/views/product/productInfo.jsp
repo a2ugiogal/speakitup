@@ -35,9 +35,11 @@
 	href="<spring:url value='/css/product/nav.css' /> " />
 <link rel="stylesheet"
 	href="<spring:url value='/css/loginModel.css' /> " />
+<<<<<<< HEAD
 
+=======
+>>>>>>> f13cb2737f4be6a52dd8f640f95916122f88441c
 </head>
-
 <body>
 	<!-- =======================導覽列================= -->
 	<nav class="navbar navbar-expand-lg navbar-light fixed-top p-0"
@@ -493,7 +495,7 @@
 	<script>
 	function loginModel() {
 	$("#ignismyModal").modal("show");
-}
+	}
 	
 	$('#left_list_0').click(function() {
 		$('#list_a').hide();

@@ -139,78 +139,94 @@
 
 
 	<!-- 文章留言========================================= -->
-	<c:forEach var="entry" varStatus="number" items="${comments_set}">
-		<c:choose>
-			<c:when test="${ number.count % 6 >= 1&&number.count % 6 <= 3 }">
-				<!-- 左對話氣泡*3=========================== -->
-				<c:if test="${ number.count % 6 == 1 }">
-					<div class="vh-100 p-3 speechArea"
-						<c:if test="${number.count!=1}"> style="display: none;" </c:if>>
-						<div style="height: 60px;"></div>
-				</c:if>
-				<div style="height: 4%;"></div>
-				<div class="row m-0 d-flex align-items-center" style="height: 28%;">
-					<div class="col-1 p-0"></div>
-					<div class="col-9 p-0 speechDad">
-						<img class="speech-balloon1"
-							src="<spring:url value='/image/article/speech-bubble-removebg-preview.png' />"
-							style="transform: scaleX(-1);" />
-						<div style="height: 5%;"></div>
-						<div class="d-flex justify-content-start" style="height: 20%;">
-							<c:if test="${not empty LoginOK}">
-								<i class="fas fa-exclamation-circle" style="font-size: 30px;"
-									title="檢舉" onclick="showReportModal('${entry.commentId}')"></i>
-							</c:if>
-						</div>
-						<div class="comment">${entry.content}</div>
-						<div class="commentCount">${number.count}</div>
-						<div class="d-flex justify-content-end commentDate">
-							<fmt:formatDate value="${entry.publishTime}"
-								pattern="yyyy-MM-dd HH:mm" />
+	<div id="commentsDiv">
+		<c:forEach var="entry" varStatus="number" items="${comments_set}">
+			<c:choose>
+				<c:when test="${ number.count % 6 >= 1&&number.count % 6 <= 3 }">
+					<!-- 左對話氣泡*3=========================== -->
+					<c:if test="${ number.count % 6 == 1 }">
+						<div class="vh-100 p-3 speechArea"
+							<c:if test="${number.count!=1}"> style="display: none;" </c:if>>
+							<div style="height: 60px;"></div>
+					</c:if>
+					<div style="height: 4%;"></div>
+					<div class="row m-0 d-flex align-items-center" style="height: 27%;">
+						<c:if test="${number.count%3==1}">
+							<div class="col-3 p-0"></div>
+						</c:if>
+						<c:if test="${number.count%3==0}">
+							<div class="col-1 p-0"></div>
+						</c:if>
+						<div class="col-9 p-0 speechDad">
+							<img class="speech-balloon1"
+								src="<spring:url value='/image/article/speech-bubble-removebg-preview.png' />"
+								style="transform: scaleX(-1);" />
+							<div style="height: 5%;"></div>
+							<div class="d-flex justify-content-start" style="height: 20%;">
+								<c:if test="${not empty LoginOK}">
+									<i class="fas fa-exclamation-circle" style="font-size: 30px;"
+										title="檢舉" onclick="showReportModal('${entry.commentId}')"></i>
+								</c:if>
+							</div>
+							<div class="comment">
+								<pre>${entry.content}</pre>
+							</div>
+							<div class="commentCount">${number.count}</div>
+							<div class="d-flex justify-content-end commentDate">
+								<fmt:formatDate value="${entry.publishTime}"
+									pattern="yyyy-MM-dd HH:mm" />
+							</div>
 						</div>
 					</div>
+					<c:if test="${ number.count % 6 == 3 }">
+	</div>
+	</c:if>
+	</c:when>
+	<c:otherwise>
+		<!-- 右對話氣泡*3=========================== -->
+		<c:if test="${number.count % 6 == 4 }">
+			<div class="vh-100 p-3 speechArea"
+				style="left: 72%; <c:if test="${number.count!=4}"> display: none; </c:if>">
+				<div style="height: 60px;"></div>
+		</c:if>
+		<div style="height: 4%;"></div>
+		<div class="row m-0 d-flex align-items-center" style="height: 27%;">
+			<c:if test="${number.count%3==2}">
+				<div class="col-3 p-0"></div>
+			</c:if>
+			<c:if test="${number.count%3==0}">
+				<div class="col-1 p-0"></div>
+			</c:if>
+			<div class="col-9 p-0 speechDad">
+				<img class="speech-balloon1"
+					src="<spring:url value='/image/article/speech-bubble-removebg-preview.png' />" />
+				<div style="height: 5%;"></div>
+				<div class="d-flex justify-content-end" style="height: 20%;">
+					<c:if test="${not empty LoginOK}">
+						<i class="fas fa-exclamation-circle" style="font-size: 30px;"
+							title="檢舉" onclick="showReportModal('${entry.commentId}')"></i>
+					</c:if>
 				</div>
-				<c:if test="${ number.count % 6 == 3 }">
-					</div>
-				</c:if>
-			</c:when>
-			<c:otherwise>
-				<!-- 右對話氣泡*3=========================== -->
-				<c:if test="${number.count % 6 == 4 }">
-					<div class="vh-100 p-3 speechArea"
-						style="left: 72%; <c:if test="${number.count!=4}"> display: none; </c:if>">
-						<div style="height: 60px;"></div>
-				</c:if>
-				<div style="height: 4%;"></div>
-				<div class="row m-0 d-flex align-items-center" style="height: 28%;">
-					<div class="col-3 p-0"></div>
-					<div class="col-9 p-0 speechDad">
-						<img class="speech-balloon1"
-							src="<spring:url value='/image/article/speech-bubble-removebg-preview.png' />" />
-						<div style="height: 5%;"></div>
-						<div class="d-flex justify-content-end" style="height: 20%;">
-							<c:if test="${not empty LoginOK}">
-								<i class="fas fa-exclamation-circle" style="font-size: 30px;"
-									title="檢舉" onclick="showReportModal('${entry.commentId}')"></i>
-							</c:if>
-						</div>
-						<div class="comment">${entry.content}</div>
-						<div class="commentCount">${number.count}</div>
-						<div class="d-flex justify-content-end commentDate">
-							<fmt:formatDate value="${entry.publishTime}"
-								pattern="yyyy-MM-dd HH:mm" />
-						</div>
-					</div>
+				<div class="comment">
+					<pre>${entry.content}</pre>
 				</div>
-				<c:if test="${number.count % 6 == 0 }">
-					</div>
-				</c:if>
-			</c:otherwise>
-		</c:choose>
-		<c:if test="${number.last&&number.count%3!=0}">
+				<div class="commentCount">${number.count}</div>
+				<div class="d-flex justify-content-end commentDate">
+					<fmt:formatDate value="${entry.publishTime}"
+						pattern="yyyy-MM-dd HH:mm" />
+				</div>
+			</div>
+		</div>
+		<c:if test="${number.count % 6 == 0 }">
 			</div>
 		</c:if>
+	</c:otherwise>
+	</c:choose>
+	<c:if test="${number.last&&number.count%3!=0}">
+		</div>
+	</c:if>
 	</c:forEach>
+	</div>
 
 	<!-- 文章========================================= -->
 	<div class="vh-100">
@@ -347,32 +363,33 @@
 					<div class="m-1">我要留言</div>
 				</div>
 				<!-- 可留言區============================ -->
-				<form method="POST" id="commentForm"
-					action="<spring:url value='/article/addComment/${article.articleId} '/> ">
-					<div id="commentArea">
-						<img id="myCommentBg"
-							src="<spring:url value='/image/article/speech-bubble-removebg-preview.png' />" />
+				<%-- 				<form method="POST" id="commentForm" --%>
+				<%-- 					action="<spring:url value='/article/addComment/${article.articleId} '/> "> --%>
+				<div id="commentArea">
+					<img id="myCommentBg"
+						src="<spring:url value='/image/article/speech-bubble-removebg-preview.png' />" />
+				</div>
+				<div id="myCommentContent" class="text-center"
+					style="display: none;">
+					<div style="margin-top: 43px; margin-bottom: 8px;">
+						<img class="rounded-circle border-dark border my-auto"
+							style="width: 40px; height: 40px;"
+							src="<spring:url value='/member/getUserImage/${LoginOK.id}' />" />
+						<span>&nbsp; &nbsp; ${LoginOK.memberId}</span>
 					</div>
-					<div id="myCommentContent" class="text-center"
-						style="display: none;">
-						<div style="margin-top: 43px; margin-bottom: 8px;">
-							<img class="rounded-circle border-dark border my-auto"
-								style="width: 40px; height: 40px;"
-								src="<spring:url value='/member/getUserImage/${LoginOK.id}' />" />
-							<span>&nbsp; &nbsp; ${LoginOK.memberId}</span>
-						</div>
-						<div class="mt-3 mb-2">
-							<textarea
-								style="width: 70%; resize: none; outline: none; border-radius: 10px; padding: 5px;"
-								name="content" rows="3" placeholder=" 留言..."></textarea>
-						</div>
-						<div id="sendCommentBtn"
-							class="border p-2 rounded-circle d-flex justify-content-center align-items-center" onclick="sendcomment(${article.articleId})">
-							<i class="material-icons"
-								style="font-size: 34px; margin-left: 5px; margin-top: 1px;">subdirectory_arrow_right</i>
-						</div>
+					<div class="mt-3 mb-2">
+						<textarea
+							style="width: 70%; resize: none; outline: none; border-radius: 10px; padding: 5px;"
+							id="contentText" rows="3" placeholder=" 留言..."></textarea>
 					</div>
-				</form>
+					<div id="sendCommentBtn"
+						class="border p-2 rounded-circle d-flex justify-content-center align-items-center"
+						onclick="sendComment(${article.articleId})">
+						<i class="material-icons"
+							style="font-size: 34px; margin-left: 5px; margin-top: 1px;">subdirectory_arrow_right</i>
+					</div>
+				</div>
+				<%-- 				</form> --%>
 			</div>
 		</div>
 	</div>

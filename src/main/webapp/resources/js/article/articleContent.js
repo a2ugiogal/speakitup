@@ -14,21 +14,143 @@ function doFirst() {
   }
 
   // 送出留言
-  commentForm = document.getElementById("commentForm");
-  $("#sendCommentBtn").click(function () {
-    $("#myCommentContent").fadeOut();
-    setTimeout(() => {
-      $("#commentArea").slideToggle();
-    }, 200);
-    $("#bgGray").fadeOut();
-    commentForm.submit();
-  });
+// commentForm = document.getElementById("commentForm");
+// $("#sendCommentBtn").click(function () {
+// $("#myCommentContent").fadeOut();
+// setTimeout(() => {
+// $("#commentArea").slideToggle();
+// }, 200);
+// $("#bgGray").fadeOut();
+// commentForm.submit();
+// });
 
 }
 
-//送出留言
-function sendComment(articleId){
-	
+// 送出留言
+function sendComment(articleId) {
+  $.ajax({
+    type: "POST",
+    url: "/speakitup/article/addComment/"+articleId,
+    data: {
+      content:$("#contentText").val()
+    },
+    dataType: "json",
+    success: function (response) {
+    	speechArea = document.getElementsByClassName("speechArea");
+    	commentCount = document.getElementsByClassName("commentCount");
+    	commentPage = document.getElementById("commentPage");
+    	SAL = speechArea.length;
+    	CCL = commentCount.length;
+    	totalPage = document.getElementById("totalPage");
+    	commentPage = document.getElementById("commentPage");
+    	if(CCL%6==0&&CCL!=0){
+    		totalPage.innerText=parseInt(totalPage.innerText)+1;
+    		nextPage.style.visibility = "";
+    	}
+    	
+    	inner="";
+    	if($(".speechDad").length % 3 != 0){
+    		inner = speechArea[SAL-1].innerHTML;
+            $(".speechArea").last().remove();
+    	}
+        // 分左右ㄉ(speechTop、commentSpace、bgBubbleLeft)
+        if ($(".speechArea").length % 2 == 0) {
+          speechTop = "";
+          speechTop += ` <div class="vh-100 p-3 speechArea"`;
+          if ($(".speechArea").length >= parseInt(commentPage.innerText)*2||$(".speechArea").length < parseInt(commentPage.innerText)*2-2) {
+            speechTop += ` style="display: none;"`;
+          }
+          speechTop += `>`;
+          
+          commentSpace="";
+          if(CCL%3==0){
+        	  commentSpace+=`<div class="col-3 p-0"></div>`;
+          }else if(CCL%3==2){
+        	  commentSpace+=`<div class="col-1 p-0"></div>`;
+          }
+          
+          bgBubbleLeft=`style="transform: scaleX(-1);" `;
+        	  
+        } else {
+          speechTop = "";
+          speechTop += `<div class="vh-100 p-3 speechArea"`;
+          speechTop += ` style="left: 72%;`;
+          if ($(".speechArea").length >= parseInt(commentPage.innerText)*2||$(".speechArea").length < parseInt(commentPage.innerText)*2-2) {
+            speechTop += ` display: none;`;
+          }
+          speechTop += ` "`;
+          speechTop += ` >`;
+          
+          commentSpace="";
+          if(CCL%3==1){
+        	  commentSpace+=`<div class="col-3 p-0"></div>`;
+          }else if(CCL%3==2){
+        	  commentSpace+=`<div class="col-1 p-0"></div>`;
+          }
+          
+          bgBubbleLeft="";
+        }
+        // speechContent
+        speechContent = "";
+        speechContent += ` <div style="height: 4%;"></div>`;
+        speechContent += ` <div class="row m-0 d-flex align-items-center" style="height: 28%;">`;
+        speechContent += ` ${commentSpace}`;
+        speechContent += ` <div class="col-9 p-0 speechDad">`;
+        speechContent += ` <img class="speech-balloon1" src="/speakitup/image/article/speech-bubble-removebg-preview.png"`;
+        speechContent += ` ${bgBubbleLeft}`;
+        speechContent += ` />`;
+        speechContent += ` <div style="height: 5%;"></div>`;
+        speechContent += ` <div class="d-flex justify-content-end" style="height: 20%;">`;
+        speechContent += ` <i class="fas fa-exclamation-circle" style="font-size: 30px;" title="檢舉" onclick="showReportModal('${response.commentId}')"></i>`;
+        speechContent += ` </div>`;
+        speechContent += ` <div class="comment"><pre>${response.content}</pre></div>`;
+        count = CCL + 1;
+        speechContent += ` <div class="commentCount">${count}</div>`;
+        speechContent += `<div class="d-flex justify-content-end commentDate">`;
+        /* DateFormat */
+        var formattedDate = new Date(response.publishTime);
+        var d = formattedDate.getDate();
+        if (formattedDate.getDate() < 10) {
+          d = "0" + d;
+        }
+        var m = formattedDate.getMonth();
+        m += 1; // JavaScript months are 0-11
+        if (formattedDate.getMonth() < 10) {
+          m = "0" + m;
+        }
+        var y = formattedDate.getFullYear();
+        var h = formattedDate.getHours();
+        var mm = formattedDate.getMinutes();
+        /* DateFormat */
+        speechContent += ` ${y}-${m}-${d} ${h}:${mm}`;
+        speechContent += ` </div>`;
+        speechContent += ` </div>`;
+        speechContent += ` </div>`;
+
+        // speechBottom
+        speechBottom = `</div>`;
+
+        if (inner == "") {
+        	finalText=speechTop+` <div style="height: 60px;"></div> `+speechContent+speechBottom;
+        	$("#commentsDiv").append(finalText);
+        } else {
+          finalText=speechTop+inner+speechContent+speechBottom
+          $("#commentsDiv").append(finalText);
+        }
+        
+        
+      },
+  });
+  
+  $("#myCommentContent").fadeOut();
+  setTimeout(() => {
+    $("#commentArea").slideToggle();
+  }, 200);
+  $("#bgGray").fadeOut();
+  setTimeout(() => {
+	  $("#contentText").val("");
+  }, 200);
+  
 }
 
 

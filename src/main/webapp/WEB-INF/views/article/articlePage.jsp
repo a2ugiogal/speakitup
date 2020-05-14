@@ -47,11 +47,13 @@
 		</div>
 		<div class="navbar-nav flex-row ml-auto"
 			style="position: absolute; right: 250px; top: 10px;">
-				<input class="form-control mr-sm-2" type="search" id="search"
-					placeholder="搜尋: 文章標題" aria-label="Search" name="search"
-					style="width: 70% !important;" value="${searchStr}" />
-				<button class="btn" type="submit" id="search-btn">搜尋</button>
-				<input type="hidden" value="${categoryTitle}" name="categoryTitle" id="categoryTitle">
+			<input class="form-control mr-sm-2" type="search" id="search"
+				placeholder="搜尋: 文章標題" aria-label="Search" name="search"
+				style="width: 70% !important;" value="${searchStr}" />
+			<button class="btn" type="submit" id="search-btn">搜尋</button>
+			<input type="hidden" value="${categoryTitle}" name="categoryTitle"
+				id="categoryTitle"> <input type="hidden"
+				value="${categoryName}" name="categoryName" id="categoryName">
 		</div>
 		<div class="navbar-nav flex-row ml-auto"
 			style="position: absolute; right: 0; top: 10px;">
@@ -183,18 +185,12 @@
 			<div class="col-2"></div>
 			<div class="d-flex justify-content-end col-9 py-3 bg-color"
 				style="font-size: 1.2em;">
-				<form action="<spring:url value='/article/showPageArticles' />"
-					id="searchForm">
-					<select name="arrange" id="arrange">
-						<option value="popular"
-							<c:if test="${arrange=='popular'}"> selected </c:if>>熱門
-							⇧</option>
-						<option value="time"
-							<c:if test="${arrange=='time'}"> selected </c:if>>最新⇧</option>
-					</select> <input type="hidden" value="${categoryTitle}" name="categoryTitle"><input
-						type="hidden" value="${categoryName}" name="categoryName"><input
-						type="hidden" value="${searchStr}" name="search">
-				</form>
+				<select name="arrange" id="arrange">
+					<option value="popular"
+						<c:if test="${arrange=='popular'}"> selected </c:if>>熱門 ⇧</option>
+					<option value="time"
+						<c:if test="${arrange=='time'}"> selected </c:if>>最新⇧</option>
+				</select>
 			</div>
 			<div class="col-1"></div>
 
@@ -399,11 +395,11 @@
 			var side1 = document.getElementById("side1");
 			// scroll的s記得是小寫而不是大寫
 			window.addEventListener("scroll", function() {
-				side1.style.left = -window.pageYOffset*7 + "px";
+				side1.style.left = -window.pageYOffset * 7 + "px";
 			});
 			var side2 = document.getElementById("side2");
 			window.addEventListener("scroll", function() {
-				side2.style.left = window.pageYOffset*7 + "px";
+				side2.style.left = window.pageYOffset * 7 + "px";
 			});
 		</script>
 	</c:if>

@@ -72,7 +72,6 @@
 /*-------滾動條整體樣式----*/
 ::-webkit-scrollbar {
 	width: 6px;
-	display: none;
 }
 
 /*滾動條裡面小方塊樣式*/
@@ -84,6 +83,10 @@
 /*滾動條裡面軌道樣式*/
 ::-webkit-scrollbar-track {
 	background: rgba(0, 0, 0, 0.09);
+}
+
+#articleContent::-webkit-scrollbar {
+  display: none;
 }
 
 .speechArea {
@@ -106,17 +109,25 @@
 .comment {
 	width: 75%;
 	height: 35%;
+	font-size: 16px;
 	margin-left: 13%;
+	word-break: break-all;
 	overflow-y: auto;
 }
 
+pre{
+	font-size: 18px;
+}
+
 .commentCount {
-	position: absolute;
-	left: 20%;
-	bottom: 28%;
-	font-weight: 900;
-	font-size: 38px;
-	color: rgba(20, 20, 20, 0.2);
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: 900;
+  font-size: 100px;
+  color: rgba(13, 29, 87, 0.171);
+  z-index: -1;
 }
 
 .commentDate {
