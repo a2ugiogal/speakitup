@@ -1,0 +1,185 @@
+@import
+	url("https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap")
+	;
+
+* {
+	box-sizing: border-box;
+	font-family: "Noto Sans TC", sans-serif;
+}
+
+/* 下翻特效 */
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+.hold {
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+}
+
+.outside {
+	padding: 5px;
+	float: left;
+	width: calc(100vw/ 10);
+	height: calc(100vh/ 10);
+	box-sizing: border-box;
+}
+
+.silde {
+	/* display: inline-block; */
+	background: #fff;
+	width: 100%;
+	height: 100%;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	/* box-sizing: border-box; */
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 1);
+}
+
+.hold div.fall {
+	z-index: 1000;
+	background-color: #f00;
+/* 	transition: 0.2s; */
+	pointer-events: none;
+	animation: fall 2s linear forwards;
+}
+@keyframes fall {
+        0% {
+          transform: translateY(0) rotate(0deg);
+        }
+        25% {
+          transform: translateY(250px) rotate(900deg);
+        }
+        50% {
+          transform: translateY(500px) rotate(1800deg);
+        }
+        75% {
+          transform: translateY(750px) rotate(2700deg);
+        }
+        100% {
+          transform: translateY(1000px) rotate(3600deg);
+        }
+      }
+/* loading特效 */
+section {
+  padding: 100px;
+}
+section h2 {
+  font-size: 4em;
+  color: #4b656d;
+}
+section h2 span {
+  display: block;
+  font-size: 0.5em;
+  color: #ff4983;
+}
+section p {
+  margin-top: 20px;
+  font-size: 1.2em;
+}
+.preloader {
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  background: #070707;
+  z-index: 1000;
+}
+.preloader::before {
+  content: "Ready？";
+  position: absolute;
+  top: 50px;
+  font-size: 12em;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.3);
+}
+.preloader.active {
+  transform: translateY(-100vh);
+  /* 過渡效果，起點和終點較慢 */
+  transition: ease-in-out 2s;
+  /* 過多久才開始 */
+  transition-delay: 0.5s;
+}
+.counter {
+  /* width: 485px;
+  height: 485px;
+  text-align: center;
+  border: 50px solid red;
+  border-radius: 50%; */
+  position: relative;
+  color: #fff;
+  font-size: 16em;
+  font-weight: 700;
+  z-index: 1;
+}
+.counter::after {
+  border: 3px solid red;
+  font-size: 0.5em;
+}
+.hide {
+  opacity: 0;
+  transition: 1s;
+  pointer-events: none;
+}
+
+/* 完成特效 */
+#finish {
+  color: #ff4983;
+  position: fixed;
+  animation: bigger 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+#finish #victory {
+  font-size: 300px;
+}
+
+#finish a {
+  border-radius: 30px;
+  padding: 15px;
+  background-color: #fca2be;
+  font-size: 40px;
+}
+
+#finish a:hover {
+  cursor: pointer;
+  background-color: #fc6f9c;
+  color: white !important;
+}
+
+@keyframes bigger {
+  0% {
+    transform: scale(0) rotate(0deg);
+  }
+  100% {
+    transform: scale(1000px) rotate(180deg);
+  }
+}
+
+/* gameModal */
+input[type="range"] {
+	width: 400px;
+	height: 15px;
+	-webkit-appearance: none;
+	background: #ddd;
+	outline: none; /* 避免點選會有藍線或虛線 */
+	border-radius: 15px;
+	overflow: hidden; /* 限定範圍 */
+/* 	box-shadow: inset 0 0 2px rgba(0,0,0,1); */
+}
+
+input[type="range"]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	width: 15px;
+	height: 15px;
+	border-radius: 50%;
+	background: red;
+	cursor: pointer;
+	border: 4px solid #333;
+	box-shadow: -407px 0 0 400px red;
+}
