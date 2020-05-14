@@ -34,5 +34,7 @@ public interface MemberDao {
 	public MemberBean getMember(int id);
 	
 	public void clearLetteroftheday();
+	
+	public void clearSendReplyQuota();
 
 }

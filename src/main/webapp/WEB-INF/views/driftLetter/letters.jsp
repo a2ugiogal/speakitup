@@ -133,6 +133,9 @@
 						<!--1-->
 						<div class="letterBox">
 							<div class="sendBox animated">
+								<c:if test="${letterNo.count <6}">
+									<div class="newLetters"><i class="fas fa-bullhorn"></i></div>
+								</c:if>
 								<p><h2>${letterNo.count}</h2></p>
 								<p><h2>${letters.letterTitle}</h2></p>
 								<p><h3>${letterCategory}</h3></p>

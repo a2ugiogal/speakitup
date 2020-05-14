@@ -124,105 +124,160 @@ public class LetterController {
 
 	}
 
-	@GetMapping("/replyLetterDevil")
-	public String replyLetterDevil(HttpSession session) {
+//	@GetMapping("/replyLetterDevil")
+//	public String replyLetterDevil(HttpSession session) {
+//
+//		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
+//		String memberId = mb.getMemberId();
+//
+//		// 看mb物件裡有沒有當日信件
+//		LetterBean lb = null;
+//		Integer letterIdoftheDay = mb.getLetterOftheDay();
+//		if (letterIdoftheDay == null) {
+//
+//			//如果該信件的狀態是'n'(還沒被回過的話)
+//			Map<Integer, LetterBean> letterMap = letterService.getUnfinishedLetter(memberId, "惡魔", "n");
+//			//先取得那些信件的資訊(id,letter物件) 再把此map的key(也就是信件的id)取出
+//			Integer mapSize = letterMap.size();
+//			Set<Integer> letterNo = letterMap.keySet();
+//			System.out.println("有" + mapSize + " 封" + "信件編號為" + letterNo);
+//
+//			// 隨機取得信件編號的index值
+//			try {
+//				int randomNo = (int) (Math.random() * mapSize);
+//				Integer letterId = (Integer) letterNo.toArray()[randomNo];
+//				System.out.println("隨機index值:" + randomNo + "隨機數的key:" + letterId);
+//				
+//				//取得此index值的信件
+//				lb = letterService.getLetter(letterId);
+//				session.setAttribute("lb", lb);
+//
+//				// 更新信件狀態('o') 讓信件無法被其他會員取得 會員在同一天也只能拿到同樣的一封
+//				mb.setLetterOftheDay(letterId);
+//				memberService.updateLetterOftheDay(memberId, letterId);
+//				letterService.updateLetterStatus(letterId, GlobalService.LETTER_STATUS_OCCUPIED);
+//
+//			} catch (ArrayIndexOutOfBoundsException e) {
+//				//沒信的話會進到此處
+//				System.out.println("無惡魔信可回");
+//				session.setAttribute("noLetters", "noLetters");
+//				return "redirect:/letter/letterHome";
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//
+//			// 如果會員表格內已經有每天更新一次的信件ID 就會直接去撈取該信件
+//		} else {
+//			lb = letterService.getLetter(letterIdoftheDay);
+//			session.setAttribute("lb", lb);
+//			session.setAttribute("haveLetterAlready", "haveLetter");
+//			return "driftLetter/replyLetters";
+//		}
+//
+//		return "driftLetter/replyLetters";
+//	}
 
+	@GetMapping("/replyLetters/{type}")
+	public String replyLetterAngel(@PathVariable("type")String type,HttpSession session) {
+		
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
 		String memberId = mb.getMemberId();
-
-		// 看mb物件裡有沒有當日信件
+		
+		System.out.println("type:   " + type);
 		LetterBean lb = null;
-		Integer letterIdoftheDay = mb.getLetterOftheDay();
-		if (letterIdoftheDay == null) {
-
-			// 隨機取得信件編號的index值
-			Map<Integer, LetterBean> letterMap = letterService.getUnfinishedLetter(memberId, "惡魔", "n");
-			Integer mapSize = letterMap.size();
-			Set<Integer> letterNo = letterMap.keySet();
-			System.out.println("有" + mapSize + " 封" + "信件編號為" + letterNo);
-
-			try {
-				int randomNo = (int) (Math.random() * mapSize);
-				Integer letterId = (Integer) letterNo.toArray()[randomNo];
-				System.out.println("隨機index值:" + randomNo + "隨機數的key:" + letterId);
-
-				lb = letterService.getLetter(letterId);
-				session.setAttribute("lb", lb);
-
-				// 更新信件狀態 讓信件無法被其他會員取得 會員在同一天也只能拿到同樣的一封
-				mb.setLetterOftheDay(letterId);
-				memberService.updateLetterOftheDay(memberId, letterId);
-				letterService.updateLetterStatus(letterId, GlobalService.LETTER_STATUS_OCCUPIED);
-
-			} catch (ArrayIndexOutOfBoundsException e) {
-				System.out.println("無惡魔信可回");
-				session.setAttribute("noLetters", "noLetters");
-				return "redirect:/letter/letterHome";
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-			// 如果會員表格內已經有每天更新一次的信件ID 就會直接去撈取該信件
-		} else {
-			lb = letterService.getLetter(letterIdoftheDay);
-			session.setAttribute("lb", lb);
-			return "driftLetter/replyDevil";
-		}
-
-		return "driftLetter/replyDevil";
-	}
-
-	@GetMapping("/replyLetterAngel")
-	public String replyLetterAngel(HttpSession session) {
-
-		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
-		String memberId = mb.getMemberId();
-
 		// 去看當天有沒有撈過信了 有的話直接前往
 		Integer letterIdoftheDay = mb.getLetterOftheDay();
-		// 如果選擇的是天使主題
+		
+		if(type.equals("天使")) {
+			// 如果選擇的是天使主題
+			if (letterIdoftheDay == null) {
+				Map<Integer, LetterBean> letterMap = letterService.getUnfinishedLetter(memberId, "天使", "n");
 
-		if (letterIdoftheDay == null) {
-			Map<Integer, LetterBean> letterMap = letterService.getUnfinishedLetter(memberId, "天使", "n");
+				Integer mapSize = letterMap.size();
+				Set<Integer> letterNo = letterMap.keySet();
 
-			Integer mapSize = letterMap.size();
-			Set<Integer> letterNo = letterMap.keySet();
+				// 隨機取得信件編號的index值
+				try {
+					int randomNo = (int) (Math.random() * mapSize);
+					Integer letterId = (Integer) letterNo.toArray()[randomNo];
 
-			// 隨機取得信件編號的index值
-			try {
-				int randomNo = (int) (Math.random() * mapSize);
-				Integer letterId = (Integer) letterNo.toArray()[randomNo];
+					System.out.println("隨機index值:" + randomNo + "隨機數的key:" + letterId);
+					lb = letterService.getLetter(letterId);
 
-				System.out.println("隨機index值:" + randomNo + "隨機數的key:" + letterId);
-				LetterBean lb = letterService.getLetter(letterId);
+					// 把取得的letterId傳進mb物件裡面並更新
+					mb.setLetterOftheDay(letterId);
+					memberService.updateLetterOftheDay(memberId, letterId);
+					letterService.updateLetterStatus(letterId, GlobalService.LETTER_STATUS_OCCUPIED);
 
-				// 把取得的letterId傳進mb物件裡面並更新
-				mb.setLetterOftheDay(letterId);
-				memberService.updateLetterOftheDay(memberId, letterId);
-				letterService.updateLetterStatus(letterId, GlobalService.LETTER_STATUS_OCCUPIED);
+					session.setAttribute("lb", lb);
 
+				} catch (ArrayIndexOutOfBoundsException e) {
+					System.out.println("無天使信可回");
+					session.setAttribute("noLetters", "noLetters");
+					return "redirect:/letter/letterHome";
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+			} else {
+				
+				lb = letterService.getLetter(letterIdoftheDay);
 				session.setAttribute("lb", lb);
+				session.setAttribute("haveLetterAlready", "haveLetter");
+				return "driftLetter/replyLetters";
 
-			} catch (ArrayIndexOutOfBoundsException e) {
-				System.out.println("無天使信可回");
-				session.setAttribute("noLetters", "noLetters");
-				return "redirect:/letter/letterHome";
-
-			} catch (Exception e) {
-				e.printStackTrace();
 			}
+		}	
+		//如果選擇的是回覆惡魔信件
+		else {
+			if (letterIdoftheDay == null) {
 
-		} else {
-			LetterBean lb = letterService.getLetter(letterIdoftheDay);
-			session.setAttribute("lb", lb);
+				//如果該信件的狀態是'n'(還沒被回過的話)
+				Map<Integer, LetterBean> letterMap = letterService.getUnfinishedLetter(memberId, "惡魔", "n");
+				//先取得那些信件的資訊(id,letter物件) 再把此map的key(也就是信件的id)取出
+				Integer mapSize = letterMap.size();
+				Set<Integer> letterNo = letterMap.keySet();
+				System.out.println("有" + mapSize + " 封" + "信件編號為" + letterNo);
 
-			return "driftLetter/replyAngel";
+				// 隨機取得信件編號的index值
+				try {
+					int randomNo = (int) (Math.random() * mapSize);
+					Integer letterId = (Integer) letterNo.toArray()[randomNo];
+					System.out.println("隨機index值:" + randomNo + "隨機數的key:" + letterId);
+					
+					//取得此index值的信件
+					lb = letterService.getLetter(letterId);
+					session.setAttribute("lb", lb);
 
+					// 更新信件狀態('o') 讓信件無法被其他會員取得 會員在同一天也只能拿到同樣的一封
+					mb.setLetterOftheDay(letterId);
+					memberService.updateLetterOftheDay(memberId, letterId);
+					letterService.updateLetterStatus(letterId, GlobalService.LETTER_STATUS_OCCUPIED);
+
+				} catch (ArrayIndexOutOfBoundsException e) {
+					//沒信的話會進到此處
+					System.out.println("無惡魔信可回");
+					session.setAttribute("noLetters", "noLetters");
+					return "redirect:/letter/letterHome";
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+				// 如果會員表格內已經有每天更新一次的信件ID 就會直接去撈取該信件
+			} else {
+				lb = letterService.getLetter(letterIdoftheDay);
+				session.setAttribute("lb", lb);
+				session.setAttribute("haveLetterAlready", "haveLetter");
+				return "driftLetter/replyLetters";
+			}
 		}
-
-		return "driftLetter/replyAngel";
+		
+		//最後再把取得的資訊送回給前端
+		return "driftLetter/replyLetters";
 	}
-
+	
+	//寄回信出去
 	@PostMapping("/sendReplyContent")
 	public String sendReplyContent(HttpSession session, @RequestParam("id") int letterId,
 			@RequestParam("replyContent") String replyContent) {
@@ -234,6 +289,7 @@ public class LetterController {
 		lb = new LetterBean(letterId, replyierId, replyContent, "y");
 		letterService.updateReply(lb);
 		
+		//把會員的寄信扣打改成false(不能寄信)
 		mb.setReplyQuota("false");
 		memberService.updateReplyQuota(replyierId, mb.getReplyQuota());
 		return "redirect:/letter/letterHome";
@@ -248,8 +304,10 @@ public class LetterController {
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
 		String memberId = mb.getMemberId();
 		String letterCategory = "天使";
+		//取得已完成的信件(有寄信內容也有回信內容)
 		List<LetterBean> letters = letterService.getAllLettersByMemberSend(memberId, GlobalService.LETTER_STATUS_DONE,
 				letterCategory);
+		//並交給jsp
 		model.addAttribute("letters", letters);
 		model.addAttribute("letterCategory", letterCategory);
 		return "driftLetter/letters";
@@ -263,11 +321,14 @@ public class LetterController {
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
 		String memberId = mb.getMemberId();
 		String letterCategory;
+		
+		//看前端送來的是何種類別的信件
 		if (category.equals("devil")) {
-			letterCategory = "惡魔";
+			letterCategory = GlobalService.LETTER_TYPE_DEVIL;
 		} else {
-			letterCategory = "天使";
+			letterCategory = GlobalService.LETTER_TYPE_ANGEL;
 		}
+		//取出該種類的信件 並把他轉成json資料送給前端去處理
 		List<LetterBean> letters = letterService.getAllLettersByMemberSend(memberId, GlobalService.LETTER_STATUS_DONE,
 				letterCategory);
 		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
@@ -279,6 +340,7 @@ public class LetterController {
 		}
 	}
 	
+	//不喜歡的信
 	@PostMapping("/deleteLetter")
 	public void deleteLetters(@RequestParam("id") int letterId,HttpSession session,HttpServletResponse response) {
 		System.out.println("不喜歡的信件ID" + letterId);
@@ -294,10 +356,12 @@ public class LetterController {
 	}	
 	
 	
+	//在信件上按下正面回饋鈕 送回資料庫 回信的作者可以知道自己獲得正面回饋的數量
 	@PostMapping("/likeLetter")
 	public void likeLetters(@RequestParam("id") int letterId,HttpSession session,HttpServletResponse response) {
 		System.out.println("喜歡的信件ID" + letterId);
 		response.setCharacterEncoding("UTF-8");
+		//更新信件的回饋欄位
 		letterService.updateLetterFeedback(letterId, GlobalService.LETTER_FEEDBACK);
 		try {
 			PrintWriter out = response.getWriter();

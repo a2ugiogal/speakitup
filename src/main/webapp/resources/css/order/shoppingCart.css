@@ -76,9 +76,9 @@
   white-space: nowrap;
 }
 
-.product-removal {
+.product-removal{
   float: left;
-  width: 5%;
+/*   width: 5%; */
   white-space: nowrap;
 }
 

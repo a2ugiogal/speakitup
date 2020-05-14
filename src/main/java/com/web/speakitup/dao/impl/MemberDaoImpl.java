@@ -210,4 +210,13 @@ public class MemberDaoImpl implements MemberDao {
 		factory.getCurrentSession().createQuery(hql).setParameter("letterOftheDay",null).executeUpdate();
 		System.out.println("clearSuccess");
 	}
+	
+	@Override
+	public void clearSendReplyQuota() {
+		String hql = "UPDATE MemberBean m SET m.sendQuota=:sendQuota ,m.replyQuota=:replyQuota";
+		factory.getCurrentSession().createQuery(hql).setParameter("sendQuota","true")
+													.setParameter("replyQuota", "true")
+													.executeUpdate();
+		System.out.println("clearQuotaSuccess");
+	}
 }

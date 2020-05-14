@@ -30,6 +30,7 @@ public class HomeController {
 			System.out.println("123");
 		  if (request.getRemoteAddr().equalsIgnoreCase("0:0:0:0:0:0:0:1")) {			  
 			  memberService.clearLetteroftheday();
+			  memberService.clearSendReplyQuota();
 		  }
 		return "/";
 	}

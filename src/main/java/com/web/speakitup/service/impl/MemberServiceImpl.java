@@ -120,9 +120,14 @@ public class MemberServiceImpl implements MemberService {
 		System.out.println("clear的Service區域");
 		dao.clearLetteroftheday();
 	}
-
+	
 	@Override
-	@Scheduled(cron = "00 00 12 * * *")
+	public void clearSendReplyQuota() {
+		dao.clearSendReplyQuota();
+	}
+	
+	@Override
+	@Scheduled(cron = "30 28 16 * * *")
 	public void letterScheduleWork() throws IOException{
 		System.out.println("執行定期工作"); 
 		String [] cmds = {"curl", "http://localhost:8080/speakitup/scheduledWork"};
@@ -130,6 +135,8 @@ public class MemberServiceImpl implements MemberService {
 		process.start();
 	
 	}
+
+	
 
 
 }

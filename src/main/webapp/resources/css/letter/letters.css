@@ -10,6 +10,31 @@ body{
     
 }
 
+.newLetters
+{
+	position:absolute;
+	right:12px;
+ 	top:5px;
+ 	z-index:999;
+/*  	color:red; */
+ 	color:#248232;
+ 	font-size:32px;
+}
+
+.newLettersDevil
+{
+	position:absolute;
+	right:12px;
+ 	top:5px;
+ 	z-index:999;
+ 	color:white;
+ 	font-size:32px;
+ 	
+ 	
+}
+
+
+
 #showMyLetters{
     position: relative;
     width: 75%;
@@ -29,46 +54,34 @@ body{
 
 .letterBox{
     margin: 10px;
-/*     border: 1px solid #000000; */
-/*     border-radius: 7px 7px 7px 7px; */
-/*     -moz-border-radius: 7px 7px 7px 7px; */
-/*     -webkit-border-radius: 7px 7px 7px 7px; */
-	    -webkit-box-shadow: 10px 10px 10px -6px rgba(0,0,0,0.75);
-		-moz-box-shadow: 10px 10px 10px -6px rgba(0,0,0,0.75);
-		box-shadow: 10px 10px 10px -6px rgba(0,0,0,0.75);
-		border-radius: 0px 61px 0px 61px;
-		-moz-border-radius: 0px 61px 0px 61px;
-		-webkit-border-radius: 0px 61px 0px 61px;
-		border: 3px solid #1d336b;
+	box-shadow: 10px 10px 10px -6px rgba(0,0,0,0.75);
+	-webkit-border-radius: 10px 10px 10px 10px;
+/* 	border: 4px solid black; */
+	background: #B2DDF7;
+	z-index:-100;
 }
 
  .letterBox{
+ 
     position: relative;
     height: 600px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-   border-radius: 0px 61px 0px 61px;
-	-moz-border-radius: 0px 61px 0px 61px;
-	-webkit-border-radius: 0px 61px 0px 61px;
-/* 	border: 3px solid #1d336b; */
+	
 }
 
 
  .sendBox{
     position: absolute;
     width:100%;
-    height: 600px;
-    background: #fff;
+    height: 580px;
+    background: #B2DDF7;
 	overflow:hidden;
     justify-content: center;
     align-items: center;
     z-index: 1;
-     border-radius: 0px 61px 0px 61px;
-	-moz-border-radius: 0px 61px 0px 61px;
-	-webkit-border-radius: 0px 61px 0px 61px;
-	border: 3px solid #1d336b;
  	word-break:break-all;
     overflow-y:auto;
     font-size: 1.1rem;
@@ -79,16 +92,12 @@ body{
  .replyBox{
     position: absolute;
     width:100%;
-    height: 600px;
-    background: #fff;
+    height: 580px;
+    background: #B2DDF7;
     overflow:hidden;
     justify-content: center;
     align-items: center;
     z-index: -1;
-      border-radius: 0px 61px 0px 61px;
-	-moz-border-radius: 0px 61px 0px 61px;
-	-webkit-border-radius: 0px 61px 0px 61px;
-	border: 3px solid #1d336b;
  	word-break:break-all;
     overflow-y:auto;
     font-size: 1.1rem;
@@ -379,14 +388,31 @@ font-size: 1.1rem;
 
 /*惡魔回饋與檢舉的按紐*/
 
+.btnDiv
+{
+	position:absolute;
+	bottom:10px;
+	right:10px;	
+}
 
+.btnDivDevil
+{
+	position:absolute;
+	bottom:10px;
+	right:20px;	
+	border:0px double rgb(133, 206, 224);
+/* 	border-radius: 10px 10px 10px 10px; */
+/* 	    box-shadow: 0 0 10px rgba(33, 156, 243,.5), */
+/*                 0 0 20px rgba(33, 156, 243,.5), */
+/*                 inset 0 0 10px rgba(33, 156, 243,1); */
+}
 .sendBoxBotDevil ul{
     position: relative;
     display: flex;
     align-items:center;
     justify-content: center;
     width: 180px;
-    
+    padding-top:20px;
 }
 
 .sendBoxBotDevil ul::before{
@@ -394,7 +420,7 @@ font-size: 1.1rem;
     position: absolute;
     width: 100%;
     height: 100%;
-    background: rgba(255,255,255,.05);
+/*     background: rgba(255,255,255,.05); */
     pointer-events: none;
     z-index: 1;
    
@@ -420,7 +446,7 @@ font-size: 1.1rem;
 .sendBoxBotDevil label .iconBox{
     width: 60px;
     height: 60px;
-    background: #101010;
+/*     background: #101010; */
     display: flex;
     justify-content: center;
     align-items: center;
