@@ -25,7 +25,7 @@
 	href="<spring:url value='/css/order/shoppingCart.css' />">
 
 <link rel="stylesheet"
-	href="<spring:url value='/css/register/nav.css' /> " />
+	href="<spring:url value='/css/product/nav.css' /> " />
 </head>
 <body>
 	<!-- =======================導覽列================= -->

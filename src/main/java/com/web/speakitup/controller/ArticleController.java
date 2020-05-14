@@ -201,32 +201,39 @@ public class ArticleController {
 	/*-----------------------------------新增留言POST----------------------------------------------------*/
 
 	@PostMapping("/addComment/{articleId}")
-	public String addComment(@PathVariable("articleId") int articleId, HttpServletRequest request,
+	public void addComment(@PathVariable("articleId") int articleId, HttpServletRequest request, HttpServletResponse response,
 			HttpSession session) {
-
-		String comment = request.getParameter("content");
-		if (comment == null) {
-			return "redirect:/article/showArticleContent/{articleId}";
-		}
-		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
+		response.setContentType("application/json; charset=utf-8");
 		// 抓留言
+		String comment = request.getParameter("content");
+//		if (comment == null) {
+//			return "redirect:/article/showArticleContent/{articleId}";
+//		}
+		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
 
 		// 留言時間
 		Timestamp ts = new java.sql.Timestamp(System.currentTimeMillis());
 		ArticleBean ab = articleService.getArticle(articleId);
 
 		CommentBean cb = new CommentBean(null, mb.getId(), mb.getMemberId(), ts, comment, ab, "正常");
-//		CommentBean cb = new CommentBean(null, mb.getId(), mb.getMemberId(), ts, comment, articleId, "正常");
 		articleService.insertComment(cb);
-		return "redirect:/article/showArticleContent/{articleId}";
+		
+		try {
+			PrintWriter out = response.getWriter();
+			Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+			out.write(gson.toJson(cb));
+			out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	// 新增留言Get
-	@GetMapping("/addComment/{articleId}")
-	public String addCommentGet(@PathVariable("articleId") int articleId, HttpServletRequest request,
-			HttpSession session) {
-		return "redirect:/article/showArticleContent/{articleId}";
-	}
+//	@GetMapping("/addComment/{articleId}")
+//	public String addCommentGet(@PathVariable("articleId") int articleId, HttpServletRequest request,
+//			HttpSession session) {
+//		return "redirect:/article/showArticleContent/{articleId}";
+//	}
 
 	/*---------------------------------------------------------------------------------------*/
 	// 取得文章內容
@@ -261,7 +268,6 @@ public class ArticleController {
 //		if (loginTrue == null) {
 //			return "redirect:/article/showArticleContent/{articleId}";
 //		}
-
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
 		ArticleBean ab = articleService.getArticle(articleId);
 		articleService.likeArticle(ab, mb);
@@ -278,8 +284,6 @@ public class ArticleController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		return;
 	}
 
 	/*---------------------------------檢舉文章或留言------------------------------------------------------*/
