@@ -35,6 +35,7 @@ $(document).ready(() => {
         }
     })
     
+   
     
 });
 
@@ -50,6 +51,7 @@ function success(response,type){
 		class3 = "newLettersDevil";
 		class4 = "sendBoxBotDevil";
 		class5 = "btnDivDevil";
+		class52 = "btnDivDevilChecked";
 		class6 = "feedbackBtn";
 		class7 = "replyBoxDevil";
 	}else{
@@ -76,7 +78,11 @@ function success(response,type){
 		inner+="<p>"+response[i].letterContent+"</p>";
 		inner+="<div class='"+class4+"'>";	
 		inner+="<div class='watchReply'>看回信</div>";
-		inner+="<div class='"+class5+"'>";
+		if(response[i].feedback == 'like' && type=="devil"){			
+			inner+="<div class='"+class52+"' id='"+response[i].letterId+"'>";
+		}else{
+			inner+="<div class='"+class5+"' id='"+response[i].letterId+"'>";
+		}
 		inner+="<ul>";
 		inner+="<li>";
 		inner+="<label class='"+class6+"'>";
@@ -194,8 +200,20 @@ function likeFeedback(id){
  	});
 //     $("#likeModal").modal("hide");
      //如果按了不喜歡就不能有喜歡 兩個鍵不會同時一起壓下去
-
-	
+     
+     alert($('.like' + id).prop('checked'))
+     if($('.like' + id).prop('checked') == true){
+    	 $('body').find('#' + id).removeClass('btnDivDevilChecked').addClass('btnDivDevil')
+     }else{
+    	 $('body').find('#' + id).removeClass('btnDivDevil').addClass('btnDivDevilChecked')
+     }
+//    if($('.like' + id).prop('checked') == true || $('.hate' + id).prop('checked') == true){
+//    	alert($('.like' + id).prop('checked'))
+//    	alert($('.hate' + id).prop('checked'))
+//    	$(this).parent().parent().parent().parent().removeClass('.btnDivDevil');
+////    	$(this).parents('div').find('.btnDivDevil').removeClass('.btnDivDevil');
+//    	$(this).parent().parent().parent().parent().addClass('.btnDivDevilChecked');
+//    }
 }
 
 //負面回饋鈕
@@ -207,5 +225,13 @@ function deleteFeedback(id){
  		type : "POST",
  		success : function(){}
  	});
+     
+     alert($('.hate' + id).prop('checked'))
+     if($('.hate' + id).prop('checked') == true){
+    	 $('body').find('#' + id).removeClass('btnDivDevilChecked').addClass('btnDivDevil')
+     }else{
+    	 $('body').find('#' + id).removeClass('btnDivDevil').addClass('btnDivDevilChecked')
+     }
 }
+
 
