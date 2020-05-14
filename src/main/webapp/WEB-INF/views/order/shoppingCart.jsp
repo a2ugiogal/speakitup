@@ -145,7 +145,7 @@
 					<div class="shopping-cart">
 						<div class="column-labels">
 							<label class="product-checkbox"> <input type="checkbox"
-								id="allCheck" onchange="changeAll()" />
+								id="allCheck"/>
 							</label> <label class="product-check"> 全選 </label><label
 								class="product-image">&nbsp</label> <label
 								class="product-details">商品名稱</label> <label
@@ -162,12 +162,11 @@
 								<c:forEach var="orderMap" items="${cartMap.value}">
 
 									<div class="product">
-										<span class="product-span"> <c:forEach var="checkedMap"
+										<span class="product-span" > <c:forEach var="checkedMap"
 												items="${ShoppingCart.checkedMap}">
 												<c:if test="${checkedMap.key==cartMap.key}">
 													<input type="checkbox" class="choose"
-														<c:if test="${checkedMap.value=='y'}"> checked </c:if>
-														onchange="changeChoose('${checkedMap.key}',${vs.index})" />
+														<c:if test="${checkedMap.value=='y'}"> checked </c:if> />
 												</c:if>
 											</c:forEach>
 										</span>
@@ -180,43 +179,40 @@
 												<h5>${orderMap.key.productName}</h5>
 											</div>
 										</div>
-										<div class="product-format">
+										<div class="product-format" id="${vs.index}">
 											<c:choose>
 												<c:when
 													test="${(orderMap.key.formatContent1=='')&&(orderMap.key.formatContent2=='')}">無 </c:when>
 												<c:otherwise>
-													<select name="format" id="newFmt${vs.index}"
-														onchange="modifyFormat('${cartMap.key}',${vs.index})">
+													<select name="format" id="newFmt${vs.index}" class="changeFormat">
 														<c:choose>
 															<c:when test="${(orderMap.key.formatContent2=='')}">
 																<c:forEach var="productSet" items="${orderMap.value}">
-																	<option value="${productSet.formatContent1}"
+																	<option value="${productSet.formatContent1} id="${productSet.productFormatId}
 																		<c:if test="${(orderMap.key.formatContent1==productSet.formatContent1)}"> selected </c:if>>${productSet.formatContent1}</option>
 																</c:forEach>
 															</c:when>
 															<c:otherwise>
 																<c:forEach var="productSet" items="${orderMap.value}">
 																	<option
-																		value="${productSet.formatContent1},${productSet.formatContent2}"
+																		value="${productSet.formatContent1},${productSet.formatContent2}" id="${productSet.productFormatId}"
 																		<c:if test="${(orderMap.key.formatContent1==productSet.formatContent1)&&(orderMap.key.formatContent2==productSet.formatContent2)}"> selected </c:if>>${productSet.formatContent1},${productSet.formatContent2}</option>
 																</c:forEach>
 															</c:otherwise>
 														</c:choose>
 													</select>
-												</c:otherwise>
+												</c:otherwise> 
 											</c:choose>
 										</div>
 										<div class="product-price">${orderMap.key.unitPrice}</div>
 										<div class="product-quantity">
 											<input type="number" name="count" id="newQty${vs.index}"
 												style="max-width: 100%;" class="singleQty"
-												onchange="modifyQuantity(${cartMap.key},${vs.index})"
 												value="${orderMap.key.quantity}" min="1">
 										</div>
 										<div class="product-line-price singleTotal">${orderMap.key.unitPrice*orderMap.key.quantity}</div>
 										<div class="product-removal">
-											<button class="remove-product"
-												onclick="deleteCart('${cartMap.key}')">
+											<button class="remove-product">
 												<i class="fas fa-times"></i>
 											</button>
 										</div>
@@ -342,7 +338,7 @@
 	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
 	crossorigin="anonymous"></script>
 	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>	
-<script src="<spring:url value='/js/order/cartJq.js' />"></script>
+<%-- <script src="<spring:url value='/js/order/cartJq.js' />"></script> --%>
 <script src="<spring:url value='/js/order/shoppingCart.js' />"></script>
 		
 </body>

@@ -100,6 +100,8 @@
 				</c:choose>
 				<li class="nav-item mx-2"><a class="nav-link"
 					href="<spring:url value='/letter/letterHome' />">漂流瓶</a></li>
+				<li class="nav-item mx-2"><a class="nav-link"
+					style="cursor: pointer;" onclick="showGameModel()">紓壓遊戲</a></li>
 				<c:if test="${LoginOK.permission=='管理員'}">
 					<li class="nav-item dropdown mx-2"><a
 						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
@@ -422,6 +424,44 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- 遊戲浮動視窗============================= -->
+	<div class="modal fade" id="gameModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header pb-0">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="">
+						<span>×</span>
+					</button>
+				</div>
+
+				<form action="<spring:url value='/game'/>">
+					<div class="modal-body">
+						<p class="h3 ml-3 mb-5">請選擇難度</p>
+						<div id="rangeValue" class="ml-4 mb-2" style="font-size: 20px"></div>
+						<input type="range" min="5" max="55" value="30" id="range"
+							name="range" class="ml-4" onmousemove="changeValue()">
+						<p class="d-flex justify-content-center mt-5">
+							<button type="submit"
+								class="btn btn-light close rounded-circle p-3"
+								style="border: 3px solid #343a40">GO!</button>
+						</p>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		function showGameModel() {
+			$("#gameModal").modal("show");
+			changeValue();
+		}
+		function changeValue() {
+			$("#rangeValue")
+					.text($("#range").val() + ' X ' + $("#range").val());
+		}
+	</script>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
