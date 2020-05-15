@@ -1,0 +1,80 @@
+#pageBg {
+	background: rgb(230, 230, 230);
+}
+
+.contentBox {
+	background: rgba(255, 255, 255, 0.438);
+}
+
+.Reportbutton {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.Reportdeletebutton {
+	position: relative;
+	height: 50px;
+	font-size: 1.5em;
+	font-weight: 500;
+	letter-spacing: 1px;
+	border-radius: 5px;
+	border: 0px solid transparent;
+	outline: none;
+	cursor: pointer;
+	background: #0d0d0d;
+	overflow: hidden;
+	transition: 0.6;
+	color: #f2f2f2;
+}
+
+.Reportdeletebutton::before {
+	position: absolute;
+	content: "";
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	filter: blur(10px);
+	transition: 0.6s;
+}
+
+.Reportdeletebutton::before {
+	background: rgba(255, 255, 255, 0.6);
+	transform: translateX(-130px) skewX(-45deg);
+}
+
+.Reportdeletebutton::after {
+	background: rgba(255, 255, 255, 0.6);
+}
+
+.Reportdeletebutton:hover::before {
+	opacity: 0.6;
+	transform: translateX(320px) skewX(-45deg);
+}
+
+.Reportdeletebutton:hover {
+	color: #f2f2f2;
+}
+
+.Reportdeletebutton:hover {
+	background: #632828;
+}
+
+#memberInfo_list div:hover {
+	background-color: #aaa;
+	color: #ffffff;
+}
+
+#memberInfo_list::-webkit-scrollbar {
+	display: none;
+}
+
+.nav-pills .nav-link, .nav-pills .show>.nav-link {
+	color: rgb(117, 75, 75);
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+	color: #fff;
+	background-color: rgb(119, 99, 99) !important;
+}

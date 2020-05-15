@@ -44,6 +44,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.web.speakitup._00_init.GlobalService;
 import com.web.speakitup._00_init.SendEmail;
 import com.web.speakitup.model.ArticleBean;
@@ -266,9 +268,9 @@ public class MemberController {
 		if (request.getAttribute("loginFilter") == null) {
 			session.removeAttribute("target");
 		}
-		
+
 		session.setAttribute("target", request.getParameter("target"));
-		
+
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
 		if (mb != null) {
 			return "redirect:/";
@@ -306,6 +308,8 @@ public class MemberController {
 					errorMsgMap.put("memberNotAuthError", "會員尚未驗證成功!請先透過email去認證!");
 					// 先暫時這樣 如果會員認證欄位是N 一樣先給LoginOK 只是要完成認證
 //						session.setAttribute("LoginOK", mb);
+				} else if (mb.getStatus().equals("封鎖")) {
+					errorMsgMap.put("LoginError", "此帳號已被封鎖");
 				} else {
 					session.setAttribute("LoginOK", mb);
 				}
@@ -502,10 +506,43 @@ public class MemberController {
 		Map<ArticleBean, String> articleMap = articleService.getPersonArticles(arrange, searchStr, mb);
 
 		model.addAttribute("searchStr", searchStr);
-//		model.addAttribute("arrange", arrange);
 		model.addAttribute("articles_map", articleMap);
 
 		return "personPage/myArticles";
+	}
+
+	/* 個人文章(ajax) */
+	@GetMapping("/showMyArticlesAjax")
+	public void getmyArticlesAjax(Model model, HttpSession session, HttpServletRequest request,
+			HttpServletResponse response) {
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json; charset=utf-8");
+
+		try (PrintWriter out = response.getWriter();) {
+			// 取得搜尋字串或是篩選的字串 點擊我的文章時會先進來一次，所以第一次會是空字串，代表回傳所有的文章
+			String arrange = request.getParameter("arrange") == null ? "" : request.getParameter("arrange");
+			String searchStr = request.getParameter("search") == null ? "" : request.getParameter("search");
+
+			System.out.println("arrange=" + arrange + ",searchStr=" + searchStr);
+			MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
+			System.out.println("id=" + mb.getMemberId());
+			Map<ArticleBean, String> articleMap = articleService.getPersonArticles(arrange, searchStr, mb);
+
+			/* 重新排成方便JSON的型態 */
+			List<Map<String, Object>> articles = new ArrayList<Map<String, Object>>();
+
+			for (ArticleBean bean : articleMap.keySet()) {
+				Map<String, Object> map = new LinkedHashMap<String, Object>();
+				map.put("article", bean);
+				map.put("content", articleMap.get(bean));
+				articles.add(map);
+			}
+			Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+			out.write(gson.toJson(articles));
+			out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	// ==================管理員===================
@@ -558,7 +595,7 @@ public class MemberController {
 				articlesNum.put(t.getKey(), t.getValue());
 			}
 			model.addAttribute("article_map", articlesNum);
-			model.addAttribute("cmd", cmd);
+//			model.addAttribute("cmd", cmd);
 		} else if (cmd.equals("comment")) {
 			// 查詢留言
 			Map<CommentBean, Integer> comments = articleService.getPersonComment(id);
@@ -575,7 +612,7 @@ public class MemberController {
 				commentsNum.put(t.getKey(), t.getValue());
 			}
 			model.addAttribute("comment_map", commentsNum);
-			model.addAttribute("cmd", cmd);
+//			model.addAttribute("cmd", cmd);
 		} else if (cmd.equals("deleteArticle")) {
 			// 查詢檢舉文章
 			Map<ArticleBean, Integer> articles = articleService.getPersonDeleteArticle(id);
@@ -592,7 +629,7 @@ public class MemberController {
 				articlesNum.put(t.getKey(), t.getValue());
 			}
 			model.addAttribute("article_map", articlesNum);
-			model.addAttribute("cmd", "article");
+//			model.addAttribute("cmd", "article");
 		} else if (cmd.equals("deleteComment")) {
 			// 查詢檢舉留言
 			Map<CommentBean, Integer> comments = articleService.getPersonDeleteComment(id);
@@ -609,11 +646,12 @@ public class MemberController {
 				commentsNum.put(t.getKey(), t.getValue());
 			}
 			model.addAttribute("comment_map", commentsNum);
-			model.addAttribute("cmd", "comment");
+//			model.addAttribute("cmd", "comment");
 		}
 		model.addAttribute("id", id);
 		model.addAttribute("mb", mb);
 		model.addAttribute("reportTimes", reportTimes);
+		model.addAttribute("cmd", cmd);
 
 		return "manager/member/memberInfo";
 	}
@@ -636,7 +674,5 @@ public class MemberController {
 
 		return "redirect:/member/showManageMemberInfo/{id}?reportTimes=" + reportTimes;
 	}
-	
-	
-	
+
 }

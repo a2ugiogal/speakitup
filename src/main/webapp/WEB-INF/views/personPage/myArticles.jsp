@@ -36,14 +36,7 @@
 			</a>
 		</div>
 		<div class="navbar-nav flex-row ml-auto"
-			style="position: absolute; right: 250px; top: 10px;">
-			<!-- 			<form class="form-inline mr-5"> -->
-			<!-- 				<input class="form-control mr-sm-2" type="search" id="search" -->
-			<!-- 					placeholder="Search" aria-label="Search" /> -->
-			<!-- 				<button class="btn d-flex justify-content-center" type="submit" -->
-			<!-- 					id="search-btn">Search</button> -->
-			<!-- 			</form> -->
-		</div>
+			style="position: absolute; right: 250px; top: 10px;"></div>
 		<div class="navbar-nav flex-row ml-auto"
 			style="position: absolute; right: 0; top: 10px;">
 			<!-- ==========判斷是否登入======== -->
@@ -133,6 +126,12 @@
 	</nav>
 	<!-- 導覽列 -->
 
+	<!-- 置頂按鈕 設定 -->
+	<a href="#top"> <img id="myBtn"
+		src="https://png.pngtree.com/png-clipart/20190705/original/pngtree-vector-up-arrow-icon-png-image_4272127.jpg" />
+	</a>
+	<!-- 置頂按鈕 設定 -->
+
 	<!-- ======main=======文章列表從這裡開始 -->
 	<div id="bg-color">
 		<div id="article-area-title"
@@ -143,57 +142,57 @@
 
 		<!-- 文章列表 -->
 		<section id="nayma-timeline" class="nayma-container mx-auto mt-2 pt-3">
-			<div style="margin: 0px -15px 0px 60px">
-				<form action="<spring:url value='/member/showMyArticles' />"
-					id="searchForm" style="width: 100%" class="d-flex">
-					<!-- 搜尋欄 -->
-					<div class="wrap mr-2 shadow">
-						<div class="search">
-							<input type="search" class="searchTerm p-2"
-								placeholder="搜尋: 文章標題" name="search" value="${searchStr}" />
-							<button type="submit" class="searchButton" style="height: 46px">
-								<i class="bx bx-search"></i>
-							</button>
-						</div>
-					</div>
-
-					<!-- 排序選項 -->
-					<div class="btn-group shadow" id="filter-btn">
-						<button id="by-date" type="submit" class="btn text-white arrange"
-							style="background-color: #005caf;" value="time" name="arrange">
-							依日期<i class="bx bx-calendar-star ml-1"></i>
-						</button>
-						<button id="by-popular" type="submit"
-							class="btn text-white arrange" style="background-color: #005caf;"
-							value="popular" name="arrange">
-							依熱門<i class="bx bxs-hot ml-1"></i>
+			<div class="d-flex" style="margin: 0px -15px 0px 60px">
+				<!-- 搜尋欄 -->
+				<div class="wrap mr-2 shadow">
+					<div class="search">
+						<input type="search" class="searchTerm p-2" id="search"
+							placeholder="搜尋: 文章標題" />
+						<button type="submit" class="searchButton" id="searchBtn"
+							style="height: 46px">
+							<i class="bx bx-search"></i>
 						</button>
 					</div>
-				</form>
+				</div>
+				<!-- 排序選項 -->
+				<div class="btn-group shadow" id="filter-btn">
+					<button id="by-date" type="button" class="btn text-white arrange"
+						value="time" style="background-color: #005caf;">
+						依日期<i class="bx bx-calendar-star ml-1"></i>
+					</button>
+					<button id="by-popular" type="button"
+						class="btn text-white arrange" value="popular"
+						style="background-color: #005caf;">
+						依熱門<i class="bx bxs-hot ml-1"></i>
+					</button>
+				</div>
 			</div>
 			<!-- 這是一組開始 -->
-			<c:forEach var="entry" items="${articles_map}">
-				<div class="nayma-timeline-block">
-					<!-- 藍色點點 -->
-					<div class="nayma-timeline-img"></div>
-					<!-- 白色對話框 -->
-					<div class="row nayma-timeline-content">
-						<!-- 使用者頭貼 -->
-						<div
-							class="col-2 d-flex align-items-center justify-content-center">
-							<img
-								src="<spring:url value='/member/getUserImage/${LoginOK.id}' />"
-								class="rounded-circle" width="150px" height="150px" alt="avatar" />
-						</div>
-						<!-- 文章詳情 -->
-						<div class="col-8">
-							<!-- 文章標題 -->
-							<a
-								href="<spring:url value='/article/showArticleContent/${entry.key.articleId}'/>"><h2
-									class="mt-2">${entry.key.title}</h2></a>
-							<!-- 文章分類 -->
-							<span class="badge mr-2 mt-1 text-white"
-								<c:choose>
+			<div id="article_list" class="mt-4">
+				<c:forEach var="entry" items="${articles_map}" varStatus="number">
+					<div class="nayma-timeline-block"
+						<c:if test="${number.first}">id="top_article"</c:if>>
+						<!-- 藍色點點 -->
+						<div class="nayma-timeline-img"></div>
+						<a
+							href="<spring:url value='/article/showArticleContent/${entry.key.articleId}'/>"
+							style="text-decoration: none;"> <!-- 白色對話框 -->
+							<div class="row nayma-timeline-content">
+								<!-- 使用者頭貼 -->
+								<div
+									class="col-2 d-flex align-items-center justify-content-center">
+									<img
+										src="<spring:url value='/member/getUserImage/${LoginOK.id}' />"
+										class="rounded-circle" width="150px" height="150px"
+										alt="avatar" />
+								</div>
+								<!-- 文章詳情 -->
+								<div class="col-8">
+									<!-- 文章標題 -->
+									<h2 class="mt-2">${entry.key.title}</h2>
+									<!-- 文章分類 -->
+									<span class="badge mr-2 mt-1 text-white"
+										<c:choose>
 									<c:when test="${entry.key.category.categoryTitle=='惡魔'}">
 										style="background-color: #005caf;"
 									</c:when>
@@ -201,8 +200,8 @@
 										style="background-color: pink;"
 									</c:otherwise>
 								</c:choose>>${entry.key.category.categoryTitle}</span>
-							<span
-								<c:choose>
+									<span
+										<c:choose>
 									<c:when test="${entry.key.category.categoryName=='工作'}">
 										class="badge badge-info mr-2 mt-1"
 									</c:when>
@@ -216,44 +215,47 @@
 										class="badge badge-secondary mr-2 mt-1"
 									</c:otherwise>
 								</c:choose>>${entry.key.category.categoryName}</span>
-							<!-- 文章內容預覽 -->
-							<p class="JQellipsis">${entry.value}</p>
-							<!-- 文章資訊列 -->
-							<div class="row d-flex align-items-center mb-2">
-								<!-- 發表日期 -->
-								<p class="my-0 col-4 text-secondary">
-									發表於
-									<fmt:formatDate value="${entry.key.publishTime}"
-										pattern="yyyy-MM-dd" />
-								</p>
-								<!-- 愛心數 -->
-								<i class="my-0 p-0 h5 bx bx-heart-circle col-1 text-danger"><span
-									class="h6 ml-1 text-secondary"><i>${entry.key.likes}</i></span></i>
-								<!-- 留言數 -->
-								<i class="my-0 p-0 h5 bx bx-message-detail col-1 text-info"><span
-									class="h6 ml-1 text-secondary"><i> <c:choose>
-												<c:when test="${not empty entry.key.articleComments}">
-													<c:forEach var="comments"
-														items="${entry.key.articleComments}" varStatus="number">
-														<c:if test="${number.last}">${number.count}</c:if>
-													</c:forEach>
-												</c:when>
-												<c:otherwise>0</c:otherwise>
-											</c:choose></i></span></i>
+									<!-- 文章內容預覽 -->
+									<p class="JQellipsis" style="color: #212529">${entry.value}</p>
+									<!-- 文章資訊列 -->
+									<div class="row d-flex align-items-center mb-2">
+										<!-- 發表日期 -->
+										<p class="my-0 col-4 text-secondary">
+											發表於
+											<fmt:formatDate value="${entry.key.publishTime}"
+												pattern="yyyy-MM-dd" />
+										</p>
+										<!-- 愛心數 -->
+										<i class="my-0 p-0 h5 bx bx-heart-circle col-1 text-danger"><span
+											class="h6 ml-1 text-secondary"><i>${entry.key.likes}</i></span></i>
+										<!-- 留言數 -->
+										<i class="my-0 p-0 h5 bx bx-message-detail col-1 text-info"><span
+											class="h6 ml-1 text-secondary"><i> <c:choose>
+														<c:when test="${not empty entry.key.articleComments}">
+															<c:forEach var="comments"
+																items="${entry.key.articleComments}" varStatus="number">
+																<c:if test="${number.last}">${number.count}</c:if>
+															</c:forEach>
+														</c:when>
+														<c:otherwise>0</c:otherwise>
+													</c:choose></i></span></i>
+									</div>
+								</div>
+								<!-- 文章照片 -->
+								<div
+									class="col-2 d-flex align-items-center justify-content-center">
+									<c:if test="${not empty entry.key.image}">
+										<img
+											src="<spring:url value='/article/getArticleImage/${entry.key.articleId}' /> "
+											class="" width="145px" height="145px" />
+									</c:if>
+								</div>
 							</div>
-						</div>
-						<!-- 文章照片 -->
-						<div
-							class="col-2 d-flex align-items-center justify-content-center">
-							<img
-								src="<spring:url value='/article/getArticleImage/${entry.key.articleId}' />"
-								class="" width="145px" height="145px" alt="avatar" />
-						</div>
+						</a>
 					</div>
-
-				</div>
-			</c:forEach>
-			<!-- 這是一組結束 -->
+				</c:forEach>
+				<!-- 這是一組結束 -->
+			</div>
 		</section>
 	</div>
 

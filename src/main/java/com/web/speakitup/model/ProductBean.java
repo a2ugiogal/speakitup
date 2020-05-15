@@ -20,6 +20,8 @@ import javax.persistence.Transient;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.annotations.Expose;
+
 @Entity
 @Table(name = "Products")
 public class ProductBean implements Serializable{
@@ -27,11 +29,14 @@ public class ProductBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Expose
 	private Integer productId;
+	@Expose
 	private String productName;
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "FK_CategoryBean_Category")
 	private CategoryBean category;
+	@Expose
 	private Integer price;
 	private String fileName;
 	private Blob image;

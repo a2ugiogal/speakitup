@@ -286,8 +286,7 @@
 										class="col-2 d-flex align-items-center justify-content-center">
 										<img
 											src="<spring:url value='/member/getUserImage/${entry.key.authorId}' /> "
-											class="rounded-circle" width="150px" height="150px"
-											alt="avatar" />
+											class="rounded-circle" width="150px" height="150px" />
 									</div>
 									<!-- 文章詳情 -->
 									<div class="col-8">

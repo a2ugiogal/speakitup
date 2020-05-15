@@ -98,8 +98,8 @@ function ajax(){
 		      } else {
 		        content = map.content;
 		      }
-		      /* 超過字變成... */
 		      htmlStr += `<p class="JQellipsis" style="color: #212529">${content}</p>`;
+		      /* 超過字變成... */
 		      htmlStr += `<div class="row d-flex align-items-center mb-2">`;
 		      /* DateFormat */
 		      var formattedDate = new Date(map.article.publishTime);
@@ -122,11 +122,9 @@ function ajax(){
 		      htmlStr += `</div>`;
 		      htmlStr += `</div>`;
 		      htmlStr += `<div class="col-2 d-flex align-items-center justify-content-center">`;
-		      /* 未完待續 */
 		      if (map.article.fileName!=null) {
 		    	  htmlStr += `<img src="/speakitup/article/getArticleImage/${map.article.articleId}" class="" width="145px" height="145px" />`;
 			  }
-		      /* 未完待續 */
 		      htmlStr += `</div>`;
 		      htmlStr += `</div>`;
 

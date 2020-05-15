@@ -82,7 +82,7 @@ public class ArticleController {
 		model.addAttribute("categoryTitle", categoryTitle);
 		model.addAttribute("categoryName", categoryName);
 		model.addAttribute("articles_map", articleMap);
-		
+
 		return "article/articlePage";
 	}
 
@@ -104,9 +104,7 @@ public class ArticleController {
 			Map<ArticleBean, String> articleMap = articleService.getArticles(arrange, searchStr, categoryTitle,
 					categoryName);
 
-			
-			
-			
+			/* 重新排成方便JSON的型態 */
 			List<Map<String, Object>> articles = new ArrayList<Map<String, Object>>();
 
 			for (ArticleBean bean : articleMap.keySet()) {
@@ -115,7 +113,6 @@ public class ArticleController {
 				map.put("content", articleMap.get(bean));
 				articles.add(map);
 			}
-
 			Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 			out.write(gson.toJson(articles));
 			out.flush();
@@ -201,8 +198,8 @@ public class ArticleController {
 	/*-----------------------------------新增留言POST----------------------------------------------------*/
 
 	@PostMapping("/addComment/{articleId}")
-	public void addComment(@PathVariable("articleId") int articleId, HttpServletRequest request, HttpServletResponse response,
-			HttpSession session) {
+	public void addComment(@PathVariable("articleId") int articleId, HttpServletRequest request,
+			HttpServletResponse response, HttpSession session) {
 		response.setContentType("application/json; charset=utf-8");
 		// 抓留言
 		String comment = request.getParameter("content");
@@ -217,7 +214,7 @@ public class ArticleController {
 
 		CommentBean cb = new CommentBean(null, mb.getId(), mb.getMemberId(), ts, comment, ab, "正常");
 		articleService.insertComment(cb);
-		
+
 		try {
 			PrintWriter out = response.getWriter();
 			Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
@@ -238,8 +235,8 @@ public class ArticleController {
 	/*---------------------------------------------------------------------------------------*/
 	// 取得文章內容
 	@GetMapping("/showArticleContent/{articleId}")
-	public String ShowArticleContent(@PathVariable int articleId, Model model, HttpSession session, HttpServletRequest request)
-			throws IOException, SQLException {
+	public String ShowArticleContent(@PathVariable int articleId, Model model, HttpSession session,
+			HttpServletRequest request) throws IOException, SQLException {
 
 		ArticleBean ab = articleService.getArticle(articleId);
 		Set<CommentBean> allComments = ab.getArticleComments();
@@ -254,7 +251,7 @@ public class ArticleController {
 		session.setAttribute("article", ab);
 		model.addAttribute("content", content);
 		model.addAttribute("comments_set", comments);
-		
+
 		return "article/articleContent";
 	}
 
