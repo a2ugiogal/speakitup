@@ -200,6 +200,7 @@ public class ArticleController {
 	@PostMapping("/addComment/{articleId}")
 	public void addComment(@PathVariable("articleId") int articleId, HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) {
+		System.out.println("addComment");
 		response.setContentType("application/json; charset=utf-8");
 		// 抓留言
 		String comment = request.getParameter("content");

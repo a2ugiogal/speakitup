@@ -30,7 +30,7 @@ function doFirst() {
 function sendComment(articleId) {
   $.ajax({
     type: "POST",
-    url: "/speakitup/article/addComment/"+articleId,
+    url: "/article/addComment/"+articleId,
     data: {
       content:$("#contentText").val()
     },
@@ -96,7 +96,7 @@ function sendComment(articleId) {
         speechContent += ` <div class="row m-0 d-flex align-items-center" style="height: 28%;">`;
         speechContent += ` ${commentSpace}`;
         speechContent += ` <div class="col-9 p-0 speechDad">`;
-        speechContent += ` <img class="speech-balloon1" src="/speakitup/image/article/speech-bubble-removebg-preview.png"`;
+        speechContent += ` <img class="speech-balloon1" src="/image/article/speech-bubble-removebg-preview.png"`;
         speechContent += ` ${bgBubbleLeft}`;
         speechContent += ` />`;
         speechContent += ` <div style="height: 5%;"></div>`;
@@ -183,7 +183,7 @@ function likeIt(){
 	if (normal.style.color != "red") {
 	      xhr = new XMLHttpRequest();
 	      id = normal.id;
-	      xhr.open("GET", "/speakitup/article/likeArticle/" + id, false);
+	      xhr.open("GET", "/article/likeArticle/" + id, false);
 	      xhr.send();
 	      likeNum = document.getElementById("likeNum");
 	      likeNum.innerText = xhr.responseText;

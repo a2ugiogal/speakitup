@@ -364,7 +364,7 @@ public class MemberController {
 			String target = (String) session.getAttribute("target");
 			// 如果是從別的地方來的就回去
 			if (target != null) {
-				return "redirect:/" + target;
+				return "redirect:" + target;
 			} else {
 				return "redirect:/";
 			}
