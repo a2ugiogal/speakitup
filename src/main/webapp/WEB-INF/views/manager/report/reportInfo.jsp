@@ -236,16 +236,18 @@
 						<div class="text_title3 pl-2">留言：</div>
 						<div class="pt-3 pl-5 text_title2">${comment.content}</div>
 						<div class="row button_button pt-4 pb-3">
-							<div
-								class="col-6 d-flex justify-content-center align-items-center my-2 button_button1">
-								<a href="<c:url value='/article/deleteArticle/${cmd}/${id}'/>">
-									<button>刪除</button>
-								</a>
-							</div>
-							<div
-								class="col-6 d-flex justify-content-center align-items-center my-2 button_button2">
-								<a href="<c:url value='/article/reserveArticle/${cmd}/${id}'/>"><button>保留</button></a>
-							</div>
+							<c:if test="${cmd == 'comment'}">
+								<div
+									class="col-6 d-flex justify-content-center align-items-center my-2 button_button1">
+									<a href="<c:url value='/article/deleteArticle/${cmd}/${id}'/>">
+										<button>刪除</button>
+									</a>
+								</div>
+								<div
+									class="col-6 d-flex justify-content-center align-items-center my-2 button_button2">
+									<a href="<c:url value='/article/reserveArticle/${cmd}/${id}'/>"><button>保留</button></a>
+								</div>
+							</c:if>
 						</div>
 					</div>
 				</c:if>
@@ -300,18 +302,21 @@
 
 					<c:if test="${cmd=='article'|| cmd=='deleteArticle'}">
 						<div class="row button_button pb-3">
-							<div
-								class="col-6 d-flex justify-content-center align-items-center my-2 button_button1">
-								<a href="<c:url value='/article/deleteArticle/${cmd}/${id}'/>">
-									<button>刪除</button>
-								</a>
-							</div>
-							<div
-								class="col-6 d-flex justify-content-center align-items-center my-2 button_button2">
-								<a href="<c:url value='/article/reserveArticle/${cmd}/${id}'/>">
-									<button>保留</button>
-								</a>
-							</div>
+							<c:if test="${cmd=='article'}">
+								<div
+									class="col-6 d-flex justify-content-center align-items-center my-2 button_button1">
+									<a href="<c:url value='/article/deleteArticle/${cmd}/${id}'/>">
+										<button>刪除</button>
+									</a>
+								</div>
+								<div
+									class="col-6 d-flex justify-content-center align-items-center my-2 button_button2">
+									<a href="<c:url value='/article/reserveArticle/${cmd}/${id}'/>">
+										<button>保留</button>
+									</a>
+								</div>
+
+							</c:if>
 						</div>
 					</c:if>
 

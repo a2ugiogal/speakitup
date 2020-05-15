@@ -558,7 +558,7 @@ public class MemberController {
 				articlesNum.put(t.getKey(), t.getValue());
 			}
 			model.addAttribute("article_map", articlesNum);
-			model.addAttribute("cmd", cmd);
+//			model.addAttribute("cmd", cmd);
 		} else if (cmd.equals("comment")) {
 			// 查詢留言
 			Map<CommentBean, Integer> comments = articleService.getPersonComment(id);
@@ -575,7 +575,7 @@ public class MemberController {
 				commentsNum.put(t.getKey(), t.getValue());
 			}
 			model.addAttribute("comment_map", commentsNum);
-			model.addAttribute("cmd", cmd);
+//			model.addAttribute("cmd", cmd);
 		} else if (cmd.equals("deleteArticle")) {
 			// 查詢檢舉文章
 			Map<ArticleBean, Integer> articles = articleService.getPersonDeleteArticle(id);
@@ -592,7 +592,7 @@ public class MemberController {
 				articlesNum.put(t.getKey(), t.getValue());
 			}
 			model.addAttribute("article_map", articlesNum);
-			model.addAttribute("cmd", "article");
+//			model.addAttribute("cmd", "article");
 		} else if (cmd.equals("deleteComment")) {
 			// 查詢檢舉留言
 			Map<CommentBean, Integer> comments = articleService.getPersonDeleteComment(id);
@@ -609,11 +609,12 @@ public class MemberController {
 				commentsNum.put(t.getKey(), t.getValue());
 			}
 			model.addAttribute("comment_map", commentsNum);
-			model.addAttribute("cmd", "comment");
+//			model.addAttribute("cmd", "comment");
 		}
 		model.addAttribute("id", id);
 		model.addAttribute("mb", mb);
 		model.addAttribute("reportTimes", reportTimes);
+		model.addAttribute("cmd", cmd);
 
 		return "manager/member/memberInfo";
 	}

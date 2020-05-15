@@ -285,9 +285,9 @@ public class ArticleDaoImpl implements ArticleDao {
 		String hql = "";
 		Session session = factory.getCurrentSession();
 		int count = 0;
-		if (cmd.equals("article")) {
+		if (cmd.equals("article") || cmd.equals("deleteArticle")) {
 			hql = "FROM ReportArticleBean rab WHERE rab.articleId= :id AND reportItem= :item";
-		} else if (cmd.equals("comment")) {
+		} else if (cmd.equals("comment") || cmd.equals("deleteComment")) {
 			hql = "FROM ReportCommentBean rcb WHERE rcb.commentId= :id AND reportItem= :item";
 		}
 		count = session.createQuery(hql).setParameter("id", id).setParameter("item", item).getResultList().size();
