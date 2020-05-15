@@ -137,9 +137,9 @@
 .pagination a {
   color: black !important;
   /* float: left; */
-  padding: 8px 16px;
+/*   padding: 8px 16px; */
   /* text-decoration: none; */
-  margin: 0 5px;
+  margin: 0 15px;
 }
 
 /* 商品分類 消除圓點 */
