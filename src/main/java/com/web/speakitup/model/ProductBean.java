@@ -41,7 +41,6 @@ public class ProductBean implements Serializable{
 	private String fileName;
 	private Blob image;
 	private Clob detail;
-	@Expose
 	private Integer sales;
 	@Transient
 	private MultipartFile productImage;
