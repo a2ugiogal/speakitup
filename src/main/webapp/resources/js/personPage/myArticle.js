@@ -101,7 +101,7 @@ function ajax(arrangeStr){
 		      htmlStr += `</div>`;
 		      htmlStr += `<div class="col-2 d-flex align-items-center justify-content-center">`;
 		      if (map.article.fileName!=null) {
-		    	  htmlStr += `<img src="/speakitup/article/getArticleImage/${map.article.articleId}" class="" width="145px" height="145px" />`;
+		    	  htmlStr += `<img src="/article/getArticleImage/${map.article.articleId}" class="" width="145px" height="145px" />`;
 			  }
 		      htmlStr += `</div>`;
 		      htmlStr += `</div>`;
