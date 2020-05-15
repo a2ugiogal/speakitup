@@ -1,0 +1,41 @@
+#pageBg {
+	background: rgb(230, 230, 230);
+}
+
+.contentBox {
+	background: rgba(255, 255, 255, 0.438);
+}
+
+.allOrders_spacing {
+	padding-top: 30px;
+}
+
+.nav-pills .nav-link, .nav-pills .show>.nav-link {
+	color: rgb(117, 75, 75);
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+	color: #fff;
+	background-color: rgb(119, 99, 99) !important;
+}
+
+.orderItems {
+	background: rgba(182, 157, 128, 0.3);
+}
+
+.card-body {
+	min-height: 0px !important;
+}
+
+#all {
+	background: rgb(119, 99, 99);
+	color: #fff;
+}
+
+.nav-pills .nav-item {
+	cursor: pointer !important;
+}
+
+#button-addon2:hover {
+	background-color: rgb(119, 99, 99) !important;
+}

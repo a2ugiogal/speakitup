@@ -132,9 +132,12 @@
 	</nav>
 	<!-- 導覽列 -->
 
-	<div class="p-5" style="background: rgb(230, 230, 230);">
+	<div class="pb-5" style="background: rgb(230, 230, 230);">
+		<div style="height: 60px;"></div>
 		<div class="w-75 my-5 mx-auto Whistleblowing">
-			<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+			<div class="border-bottom border-dark pb-4 mb-5"
+				style="font-size: 2em;">檢舉管理</div>
+			<ul class="nav nav-pills my-4" id="pills-tab" role="tablist">
 				<li class="nav-item col text-sm-center"
 					style="padding-left: 0px !important; padding-right: 0px !important;">
 					<a
@@ -246,7 +249,8 @@
 									pattern="yyyy-MM-dd" />
 							</div>
 							<div
-								class="col-3 d-flex justify-content-center align-items-center my-2" style="">
+								class="col-3 d-flex justify-content-center align-items-center my-2"
+								style="">
 								<c:choose>
 									<c:when test="${cmd=='article'}">${entry.key.title}</c:when>
 									<c:otherwise>${entry.key.content}</c:otherwise>

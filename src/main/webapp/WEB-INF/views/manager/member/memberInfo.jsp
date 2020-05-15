@@ -36,14 +36,7 @@
 			</a>
 		</div>
 		<div class="navbar-nav flex-row ml-auto"
-			style="position: absolute; right: 250px; top: 10px;">
-			<!-- 			<form class="form-inline mr-5"> -->
-			<!-- 				<input class="form-control mr-sm-2" type="search" id="search" -->
-			<!-- 					placeholder="Search" aria-label="Search" /> -->
-			<!-- 				<button class="btn d-flex justify-content-center" type="submit" -->
-			<!-- 					id="search-btn">Search</button> -->
-			<!-- 			</form> -->
-		</div>
+			style="position: absolute; right: 250px; top: 10px;"></div>
 		<div class="navbar-nav flex-row ml-auto"
 			style="position: absolute; right: 0; top: 10px;">
 			<!-- ==========判斷是否登入======== -->
@@ -134,7 +127,7 @@
 	<!-- 導覽列 -->
 
 
-	<div id="pageBg">
+	<div class="pb-5" id="pageBg">
 		<div style="height: 60px;"></div>
 		<div class="w-75 my-5 mx-auto p-4">
 			<div class="my-4 border border-dark px-4 contentBox"
@@ -158,8 +151,10 @@
 						<c:choose>
 							<c:when test="${mb.status=='正常'}">
 								<a
-									href="<spring:url value='/member/changeMemberStatus/${id}?memberLock=封鎖帳號&reportTimes=${reportTimes}'/>" style="">
-									<button class="Reportdeletebutton">封鎖帳號</button></a>
+									href="<spring:url value='/member/changeMemberStatus/${id}?memberLock=封鎖帳號&reportTimes=${reportTimes}'/>"
+									style="">
+									<button class="Reportdeletebutton">封鎖帳號</button>
+								</a>
 							</c:when>
 							<c:otherwise>
 								<a
@@ -182,7 +177,7 @@
 			<!-- 標頭============================= -->
 			<div class="my-4 border border-dark px-4 pt-4 contentBox"
 				style="border: 1px solid rgba(0, 0, 0, 0.575); border-radius: 0.5em;">
-				<ul class="nav nav-pills  mb-3" id="pills-tab" role="tablist"
+				<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist"
 					style="border-bottom: 1px solid rgba(0, 0, 0, 0.575);">
 					<li class="nav-item col text-sm-center"
 						style="padding-left: 0px !important; padding-right: 0px !important;">
@@ -234,7 +229,7 @@
 							<c:when test="${not empty article_map}">文章編號</c:when>
 							<c:otherwise>留言編號</c:otherwise>
 						</c:choose>
-						</div>
+					</div>
 					<div
 						class="col-3 d-flex justify-content-center align-items-center my-2">
 						發文日期</div>
@@ -246,7 +241,7 @@
 						檢舉數</div>
 				</div>
 
-				<div style="height: 300px; overflow-y: scroll;" id="memberInfo_list">
+				<div style="height: 400px; overflow-y: scroll;" id="memberInfo_list">
 					<c:choose>
 						<c:when test="${not empty article_map}">
 							<c:forEach var="entry" items="${article_map}">
