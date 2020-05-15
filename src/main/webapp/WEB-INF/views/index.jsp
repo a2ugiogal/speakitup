@@ -138,7 +138,8 @@
 	</a>
 	<!-- 置頂按鈕 設定 -->
 	<!-- ======= Index Section ======= -->
-	<div id="index">
+	<div id="index" style="background:url('<spring:url value="/image/index/home.png" />');" >
+		
 		<div class="content text-center d-flex align-items-center">
 			<!-- title ============-->
 			<div class="row">

@@ -71,8 +71,20 @@ public class LetterController {
 
 	// 回信區
 	@GetMapping("/reply")
-	public String replyLetter() {
-		return "driftLetter/reply";
+	public String replyLetter(HttpSession session) {
+		
+		//先檢查會員的資料庫有沒有當天還沒回完的信 有的話直接轉跳
+		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
+		Integer letterIdoftheDay =  mb.getLetterOftheDay();
+		if(letterIdoftheDay != null) {
+			
+		LetterBean lb = letterService.getLetter(letterIdoftheDay);
+			session.setAttribute("lb", lb);
+			
+			return "driftLetter/replyLetters";
+		}else {
+			return "driftLetter/reply";
+		}
 	}
 
 	@GetMapping("/sendAngelZone")
@@ -124,59 +136,6 @@ public class LetterController {
 
 	}
 
-//	@GetMapping("/replyLetterDevil")
-//	public String replyLetterDevil(HttpSession session) {
-//
-//		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
-//		String memberId = mb.getMemberId();
-//
-//		// 看mb物件裡有沒有當日信件
-//		LetterBean lb = null;
-//		Integer letterIdoftheDay = mb.getLetterOftheDay();
-//		if (letterIdoftheDay == null) {
-//
-//			//如果該信件的狀態是'n'(還沒被回過的話)
-//			Map<Integer, LetterBean> letterMap = letterService.getUnfinishedLetter(memberId, "惡魔", "n");
-//			//先取得那些信件的資訊(id,letter物件) 再把此map的key(也就是信件的id)取出
-//			Integer mapSize = letterMap.size();
-//			Set<Integer> letterNo = letterMap.keySet();
-//			System.out.println("有" + mapSize + " 封" + "信件編號為" + letterNo);
-//
-//			// 隨機取得信件編號的index值
-//			try {
-//				int randomNo = (int) (Math.random() * mapSize);
-//				Integer letterId = (Integer) letterNo.toArray()[randomNo];
-//				System.out.println("隨機index值:" + randomNo + "隨機數的key:" + letterId);
-//				
-//				//取得此index值的信件
-//				lb = letterService.getLetter(letterId);
-//				session.setAttribute("lb", lb);
-//
-//				// 更新信件狀態('o') 讓信件無法被其他會員取得 會員在同一天也只能拿到同樣的一封
-//				mb.setLetterOftheDay(letterId);
-//				memberService.updateLetterOftheDay(memberId, letterId);
-//				letterService.updateLetterStatus(letterId, GlobalService.LETTER_STATUS_OCCUPIED);
-//
-//			} catch (ArrayIndexOutOfBoundsException e) {
-//				//沒信的話會進到此處
-//				System.out.println("無惡魔信可回");
-//				session.setAttribute("noLetters", "noLetters");
-//				return "redirect:/letter/letterHome";
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//
-//			// 如果會員表格內已經有每天更新一次的信件ID 就會直接去撈取該信件
-//		} else {
-//			lb = letterService.getLetter(letterIdoftheDay);
-//			session.setAttribute("lb", lb);
-//			session.setAttribute("haveLetterAlready", "haveLetter");
-//			return "driftLetter/replyLetters";
-//		}
-//
-//		return "driftLetter/replyLetters";
-//	}
-
 	@GetMapping("/replyLetters/{type}")
 	public String replyLetterAngel(@PathVariable("type")String type,HttpSession session) {
 		
@@ -220,14 +179,8 @@ public class LetterController {
 					e.printStackTrace();
 				}
 
-			} else {
-				
-				lb = letterService.getLetter(letterIdoftheDay);
-				session.setAttribute("lb", lb);
-				session.setAttribute("haveLetterAlready", "haveLetter");
-				return "driftLetter/replyLetters";
+			} 
 
-			}
 		}	
 		//如果選擇的是回覆惡魔信件
 		else {
@@ -263,16 +216,9 @@ public class LetterController {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+			} 
 
-				// 如果會員表格內已經有每天更新一次的信件ID 就會直接去撈取該信件
-			} else {
-				lb = letterService.getLetter(letterIdoftheDay);
-				session.setAttribute("lb", lb);
-				session.setAttribute("haveLetterAlready", "haveLetter");
-				return "driftLetter/replyLetters";
-			}
 		}
-		
 		//最後再把取得的資訊送回給前端
 		return "driftLetter/replyLetters";
 	}

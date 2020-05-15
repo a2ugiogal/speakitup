@@ -150,14 +150,14 @@
                              <label class="feedbackBtnAngel">
                              	<c:choose>
 	                             	<c:when test="${letters.feedback == 'like'}">
-	                             		 <input type="checkbox" checked="checked" class="like${letters.letterId}">
-	                                 <div class="iconBox" onclick="likeFeedback(${letters.letterId})" >
+	                             		 <input type="checkbox" checked="checked" class="likeAngel${letters.letterId}">
+	                                 <div class="iconBox" onclick="likeFeedbackAngel(${letters.letterId})" >
 	                                     <i class="far fa-handshake"></i>
 	                                  </div>
 	                             	</c:when>
 	                             	<c:otherwise>
-		                             	<input type="checkbox"   class="like${letters.letterId}">
-	                                 	<div class="iconBox"  onclick="likeFeedback(${letters.letterId})">
+		                             	<input type="checkbox"   class="likeAngel${letters.letterId}">
+	                                 	<div class="iconBox"  onclick="likeFeedbackAngel(${letters.letterId})">
 	                                     	<i class="far fa-handshake"></i>
 	                                  </div>
 	                             	</c:otherwise>
@@ -168,14 +168,14 @@
                              <label class="hateBtn">
                              	<c:choose>
                              		<c:when test="${letters.feedback == 'dislike'}">
-                             			<input type="checkbox" checked="checked" class="hate${letters.letterId}">
-                                 		<div class="iconBox" onclick="deleteFeedback(${letters.letterId})">
+                             			<input type="checkbox" checked="checked" class="hateAngel${letters.letterId}">
+                                 		<div class="iconBox" onclick="deleteFeedbackAngel(${letters.letterId})">
                                      		<i class="fas fa-exclamation-triangle"></i>
                                   		</div>
                              		</c:when>
                              		<c:otherwise>
-                             			<input type="checkbox" class="hate${letters.letterId}">
-                                 		<div class="iconBox" onclick="deleteFeedback(${letters.letterId})">
+                             			<input type="checkbox" class="hateAngel${letters.letterId}">
+                                 		<div class="iconBox" onclick="deleteFeedbackAngel(${letters.letterId})">
                                      		<i class="fas fa-exclamation-triangle"></i>
                                   		</div>
                              		</c:otherwise>

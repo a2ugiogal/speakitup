@@ -73,51 +73,37 @@ html, body {
 
 /* 打字機效果 */
 .typewriter h1 {
-	font-size: 3em;
-	color: #fff;
-	overflow: hidden;
-	/* Ensures the content is not revealed until the animation */
-	border-right: 0.15em solid #ea6981; /* The typwriter cursor */
-	white-space: nowrap; /* Keeps the content on a single line */
-	margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-	letter-spacing: 0.15em; /* Adjust as needed */
-	animation: typing 2.5s steps(12, end), blink-caret 0.5s step-end;
-	animation-play-state: paused;
+  font-size: 3em;
+  color: #fff;
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: 0.15em solid #ea6981; /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: 0.15em; /* Adjust as needed */
+  animation: typing 2.5s steps(12, end), blink-caret 0.5s step-end;
+  animation-play-state: paused;
 }
 /*動畫名稱是typing 進行3s 將動畫切為25格*/
 
 /* The typing effect */
-@
-keyframes typing {from { width:0;
-	
-}
-
-to {
-	width: 100%;
-}
-
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
 }
 
 /* The typewriter cursor effect */
-@
-keyframes blink-caret {from , to { border-color:transparent;
-	
-}
-
-50%
-{
-border-color
-
-
-:
-
- 
-
-#ea6981
-
-
-;
-}
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: #ea6981;
+  }
 }
 
 /*首圖*/
@@ -126,8 +112,7 @@ border-color
 	justify-content: flex-end;
 	align-items: center;
 	height: 100vh;
-	background:
-		url("https://github.com/sun0722a/yaoshula/blob/master/src/logo/bg_2.png?raw=true");
+/* 	background:url("https://github.com/sun0722a/yaoshula/blob/master/src/logo/bg_2.png?raw=true"); */
 	background-size: cover;
 }
 /*首圖文字*/

@@ -34,6 +34,7 @@ public class HomeController {
 
 	@GetMapping("/scheduledWork")
 	public String scheduledWork(HttpServletRequest request) {
+
 		  if (request.getRemoteAddr().equalsIgnoreCase("0:0:0:0:0:0:0:1")) {			  
 			  memberService.clearLetteroftheday();
 			  memberService.clearSendReplyQuota();

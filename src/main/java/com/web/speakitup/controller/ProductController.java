@@ -200,7 +200,6 @@ public class ProductController {
 	/* 查詢商品詳細資料 */
 	@GetMapping("/showProductInfo/{productId}")
 	public String showProductInfo(Model model, @PathVariable("productId") Integer productId, HttpSession session) {
-
 		Clob clob = null;
 		String detail = "";
 		ProductFormatBean firstProductFormat = null;
@@ -445,7 +444,6 @@ public class ProductController {
 				throw new RuntimeException("檔案上傳發生異常：" + e.getMessage());
 			}
 		}
-
 		try {
 			pb.setCategory(productService.getCategory(categoryId));
 			pb.setDetail(GlobalService.stringToClob(detail));

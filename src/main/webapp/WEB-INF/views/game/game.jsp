@@ -76,11 +76,18 @@
 				.ready(
 						function() {
 							let range = $('#range').val();
-
 							let num = range * range;
 							let content = "";
+							let colorArr = [];
+							//隨機的顏色
+							for(let i= 0; i<range ; i++){
+								let colorR = Math.floor(Math.random() * 256);
+								let colorG = Math.floor(Math.random() * 256);
+								let colorB = Math.floor(Math.random() * 256);	
+								colorArr[colorArr.length] = 'rgb('+colorR+','+colorG+','+colorB+')';
+							}
 							for (let i = 0; i < num; i++) {
-								content += "<span class='outside'><div class='silde'></div></span>";
+								content += "<span class='outside'><div class='silde' id="+i+"></div></span>";
 							}
 							$(".hold").append(content);
 
@@ -88,13 +95,17 @@
 									$(window).width() / range);
 							$('.outside').css('height',
 									$(window).height() / range);
+						
 
 							// mouseover:每次事件觸發時執行的功能
 							$(".silde")
 									.mouseover(
 											function() {
 												$(this).addClass("fall");
-
+													let randomNo = Math.floor(Math.random() *range);
+													let id = $(this).attr('id')
+													$('#'+id).css('background',colorArr[randomNo] );
+												
 												let check = true;
 
 												silde = document

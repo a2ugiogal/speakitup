@@ -40,7 +40,7 @@ body {
 
 .hold div.fall {
 	z-index: 1000;
-	background-color: #f00;
+/* 	background-color: #f00; */
 /* 	transition: 0.2s; */
 	pointer-events: none;
 	animation: fall 2s linear forwards;
@@ -50,16 +50,16 @@ body {
           transform: translateY(0) rotate(0deg);
         }
         25% {
-          transform: translateY(250px) rotate(900deg);
+          transform: translateY(250px) rotate(90deg);
         }
         50% {
-          transform: translateY(500px) rotate(1800deg);
+          transform: translateY(500px) rotate(180deg);
         }
         75% {
-          transform: translateY(750px) rotate(2700deg);
+          transform: translateY(750px) rotate(270deg);
         }
         100% {
-          transform: translateY(1000px) rotate(3600deg);
+          transform: translateY(1000px) rotate(360deg);
         }
       }
 /* loading特效 */
@@ -91,7 +91,7 @@ section p {
   z-index: 1000;
 }
 .preloader::before {
-  content: "Ready？";
+  content: "Ready?";
   position: absolute;
   top: 50px;
   font-size: 12em;

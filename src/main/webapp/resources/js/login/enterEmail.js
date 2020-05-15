@@ -15,7 +15,7 @@ function checkEmail() {
 		submitbtn.disabled = true;
 	} else {
 		xhr = new XMLHttpRequest();
-		xhr.open("GET", "/speakitup/member/checkEmail?email="
+		xhr.open("GET", "/member/checkEmail?email="
 				+ emailInput.value, false);
 		xhr.setRequestHeader("Content-Type",
 				"application/x-www-form-urlencoded");

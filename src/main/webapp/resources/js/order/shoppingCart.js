@@ -54,7 +54,7 @@ function allChecked() {
 	}
 	xhr = new XMLHttpRequest();
 	$.ajax({
-		 url : "/speakitup/order/updateShoppingCart?cmd=CSA&chooseAll=" + chooseAll,
+		 url : "/order/updateShoppingCart?cmd=CSA&chooseAll=" + chooseAll,
 		 type : 'GET',
 		 success : function(){}
 		 });
@@ -66,7 +66,7 @@ $('.choose').change((e)=>{
 	var choose = $(e.target).prop('checked');
 	xhr = new XMLHttpRequest();
 	 $.ajax({
-	 url : "/speakitup/order/updateShoppingCart?cmd=CHS&productFormatId=" + productFormatId +
+	 url : "/order/updateShoppingCart?cmd=CHS&productFormatId=" + productFormatId +
 	 "&choose=" + choose,
 	 type : 'GET',
 	 success : function(){}
@@ -83,7 +83,7 @@ $('.singleQty').change((e)=>{
 	checkMoney();
 	xhr = new XMLHttpRequest();
 	 $.ajax({
-	 url : "/speakitup/order/updateShoppingCart?cmd=QTY&productFormatId=" + productFormatId +
+	 url : "/order/updateShoppingCart?cmd=QTY&productFormatId=" + productFormatId +
 	 "&newQty=" + singleQty,
 	 type : 'GET',
 	 success : function(){}
@@ -98,7 +98,7 @@ $('.changeFormat').change((e)=>{
 	var productFormatId = $(e.target).parent().attr('id');
 	 xhr = new XMLHttpRequest();
 	 $.ajax({
-	 url : "/speakitup/order/updateShoppingCart?cmd=FMT&productFormatId=" + productFormatId +
+	 url : "/order/updateShoppingCart?cmd=FMT&productFormatId=" + productFormatId +
 	 "&newFmt=" + newFormat,
 	 type : 'GET',
 	 success : function(){}
@@ -112,7 +112,7 @@ $('.changeFormat').change((e)=>{
 	 checkMoney();
 	 xhr = new XMLHttpRequest();
 	 $.ajax({
-	 url : "/speakitup/order/updateShoppingCart?cmd=DEL&productFormatId=" + productFormatId,
+	 url : "/order/updateShoppingCart?cmd=DEL&productFormatId=" + productFormatId,
 	 type : 'GET',
 	 success : function(){
 		

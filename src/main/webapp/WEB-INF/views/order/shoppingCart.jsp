@@ -156,7 +156,7 @@
 						</div>
 
 
-						<form action="" id="checkShoppingCart">
+						<form action="<spring:url value='/order/orderList' /> " id="checkShoppingCart">
 							<c:forEach var="cartMap" varStatus="vs"
 								items="${ShoppingCart.content}">
 								<c:forEach var="orderMap" items="${cartMap.value}">
@@ -233,7 +233,7 @@
 									</div>
 								</div>
 							</div>
-							<button type="button" class="checkout" role="button"
+							<button type="submit" class="checkout" role="button"
 								onclick="checkShoppingCart(${ShoppingCart})">Checkout</button>
 						</form>
 					</div>

@@ -49,7 +49,7 @@ $("#arrange").change(function (e) {
 function ajax(){
 	$.ajax({
 		  type: "GET",
-		  url: "/speakitup/article/showPageArticlesAjax",
+		  url: "/article/showPageArticlesAjax",
 		  data: {
 		    search: $("#search").val(),
 		    arrange:$('#arrange').val(),
@@ -68,10 +68,10 @@ function ajax(){
 		      } else {
 		        htmlStr += `<div class="nayma-timeline-block">`;
 		      }
-		      htmlStr += `<a href="/speakitup/article/showArticleContent/${map.article.articleId}" style="text-decoration: none;"> `;
+		      htmlStr += `<a href="/article/showArticleContent/${map.article.articleId}" style="text-decoration: none;"> `;
 		      htmlStr += `<div class="row nayma-timeline-content"> `;
 		      htmlStr += `<div class="col-2 d-flex align-items-center justify-content-center">`;
-		      htmlStr += `<img src="/speakitup/member/getUserImage/${map.article.authorId}" class="rounded-circle" width="150px" height="150px"/>`;
+		      htmlStr += `<img src="/member/getUserImage/${map.article.authorId}" class="rounded-circle" width="150px" height="150px"/>`;
 		      htmlStr += `</div>`;
 		      htmlStr += `<div class="col-8">`;
 		      htmlStr += `<h2 class="mt-2">${map.article.title}</h2>`;
@@ -123,7 +123,7 @@ function ajax(){
 		      htmlStr += `</div>`;
 		      htmlStr += `<div class="col-2 d-flex align-items-center justify-content-center">`;
 		      if (map.article.fileName!=null) {
-		    	  htmlStr += `<img src="/speakitup/article/getArticleImage/${map.article.articleId}" class="" width="145px" height="145px" />`;
+		    	  htmlStr += `<img src="/article/getArticleImage/${map.article.articleId}" class="" width="145px" height="145px" />`;
 			  }
 		      htmlStr += `</div>`;
 		      htmlStr += `</div>`;

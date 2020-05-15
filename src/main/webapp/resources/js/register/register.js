@@ -52,7 +52,7 @@ function check() {
   if (this.id == "btUserName") {
     xhr.open(
       "GET",
-      "/speakitup/member/register/checkUserName?userName=" + userName.value,
+      "/member/register/checkUserName?userName=" + userName.value,
       false
     );
     xhr.send();
@@ -65,7 +65,7 @@ function check() {
   } else {
     xhr.open(
       "GET",
-      "/speakitup/member/register/checkEmail?email="+ email.value,
+      "/member/register/checkEmail?email="+ email.value,
       false
     );
     xhr.send();

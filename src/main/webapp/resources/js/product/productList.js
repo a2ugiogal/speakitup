@@ -1,12 +1,6 @@
 function doFirst() {
 	nowPage = document.getElementById("nowPage");
 	pageForm = document.getElementById("pageForm");
-	// arrange = document.getElementById("arrange");
-	// searchForm = document.getElementById("searchForm");
-
-	// arrange.addEventListener("change", function() {
-	// searchForm.submit();
-	// });
 	nowPage.addEventListener("change", function() {
 		pageForm.submit();
 	});
@@ -40,7 +34,7 @@ $("#arrange").change(function(e) {
 function ajax() {
 	  $.ajax({
 	    type: "GET",
-	    url: "/speakitup/product/showPageProductsAjax",
+	    url: "/product/showPageProductsAjax",
 	    data: {
 	      arrange: $("#arrange").val(),
 	      search: $("#search").val(),
@@ -78,10 +72,10 @@ function ajax() {
 	      let product_list = $("#product_list");
 	      var htmlStr = "";
 	      $.each(list, function (i, map) {
-	        htmlStr += `<a href="/speakitup/product/showProductInfo/${map.product.productId}" style="text-decoration: none;">`;
+	        htmlStr += `<a href="/product/showProductInfo/${map.product.productId}" style="text-decoration: none;">`;
 	        htmlStr += `<div class="col-lg-6 col-xl-4 p-0 py-3 d-flex justify-content-center">`;
 	        htmlStr += `<div class="card text-center h-100 border-0 box-shadow">`;
-	        htmlStr += `<img src="/speakitup/product/getProductImage/${map.product.productId}" class="card-img-top img_high" />`;
+	        htmlStr += `<img src="/product/getProductImage/${map.product.productId}" class="card-img-top img_high" />`;
 	        htmlStr += `<div class="card-body">`;
 	        htmlStr += `<h5 class="card-title" style="font-weight: bold;">${map.product.productName}</h5>`;
 	        /* 超過字變成... */

@@ -2,7 +2,6 @@ package com.web.speakitup.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Writer;
 import java.sql.Blob;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -44,6 +43,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.web.speakitup._00_init.GlobalService;
 import com.web.speakitup._00_init.SendEmail;
 import com.web.speakitup.model.ArticleBean;
@@ -198,15 +199,15 @@ public class MemberController {
 	@GetMapping("/register/checkEmail")
 	public void checkEmail(@RequestParam("email") String email, HttpServletResponse response) {
 		response.setCharacterEncoding("UTF-8");
-		Writer os = null;
-		try {
-			os = response.getWriter();
+		try (PrintWriter out = response.getWriter();) {
 			if (email.trim().length() != 0) {
 				boolean exist = memberService.emailExists(email);
 				if (!exist) {
-					os.write("此信箱可使用");
+					out.write("此信箱可使用");
+					out.flush();
 				} else {
-					os.write("此信箱已被註冊");
+					out.write("此信箱已被註冊");
+					out.flush();
 				}
 			}
 		} catch (IOException e) {
@@ -219,15 +220,15 @@ public class MemberController {
 	@GetMapping("/register/checkUserName")
 	public void checkUserName(@RequestParam("userName") String userName, HttpServletResponse response) {
 		response.setCharacterEncoding("UTF-8");
-		Writer os = null;
-		try {
-			os = response.getWriter();
+		try (PrintWriter out = response.getWriter();) {
 			if (userName.trim().length() != 0) {
 				boolean exist = memberService.idExists(userName);
 				if (!exist) {
-					os.write("此帳號可使用");
+					out.write("此帳號可使用");
+					out.flush();
 				} else {
-					os.write("此帳號已存在");
+					out.write("此帳號已存在");
+					out.flush();
 				}
 			}
 		} catch (IOException e) {
@@ -362,7 +363,7 @@ public class MemberController {
 			String target = (String) session.getAttribute("target");
 			// 如果是從別的地方來的就回去
 			if (target != null) {
-				return "redirect:/" + target;
+				return "redirect:" + target;
 			} else {
 				return "redirect:/";
 			}
@@ -408,13 +409,17 @@ public class MemberController {
 	public void checkEmail(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/plain; charset=UTF-8");
-		PrintWriter out = response.getWriter();
-
-		String memberEmailStr = request.getParameter("email");
-		if (memberService.emailExists(memberEmailStr)) {
-			out.print("true");
-		} else {
-			out.print("false");
+		try (PrintWriter out = response.getWriter();) {
+			String memberEmailStr = request.getParameter("email");
+			if (memberService.emailExists(memberEmailStr)) {
+				out.print("true");
+				out.flush();
+			} else {
+				out.print("false");
+				out.flush();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -504,10 +509,43 @@ public class MemberController {
 		Map<ArticleBean, String> articleMap = articleService.getPersonArticles(arrange, searchStr, mb);
 
 		model.addAttribute("searchStr", searchStr);
-//		model.addAttribute("arrange", arrange);
 		model.addAttribute("articles_map", articleMap);
 
 		return "personPage/myArticles";
+	}
+
+	/* 個人文章(ajax) */
+	@GetMapping("/showMyArticlesAjax")
+	public void getmyArticlesAjax(Model model, HttpSession session, HttpServletRequest request,
+			HttpServletResponse response) {
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json; charset=utf-8");
+
+		try (PrintWriter out = response.getWriter();) {
+			// 取得搜尋字串或是篩選的字串 點擊我的文章時會先進來一次，所以第一次會是空字串，代表回傳所有的文章
+			String arrange = request.getParameter("arrange") == null ? "" : request.getParameter("arrange");
+			String searchStr = request.getParameter("search") == null ? "" : request.getParameter("search");
+
+			System.out.println("arrange=" + arrange + ",searchStr=" + searchStr);
+			MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
+			System.out.println("id=" + mb.getMemberId());
+			Map<ArticleBean, String> articleMap = articleService.getPersonArticles(arrange, searchStr, mb);
+
+			/* 重新排成方便JSON的型態 */
+			List<Map<String, Object>> articles = new ArrayList<Map<String, Object>>();
+
+			for (ArticleBean bean : articleMap.keySet()) {
+				Map<String, Object> map = new LinkedHashMap<String, Object>();
+				map.put("article", bean);
+				map.put("content", articleMap.get(bean));
+				articles.add(map);
+			}
+			Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+			out.write(gson.toJson(articles));
+			out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	// ==================管理員===================
