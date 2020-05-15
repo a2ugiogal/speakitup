@@ -35,8 +35,6 @@ $(document).ready(() => {
         }
     })
     
-   
-    
 });
 
     
@@ -50,10 +48,14 @@ function success(response,type){
 		class2 = "sendBoxDevil";
 		class3 = "newLettersDevil";
 		class4 = "sendBoxBotDevil";
-		class5 = "btnDivDevil";
-		class52 = "btnDivDevilChecked";
+		class52 = "btnDivDevil";
+		class5 = "btnDivDevilChecked";
 		class6 = "feedbackBtn";
-		class7 = "replyBoxDevil";
+		class7 = "likeDevil";
+		class8 = "likeFeedbackDevil";
+		class9 = "hateDevil";
+		class10 = "deleteFeedbackDevil";
+		class11 = "replyBoxDevil";
 	}else{
 		class1 = "letterBox";
 		class2 = "sendBox";
@@ -61,7 +63,11 @@ function success(response,type){
 		class4 = "sendBoxBotAngel";
 		class5 = "btnDiv";
 		class6 = "feedbackBtnAngel";
-		class7 = "replyBox";
+		class7 = "likeAngel";
+		class8 = "likeFeedbackAngel";
+		class9 = "hateAngel";
+		class10 = "deleteFeedbackAngel";
+		class11 = "replyBox";
 	}
 		
 	for(i=0;i<response.length;i++){
@@ -78,7 +84,7 @@ function success(response,type){
 		inner+="<p>"+response[i].letterContent+"</p>";
 		inner+="<div class='"+class4+"'>";	
 		inner+="<div class='watchReply'>看回信</div>";
-		if(response[i].feedback == 'like' && type=="devil"){			
+		if(type=="devil" && response[i].feedback == null){	
 			inner+="<div class='"+class52+"' id='"+response[i].letterId+"'>";
 		}else{
 			inner+="<div class='"+class5+"' id='"+response[i].letterId+"'>";
@@ -87,13 +93,13 @@ function success(response,type){
 		inner+="<li>";
 		inner+="<label class='"+class6+"'>";
 		if(response[i].feedback == 'like'){
-			inner+="<input type='checkbox' checked='checked' class='like"+ response[i].letterId +"'>";
-			inner+="<div class='iconBox' onclick='likeFeedback("+response[i].letterId+")'>";
+			inner+="<input type='checkbox' checked='checked' class='"+class7+""+ response[i].letterId +"'>";
+			inner+="<div class='iconBox' onclick='"+class8+"("+response[i].letterId+")'>";
 			inner+="<i class='far fa-handshake'></i>";
 			inner+="</div>";
 		}else{
-			inner+="<input type='checkbox' class='like"+ response[i].letterId +"'>";
-			inner+="<div class='iconBox' onclick='likeFeedback("+response[i].letterId+")'>";
+			inner+="<input type='checkbox' class='"+class7+""+ response[i].letterId +"'>";
+			inner+="<div class='iconBox' onclick='"+class8+"("+response[i].letterId+")'>";
 			inner+="<i class='far fa-handshake'></i>";
 			inner+=" </div>";
 		}
@@ -101,9 +107,15 @@ function success(response,type){
 		inner+="</li>";
 		inner+="<li>";
 		inner+="<label class='hateBtn' >";
-		inner+="<input type='checkbox' class='hate"+ response[i].letterId +"'>";
-		inner+="<div class='iconBox' onclick='deleteFeedback("+response[i].letterId+")'>";
-		inner+="<i class='fas fa-exclamation-triangle'></i>";
+		if(response[i].feedback == 'dislike'){
+			inner+="<input type='checkbox' checked='checked' class='"+class9+""+ response[i].letterId +"'>";
+			inner+="<div class='iconBox' onclick='"+class10+"("+response[i].letterId+")'>";
+			inner+="<i class='fas fa-exclamation-triangle'></i>";
+		}else{
+			inner+="<input type='checkbox' class='"+class9+""+ response[i].letterId +"'>";
+			inner+="<div class='iconBox' onclick='"+class10+"("+response[i].letterId+")'>";
+			inner+="<i class='fas fa-exclamation-triangle'></i>";
+		}
 		inner+="</div>";
 		inner+="</label>";
 		inner+="</li>";
@@ -111,7 +123,7 @@ function success(response,type){
 		inner+="</div>";
 		inner+="</div>";
 		inner+="</div>";
-		inner+="<div class='"+class7+" animated'>";
+		inner+="<div class='"+class11+" animated'>";
 		inner+="<p><h3>回信內容</h3></p>";
 		inner+="<p>"+response[i].replyContent+"</p>";
 		inner+="<div class='back'>返回</div>";
@@ -124,6 +136,7 @@ function success(response,type){
 
 }
 
+//看回信內容
 function watchReply(){
 	$(".watchReply").click((e)=>{
         e.preventDefault();
@@ -137,6 +150,7 @@ function watchReply(){
     });
 }
 
+//返回
 function back(){
 	$('.back').click((e) => {
         e.preventDefault();
@@ -150,75 +164,41 @@ function back(){
         
     });
 }
-//正面回饋鈕
-//function likeFeedback(id){
-//	$('#likeFeedback').click((e)=>{
-//		e.preventDefault();
-//		id = $('#likeLetterId').val();
-//		alert(id)
-//		$('.hate'+id).prop('checked',false);
-//		xhr = new XMLHttpRequest();
-//	     $.ajax({
-//    		url : "/speakitup/letter/likeLetter?id=" + id,
-//    		type : "POST",
-//    		success : function() {
-//    			
-//    		}
-//    	});
-//	})
-//	
-//	
-//
-//
-//
-//
-////覆面回饋鈕
-////function deleteFeedback(id){
-//		$('#hateFeedback').click((e)=>{
-//			e.preventDefault();
-//			id = $('#hateLetterId').val();
-//			alert(id)
-//			$('.like'+id).prop('checked',false);
-//			xhr = new XMLHttpRequest();
-//		     $.ajax({
-//		 		url : "/speakitup/letter/deleteLetter?id=" + id,
-//		 		type : "POST",
-//		 		success : function(){
-//		 		}
-//		 	});
-//		})
-//	
-////}
 
-function likeFeedback(id){
-	$('.hate'+id).prop('checked',false);
+//天使信件的喜歡
+function likeFeedbackAngel(id){
+	$('.hateAngel'+id).prop('checked',false);
      xhr = new XMLHttpRequest();
      $.ajax({
  		url : "/speakitup/letter/likeLetter?id=" + id,
  		type : "POST",
  		success : function(){}
  	});
-//     $("#likeModal").modal("hide");
      //如果按了不喜歡就不能有喜歡 兩個鍵不會同時一起壓下去
      
-     alert($('.like' + id).prop('checked'))
-     if($('.like' + id).prop('checked') == true){
+}
+
+//惡魔信件的喜歡
+function likeFeedbackDevil(id){
+	$('.hateDevil'+id).prop('checked',false);
+     xhr = new XMLHttpRequest();
+     $.ajax({
+ 		url : "/speakitup/letter/likeLetter?id=" + id,
+ 		type : "POST",
+ 		success : function(){}
+ 	});
+     //如果按了不喜歡就不能有喜歡 兩個鍵不會同時一起壓下去
+     
+     if($('.likeDevil' + id).prop('checked') == true){
     	 $('body').find('#' + id).removeClass('btnDivDevilChecked').addClass('btnDivDevil')
      }else{
     	 $('body').find('#' + id).removeClass('btnDivDevil').addClass('btnDivDevilChecked')
      }
-//    if($('.like' + id).prop('checked') == true || $('.hate' + id).prop('checked') == true){
-//    	alert($('.like' + id).prop('checked'))
-//    	alert($('.hate' + id).prop('checked'))
-//    	$(this).parent().parent().parent().parent().removeClass('.btnDivDevil');
-////    	$(this).parents('div').find('.btnDivDevil').removeClass('.btnDivDevil');
-//    	$(this).parent().parent().parent().parent().addClass('.btnDivDevilChecked');
-//    }
 }
 
-//負面回饋鈕
-function deleteFeedback(id){
-	$('.like'+id).prop('checked',false);
+//天使信件的不喜歡
+function deleteFeedbackAngel(id){
+	$('.likeAngel'+id).prop('checked',false);
      xhr = new XMLHttpRequest();
      $.ajax({
  		url : "/speakitup/letter/deleteLetter?id=" + id,
@@ -226,12 +206,27 @@ function deleteFeedback(id){
  		success : function(){}
  	});
      
-     alert($('.hate' + id).prop('checked'))
-     if($('.hate' + id).prop('checked') == true){
+//     if($('.hate' + id).prop('checked') == true){
+//    	 $('body').find('#' + id).removeClass('btnDivDevilChecked').addClass('btnDivDevil')
+//     }else{
+//    	 $('body').find('#' + id).removeClass('btnDivDevil').addClass('btnDivDevilChecked')
+//     }
+}
+
+//惡魔信件的不喜歡
+function deleteFeedbackDevil(id){
+	$('.likeDevil'+id).prop('checked',false);
+     xhr = new XMLHttpRequest();
+     $.ajax({
+ 		url : "/speakitup/letter/deleteLetter?id=" + id,
+ 		type : "POST",
+ 		success : function(){}
+ 	});
+     
+     if($('.hateDevil' + id).prop('checked') == true){
     	 $('body').find('#' + id).removeClass('btnDivDevilChecked').addClass('btnDivDevil')
      }else{
     	 $('body').find('#' + id).removeClass('btnDivDevil').addClass('btnDivDevilChecked')
      }
 }
-
 
