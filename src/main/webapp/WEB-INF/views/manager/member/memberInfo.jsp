@@ -177,7 +177,7 @@
 			<!-- 標頭============================= -->
 			<div class="my-4 border border-dark px-4 pt-4 contentBox"
 				style="border: 1px solid rgba(0, 0, 0, 0.575); border-radius: 0.5em;">
-				<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist"
+				<ul class="nav nav-pills my-4" id="pills-tab" role="tablist"
 					style="border-bottom: 1px solid rgba(0, 0, 0, 0.575);">
 					<li class="nav-item col text-sm-center"
 						style="padding-left: 0px !important; padding-right: 0px !important;">
