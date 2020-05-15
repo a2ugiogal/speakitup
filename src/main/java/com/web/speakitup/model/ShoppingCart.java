@@ -45,7 +45,9 @@ public class ShoppingCart {
 
 	// 更動購物車內的商品數量
 	public boolean changeQty(int productFormatId, int newQty) {
+		System.out.println("changeQty");
 		if (cart.get(productFormatId) != null) {
+			System.out.println("changeQtyIN");
 			Map<OrderItemBean, Set<ProductFormatBean>> orderMap = cart.get(productFormatId);
 			OrderItemBean bean = orderMap.keySet().iterator().next();
 			bean.setQuantity(newQty);

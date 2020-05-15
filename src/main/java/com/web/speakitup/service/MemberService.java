@@ -41,5 +41,6 @@ public interface MemberService {
 	
 	//清空漂流信
 	public void clearLetteroftheday();
-
+	
+	public void clearSendReplyQuota();
 }

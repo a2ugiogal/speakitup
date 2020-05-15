@@ -1,7 +1,5 @@
 
 
-
-
 function addShoppinCart(qty,content1,content2) {
 	xhr = new XMLHttpRequest();
 	$.ajax({

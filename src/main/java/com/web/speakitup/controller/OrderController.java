@@ -111,15 +111,16 @@ public class OrderController {
 		}
 		return "order/checkOrder";
 	}
+
 	/* 加入購物車 */
 	@PostMapping("/shoppingCart")
-	public void shoppingCart(Model model, HttpServletRequest request, HttpSession session,HttpServletResponse response) {
+	public void shoppingCart(Model model, HttpServletRequest request, HttpSession session,
+			HttpServletResponse response) {
 		response.setCharacterEncoding("UTF-8");
 		// 取出session物件裡的購物車資料
 		ShoppingCart cart = (ShoppingCart) session.getAttribute("ShoppingCart");
-		System.out.println("0000"+cart);
 		// 如果session內沒有購物車物件 就新建一個session物件
-		
+
 		if (cart == null) {
 			cart = new ShoppingCart();
 			session.setAttribute("ShoppingCart", cart);
@@ -133,7 +134,7 @@ public class OrderController {
 		String content1 = request.getParameter("content1") == null ? "" : request.getParameter("content1");
 		String content2 = request.getParameter("content2") == null ? "" : request.getParameter("content2");
 		String qtyStr = request.getParameter("qty");
-		
+
 		if (qtyStr == null) {
 			try {
 				PrintWriter out = response.getWriter();
@@ -189,14 +190,13 @@ public class OrderController {
 	}
 
 	/* 修改購物車內的商品資料(刪除商品、修改數量、修改規格、修改單選、修改全選) */
-	@PostMapping("/updateShoppingCart")
-	public void updateShoppingCart(@RequestParam(value="productFormatId", defaultValue="0") Integer productFormatId,
-								   @RequestParam("cmd")String cmd, HttpServletRequest request, HttpSession session,HttpServletResponse response) {
+	@GetMapping("/updateShoppingCart")
+	public void updateShoppingCart(@RequestParam(value = "productFormatId", defaultValue = "0") Integer productFormatId,
+			@RequestParam("cmd") String cmd, HttpServletRequest request, HttpSession session,
+			HttpServletResponse response) {
 		// 如果找不到購物車(通常是Session逾時)，回到首頁
 		response.setCharacterEncoding("UTF-8");
-		System.out.println("000");
 		ShoppingCart sc = (ShoppingCart) session.getAttribute("ShoppingCart");
-		System.out.println(sc);
 		if (sc == null) {
 			try {
 				PrintWriter out = response.getWriter();
@@ -206,34 +206,28 @@ public class OrderController {
 			}
 			return;
 		}
+		
 
 		// cmd可能是DEL或是QTY或是FMT或是CHS或是CSA
-//		String cmd = request.getParameter("cmd");
-		
-		
-//		String productFormatIdStr = request.getParameter("productFormatId");
-//		int productFormatId = 0;
-//		if (productFormatIdStr != null) {
-//			productFormatId = Integer.parseInt(productFormatIdStr);
-//		}
-		
-		
+
+
 		if (cmd.equalsIgnoreCase("DEL")) {
 			// 刪除購物車內的某項商品
-			System.out.println("刪除近來");
 			sc.deleteProduct(productFormatId);
-
-			
 		} else if (cmd.equalsIgnoreCase("QTY")) {
 			// 修改某項商品的數量
 			String newQtyStr = request.getParameter("newQty");
 			int newQty = Integer.parseInt(newQtyStr.trim());
 			sc.changeQty(productFormatId, newQty);
-			System.out.println("更動數量");
-			System.out.println("newQtyStr" + newQty);
-			session.setAttribute("ShoppingCart", sc);
+
+			Map<Integer, Map<OrderItemBean, Set<ProductFormatBean>>> map = sc.getContent();
+			for (int i : map.keySet()) {
+				Map<OrderItemBean, Set<ProductFormatBean>> map2 = map.get(i);
+				for (OrderItemBean ob : map2.keySet()) {
+					System.out.println("Qty=" + ob.getQuantity());
+				}
+			}
 		} else if (cmd.equalsIgnoreCase("FMT")) {
-			System.out.println("修改規格");
 			// 修改某項商品的規格
 			String[] newFmt = request.getParameter("newFmt").split(",");
 			String content1 = null;
@@ -245,21 +239,17 @@ public class OrderController {
 				content1 = newFmt[0];
 			}
 			sc.changeFormat(productFormatId, content1, content2);
-			
+
 		} else if (cmd.equalsIgnoreCase("CHS")) {
-			System.out.println("修改選擇");
 			// 修改某項商品的選擇項
 			String choose = request.getParameter("choose");
 			sc.changeChecked(productFormatId, choose);
-		
+
 		} else if (cmd.equalsIgnoreCase("CSA")) {
-			System.out.println("修改全部選擇");
 			// 修改全部商品的選擇項
 			String chooseAll = request.getParameter("chooseAll");
 			sc.changeAllChecked(chooseAll);
-			
 		}
-
 		try {
 			PrintWriter out = response.getWriter();
 			out.print("");

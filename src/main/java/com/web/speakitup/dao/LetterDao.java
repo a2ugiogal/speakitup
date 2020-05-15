@@ -22,4 +22,5 @@ public interface LetterDao {
 //	public Map<String,LetterBean> getAllLettersByMemberSend(String memberId,String status);
 	public List<LetterBean> getAllLettersByMemberSend(String memberId,String status,String letterCategory);
 	
+	
 }

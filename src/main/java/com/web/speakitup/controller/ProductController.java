@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +36,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.web.speakitup._00_init.GlobalService;
 import com.web.speakitup.model.CategoryBean;
 import com.web.speakitup.model.MemberBean;
@@ -73,7 +76,7 @@ public class ProductController {
 
 		// 讀取瀏覽器送來的搜尋條件
 		String pageNoStr = request.getParameter("pageNo");
-		String arrange = request.getParameter("arrange") == null ? "" : request.getParameter("arrange");
+		String arrange = request.getParameter("arrange") == null ? "time" : request.getParameter("arrange");
 		String searchStr = request.getParameter("search") == null ? "" : request.getParameter("search");
 		String categoryTitle = request.getParameter("categoryTitle") == null ? ""
 				: request.getParameter("categoryTitle");
@@ -141,10 +144,63 @@ public class ProductController {
 		return "product/productList";
 	}
 
+	/* 查詢指定商品(排序)(ajax) */
+	@GetMapping("/showPageProductsAjax")
+	public void showPageProductsAjax(Model model, HttpServletRequest request, HttpServletResponse response,
+			HttpSession session) {
+		response.setContentType("application/json; charset=utf-8");
+
+		try (PrintWriter out = response.getWriter();) {
+			int memberId = 0;
+
+			MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
+			// 如果未登入，就memberId=0(訪客Id)
+			if (mb == null) {
+				memberId = 0;
+			} else {
+				// 登入成功後，Session範圍內才會有LoginOK對應的MemberBean物件
+				// 取出使用者的memberId，後面的Cookie會用到
+				memberId = mb.getId();
+			}
+			// 讀取瀏覽器送來的搜尋條件
+			String arrange = request.getParameter("arrange") == null ? "time" : request.getParameter("arrange");
+			String searchStr = request.getParameter("search") == null ? "" : request.getParameter("search");
+			String categoryTitle = request.getParameter("categoryTitle") == null ? ""
+					: request.getParameter("categoryTitle");
+			String categoryName = request.getParameter("categoryName") == null ? ""
+					: request.getParameter("categoryName");
+
+			// 使用Cookie來儲存目前讀取的網頁編號，Cookie的名稱為memberId + "pageNo"
+			Cookie pageNoCookie = new Cookie(memberId + "pageNo", String.valueOf(1));
+			pageNoCookie.setMaxAge(30 * 24 * 60 * 60);
+			pageNoCookie.setPath(request.getContextPath());
+			response.addCookie(pageNoCookie);
+
+			// 取得本頁商品資料(Map<Integer, ProductBean>)
+			Map<ProductBean, String> productMap = productService.getPageProducts(1, arrange, searchStr, categoryTitle,
+					categoryName);
+
+			/* 重新排成方便JSON的型態 */
+			List<Map<String, Object>> products = new ArrayList<Map<String, Object>>();
+			for (ProductBean bean : productMap.keySet()) {
+				Map<String, Object> map = new LinkedHashMap<String, Object>();
+				map.put("product", bean);
+				map.put("content", productMap.get(bean));
+				products.add(map);
+			}
+			Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+			out.write(gson.toJson(products));
+			out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
 	/* 查詢商品詳細資料 */
 	@GetMapping("/showProductInfo/{productId}")
 	public String showProductInfo(Model model, @PathVariable("productId") Integer productId, HttpSession session) {
-		
+
 		Clob clob = null;
 		String detail = "";
 		ProductFormatBean firstProductFormat = null;
@@ -191,7 +247,7 @@ public class ProductController {
 		}
 		return "product/productInfo";
 	}
-	
+
 	/* 前往商城首頁 */
 	@GetMapping("/productHome")
 	public String showFamousProducts(Model model) {

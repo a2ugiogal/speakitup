@@ -162,6 +162,7 @@
 								<c:forEach var="orderMap" items="${cartMap.value}">
 
 									<div class="product">
+										 <input type="hidden" name="productFormatId" value="${cartMap.key}">
 										<span class="product-span" > <c:forEach var="checkedMap"
 												items="${ShoppingCart.checkedMap}">
 												<c:if test="${checkedMap.key==cartMap.key}">
@@ -179,7 +180,7 @@
 												<h5>${orderMap.key.productName}</h5>
 											</div>
 										</div>
-										<div class="product-format" id="${vs.index}">
+										<div class="product-format" id="${cartMap.key}">
 											<c:choose>
 												<c:when
 													test="${(orderMap.key.formatContent1=='')&&(orderMap.key.formatContent2=='')}">無 </c:when>
@@ -188,14 +189,14 @@
 														<c:choose>
 															<c:when test="${(orderMap.key.formatContent2=='')}">
 																<c:forEach var="productSet" items="${orderMap.value}">
-																	<option value="${productSet.formatContent1} id="${productSet.productFormatId}
+																	<option value="${productSet.formatContent1}" 
 																		<c:if test="${(orderMap.key.formatContent1==productSet.formatContent1)}"> selected </c:if>>${productSet.formatContent1}</option>
 																</c:forEach>
 															</c:when>
 															<c:otherwise>
 																<c:forEach var="productSet" items="${orderMap.value}">
 																	<option
-																		value="${productSet.formatContent1},${productSet.formatContent2}" id="${productSet.productFormatId}"
+																		value="${productSet.formatContent1},${productSet.formatContent2}"
 																		<c:if test="${(orderMap.key.formatContent1==productSet.formatContent1)&&(orderMap.key.formatContent2==productSet.formatContent2)}"> selected </c:if>>${productSet.formatContent1},${productSet.formatContent2}</option>
 																</c:forEach>
 															</c:otherwise>
@@ -211,7 +212,7 @@
 												value="${orderMap.key.quantity}" min="1">
 										</div>
 										<div class="product-line-price singleTotal">${orderMap.key.unitPrice*orderMap.key.quantity}</div>
-										<div class="product-removal">
+										<div class="product-removal" id="${cartMap.key}">
 											<button class="remove-product">
 												<i class="fas fa-times"></i>
 											</button>

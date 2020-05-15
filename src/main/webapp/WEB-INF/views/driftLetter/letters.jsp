@@ -133,6 +133,9 @@
 						<!--1-->
 						<div class="letterBox">
 							<div class="sendBox animated">
+								<c:if test="${letterNo.count <6}">
+									<div class="newLetters"><i class="fas fa-bullhorn"></i></div>
+								</c:if>
 								<p><h2>${letterNo.count}</h2></p>
 								<p><h2>${letters.letterTitle}</h2></p>
 								<p><h3>${letterCategory}</h3></p>
@@ -148,7 +151,7 @@
                              	<c:choose>
 	                             	<c:when test="${letters.feedback == 'like'}">
 	                             		 <input type="checkbox" checked="checked" class="like${letters.letterId}">
-	                                 <div class="iconBox" onclick="likeFeedback(${letters.letterId})">
+	                                 <div class="iconBox" onclick="likeFeedback(${letters.letterId})" >
 	                                     <i class="far fa-handshake"></i>
 	                                  </div>
 	                             	</c:when>
