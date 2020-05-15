@@ -247,7 +247,7 @@ function showReportModal(commentId) {
 	  xhr = new XMLHttpRequest();
 	  xhr.open(
 	    "GET",
-	    "/speakitup/article/report?reportItem=" + reportItem + "&commentId=" + commentIdInput.value,
+	    "/article/report?reportItem=" + reportItem + "&commentId=" + commentIdInput.value,
 	    false
 	  );
 	  xhr.setRequestHeader("Content-Type",

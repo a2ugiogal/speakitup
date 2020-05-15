@@ -9,7 +9,7 @@ $(document).ready(() => {
         xhr = new XMLHttpRequest();  
         if($(e.target).prop('checked') == true){
         	$.ajax({
-        		url : "/speakitup/letter/myLetters/devil",
+        		url : "/letter/myLetters/devil",
         		type : 'GET',
         		success : function(response) {
         			success(response,"devil");
@@ -20,7 +20,7 @@ $(document).ready(() => {
             $(e.target).parent().addClass('devilLabel')
         }else{
         	$.ajax({
-        		url : "/speakitup/letter/myLetters/angel",
+        		url : "/letter/myLetters/angel",
         		type : 'GET',
         		success : function(response) {
         			success(response,"angel");
@@ -170,7 +170,7 @@ function likeFeedbackAngel(id){
 	$('.hateAngel'+id).prop('checked',false);
      xhr = new XMLHttpRequest();
      $.ajax({
- 		url : "/speakitup/letter/likeLetter?id=" + id,
+ 		url : "/letter/likeLetter?id=" + id,
  		type : "POST",
  		success : function(){}
  	});
@@ -183,7 +183,7 @@ function likeFeedbackDevil(id){
 	$('.hateDevil'+id).prop('checked',false);
      xhr = new XMLHttpRequest();
      $.ajax({
- 		url : "/speakitup/letter/likeLetter?id=" + id,
+ 		url : "/letter/likeLetter?id=" + id,
  		type : "POST",
  		success : function(){}
  	});
@@ -201,7 +201,7 @@ function deleteFeedbackAngel(id){
 	$('.likeAngel'+id).prop('checked',false);
      xhr = new XMLHttpRequest();
      $.ajax({
- 		url : "/speakitup/letter/deleteLetter?id=" + id,
+ 		url : "/letter/deleteLetter?id=" + id,
  		type : "POST",
  		success : function(){}
  	});
@@ -218,7 +218,7 @@ function deleteFeedbackDevil(id){
 	$('.likeDevil'+id).prop('checked',false);
      xhr = new XMLHttpRequest();
      $.ajax({
- 		url : "/speakitup/letter/deleteLetter?id=" + id,
+ 		url : "/letter/deleteLetter?id=" + id,
  		type : "POST",
  		success : function(){}
  	});

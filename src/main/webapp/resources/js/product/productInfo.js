@@ -3,7 +3,7 @@
 function addShoppinCart(qty,content1,content2) {
 	xhr = new XMLHttpRequest();
 	$.ajax({
-		url : "/speakitup/order/shoppingCart?qty=" + qty.value+ "&content1="
+		url : "/order/shoppingCart?qty=" + qty.value+ "&content1="
 		+content1.value +"&content2=" + content2.value,
 		type : 'POST',
 		success : function() {}
@@ -15,7 +15,7 @@ function addShoppinCart(qty,content1,content2) {
 function addCartnoContent2(qty,content1){
 	xhr = new XMLHttpRequest();
 	$.ajax({
-	url : "/speakitup/order/shoppingCart?qty=" + qty.value + "&content1=" + content1.value,
+	url : "/order/shoppingCart?qty=" + qty.value + "&content1=" + content1.value,
 	type : 'POST',
 	success : function() {}
 });
@@ -25,7 +25,7 @@ function addCartnoContent2(qty,content1){
 function addCartQtyOnly(qty){
 	xhr = new XMLHttpRequest();
 	$.ajax({
-	url : "/speakitup/order/shoppingCart?qty=" + qty.value,
+	url : "/order/shoppingCart?qty=" + qty.value,
 	type : 'POST',
 	success : function() {}
 });

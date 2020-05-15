@@ -126,8 +126,7 @@ border-color
 	justify-content: flex-end;
 	align-items: center;
 	height: 100vh;
-	background:
-		url("https://github.com/sun0722a/yaoshula/blob/master/src/logo/bg_2.png?raw=true");
+/* 	background:url("https://github.com/sun0722a/yaoshula/blob/master/src/logo/bg_2.png?raw=true"); */
 	background-size: cover;
 }
 /*首圖文字*/
