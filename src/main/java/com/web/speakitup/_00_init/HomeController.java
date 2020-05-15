@@ -34,18 +34,11 @@ public class HomeController {
 
 	@GetMapping("/scheduledWork")
 	public String scheduledWork(HttpServletRequest request) {
-<<<<<<< HEAD
 			System.out.println("123");
 		  if (request.getRemoteAddr().equalsIgnoreCase("0:0:0:0:0:0:0:1")) {			  
 			  memberService.clearLetteroftheday();
 			  memberService.clearSendReplyQuota();
 		  }
-=======
-		System.out.println("123");
-		if (request.getRemoteAddr().equalsIgnoreCase("0:0:0:0:0:0:0:1")) {
-			memberService.clearLetteroftheday();
-		}
->>>>>>> f13cb2737f4be6a52dd8f640f95916122f88441c
 		return "/";
 	}
 }
