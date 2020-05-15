@@ -129,16 +129,15 @@ public class OrderController {
 		// 取得瀏覽器傳來的資料
 		String productIdStr = session.getAttribute("productId").toString();
 		Integer productId = Integer.parseInt(productIdStr.trim());
-		System.out.println("peoductId" + productId);
 		// 如果無規格讓content的值為空字串，以便與資料庫進行比對
 		String content1 = request.getParameter("content1") == null ? "" : request.getParameter("content1");
 		String content2 = request.getParameter("content2") == null ? "" : request.getParameter("content2");
 		String qtyStr = request.getParameter("qty");
 
 		if (qtyStr == null) {
-			try {
-				PrintWriter out = response.getWriter();
+			try (PrintWriter out = response.getWriter();) {
 				out.print("");
+				out.flush();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -159,11 +158,10 @@ public class OrderController {
 			}
 		}
 		// 如果找不到規格相同的商品，就不做事
-		System.out.println("productFormatId" + productFormatId);
 		if (productFormatId == 0) {
-			try {
-				PrintWriter out = response.getWriter();
+			try (PrintWriter out = response.getWriter();) {
 				out.print("");
+				out.flush();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -174,9 +172,9 @@ public class OrderController {
 				qty, null);
 		// 為了之後能抓選取的勾勾(預設為勾起來)[y, n]
 		cart.addToCart(productFormatId, oib, formats);
-		try {
-			PrintWriter out = response.getWriter();
+		try (PrintWriter out = response.getWriter();) {
 			out.print("");
+			out.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -198,18 +196,16 @@ public class OrderController {
 		response.setCharacterEncoding("UTF-8");
 		ShoppingCart sc = (ShoppingCart) session.getAttribute("ShoppingCart");
 		if (sc == null) {
-			try {
-				PrintWriter out = response.getWriter();
+			try (PrintWriter out = response.getWriter();){
 				out.print("");
+				out.flush();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			return;
 		}
-		
 
 		// cmd可能是DEL或是QTY或是FMT或是CHS或是CSA
-
 
 		if (cmd.equalsIgnoreCase("DEL")) {
 			// 刪除購物車內的某項商品
@@ -219,14 +215,13 @@ public class OrderController {
 			String newQtyStr = request.getParameter("newQty");
 			int newQty = Integer.parseInt(newQtyStr.trim());
 			sc.changeQty(productFormatId, newQty);
-
-			Map<Integer, Map<OrderItemBean, Set<ProductFormatBean>>> map = sc.getContent();
-			for (int i : map.keySet()) {
-				Map<OrderItemBean, Set<ProductFormatBean>> map2 = map.get(i);
-				for (OrderItemBean ob : map2.keySet()) {
-					System.out.println("Qty=" + ob.getQuantity());
-				}
-			}
+//			Map<Integer, Map<OrderItemBean, Set<ProductFormatBean>>> map = sc.getContent();
+//			for (int i : map.keySet()) {
+//				Map<OrderItemBean, Set<ProductFormatBean>> map2 = map.get(i);
+//				for (OrderItemBean ob : map2.keySet()) {
+//					System.out.println("Qty=" + ob.getQuantity());
+//				}
+//			}
 		} else if (cmd.equalsIgnoreCase("FMT")) {
 			// 修改某項商品的規格
 			String[] newFmt = request.getParameter("newFmt").split(",");
@@ -250,9 +245,9 @@ public class OrderController {
 			String chooseAll = request.getParameter("chooseAll");
 			sc.changeAllChecked(chooseAll);
 		}
-		try {
-			PrintWriter out = response.getWriter();
+		try (PrintWriter out = response.getWriter();){
 			out.print("");
+			out.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

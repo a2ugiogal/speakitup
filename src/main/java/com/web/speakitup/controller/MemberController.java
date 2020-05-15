@@ -2,7 +2,6 @@ package com.web.speakitup.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Writer;
 import java.sql.Blob;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -200,15 +199,15 @@ public class MemberController {
 	@GetMapping("/register/checkEmail")
 	public void checkEmail(@RequestParam("email") String email, HttpServletResponse response) {
 		response.setCharacterEncoding("UTF-8");
-		Writer os = null;
-		try {
-			os = response.getWriter();
+		try (PrintWriter out = response.getWriter();) {
 			if (email.trim().length() != 0) {
 				boolean exist = memberService.emailExists(email);
 				if (!exist) {
-					os.write("此信箱可使用");
+					out.write("此信箱可使用");
+					out.flush();
 				} else {
-					os.write("此信箱已被註冊");
+					out.write("此信箱已被註冊");
+					out.flush();
 				}
 			}
 		} catch (IOException e) {
@@ -221,15 +220,15 @@ public class MemberController {
 	@GetMapping("/register/checkUserName")
 	public void checkUserName(@RequestParam("userName") String userName, HttpServletResponse response) {
 		response.setCharacterEncoding("UTF-8");
-		Writer os = null;
-		try {
-			os = response.getWriter();
+		try (PrintWriter out = response.getWriter();) {
 			if (userName.trim().length() != 0) {
 				boolean exist = memberService.idExists(userName);
 				if (!exist) {
-					os.write("此帳號可使用");
+					out.write("此帳號可使用");
+					out.flush();
 				} else {
-					os.write("此帳號已存在");
+					out.write("此帳號已存在");
+					out.flush();
 				}
 			}
 		} catch (IOException e) {
@@ -410,13 +409,17 @@ public class MemberController {
 	public void checkEmail(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/plain; charset=UTF-8");
-		PrintWriter out = response.getWriter();
-
-		String memberEmailStr = request.getParameter("email");
-		if (memberService.emailExists(memberEmailStr)) {
-			out.print("true");
-		} else {
-			out.print("false");
+		try (PrintWriter out = response.getWriter();) {
+			String memberEmailStr = request.getParameter("email");
+			if (memberService.emailExists(memberEmailStr)) {
+				out.print("true");
+				out.flush();
+			} else {
+				out.print("false");
+				out.flush();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 

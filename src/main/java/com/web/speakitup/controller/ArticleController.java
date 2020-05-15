@@ -200,13 +200,10 @@ public class ArticleController {
 	@PostMapping("/addComment/{articleId}")
 	public void addComment(@PathVariable("articleId") int articleId, HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) {
-		System.out.println("addComment");
 		response.setContentType("application/json; charset=utf-8");
 		// 抓留言
 		String comment = request.getParameter("content");
-//		if (comment == null) {
-//			return "redirect:/article/showArticleContent/{articleId}";
-//		}
+
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
 
 		// 留言時間
@@ -262,10 +259,6 @@ public class ArticleController {
 	public void likeArticle(@PathVariable("articleId") int articleId, HttpSession session,
 			HttpServletResponse response) {
 
-//		String loginTrue = request.getParameter("login");
-//		if (loginTrue == null) {
-//			return "redirect:/article/showArticleContent/{articleId}";
-//		}
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
 		ArticleBean ab = articleService.getArticle(articleId);
 		articleService.likeArticle(ab, mb);
@@ -276,9 +269,9 @@ public class ArticleController {
 		ArticleBean newAb = articleService.getArticle(articleId);
 		int likes = newAb.getLikes();
 		response.setCharacterEncoding("UTF-8");
-		try {
-			PrintWriter out = response.getWriter();
+		try (PrintWriter out = response.getWriter();) {
 			out.print(likes);
+			out.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -308,9 +301,9 @@ public class ArticleController {
 					cb.getContent(), mb.getMemberId(), reportItem);
 			articleService.insertReportComment(bean);
 		}
-		try {
-			PrintWriter out = response.getWriter();
+		try (PrintWriter out = response.getWriter();){
 			out.print("");
+			out.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
