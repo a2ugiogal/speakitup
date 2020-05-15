@@ -401,11 +401,19 @@ font-size: 1.1rem;
 	bottom:10px;
 	right:20px;	
 	border:0px double rgb(133, 206, 224);
-/* 	border-radius: 10px 10px 10px 10px; */
-/* 	    box-shadow: 0 0 10px rgba(33, 156, 243,.5), */
-/*                 0 0 20px rgba(33, 156, 243,.5), */
-/*                 inset 0 0 10px rgba(33, 156, 243,1); */
+	border-radius: 10px 10px 10px 10px;
+	    box-shadow: 0 0 10px rgba(33, 156, 243,.5),
+                0 0 20px rgba(33, 156, 243,.5),
+                inset 0 0 10px rgba(33, 156, 243,1);
 }
+
+.btnDivDevilChecked
+{
+	position:absolute;
+	bottom:10px;
+	right:20px;	
+}
+
 .sendBoxBotDevil ul{
     position: relative;
     display: flex;

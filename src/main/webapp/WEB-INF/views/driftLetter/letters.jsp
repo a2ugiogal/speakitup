@@ -151,7 +151,7 @@
                              	<c:choose>
 	                             	<c:when test="${letters.feedback == 'like'}">
 	                             		 <input type="checkbox" checked="checked" class="like${letters.letterId}">
-	                                 <div class="iconBox" onclick="likeFeedback(${letters.letterId})">
+	                                 <div class="iconBox" onclick="likeFeedback(${letters.letterId})" >
 	                                     <i class="far fa-handshake"></i>
 	                                  </div>
 	                             	</c:when>
