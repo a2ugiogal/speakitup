@@ -21,7 +21,7 @@ body {
 }
 
 .outside {
-	padding: 5px;
+	padding: 0.1%;
 	float: left;
 	width: calc(100vw/ 10);
 	height: calc(100vh/ 10);
