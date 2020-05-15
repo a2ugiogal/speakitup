@@ -266,9 +266,9 @@ public class MemberController {
 		if (request.getAttribute("loginFilter") == null) {
 			session.removeAttribute("target");
 		}
-		
+
 		session.setAttribute("target", request.getParameter("target"));
-		
+
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
 		if (mb != null) {
 			return "redirect:/";
@@ -306,6 +306,8 @@ public class MemberController {
 					errorMsgMap.put("memberNotAuthError", "會員尚未驗證成功!請先透過email去認證!");
 					// 先暫時這樣 如果會員認證欄位是N 一樣先給LoginOK 只是要完成認證
 //						session.setAttribute("LoginOK", mb);
+				} else if (mb.getStatus().equals("封鎖")) {
+					errorMsgMap.put("LoginError", "此帳號已被封鎖");
 				} else {
 					session.setAttribute("LoginOK", mb);
 				}
@@ -636,7 +638,5 @@ public class MemberController {
 
 		return "redirect:/member/showManageMemberInfo/{id}?reportTimes=" + reportTimes;
 	}
-	
-	
-	
+
 }

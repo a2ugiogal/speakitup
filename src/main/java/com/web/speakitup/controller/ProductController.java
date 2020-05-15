@@ -144,7 +144,7 @@ public class ProductController {
 		return "product/productList";
 	}
 
-	/* 查詢指定商品(搜尋、排序、頁碼) */
+	/* 查詢指定商品(排序)(ajax) */
 	@GetMapping("/showPageProductsAjax")
 	public void showPageProductsAjax(Model model, HttpServletRequest request, HttpServletResponse response,
 			HttpSession session) {
@@ -162,7 +162,6 @@ public class ProductController {
 				// 取出使用者的memberId，後面的Cookie會用到
 				memberId = mb.getId();
 			}
-
 			// 讀取瀏覽器送來的搜尋條件
 			String arrange = request.getParameter("arrange") == null ? "time" : request.getParameter("arrange");
 			String searchStr = request.getParameter("search") == null ? "" : request.getParameter("search");
@@ -172,30 +171,24 @@ public class ProductController {
 					: request.getParameter("categoryName");
 
 			// 使用Cookie來儲存目前讀取的網頁編號，Cookie的名稱為memberId + "pageNo"
-			// -----------------------
 			Cookie pageNoCookie = new Cookie(memberId + "pageNo", String.valueOf(1));
-			// 設定Cookie的存活期為30天
 			pageNoCookie.setMaxAge(30 * 24 * 60 * 60);
-			// 設定Cookie的路徑為 Context Path
 			pageNoCookie.setPath(request.getContextPath());
-			// 將Cookie加入回應物件內
 			response.addCookie(pageNoCookie);
 
 			// 取得本頁商品資料(Map<Integer, ProductBean>)
 			Map<ProductBean, String> productMap = productService.getPageProducts(1, arrange, searchStr, categoryTitle,
 					categoryName);
 
+			/* 重新排成方便JSON的型態 */
 			List<Map<String, Object>> products = new ArrayList<Map<String, Object>>();
-
 			for (ProductBean bean : productMap.keySet()) {
 				Map<String, Object> map = new LinkedHashMap<String, Object>();
 				map.put("product", bean);
 				map.put("content", productMap.get(bean));
 				products.add(map);
 			}
-
 			Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-			System.out.println(gson.toJson(products));
 			out.write(gson.toJson(products));
 			out.flush();
 		} catch (IOException e) {
