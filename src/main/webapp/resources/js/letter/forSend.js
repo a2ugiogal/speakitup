@@ -1,7 +1,7 @@
 function doFirst(){
     letterContent = document.getElementById('letterContent');
     contentLength = document.getElementById('contentLength');
-    submitbtn = document.getElementById('submitbtn');
+    sendBtn = document.getElementById('sendBtn');
     errorText = document.getElementById('errorText');
     
     letterContent.addEventListener('keyup',textlength);
@@ -16,10 +16,10 @@ function textlength() {
     contentLength.innerHTML = 250 - lengthNo;
 
     if(letterContent.value.length > 10){
-        submitbtn.disabled = false;
+    	sendBtn.disabled = false;
 //        errorText.style.visibility = 'hidden'
     }else{
-        submitbtn.disabled = true;
+    	sendBtn.disabled = true;
     }
 }
 

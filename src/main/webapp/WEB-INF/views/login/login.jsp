@@ -230,6 +230,10 @@
 														<label class="loginError"
 															style="margin-left: 50px; font-size: 14px">帳號或密碼錯誤</label>
 													</c:if>
+													<c:if test="${not empty ErrorMsgKey.LoginBlockError}">
+														<label class="loginError"
+															style="margin-left: 50px; font-size: 14px">此帳號已被封鎖<i class="fas fa-ban"></i></label>
+													</c:if>
 												</div>
 											</div>
 

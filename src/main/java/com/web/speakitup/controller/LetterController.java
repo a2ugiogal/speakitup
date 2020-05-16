@@ -56,7 +56,7 @@ public class LetterController {
 
 		}
 		if(replyQuota.equals("false")) {
-			System.out.println("本日已寄");
+			System.out.println("本日已回過信");
 			session.setAttribute("replyError", "不能寄信");
 		}
 		return "driftLetter/letterInfo";
@@ -99,7 +99,7 @@ public class LetterController {
 
 	@PostMapping("/sendAngel")
 	public String sendAngel(HttpSession session, @RequestParam("title") String title,
-			@RequestParam("content") String content) {
+			@RequestParam("letterContent") String content) {
 
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
 		String memberId = mb.getMemberId();
@@ -119,7 +119,7 @@ public class LetterController {
 	// 寄信
 	@PostMapping("/sendDevil")
 	public String sendDevil(HttpSession session, @RequestParam("title") String title,
-			@RequestParam("content") String content) {
+			@RequestParam("letterContent") String content) {
 
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
 		String memberId = mb.getMemberId();

@@ -7,18 +7,23 @@
 
 
 body{
-    background: #050517;
+    background: #535657;
     width: 100%;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    min-height: 80vh;
+/*     display: flex; */
+/*     justify-content: center; */
+/*     align-items: center; */
 }
 
 #contentLength {
     color: #7E6B8F;
 }
 
+.letterBox{
+	position:absolute;
+	right:30px;
+	top:300px;
+}
 
 /* #letterContent{ */
 /*     display: flex; */
@@ -48,19 +53,19 @@ body{
  .mainContainer
 {
     position: relative;
-    max-width: 1200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/*     max-width: 1500px; */
+/*     display: flex; */
+/*     justify-content: center; */
+/*     align-items: center; */
     flex-wrap: wrap;
 }
 
 .mainContainer .letterCard
 {
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/*     display: flex; */
+/*     justify-content: center; */
+/*     align-items: center; */
     flex-wrap: wrap;
     margin: 100px 0;
 }
@@ -68,12 +73,15 @@ body{
 
 /*左邊的卡片*/
 .mainContainer .letterCard .contentBox{
-    position: relative;
+    position: absolute;
+    top:20vh;
+    left:300px;
     width: 600px;
-    height: 400px;
+    height: 500px;
      box-sizing: border-box;
      box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
      z-index:-1;
+     margin-right:50px;
 }
 
 /*左邊卡片的內容*/
@@ -110,15 +118,17 @@ body{
 
 .mainContainer .letterCard .replyContentBox
 {
-    position: relative;
+    position: absolute;
+    top:20vh;
+    left:1000px;
     width: 600px;
-    height: 400px;
+    height: 500px;
     background: #E4DEE4;
     display: flex;
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
-
+box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
     
 }
 
@@ -145,17 +155,17 @@ body{
     border: 1px solid blue;
 }
 
-.mainContainer .letterCard .replyContent::before{
-    content: '';
-    position: absolute;
-    top: -50px;
-    bottom: -50px;
-    left: 0;
-    right: 0;
-    background: #E4DEE4;
-    z-index: -1;
-    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-}  
+/* .mainContainer .letterCard .replyContent::before{ */
+/*     content: ''; */
+/*     position: absolute; */
+/*     top: -50px; */
+/*     bottom: -50px; */
+/*     left: 0; */
+/*     right: 0; */
+/*     background: #E4DEE4; */
+/*     z-index: -1; */
+/*     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75); */
+/* }   */
 
 textarea{
     outline: none;

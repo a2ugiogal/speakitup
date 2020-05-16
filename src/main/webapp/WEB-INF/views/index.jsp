@@ -15,8 +15,17 @@
 <link rel="stylesheet"
 	href="<spring:url value='/css/register/nav.css' /> " />
 <title>首頁--要抒啦</title>
+<c:if test="${not empty verifyAlert}">
+<script>
+	alert("請前往信箱驗證");
+</script>
+<% 
+session.removeAttribute("verifyAlert");
+%>
+</c:if>
 </head>
 <body>
+	
 	<!-- =======================導覽列================= -->
 	<nav class="navbar navbar-expand-lg navbar-light fixed-top p-0"
 		style="margin-bottom: 200px" id="navBody">
