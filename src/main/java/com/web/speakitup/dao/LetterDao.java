@@ -19,6 +19,7 @@ public interface LetterDao {
 	
 	public void updateLetterFeedback(int letterId,String feedback);
 	
+	
 //	public Map<String,LetterBean> getAllLettersByMemberSend(String memberId,String status);
 	public List<LetterBean> getAllLettersByMemberSend(String memberId,String status,String letterCategory);
 	
