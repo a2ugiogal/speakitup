@@ -262,7 +262,7 @@
 									</span>
 								</div>
 								<!-- 規格 -->
-								<form action="" name="buyForm" id="buyForm">
+								<form action="<spring:url value='/order/checkOrder' />" name="buyForm" id="buyForm">
 									<div class="specification row pb-2">
 										<div class="col-12">
 											<c:if test="${title1!=''}">
@@ -346,8 +346,7 @@
 											</button>
 										</c:otherwise>
 									</c:choose>										
-										<button type="button" class="btn btn-outline-danger buy"
-											onclick="buyNow()">直接購買</button>
+										<input type="submit" class="btn btn-outline-danger buy" value="直接購買">
 									</div>
 								</form>
 							</div>

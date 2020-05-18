@@ -260,7 +260,7 @@ public class LetterController {
 	}
 	
 	//進去頁面後 要切換信件類型時就採取AJAX的方式變換
-	@GetMapping("/myLetters/{category}")
+	@PostMapping("/myLetters/{category}")
 	public void myLetters(@PathVariable("category") String category, HttpSession session, HttpServletResponse response,HttpServletRequest request)
 			throws IOException {
 		response.setCharacterEncoding("UTF-8");

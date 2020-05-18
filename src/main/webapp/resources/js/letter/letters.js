@@ -10,7 +10,7 @@ $(document).ready(() => {
         if($(e.target).prop('checked') == true){
         	$.ajax({
         		url : "/letter/myLetters/devil",
-        		type : 'GET',
+        		type : 'POST',
         		success : function(response) {
         			success(response,"devil");
         		}
@@ -21,7 +21,7 @@ $(document).ready(() => {
         }else{
         	$.ajax({
         		url : "/letter/myLetters/angel",
-        		type : 'GET',
+        		type : 'POST',
         		success : function(response) {
         			success(response,"angel");
         		}

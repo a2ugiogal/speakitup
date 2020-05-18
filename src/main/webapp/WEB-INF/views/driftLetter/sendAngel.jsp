@@ -12,11 +12,12 @@
 	rel='stylesheet'>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
     <link rel="stylesheet" href="<spring:url value='/css/letter/sendAngel.css' /> ">
     <link rel="stylesheet" href="<spring:url value='/css/letter/nav.css' /> ">
 <link rel="stylesheet" href="<spring:url value='/css/letter/leaves.css' /> ">
-    <script src="<spring:url value='/js/letter/forSend.js' /> "></script>
+<%--     <script src="<spring:url value='/js/letter/forSend.js' /> "></script> --%>
+
 <title>寄封天使信</title>
 </head>
 <body>
@@ -127,26 +128,30 @@
 	</nav>
 	
 <div class="mainContainer">
-            <div class="content">
+            <div class="content animate__animated">
                 <!-- <h2>信件主題:天使</h2> -->
-                <form action ="<spring:url value='/letter/sendAngel' />" method="POST">
+                <form action ="<spring:url value='/letter/sendAngel' />" method="POST" id="letterForm">
                     <div class="letterInput">
                         <input type="text" name="title" required="">
                         <label>信件標題</label>
                         <span></span>
                     </div>
-                        <span id="contentLength" style="font-size: 12px;">250</span>
                     <div class="letterText">
                         <textarea name="letterContent" cols="25" rows="10" id="letterContent" 
                                 maxlength="250"  required=""></textarea>
-                        <label>抒發點什麼吧</label>
+                        <label>抒發點什麼吧<small>(限250個字)</small></label>
                         <span></span>
                     </div>
-                    <input type="submit" value="寄出" name="" id="sendBtn">
+                    <div id="sendBtnDiv">
+                    	<input class="sendBtn" type="submit" role="button" value="寄出" name=""  >
+                    </div>
                  </form>
                 </div>
-                <div class="letterBox"> 
-                	<img src="<spring:url value='/image/letter/letterBox2.png' /> " >
+                <div class="letterBoxArea">
+	                <div class="fakeLetter animate__animated"></div>
+	                <div class="letterBox"> 
+	                	<img src="<spring:url value='/image/letter/letterBox2.png' /> " >
+	                </div>
                 </div>
             </div>
         	
@@ -155,43 +160,45 @@
       	
       <section class="leavesDiv">
          <div class="set">
-             <div><img src="<spring:url value='/image/letter/leaves.png' /> " ></div>
-             <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
-             <div><img src="<spring:url value='/image/letter/leaves.png' /> " ></div>
-             <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
-             <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
-             <div><img src="<spring:url value='/image/letter/leaves.png' /> " ></div>
-             <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
-             <div><img src="<spring:url value='/image/letter/leaves.png' /> " ></div>
-             <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
-             <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
          </div>
-         <div class="set set2">
-            <div><img src="<spring:url value='/image/letter/leaves.png' /> " ></div>
-            <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
-            <div><img src="<spring:url value='/image/letter/leaves.png' /> " ></div>
-            <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
-            <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
-            <div><img src="<spring:url value='/image/letter/leaves.png' /> " ></div>
-            <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
-            <div><img src="<spring:url value='/image/letter/leaves.png' /> " ></div>
-            <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
-            <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
-        </div>
+        <div class="set set2">
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+         </div>
         <div class="set set3">
-            <div><img src="<spring:url value='/image/letter/leaves.png' /> " ></div>
-            <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
-            <div><img src="<spring:url value='/image/letter/leaves.png' /> " ></div>
-            <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
-            <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
-            <div><img src="<spring:url value='/image/letter/leaves.png' /> " ></div>
-            <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
-            <div><img src="<spring:url value='/image/letter/leaves.png' /> " ></div>
-            <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
-            <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
-        </div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+         </div>
      </section>
 <!-- </div>	 -->
-
+ <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	    <script src="<spring:url value='/js/letter/sendLetters.js' /> "></script>
 </body>
 </html>

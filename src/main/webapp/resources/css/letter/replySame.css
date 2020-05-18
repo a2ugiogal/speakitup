@@ -1,0 +1,142 @@
+ .mainContainer
+{
+    position: relative;
+    display: flex;
+    flex-direction:row;
+    width: 100vw;
+    height: 100vh;
+}
+
+.mainContainer .letterCard
+{
+	width:1500px;
+    position: relative;
+    margin:0 auto 0 100px;
+    display: flex;
+    flex-direction:row;
+    justify-content:center;
+    align-items: center;
+    
+}
+
+
+
+/*回信的部分*/
+.letterText  span::before
+{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width:100%;
+    height: 100%;
+    background: darkblue;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s ease-in-out;
+}
+
+.letterText textarea:focus ~ span::before,
+.letterText textarea:valid ~ span::before
+{
+    transform: scaleX(1);
+    transform-origin: left;
+    transition: transform 0.5s ease-in-out;
+}
+
+
+ .letterText{
+     margin-top:50px;
+     padding-left:20px;
+     padding-right:20px;
+    position: relative;
+    height: 300px;
+    width: 550px;
+}
+
+
+
+/*信件內容*/
+.letterText label{
+    position: absolute;
+    top:0;
+    left:0;
+    color: #555;
+    pointer-events: none;
+    padding-left:10px;
+    display: block;
+    transition: 0.5s;
+    font-size: 24px;
+}
+
+.letterText textarea:focus + label,
+.letterText textarea:valid + label
+
+{
+    transform: translateY(-35px);
+    font-size: 22px;
+    color:#3D5E8D;
+    background: transparent;
+    padding: 2px 2px;
+    padding-left:10px;
+}
+
+.letterText  span{
+    position: absolute;
+    bottom: 0;
+    right: 25px;
+    display: block;
+    background: #555;
+    width: 95%;
+    height: 2px;
+}
+
+
+
+/*右邊的區域*/
+
+.letterBoxArea{
+/* 	margin:0 auto; */
+	margin-left:auto;
+	display:flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.fakeLetter
+{	
+	opacity:0;
+	margin-bottom:40px;
+	width:55px;
+	height:60px;	
+	background:#0080c0;
+	z-index:-1;
+}
+
+
+/*input submit按鈕的部分*/
+#sendBtnDiv{
+	display:flex;
+	padding-right:10px;
+}
+
+.sendBtn{
+    margin-top: 20PX;
+	margin-left: auto;
+	border: none;
+	box-shadow: none;
+	padding: 10PX 25PX;
+	background: RGB(14, 47, 97);
+	/*     BACKGROUND: RGB(225, 241, 237); */
+	color: #FFF;
+	font-size: 15PX;
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+
+
+.sendBtn:hover{
+    background: rgb(78, 131, 211);
+}

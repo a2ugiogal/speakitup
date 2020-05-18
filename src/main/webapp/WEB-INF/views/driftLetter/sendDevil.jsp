@@ -18,8 +18,7 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&display=swap"
 	rel="stylesheet">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
 	<link rel="stylesheet" href="<spring:url value='/css/letter/snowflake.css' /> ">
 <link rel="stylesheet" href="<spring:url value='/css/letter/sendDevil.css' /> ">
 <link rel="stylesheet" href="<spring:url value='/css/letter/nav.css' /> ">
@@ -134,26 +133,30 @@
 	</nav>
 	
 	<div class="mainContainer">
-            <div class="content">
+            <div class="content animate__animated">
                 <!-- <h2>信件主題:天使</h2> -->
-                <form action ="<spring:url value='/letter/sendDevil' />" method="POST">
+                <form action ="<spring:url value='/letter/sendDevil' />" method="POST" id="letterForm">
                     <div class="letterInput">
                         <input type="text" name="title" required="">
                         <label>信件標題</label>
                         <span></span>
                     </div>
-                        <span id="contentLength" style="font-size: 12px;">250</span>
                     <div class="letterText">
                         <textarea name="letterContent" cols="25" rows="10" id="letterContent" 
                                 maxlength="250" name="" required=""></textarea>
-                        <label>抒發點什麼吧</label>
+                        <label>抒發點什麼吧<small>(限250個字)</small></label>
                         <span></span>
                     </div>
-                    <input type="submit" value="寄出" name="" id="sendBtn">
+                    <div id="sendBtnDiv">
+                    	<input type="submit" role="button" value="寄出" class="sendBtn">
+                    </div>
                  </form>
                 </div>
-                <div class="letterBox"> 
-                	<img src="<spring:url value='/image/letter/letterBoxDevil.png' /> " >
+                <div class="letterBoxArea">
+	                <div class="fakeLetter animate__animated"></div>
+	                <div class="letterBox"> 
+	                	<img src="<spring:url value='/image/letter/letterBoxDevil.png' /> " >
+	                </div>
                 </div>
             </div>
 <!-- <div class="mainContent"> -->
@@ -161,7 +164,7 @@
 <%-- <form action = "<spring:url value='/letter/sendDevil' />" method="POST"> --%>
 <!-- 	 <div class="container-fluid"> -->
 
-<!-- <!--         Outer Row --> -->
+<!-- <!--         Outer Row --> 
 <!--         <div class="row justify-content-center"> -->
     
 <!--           <div class="col-xl-7 col-lg-6 col-md-4 mt-5"> -->
@@ -169,7 +172,7 @@
 <!--             <div class="card o-hidden border-0 shadow-lg my-5 "> -->
 <!--               <div class="card-body p-0" > -->
 <!--                 <div class="row"> -->
-<!-- <!--                   左側圖片 --> -->
+<!-- <!--                   左側圖片 --> 
 <%--                   <div class="col-lg-6 d-none d-lg-block pl-5 pt-5 pb-5 pr-4" ><img src="<spring:url value='/image/letter/toSendDark.png' /> " ></div> --%>
 <!--                   <div class="col-lg-6"> -->
 <!--                     <div class="pl-5 pt-4 pb-5 pr-5 ml-2" id="borderdiv"> -->
@@ -249,6 +252,8 @@
    
      </section>
 	
-<!-- 	</div> -->
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	    <script src="<spring:url value='/js/letter/sendLetters.js' /> "></script>
 </body>
 </html>
