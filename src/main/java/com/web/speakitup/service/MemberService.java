@@ -1,10 +1,7 @@
 package com.web.speakitup.service;
 
 import java.io.IOException;
-import java.sql.Blob;
 import java.util.Map;
-
-import org.springframework.scheduling.annotation.Scheduled;
 
 import com.web.speakitup.model.MemberBean;
 

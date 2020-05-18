@@ -40,7 +40,7 @@ public class WebAppJavaConfig implements WebMvcConfigurer {
 		resolver.setMaxUploadSize(81920000);
 		return resolver;
 	}
-
+	
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
 	}

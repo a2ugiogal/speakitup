@@ -101,20 +101,7 @@ function ajax(){
 		      htmlStr += `<p class="JQellipsis" style="color: #212529">${content}</p>`;
 		      /* 超過字變成... */
 		      htmlStr += `<div class="row d-flex align-items-center mb-2">`;
-		      /* DateFormat */
-		      var formattedDate = new Date(map.article.publishTime);
-		      var d = formattedDate.getDate();
-		      if(formattedDate.getDate()<10){
-		    	  d = "0" + d;
-		      }
-		      var m = formattedDate.getMonth();
-		      m += 1; // JavaScript months are 0-11
-		      if(formattedDate.getMonth()<10){
-		    	  m = "0" + m;
-		      }
-		      var y = formattedDate.getFullYear();
-		      /* DateFormat */
-		      htmlStr += `<p class="my-0 col-4 text-secondary"> 發表於 ${y}-${m}-${d}</p>`;
+		      htmlStr += `<p class="my-0 col-4 text-secondary"> 發表於 ${map.article.publishTime}</p>`;
 		      htmlStr += `<i class="my-0 p-0 h5 bx bx-heart-circle col-1 text-danger"><span class="h6 ml-1 text-secondary"><i>${map.article.likes}</i></span></i>`;
 		      htmlStr += `<i class="my-0 p-0 h5 bx bx-message-detail col-1 text-info"><span class="h6 ml-1 text-secondary"><i>`;
 		      htmlStr += ` ${map.article.articleComments.length}`;
