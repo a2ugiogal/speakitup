@@ -17,6 +17,8 @@ import org.hibernate.annotations.GenericGenerator;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.annotations.Expose;
+
 @Entity
 @Table(name = "Members")
 @Component
@@ -26,20 +28,30 @@ public class MemberBean implements Serializable{
 	@Id
 	@GeneratedValue(generator = "increment")
 	@GenericGenerator(name = "increment", strategy = "native")
+	@Expose
 	private Integer id;
+	@Expose
 	private String memberId;
 	private String password;
+	@Expose
 	private String gender;
+	@Expose
 	private Date birthday;
+	@Expose
 	private String email;
+	@Expose
 	private String phone;
+	@Expose
 	private String city;
+	@Expose
 	private String area;
+	@Expose
 	private String address;
 	private String fileName;
 	private Blob picture;
 	private Timestamp createTime;
 	private String status;
+	@Expose
 	private String permission;
 	private String likeArticles;
 	private String authToken;

@@ -113,7 +113,7 @@ public class ArticleController {
 				map.put("content", articleMap.get(bean));
 				articles.add(map);
 			}
-			Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").excludeFieldsWithoutExposeAnnotation().create();
 			out.write(gson.toJson(articles));
 			out.flush();
 		} catch (IOException e) {

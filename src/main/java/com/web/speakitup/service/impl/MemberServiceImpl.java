@@ -8,7 +8,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.web.speakitup._00_init.GlobalService;
 import com.web.speakitup.dao.MemberDao;
 import com.web.speakitup.model.MemberBean;
 import com.web.speakitup.service.MemberService;
