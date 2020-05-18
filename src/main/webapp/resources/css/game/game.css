@@ -152,6 +152,11 @@ section p {
   color: white !important;
 }
 
+#finish .totalTime{
+	 padding: 15px;
+	font-size: 40px;
+}
+
 @keyframes bigger {
   0% {
     transform: scale(0) rotate(0deg);

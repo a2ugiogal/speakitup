@@ -125,57 +125,34 @@
 			</ul>
 		</div>
 	</nav>
-
-<div class="mainContent">
-	<div class="midSpace"></div>
-	<form action ="<spring:url value='/letter/sendAngel' />" method="POST">
- <div class="container-fluid">
-
-        <!-- Outer Row -->
-        <div class="row justify-content-center ">
-    
-          <div class="col-xl-7 col-lg-6 col-md-4 mt-5 h-100">
-    
-            <div class="card o-hidden border-0 shadow-lg my-5 " id="cardBody">
-              <div class="card-body p-0" >
-                <div class="row">
-                  <!-- 左側圖片 -->
-                  <div class="col-lg-6 d-none d-lg-block pl-3 pt-5 pb-5" >
-                	<img src="<spring:url value='/image/letter/toSendAngel.png' /> " id="leftImg" class="ml-4">
-<!--                  <span id="writeMode" >123</span> -->
-                 </div>
-                  <div class="col-lg-6">
-                    <div class="pl-5 pt-4 pb-5 pr-5 ml-2" id="borderdiv">
-                      
-                      <div class="text-center">
-                        <h4 class=" text-gray-900 mb-2">天使信件<img src="<spring:url value='/image/letter/angel.png' /> " class="animated  fadeInDown"></h4>
-                        <div class="text-center"  ></div>    
-                        <input type="text" name="title" id="titleInput" placeholder="標題">
-                        	<br>
+	
+<div class="mainContainer">
+            <div class="content">
+                <!-- <h2>信件主題:天使</h2> -->
+                <form action ="<spring:url value='/letter/sendAngel' />" method="POST">
+                    <div class="letterInput">
+                        <input type="text" name="title" required="">
+                        <label>信件標題</label>
+                        <span></span>
+                    </div>
                         <span id="contentLength" style="font-size: 12px;">250</span>
-                      </div>
-                        
-                        <div class="form-group">
-                          <textarea cols="30" rows="10" id="letterContent" maxlength="250" name="content" placeholder="內文....."></textarea>
-                        </div>
-                       <div class="text-center">                      
-                        <input type="submit"  class="btn btn-primary btn-lg" role="button" id="submitbtn" value="寄出" disabled>
-                      </div>                     
-
-                    
-                  </div>
+                    <div class="letterText">
+                        <textarea name="letterContent" cols="25" rows="10" id="letterContent" 
+                                maxlength="250"  required=""></textarea>
+                        <label>抒發點什麼吧</label>
+                        <span></span>
+                    </div>
+                    <input type="submit" value="寄出" name="" id="sendBtn">
+                 </form>
                 </div>
-              </div>
+                <div class="letterBox"> 
+                	<img src="<spring:url value='/image/letter/letterBox2.png' /> " >
+                </div>
             </div>
-    
-          </div>
-    
-        </div>
-    
-      </div>
-      </div>
-      </form>
-      
+        	
+
+
+      	
       <section class="leavesDiv">
          <div class="set">
              <div><img src="<spring:url value='/image/letter/leaves.png' /> " ></div>
@@ -214,7 +191,7 @@
             <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
         </div>
      </section>
-</div>	
+<!-- </div>	 -->
 
 </body>
 </html>

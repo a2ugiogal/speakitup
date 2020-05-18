@@ -120,7 +120,7 @@ public class MemberController {
 	/* 存入會員資料 */
 	@PostMapping("/register")
 	public String addMember(@ModelAttribute("memberBean") MemberBean mb, BindingResult bindingResult,
-			HttpServletRequest request, HttpServletResponse response, RedirectAttributes rad) {
+			HttpServletRequest request, HttpServletResponse response, RedirectAttributes rad,HttpSession session,Model model) {
 
 		new RegisterValidator(memberService).validate(mb, bindingResult);
 
@@ -172,7 +172,8 @@ public class MemberController {
 		// 存入下拉式選單地址
 		mb.setCity(request.getParameter("county"));
 		mb.setArea(request.getParameter("district"));
-
+		mb.setSendQuota("true");
+		mb.setReplyQuota("true");
 		int n = memberService.saveMember(mb);
 
 		if (n == 1) {
@@ -188,6 +189,7 @@ public class MemberController {
 
 			Thread sendEmail = new SendEmail(memberEmail, subject, content.toString(), "");
 			sendEmail.start();
+			session.setAttribute("verifyAlert", "verifyAlert");
 			return "redirect:../";
 		} else {
 			System.out.println("更新此筆資料有誤(RegisterServlet)");
@@ -249,6 +251,7 @@ public class MemberController {
 			if (mb.getStatus().trim().equals("未驗證")) {
 				mb.setStatus("正常");
 				memberService.updateMember(mb);
+				
 				session.setAttribute("LoginOK", mb);
 			}
 
@@ -297,8 +300,9 @@ public class MemberController {
 		// 準備存放錯誤訊息的Map物件
 		Map<String, String> errorMsgMap = new HashMap<String, String>();
 		request.setAttribute("ErrorMsgKey", errorMsgMap); // 顯示錯誤訊息
-
+		
 		String password2 = GlobalService.getMD5Endocing(GlobalService.encryptString(password));
+		System.out.println("password" + password2);
 		MemberBean mb = null;
 		// 檢查帳號密碼是否正確
 		try {
@@ -309,7 +313,7 @@ public class MemberController {
 					// 先暫時這樣 如果會員認證欄位是N 一樣先給LoginOK 只是要完成認證
 //						session.setAttribute("LoginOK", mb);
 				} else if (mb.getStatus().equals("封鎖")) {
-					errorMsgMap.put("LoginError", "此帳號已被封鎖");
+					errorMsgMap.put("LoginBlockError", "此帳號已被封鎖");
 				} else {
 					session.setAttribute("LoginOK", mb);
 				}
@@ -394,7 +398,6 @@ public class MemberController {
 					"<p>" + "請點選以下連結修改密碼" + "</p>" + "<br>" + "<a href='" + GlobalService.DOMAIN_PATTERN + "/member"
 							+ "/changepswd" + "/" + authToken + "'>點我</a>" + "<br>" + "<p>" + "下次不要再弄丟密碼了啦" + "</p>");
 			Thread sendEmail = new SendEmail(memberEmail, subject, content.toString(), "");
-			System.out.println(memberEmail[0]);
 			sendEmail.start();
 			return "redirect:/";
 		} else {

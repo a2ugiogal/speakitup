@@ -7,10 +7,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&display=swap"
 	rel="stylesheet">
+	 <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"
+  />
 <c:if test="${lb.letterCategory == '天使'}" >
 	<link rel="stylesheet" href="<spring:url value='/css/letter/replyAngel.css' /> ">
 	<link rel="stylesheet" href="<spring:url value='/css/letter/leaves.css' /> ">
@@ -19,13 +24,13 @@
 <c:if test="${lb.letterCategory == '惡魔'}">
 	<link rel="stylesheet"	href="<spring:url value='/css/letter/replyDevil.css' /> ">
 	<link rel="stylesheet" href="<spring:url value='/css/letter/snowflake.css' /> ">
+	
 </c:if>
 	<link rel="stylesheet" href="<spring:url value='/css/letter/nav.css' /> ">
 <script src="<spring:url value='/js/letter/forSend.js' /> "></script>
 <title>要抒啦------回信</title>
 
 </head>
-
 <body>
 	
 
@@ -137,12 +142,13 @@
 	
 <!-- 主要內容部分 -->	
 <div class="mainContent">
-	<form action="<c:url value='/letter/sendReplyContent' /> " method="POST">
+<%-- 	<form action="<c:url value='/letter/sendReplyContent' /> " method="POST"> --%>
+	<form action="" method="POST">
 	<c:choose>
 		<c:when test="${lb.letterCategory == '天使'}">
 			<div class="mainContainer">
 				<div class="letterCard">
-					<div class="contentBox">
+					<div class="contentBox animate__animated">
 						<div class="content">
 	
 							<h4>${lb.letterTitle}</h4>
@@ -151,7 +157,7 @@
 							<p>${lb.letterContent}</p>
 						</div>
 					</div>
-					<div class="replyContentBox">
+					<div class="replyContentBox animate__animated">
 						<div class="replyContent">
 							<h2>回應內容</h2>
 							<input type="hidden" value="${lb.letterId}" name="id">
@@ -170,7 +176,7 @@
 		<c:otherwise>
 			<div class="mainContainer">
         <div class="letterCard">
-            <div class="contentBox">
+            <div class="contentBox animate__animated">
                 <div class="content">
                     <h4>${lb.letterTitle}</h4>
                     <br>
@@ -178,16 +184,20 @@
                     <p>${lb.letterContent}</p>
                 </div>
             </div>
-            <div class="replyContentBox">
+            <div class="replyContentBox animate__animated">
                 <div class="replyContent">
                     <h2>回應內容</h2>
                     <input type="hidden" value="${lb.letterId}" name="id">
                     <p><textarea name="replyContent" id="" cols="30" rows="10" maxlength="250" placeholder="來點負能量吧..."></textarea></p>
-                   <input type="submit" name="devil" class="btn btn-primary btn-user btn-block" role="button" id="submitbtn" value="寄出">
+                   <input type="button" name="devil" class="btn btn-primary btn-user btn-block" role="button" id="submitbtn" value="寄出">
                 </div>
             </div>
         </div>
+        		 
     </div>
+   			<div class="letterBox">
+                <img src="<spring:url value='/image/letter/letterBoxDevil.png' /> " >
+            </div>
 		</c:otherwise>
 	</c:choose>
 		
@@ -281,6 +291,9 @@
  </div>
  
  
+   <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<%--   <script src="<spring:url value='/js/letter/replyDevil.js' /> "></script> --%>
  
 </body>
 </html>

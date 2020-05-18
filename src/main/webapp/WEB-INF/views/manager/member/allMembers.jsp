@@ -135,16 +135,17 @@
 
 
 
-	<div class="p-5" style="background: rgb(230, 230, 230);">
+	<div class="pb-5" style="background: rgb(230, 230, 230);">
+		<div style="height: 60px;"></div>
 		<div class="w-75 my-5 mx-auto Reportspacing">
-
+			<div class="border-bottom border-dark pb-4 mb-5"
+				style="font-size: 2em;">帳號管理</div>
 			<form action="<spring:url value='/member/showMembers'/>">
 				<div class="input-group my-3">
 					<div class="input-group-prepend">
-						<span class="input-group-text"><i
-							class="fas fa-search"></i></span>
+						<span class="input-group-text"><i class="fas fa-search"></i></span>
 					</div>
-					<input type="search" class="form-control" placeholder="搜尋"
+					<input type="search" class="form-control" placeholder="搜尋: 帳號名稱 "
 						name="searchStr" aria-label="Sizing example input"
 						aria-describedby="inputGroup-sizing-default" value="${searchStr}" />
 

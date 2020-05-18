@@ -22,7 +22,8 @@ function doFirst() {
 }
 
 function select(e) {
-	$('#collapse1').collapse('hide');
+	$(".collapseOrder").collapse("hide");
+
 	for (let i = 0; i < orderItems.length; i++) {
 		orderItems[i].style.display = "none";
 	}
@@ -40,14 +41,38 @@ function select(e) {
 		for (let i = 0; i < orderWaitShip.length; i++) {
 			orderWaitShip[i].style.display = "";
 		}
+		this.style.color = "#fff";
+		this.style.background = "rgb(119, 99, 99)";
+		alreadyShip.style.color = "rgb(117, 75, 75)";
+		alreadyShip.style.background = "rgb(230, 230, 230)";
+		finish.style.color = "rgb(117, 75, 75)";
+		finish.style.background = "rgb(230, 230, 230)";
+		all.style.color = "rgb(117, 75, 75)";
+		all.style.background = "rgb(230, 230, 230)";
 	} else if (e.target.id == "alreadyShip") {
 		for (let i = 0; i < orderAlreadyShip.length; i++) {
 			orderAlreadyShip[i].style.display = "";
 		}
+		waitShip.style.color = "rgb(117, 75, 75)";
+		waitShip.style.background = "rgb(230, 230, 230)";
+		this.style.color = "#fff";
+		this.style.background = "rgb(119, 99, 99)";
+		finish.style.color = "rgb(117, 75, 75)";
+		finish.style.background = "rgb(230, 230, 230)";
+		all.style.color = "rgb(117, 75, 75)";
+		all.style.background = "rgb(230, 230, 230)";
 	} else if (e.target.id == "finish") {
 		for (let i = 0; i < orderFinish.length; i++) {
 			orderFinish[i].style.display = "";
 		}
+		waitShip.style.color = "rgb(117, 75, 75)";
+		waitShip.style.background = "rgb(230, 230, 230)";
+		alreadyShip.style.color = "rgb(117, 75, 75)";
+		alreadyShip.style.background = "rgb(230, 230, 230)";
+		this.style.color = "#fff";
+		this.style.background = "rgb(119, 99, 99)";
+		all.style.color = "rgb(117, 75, 75)";
+		all.style.background = "rgb(230, 230, 230)";
 	} else {
 		for (let i = 0; i < orderWaitShip.length; i++) {
 			orderWaitShip[i].style.display = "";
@@ -58,7 +83,19 @@ function select(e) {
 		for (let i = 0; i < orderFinish.length; i++) {
 			orderFinish[i].style.display = "";
 		}
+		waitShip.style.color = "rgb(117, 75, 75)";
+		waitShip.style.background = "rgb(230, 230, 230)";
+		alreadyShip.style.color = "rgb(117, 75, 75)";
+		alreadyShip.style.background = "rgb(230, 230, 230)";
+		finish.style.color = "rgb(117, 75, 75)";
+		finish.style.background = "rgb(230, 230, 230)";
+		this.style.color = "#fff";
+		this.style.background = "rgb(119, 99, 99)";
 	}
+}
+
+function closeCallapse() {
+
 }
 
 window.addEventListener("load", doFirst);

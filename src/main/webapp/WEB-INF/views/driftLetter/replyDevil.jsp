@@ -144,7 +144,12 @@
                 </div>
             </div>
         </div>
+        
+        <div class="letterBox">
+                	<img src="<spring:url value='/image/letter/letterBoxDevil.png' /> " >
+                </div>
     </div>
+ 
        </form>
        
        <section>
