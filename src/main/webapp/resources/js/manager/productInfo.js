@@ -193,7 +193,7 @@ function checkFormat() {
         stockDiv = document.createElement("div");
         stockDiv.setAttribute("class", "border border-dark m-2");
         stockDivDad = document.createElement("div");
-        stockDivDad.setAttribute("class", "col-md-12 col-lg-6 p-0 mb-1");
+        stockDivDad.setAttribute("class", "col-lg-12 col-xl-6 p-0 mb-1");
         stockDiv.appendChild(stockTable);
         stockDivDad.appendChild(stockDiv);
         stocks.appendChild(stockDivDad);
@@ -249,7 +249,7 @@ function checkFormat() {
       stockDiv = document.createElement("div");
       stockDiv.setAttribute("class", "border border-dark m-2");
       stockDivDad = document.createElement("div");
-      stockDivDad.setAttribute("class", "col-md-12 col-lg-6 p-0 mb-1");
+      stockDivDad.setAttribute("class", "col-lg-12 col-xl-6 p-0 mb-1");
       stockDiv.appendChild(stockTable);
       stockDivDad.appendChild(stockDiv);
       stocks.appendChild(stockDivDad);
