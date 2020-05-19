@@ -386,9 +386,9 @@
 		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
 		crossorigin="anonymous"></script>
 	<script type="text/javascript"
-		src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+		src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 	<script type="text/javascript"
-		src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 	<!-- Template Main JS File -->
 	<script src="<spring:url value='/js/register/register.js' /> "></script>
 	<script>

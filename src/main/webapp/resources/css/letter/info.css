@@ -41,7 +41,7 @@ body{
 
 
 /*簡介文字大小*/
-ul{
+.intro-container ul{
 	margin-left:20px;
 	font-size:1.3rem;
 }

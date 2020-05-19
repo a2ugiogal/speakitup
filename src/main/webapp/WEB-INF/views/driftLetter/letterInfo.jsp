@@ -11,7 +11,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" href="<spring:url value='/css/letter/info.css' /> ">
-    <link rel="stylesheet" href="<spring:url value='/css/letter/nav.css' /> ">
+    <link rel="stylesheet" href="<c:url value='/css/letter/nav.css' /> ">
+  
 <title>歡迎來到漂流瓶專區</title>
 </head>
 <body>
@@ -90,8 +91,6 @@
 					</div></li>
 				<li class="nav-item mx-2"><a class="nav-link"
 					href="<spring:url value='/letter/letterHome' />">漂流瓶</a></li>
-				<li class="nav-item mx-2"><a class="nav-link"
-					href="<spring:url value='/product/showPageProducts' />">商品列表</a></li>
 				<c:if test="${LoginOK.permission=='管理員'}">
 					<li class="nav-item dropdown mx-2"><a
 						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
@@ -120,6 +119,7 @@
 			</ul>
 		</div>
 	</nav>
+	<!-- 導覽列 -->
 	<div class="container-fluid mainContent">
         <div class="info_img">
             <img src="<spring:url value='/image/letter/undraw_delivery_address_03n0.svg '/> " >
