@@ -96,6 +96,7 @@ public class LetterDaoImpl implements LetterDao {
 		factory.getCurrentSession().createQuery(hql).setParameter("feedback", feedback).setParameter("id", letterId).executeUpdate();
 	}
 
+
 	
 
 	

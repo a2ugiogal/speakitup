@@ -52,7 +52,6 @@ public class LoginFilter implements Filter {
 			HttpServletResponse resp = (HttpServletResponse) response;
 
 			String servletPath = req.getServletPath();
-
 			req.isRequestedSessionIdValid();
 			contextPath = req.getContextPath();
 			HttpSession session = req.getSession();

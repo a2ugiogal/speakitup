@@ -85,8 +85,8 @@ body{
  	word-break:break-all;
     overflow-y:auto;
     font-size: 1.1rem;
-    padding-left:10px;
-	padding-right:10px;
+    padding-left:30px;
+	padding-right:30px;
 }
 
  .replyBox{
@@ -467,7 +467,7 @@ font-size: 1.1rem;
 /*圖案*/
 .sendBoxBotDevil ul li label .iconBox i{
     font-size: 30px;
-    color: #222;
+    color: #fff;
     transition: 0.5s;
 }
 

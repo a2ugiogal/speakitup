@@ -19,9 +19,6 @@
 	href="<spring:url value='/css/personPage/personPage.css' />" />
 <link rel="stylesheet"
 	href="<spring:url value='/css/register/nav.css' /> " />
-
-<script src="<spring:url value='/js/personPage/updatePersonPage.js' /> "></script>
-
 <!-- 下拉式地址 -->
 <script
 	src="https://cdn.jsdelivr.net/npm/tw-city-selector@2.1.0/dist/tw-city-selector.min.js"></script>
@@ -141,9 +138,10 @@
 	</nav>
 	<!-- 導覽列 -->
 	<!-- ======main=======個人頁面從這裡開始 -->
-	<form:form modelAttribute="memberBean" method="POST"
-		enctype="multipart/form-data" id="personForm" class="py-4"
-		style="margin-top: 60px">
+	<%-- 	<form:form modelAttribute="memberBean" method="POST" --%>
+	<%-- 		enctype="multipart/form-data" id="personForm" class="py-4" --%>
+	<%-- 		style="margin-top: 60px"> --%>
+	<div id="personForm" class="py-4" style="margin-top: 60px">
 		<div class="container rounded my-5" id="personPage"
 			style="background-color: white; height: 544px;">
 			<div class="row my-5">
@@ -152,7 +150,6 @@
 					class="col-lg-4 pull-lg-8 text-xs-center d-flex flex-column align-items-center"
 					id="left">
 					<!-- 編輯的按鈕 -->
-					<!-- 套回jsp時可以換成筆 -->
 					<div id="boxHeadPicture">
 						<!-- 大頭貼照 -->
 						<img
@@ -164,16 +161,16 @@
 					<div id="boxFileSelect"
 						class="d-flex text-center w-75 mx-auto mt-2 mb-1">
 						<!-- 上傳檔案 -->
-						<form:input type="file" path="memberImage"
-							style="visibility: hidden;" id="fileSelect" class="w-100 mt-1" />
+						<input type="file" style="visibility: hidden;" id="fileSelect"
+							class="w-100 mt-1" />
 					</div>
 					<label class="custom-file d-flex flex-column align-items-center">
 						<div class="text-center">
 							<p class="mb-2">
-								<strong>${LoginOK.memberId}</strong>
+								<strong id="idStr">${LoginOK.memberId}</strong>
 							</p>
 							<!-- 這裡的字可以再議 -->
-							<p class="mb-3" style="">${LoginOK.permission}</p>
+							<p class="mb-3" id="permissionStr">${LoginOK.permission}</p>
 						</div>
 
 						<div class="card mx-auto text-center" style="width: 14rem;">
@@ -195,7 +192,7 @@
 				</div>
 
 				<!-- 右側欄 -->
-				<div class="col-lg-8 push-lg-4" id="left">
+				<div class="col-lg-8 push-lg-4" id="right">
 					<div class="tab-content">
 						<h2 class="m-y-2 mt-5 mb-4">會員檔案</h2>
 
@@ -247,18 +244,18 @@
 
 						<div class="form-group row">
 							<div class="col-lg-10 d-flex justify-content-center">
-								<input type="submit" class="btn btn-secondary mr-2"
-									style="visibility: hidden;" id="btCancel" value="取消"
-									name="cancel" /> <input class="btn btn-primary ml-2"
-									style="visibility: hidden;" id="btSubmit" type="submit"
-									value="儲存" />
+								<input type="button" class="btn btn-secondary mr-2"
+									style="visibility: hidden;" id="btCancel" value="取消" />
+								<input class="btn btn-primary ml-2" style="visibility: hidden;"
+									id="btSubmit" type="button" value="儲存" />
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</form:form>
+	</div>
+	<%-- 	</form:form> --%>
 
 
 
@@ -345,8 +342,8 @@
 		<!-- Copyright -->
 	</footer>
 	<!-- Footer -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+		integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 		crossorigin="anonymous"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
@@ -356,5 +353,7 @@
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
 		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
 		crossorigin="anonymous"></script>
+	<script
+		src="<spring:url value='/js/personPage/updatePersonPage.js' /> "></script>
 </body>
 </html>

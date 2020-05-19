@@ -3,74 +3,237 @@
 	margin :0;
 	padding:0;
 	box-sizing: border-box;
+	font-family: 'Noto Sans TC', sans-serif;
 }
 
 body{
 	
-    background: #773344;
-    font-family: 'Noto Sans TC', sans-serif;
+	width: 100%;
+    min-height: 100vh;
+    background: #ececec;
 }
-
 
 #contentLength {
     color: green;
     font-family: 'Noto Sans TC', sans-serif;
 }
 
-h4{
-	font-family: 'Noto Sans TC', sans-serif;
-}
-
-#letterContent{
-    display: flex;
-    box-sizing: border-box;
-    margin : 0 auto;
-    height: 200px;
-    background:transparent;
-    outline:none;
-    border:none;
-    border-bottom:1px solid #3D5E8D;
-    letter-spacing:1px;
-    resize:none;
-}
-
-.midSpace{
-	width:100%;
-	height:100px;
-}
-
-#cardBody{
-    border-radius: 20px 20px 20px 20px;
-}
-
-#submitbtn{
-	font-family: 'Noto Sans TC', sans-serif;
-	color:#fff;
-	
-}
-
-#leftImg{
-	position:absolute;
-	box-sizing : border-box;
-	z-index:1;
-}
-
-#writeMode{
-	z-index:999;
-	position:absolute;
-	width:450px;
-	height:314px;
-/* 	top:118px; */
-/* 	left:8px; */
-	background: #FCF7F8;
-	opacity : 0.8;
-}
-
-#titleInput
+ .mainContainer
 {
-	background:transparent;
-	border:none;
-	outline:none;
-	border-bottom:1px solid #3D5E8D;
+    display: flex;
+    flex-direction:row;
+    justify-content: flex-end;
+/*     width: 1600px; */
+/*     height: 800px; */
+	width: 100vw;
+    height: 100vh;
+}
+
+/*卡片的內容*/
+.mainContainer  .content
+{
+	position:absolute;
+	top:0;
+	left:0;
+    display: flex; 
+    align-items: center;
+    width: 700px;
+    height: 600px;
+/*     background: rgb(250, 237, 196); */
+    background: #E6F9F4;
+    font-size: 0.9rem;
+    object-fit: cover; 
+    padding: 20px 20px 100px 30px; 
+    border-radius: 15px;
+    box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.3);
+    margin-top:10%;
+    margin-left:15%;
+}  
+
+
+/*標題框div*/
+.letterInput{
+    margin-top: 70px;
+    position: relative;
+    height: 40px;
+    width: 650px;
+}
+
+/*標題框input*/
+.letterInput input[type="text"]
+{
+    position: absolute;
+    background: transparent;
+    border:none;
+    outline:none;
+    box-shadow: none;
+    font-size: 20px;
+    color: black;
+    width: 100%;
+    padding-top: 10px;
+}
+/*信件標題*/
+.letterInput label{
+    position: absolute;
+    top:0;
+    left:0;
+    color: #555;
+    pointer-events: none;
+    display: block;
+    transition: 0.5s;
+    font-size: 24px;
+}
+
+/*當input欄位被focus或是內容改變時，信件標題的文字向上35px*/
+.letterInput input[type="text"]:focus + label,
+.letterInput input[type="text"]:valid + label
+
+{
+    transform: translateY(-35px);
+    font-size: 24px;
+    color:#3D5E8D;
+    background: transparent;
+    padding: 2px 2px;
+}
+
+/*標題下方的border*/
+.letterInput  span{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    display: block;
+    background: #555;
+    width: 100%;
+    height: 2px;
+}
+
+/*border一開始的狀態 因為scaleX是0，所以目前沒反應 等focus或打字時 就會從右邊(transform-origin: right)回到灰色*/
+.letterInput  span::before,
+.letterText  span::before
+{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: darkblue;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s ease-in-out;
+}
+
+/*focus或內打字時 下方的border會往從左邊開始往右成藍色*/
+.letterInput input[type="text"]:focus ~ span::before,
+.letterInput input[type="text"]:valid ~ span::before,
+.letterText textarea:focus ~ span::before,
+.letterText textarea:valid ~ span::before
+{
+    transform: scaleX(1);
+    transform-origin: left;
+    transition: transform 0.5s ease-in-out;
+}
+
+
+ .letterText{
+     margin-top:50px;
+    position: relative;
+    height: 350px;
+    width: 650px;
+}
+
+.letterText textarea{
+    position: absolute;
+    margin-top: 20px;
+    outline: none;
+    background: none;
+    border: none;
+    box-shadow: none;
+    text-decoration: none;
+    width: 100%;
+    height: 270px;
+    font-size: 18px;
+    font-weight: lighter;
+    letter-spacing: 2px;
+    resize: none;
+}
+
+/*信件內容*/
+.letterText label{
+    position: absolute;
+    top:0;
+    left:0;
+    color: #555;
+    pointer-events: none;
+    display: block;
+    transition: 0.5s;
+    font-size: 24px;
+}
+
+.letterText textarea:focus + label,
+.letterText textarea:valid + label
+
+{
+    transform: translateY(-35px);
+    font-size: 22px;
+    color:#3D5E8D;
+    background: transparent;
+    padding: 2px 2px;
+}
+
+.letterText  span{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    display: block;
+    background: #555;
+    width: 100%;
+    height: 2px;
+}
+
+
+#sendBtnDiv{
+	display:flex;
+	padding-right:10px;
+}
+
+.sendBtn{
+    margin-top: 20PX;
+	margin-left: auto;
+	border: none;
+	box-shadow: none;
+	padding: 10PX 25PX;
+	background: RGB(14, 47, 97);
+	/*     BACKGROUND: RGB(225, 241, 237); */
+	color: #FFF;
+	font-size: 15PX;
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+
+
+.sendBtn:hover{
+    background: rgb(78, 131, 211);
+}
+
+/*右邊的區域*/
+
+.letterBoxArea{
+	margin:200px;
+	display:flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.fakeLetter
+{	
+	opacity:0;
+	margin-bottom:40px;
+	width:55px;
+	height:60px;	
+	background:#0080c0;
+	z-index:-1;
 }
 

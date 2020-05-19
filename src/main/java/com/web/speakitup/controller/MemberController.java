@@ -41,6 +41,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
@@ -119,7 +120,7 @@ public class MemberController {
 	/* 存入會員資料 */
 	@PostMapping("/register")
 	public String addMember(@ModelAttribute("memberBean") MemberBean mb, BindingResult bindingResult,
-			HttpServletRequest request, HttpServletResponse response, RedirectAttributes rad) {
+			HttpServletRequest request, HttpServletResponse response, RedirectAttributes rad,HttpSession session,Model model) {
 
 		new RegisterValidator(memberService).validate(mb, bindingResult);
 
@@ -171,7 +172,8 @@ public class MemberController {
 		// 存入下拉式選單地址
 		mb.setCity(request.getParameter("county"));
 		mb.setArea(request.getParameter("district"));
-
+		mb.setSendQuota("true");
+		mb.setReplyQuota("true");
 		int n = memberService.saveMember(mb);
 
 		if (n == 1) {
@@ -187,6 +189,7 @@ public class MemberController {
 
 			Thread sendEmail = new SendEmail(memberEmail, subject, content.toString(), "");
 			sendEmail.start();
+			session.setAttribute("verifyAlert", "verifyAlert");
 			return "redirect:../";
 		} else {
 			System.out.println("更新此筆資料有誤(RegisterServlet)");
@@ -248,6 +251,7 @@ public class MemberController {
 			if (mb.getStatus().trim().equals("未驗證")) {
 				mb.setStatus("正常");
 				memberService.updateMember(mb);
+				
 				session.setAttribute("LoginOK", mb);
 			}
 
@@ -296,8 +300,9 @@ public class MemberController {
 		// 準備存放錯誤訊息的Map物件
 		Map<String, String> errorMsgMap = new HashMap<String, String>();
 		request.setAttribute("ErrorMsgKey", errorMsgMap); // 顯示錯誤訊息
-
+		
 		String password2 = GlobalService.getMD5Endocing(GlobalService.encryptString(password));
+		System.out.println("password" + password2);
 		MemberBean mb = null;
 		// 檢查帳號密碼是否正確
 		try {
@@ -308,7 +313,7 @@ public class MemberController {
 					// 先暫時這樣 如果會員認證欄位是N 一樣先給LoginOK 只是要完成認證
 //						session.setAttribute("LoginOK", mb);
 				} else if (mb.getStatus().equals("封鎖")) {
-					errorMsgMap.put("LoginError", "此帳號已被封鎖");
+					errorMsgMap.put("LoginBlockError", "此帳號已被封鎖");
 				} else {
 					session.setAttribute("LoginOK", mb);
 				}
@@ -393,7 +398,6 @@ public class MemberController {
 					"<p>" + "請點選以下連結修改密碼" + "</p>" + "<br>" + "<a href='" + GlobalService.DOMAIN_PATTERN + "/member"
 							+ "/changepswd" + "/" + authToken + "'>點我</a>" + "<br>" + "<p>" + "下次不要再弄丟密碼了啦" + "</p>");
 			Thread sendEmail = new SendEmail(memberEmail, subject, content.toString(), "");
-			System.out.println(memberEmail[0]);
 			sendEmail.start();
 			return "redirect:/";
 		} else {
@@ -451,51 +455,59 @@ public class MemberController {
 	/* 給會員的舊表單，前往個人頁面 */
 	@GetMapping("/personPage")
 	public String personPage(Model model, HttpSession session) {
-		MemberBean mb = new MemberBean();
-		model.addAttribute("memberBean", mb);
+//		MemberBean mb = new MemberBean();
+//		model.addAttribute("memberBean", mb);
 		return "personPage/personPage";
 	}
 
 	/* 修改會員資料 */
 	@PostMapping("/personPage")
-	public String updateMember(@ModelAttribute("memberBean") MemberBean mb, Model model, HttpServletRequest request,
-			HttpSession session) {
-		String cancel = request.getParameter("cancel");
+	public void updateMember(Model model, HttpServletRequest request, HttpSession session,
+			HttpServletResponse response) throws IOException {
+		response.setContentType("application/json; charset=utf-8");
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+		
+		String cancel = multipartRequest.getParameter("cancel");
+		MemberBean oldmb = (MemberBean) session.getAttribute("LoginOK");
 		// 如果沒有取消的話代表新增 就去抓資料
-		if (cancel == null) {
-			MemberBean oldmb = (MemberBean) session.getAttribute("LoginOK");
-			Integer id = oldmb.getId();
-			mb.setId(id);
-			mb.setCity(request.getParameter("county"));
-			mb.setArea(request.getParameter("district"));
-			mb.setStatus(oldmb.getStatus());
+		if (cancel.equals("")) {
+			String phone = multipartRequest.getParameter("phone");
+			String city = multipartRequest.getParameter("county");
+			String area = multipartRequest.getParameter("district");
+			String address = multipartRequest.getParameter("address");
+			oldmb.setPhone(phone);
+			oldmb.setCity(city);
+			oldmb.setArea(area);
+			oldmb.setAddress(address);
 
 			// 取得檔名及照片
-			MultipartFile memberImage = mb.getMemberImage();
+			MultipartFile memberImage = multipartRequest.getFile("file1");
 			if (memberImage != null && !memberImage.isEmpty()) {
 				// 如果有填照片，就存起來
 				try {
 					byte[] b = memberImage.getBytes();
 					Blob blob = new SerialBlob(b);
-					mb.setPicture(blob);
-					mb.setFileName(memberImage.getOriginalFilename());
+					oldmb.setPicture(blob);
+					oldmb.setFileName(memberImage.getOriginalFilename());
 				} catch (Exception e) {
 					e.printStackTrace();
 					throw new RuntimeException("檔案上傳發生異常：" + e.getMessage());
 				}
-			} else {
-				// 如果沒填照片，使用原來的
-				mb.setPicture(oldmb.getPicture());
-				mb.setFileName(oldmb.getFileName());
 			}
-			memberService.updateMember(mb);
-			// 更新session內的使用者資料
-			MemberBean bean = memberService.getMember(id);
-			session.setAttribute("LoginOK", bean);
-		} else {
-			;
+			memberService.saveMember(oldmb);
 		}
-		return "redirect:/member/personPage";
+		// 更新session內的使用者資料
+		MemberBean bean = memberService.getMember(oldmb.getId());
+		session.setAttribute("LoginOK", bean);
+		try (PrintWriter out = response.getWriter();) {
+			/* 重新排成方便JSON的型態 */
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").excludeFieldsWithoutExposeAnnotation().create();
+			out.write(gson.toJson(bean));
+			out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return;
 	}
 
 	/* 個人文章 */
@@ -518,7 +530,6 @@ public class MemberController {
 	@GetMapping("/showMyArticlesAjax")
 	public void getmyArticlesAjax(Model model, HttpSession session, HttpServletRequest request,
 			HttpServletResponse response) {
-		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json; charset=utf-8");
 
 		try (PrintWriter out = response.getWriter();) {
@@ -526,9 +537,7 @@ public class MemberController {
 			String arrange = request.getParameter("arrange") == null ? "" : request.getParameter("arrange");
 			String searchStr = request.getParameter("search") == null ? "" : request.getParameter("search");
 
-			System.out.println("arrange=" + arrange + ",searchStr=" + searchStr);
 			MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
-			System.out.println("id=" + mb.getMemberId());
 			Map<ArticleBean, String> articleMap = articleService.getPersonArticles(arrange, searchStr, mb);
 
 			/* 重新排成方便JSON的型態 */

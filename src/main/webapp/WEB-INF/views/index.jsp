@@ -12,11 +12,22 @@
 	crossorigin="anonymous" />
 
 <link rel="stylesheet" href="<spring:url value='/css/index.css' /> " />
+<link rel="stylesheet" href="<spring:url value='/css/bot.css' /> " />
 <link rel="stylesheet"
 	href="<spring:url value='/css/register/nav.css' /> " />
 <title>首頁--要抒啦</title>
+<c:if test="${not empty verifyAlert}">
+	<script>
+		alert("請前往信箱驗證");
+	</script>
+	<%
+		session.removeAttribute("verifyAlert");
+	%>
+</c:if>
+
 </head>
 <body>
+
 	<!-- =======================導覽列================= -->
 	<nav class="navbar navbar-expand-lg navbar-light fixed-top p-0"
 		style="margin-bottom: 200px" id="navBody">
@@ -71,7 +82,7 @@
 				<li class="nav-item dropdown mx-2"><a
 					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 					role="button" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false"> 論壇 </a>
+					aria-expanded="false">論壇 </a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<a class="dropdown-item"
 							href="<spring:url value='/article/showPageArticles?categoryTitle=天使' />">天使板</a>
@@ -87,7 +98,7 @@
 						<li class="nav-item dropdown mx-2"><a
 							class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false"> 商城 </a>
+							aria-expanded="false">商城 </a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<a class="dropdown-item"
 									href="<spring:url value='/product/productHome' />">首頁</a> <a
@@ -100,13 +111,21 @@
 				</c:choose>
 				<li class="nav-item mx-2"><a class="nav-link"
 					href="<spring:url value='/letter/letterHome' />">漂流瓶</a></li>
-				<li class="nav-item mx-2"><a class="nav-link"
-					style="cursor: pointer;" onclick="showGameModel()">紓壓遊戲</a></li>
+				<li class="nav-item dropdown mx-2"><a
+					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+					role="button" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false">歡樂吧</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" style="cursor: pointer;"
+							onclick="showGameModel()">掉落吧！方塊！</a>
+					</div></li>
+				<!-- 				<li class="nav-item mx-2"><a class="nav-link" -->
+				<!-- 					style="cursor: pointer;" onclick="showGameModel()">紓壓遊戲</a></li> -->
 				<c:if test="${LoginOK.permission=='管理員'}">
 					<li class="nav-item dropdown mx-2"><a
 						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false"> 管理後台 </a>
+						aria-expanded="false">管理後台 </a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<a class="dropdown-item"
 								href="<spring:url value='/article/showReports' />">檢舉專區</a> <a
@@ -121,7 +140,7 @@
 				<li class="nav-item dropdown mx-2 mb-1"><a
 					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 					role="button" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false"> 關於我們 </a>
+					aria-expanded="false">關於我們 </a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<a class="dropdown-item" href="#">創建理念</a> <a
 							class="dropdown-item" href="#">團隊介紹</a> <a class="dropdown-item"
@@ -132,14 +151,84 @@
 	</nav>
 	<!-- 導覽列 -->
 
+	<!-- 聊天機器人 -->
+
+	<button class="open-button open-button:after" onclick="openForm()" style="background-image: url('<spring:url value="/image/logo/logo_trans_92px.png "/> '); background-size: 50px 50px;">
+	</button>
+	<!-- 彈出視窗+視窗大小 -->
+	<div class="chat-popup es_bg" id="myForm">
+		<div class="form-container">
+			<!-- 藍條+關閉紐 -->
+			<span class="blue-bar"></span>
+			<button type="button" class="btn cancel" onclick="closeForm()">✖</button>
+			<!-- 聊天框+邊距15px-->
+			<div id="dialogBox" class="dialogBox">
+				<div style="margin: 0px">
+					<!--開頭============================= -->
+					<div class="es_service">
+						<!-- 客服頭像 -->
+						<div class="es_headBox">
+							<div class="es_head"></div>
+							<span class="es_botName">智能客服</span>
+						</div>
+						<!-- 對話 -->
+						<div class="es_scBox">
+							<div class="es_scTxt">
+								你好，我是 <span style="color: blue;">要抒拉智能客服</span> ，任何問題都可以問我哦!
+							</div>
+							<!-- 卡片=======================================-->
+							<div class="es_scTxt">
+								<a href="https://world.taobao.com/item/523235463919.htm"
+									target="_blank" style="text-decoration: none;"> <img
+									class="card__cover" src="https://i.imgur.com/4yN2Alu.jpg">
+									<div class="card__description">2020要抒拉論壇高人氣吉祥物玩偶，小惡魔抱枕！</div>
+									<div class="card__btn-link">
+										<span>點擊前去看看 >></span>
+									</div>
+								</a>
+							</div>
+
+							<div class="es_scTxt">
+								<a
+									href="https://store.line.me/stickershop/product/12999/zh-Hant"
+									target="_blank" style="text-decoration: none;"> <img
+									class="card__cover" src="https://i.imgur.com/Rf1WqoS.png">
+									<div class="card__description">
+										2020要抒拉論壇票選人氣TOP10，LINE最新貼圖！</div>
+									<div class="card__btn-link">
+										<span>點擊前去看看 >></span>
+									</div>
+								</a>
+							</div>
+							<!-- 卡片=============================-->
+						</div>
+					</div>
+					<!--開頭============================= -->
+				</div>
+			</div>
+			<div style="margin-top:5px;">
+				<!-- 按enter回答 -->
+				<input id="say" name="say" type="text" value=""
+					onkeydown="keyin(event)" placeholder="寫點什麼.."
+					style="font-size: 13.3333px;" />
+				<!-- 箭頭按鈕 -->
+				<input type="image" src="https://i.imgur.com/bpUnSvu.png"
+					id="send-button" alt="submit" onclick="say()" />
+			</div>
+		</div>
+	</div>
+
+	<!-- 聊天機器人 -->
+
 	<!-- 置頂按鈕 設定 -->
 	<a href="#top"> <img id="myBtn"
 		src="https://png.pngtree.com/png-clipart/20190705/original/pngtree-vector-up-arrow-icon-png-image_4272127.jpg" />
 	</a>
 	<!-- 置頂按鈕 設定 -->
 	<!-- ======= Index Section ======= -->
-	<div id="index" style="background:url('<spring:url value="/image/index/home.png" />');" >
-		
+	<div id="index"
+		style="background:url('<spring:url value="/image/index/home.png" />');">
+
 		<div class="content text-center d-flex align-items-center">
 			<!-- title ============-->
 			<div class="row">
@@ -476,5 +565,8 @@
 		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
 		crossorigin="anonymous"></script>
 	<script src="<spring:url value='/js/index.js' />"></script>
+	<script src="<spring:url value='/js/robot/bot.js' />"></script>
+	<script src="<spring:url value='/js/robot/qaList.js' />"></script>
+	<script src="<spring:url value='/js/robot/user.js' />"></script>
 </body>
 </html>

@@ -17,28 +17,12 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 	crossorigin="anonymous" />
-<!-- 			<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" -->
-<!-- 	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" -->
-<!-- 	crossorigin="anonymous"></script> -->
-<!-- <script -->
-<!-- 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" -->
-<!-- 	integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" -->
-<!-- 	crossorigin="anonymous"></script> -->
-<!-- <script -->
-<!-- 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" -->
-<!-- 	integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" -->
-<!-- 	crossorigin="anonymous"></script> -->
-
 <link rel="stylesheet"
 	href="<spring:url value='/css/product/productInfo.css' />">
 <link rel="stylesheet"
 	href="<spring:url value='/css/product/nav.css' /> " />
 <link rel="stylesheet"
 	href="<spring:url value='/css/loginModel.css' /> " />
-<<<<<<< HEAD
-
-=======
->>>>>>> f13cb2737f4be6a52dd8f640f95916122f88441c
 </head>
 <body>
 	<!-- =======================導覽列================= -->
@@ -219,8 +203,8 @@
 							</c:forEach>
 						</ul>
 					</div>
-				
-				
+
+
 				</div>
 				<!-- 商品 -->
 				<div class="col-8 Product_content">
@@ -251,9 +235,6 @@
 										<h3 class="text-dark">${product.productName}</h3>
 
 									</span>
-<!-- 									<div class="addToCartLoc"> -->
-<!-- 										<i class="fas fa-shopping-cart"></i> -->
-<!-- 									</div> -->
 								</div>
 								<span>&nbsp</span>
 								<div>
@@ -262,7 +243,7 @@
 									</span>
 								</div>
 								<!-- 規格 -->
-								<form action="" name="buyForm" id="buyForm">
+								<form action="<spring:url value='/order/checkOrder' />" name="buyForm" id="buyForm">
 									<div class="specification row pb-2">
 										<div class="col-12">
 											<c:if test="${title1!=''}">
@@ -299,8 +280,6 @@
 												</ul>
 											</c:if>
 										</div>
-
-
 										<div class="col-12 Quantity pb-4">
 											<span style='display: inline-block;'>
 												<h5 class="text-dark">數量 ：</h5>
@@ -312,42 +291,43 @@
 										</div>
 									</div>
 									<div>
-
-									
-									<c:choose>
-										
-										<c:when test="${qty!= '' && title1!='' && title2!=''}">
-											<button type="button" class="addToCart btn btn-outline-danger"
-												<c:choose>
+										<c:choose>
+											<c:when test="${qty!= '' && title1!='' && title2!=''}">
+												<button type="button"
+													class="addToCart btn btn-outline-danger"
+													<c:choose>
 													<c:when test="${empty LoginOK}">onclick="loginModel()"</c:when>
 													<c:otherwise>onclick="addShoppinCart(qty,content1,content2)"</c:otherwise>
 												</c:choose>>
-												加入購物車<i class="fas fa-shopping-cart"></i>
-											</button>
-										</c:when>
-										
-										<c:when test="${qty!= '' && title1!=''}">
-											<button type="button" class="addToCart btn btn-outline-danger"
-												<c:choose>
+													加入購物車<i class="fas fa-shopping-cart"></i>
+												</button>
+											</c:when>
+											<c:when test="${qty!= '' && title1!=''}">
+												<button type="button"
+													class="addToCart btn btn-outline-danger"
+													<c:choose>
 													<c:when test="${empty LoginOK}">onclick="loginModel()"</c:when>
 													<c:otherwise>onclick="addCartnoContent2(qty,content1)"</c:otherwise>
 												</c:choose>>
-												加入購物車<i class="fas fa-shopping-cart"></i>
-											</button>
-										</c:when>
-										
-										<c:otherwise>
-											<button type="button" class="addToCart btn btn-outline-danger"
-												<c:choose>
+													加入購物車<i class="fas fa-shopping-cart"></i>
+												</button>
+											</c:when>
+											<c:otherwise>
+												<button type="button"
+													class="addToCart btn btn-outline-danger"
+													<c:choose>
 													<c:when test="${empty LoginOK}">onclick="loginModel()"</c:when>
 													<c:otherwise>onclick="addCartQtyOnly(qty)"</c:otherwise>
 												</c:choose>>
-												加入購物車<i class="fas fa-shopping-cart"></i>
-											</button>
-										</c:otherwise>
-									</c:choose>										
+													加入購物車<i class="fas fa-shopping-cart"></i>
+												</button>
+											</c:otherwise>
+										</c:choose>
 										<button type="button" class="btn btn-outline-danger buy"
-											onclick="buyNow()">直接購買</button>
+											<c:choose>
+													<c:when test="${empty LoginOK}">onclick="loginModel()"</c:when>
+													<c:otherwise>onclick="buyNow()"</c:otherwise>
+												</c:choose>>直接購買</button>
 									</div>
 								</form>
 							</div>
@@ -476,52 +456,46 @@
 			</div>
 		</div>
 	</div>
-
-	
-	
-
-				<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
-	integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-	crossorigin="anonymous"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-	integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-	crossorigin="anonymous"></script>
-	
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+		integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+		crossorigin="anonymous"></script>
 	<script>
-	function loginModel() {
-	$("#ignismyModal").modal("show");
-	}
-	
-	$('#left_list_0').click(function() {
-		$('#list_a').hide();
-		$('#list_b').hide();
-		$('#list_c').hide();
-		$('#list_d').hide();
-	});
-	$('#left_list_a').click(function() {
-		$('#list_a').toggle();
-		$('#list_b').hide();
-		$('#list_c').hide();
-		$('#list_d').hide();
-	});
-	$('#left_list_b').click(function() {
-		$('#list_a').hide();
-		$('#list_b').toggle();
-		$('#list_c').hide();
-		$('#list_d').hide();
-	});
-	</script>
-	
-	<c:if test="${not empty LoginOK}">
-			<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-	<script src="<spring:url value='/js/product/productInfo.js' /> " ></script>
-	</c:if>	
+		function loginModel() {
+			$("#ignismyModal").modal("show");
+		}
 
+		$('#left_list_0').click(function() {
+			$('#list_a').hide();
+			$('#list_b').hide();
+			$('#list_c').hide();
+			$('#list_d').hide();
+		});
+		$('#left_list_a').click(function() {
+			$('#list_a').toggle();
+			$('#list_b').hide();
+			$('#list_c').hide();
+			$('#list_d').hide();
+		});
+		$('#left_list_b').click(function() {
+			$('#list_a').hide();
+			$('#list_b').toggle();
+			$('#list_c').hide();
+			$('#list_d').hide();
+		});
+	</script>
+	<c:if test="${not empty LoginOK}">
+		<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+		<script src="<spring:url value='/js/product/productInfo.js' /> "></script>
+	</c:if>
 </body>
 </html>

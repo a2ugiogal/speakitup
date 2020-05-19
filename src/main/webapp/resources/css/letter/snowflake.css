@@ -138,12 +138,12 @@ section{
 }
 
 .set2{
-    transform: scale(2) rotateX(180deg);
-    filter: blur(2px);
+    transform: scale(2) rotateY(150deg);
+/*     filter: blur(2px); */
 }
 
 .set3{
     transform: scale(1) rotateY(180deg);
-    filter: blur(4px);
+/*     filter: blur(4px); */
 }
 
