@@ -19,10 +19,6 @@
 	href="<spring:url value='/css/manager/nav.css' />" />
 <link rel="stylesheet"
 	href="<spring:url value='/css/manager/productInfo.css' />" />
-
-
-<style>
-</style>
 </head>
 <body>
 	<!-- =======================導覽列================= -->
