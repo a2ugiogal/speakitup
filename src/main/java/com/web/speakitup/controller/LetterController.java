@@ -260,7 +260,7 @@ public class LetterController {
 	}
 	
 	//進去頁面後 要切換信件類型時就採取AJAX的方式變換
-	@GetMapping("/myLetters/{category}")
+	@PostMapping("/myLetters/{category}")
 	public void myLetters(@PathVariable("category") String category, HttpSession session, HttpServletResponse response,HttpServletRequest request)
 			throws IOException {
 		response.setCharacterEncoding("UTF-8");
@@ -291,7 +291,14 @@ public class LetterController {
 	public void deleteLetters(@RequestParam("id") int letterId,HttpSession session,HttpServletResponse response) {
 		System.out.println("不喜歡的信件ID" + letterId);
 		response.setCharacterEncoding("UTF-8");
-		letterService.updateLetterFeedback(letterId, GlobalService.LETTER_BADFEEDBACK);
+		LetterBean lb = letterService.getLetter(letterId);
+		String feedBack = lb.getFeedback();
+		if(feedBack.equals("dislike")) {
+			letterService.updateLetterFeedback(letterId, "");
+			System.out.println("收回不喜歡"+ letterId);
+		}else {
+			letterService.updateLetterFeedback(letterId, GlobalService.LETTER_BADFEEDBACK);
+		}
 		try {
 			PrintWriter out = response.getWriter();
 			out.print("");
@@ -308,7 +315,16 @@ public class LetterController {
 		System.out.println("喜歡的信件ID" + letterId);
 		response.setCharacterEncoding("UTF-8");
 		//更新信件的回饋欄位
-		letterService.updateLetterFeedback(letterId, GlobalService.LETTER_FEEDBACK);
+		
+		LetterBean lb = letterService.getLetter(letterId);
+		String feedBack = lb.getFeedback();
+		
+		if(feedBack.equals("like")) {
+			letterService.updateLetterFeedback(letterId, "");
+			System.out.println("收回喜歡:" + letterId);
+		}else {
+			letterService.updateLetterFeedback(letterId, GlobalService.LETTER_FEEDBACK);
+		}
 		try {
 			PrintWriter out = response.getWriter();
 			out.print("");

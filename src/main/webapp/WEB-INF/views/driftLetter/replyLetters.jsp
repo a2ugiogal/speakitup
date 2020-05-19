@@ -16,6 +16,7 @@
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"
   />
+<link rel="stylesheet" href="<spring:url value='/css/letter/replySame.css' /> ">
 <c:if test="${lb.letterCategory == '天使'}" >
 	<link rel="stylesheet" href="<spring:url value='/css/letter/replyAngel.css' /> ">
 	<link rel="stylesheet" href="<spring:url value='/css/letter/leaves.css' /> ">
@@ -143,61 +144,72 @@
 <!-- 主要內容部分 -->	
 <div class="mainContent">
 <%-- 	<form action="<c:url value='/letter/sendReplyContent' /> " method="POST"> --%>
-	<form action="" method="POST">
+	<form action="<spring:url value='/letter/sendReplyContent' />" method="POST" id="letterReplyForm">
 	<c:choose>
 		<c:when test="${lb.letterCategory == '天使'}">
 			<div class="mainContainer">
-				<div class="letterCard">
+				<div class="letterCard animate__animated">
 					<div class="contentBox animate__animated">
 						<div class="content">
-	
-							<h4>${lb.letterTitle}</h4>
-							 <br>
-	                    <h5>${lb.letterCategory}</h5>
+								<h4>${lb.letterTitle}</h4>
+		                   		<h5>${lb.letterCategory}</h5>
 							<p>${lb.letterContent}</p>
 						</div>
 					</div>
 					<div class="replyContentBox animate__animated">
 						<div class="replyContent">
-							<h2>回應內容</h2>
 							<input type="hidden" value="${lb.letterId}" name="id">
-							<p>
-								<textarea name="replyContent" id="" cols="30" rows="10"
-									maxlength="250" placeholder="回點什麼吧...."></textarea>
-							</p>
-							<input type="submit" name="devil"
-								class="btn btn-primary btn-user btn-block" role="button"
-								id="submitbtn" value="寄出" >
+							 <div class="letterText">
+			                    <textarea name="replyContent" id="" cols="25" rows="10" maxlength="250" required=""></textarea>
+			                	 <label>回點什麼吧<small>(限250個字)</small></label>
+			                	 <span></span>
+                	 		</div>
+						 <div id="sendBtnDiv">
+                    		<input class="sendBtn" type="submit" role="button" value="寄出" name=""  >
+                    	</div>
 						</div>
 					</div>
 			</div>
+			<div class="letterBoxArea">
+	                <div class="fakeLetter animate__animated"></div>
+	                <div class="letterBox"> 
+	                	<img src="<spring:url value='/image/letter/letterBoxDevil.png' /> " >
+	                </div>
+                </div> 
 		</div>
 		</c:when>
 		<c:otherwise>
-			<div class="mainContainer">
-        <div class="letterCard">
-            <div class="contentBox animate__animated">
-                <div class="content">
-                    <h4>${lb.letterTitle}</h4>
-                    <br>
-                    <h5>${lb.letterCategory}</h5>
-                    <p>${lb.letterContent}</p>
-                </div>
-            </div>
+		<div class="mainContainer">
+        	<div class="letterCard animate__animated">
+            	<div class="contentBox animate__animated">
+                	<div class="content">
+	                    <h4>${lb.letterTitle}</h4>
+	                    <h5>${lb.letterCategory}</h5>
+	                    <p>${lb.letterContent}</p>
+                	</div>
+            	</div>
             <div class="replyContentBox animate__animated">
                 <div class="replyContent">
-                    <h2>回應內容</h2>
                     <input type="hidden" value="${lb.letterId}" name="id">
-                    <p><textarea name="replyContent" id="" cols="30" rows="10" maxlength="250" placeholder="來點負能量吧..."></textarea></p>
-                   <input type="button" name="devil" class="btn btn-primary btn-user btn-block" role="button" id="submitbtn" value="寄出">
+                    <div class="letterText">
+	                    <textarea name="replyContent" id="" cols="25" rows="10" maxlength="250" required=""></textarea>
+	                	 <label>回點什麼吧<small>(限250個字)</small></label>
+	                	 <span></span>
+                	 </div>
+                	 <div id="sendBtnDiv">
+                    		<input class="sendBtn" type="submit" role="button" value="寄出" name=""  >
+                    	</div>
                 </div>
             </div>
         </div>
-        		 
+        		<div class="letterBoxArea">
+	                <div class="fakeLetter animate__animated"></div>
+	                <div class="letterBox"> 
+	                	<img src="<spring:url value='/image/letter/letterBoxDevil.png' /> " >
+	                </div>
+                </div> 
     </div>
-   			<div class="letterBox">
-                <img src="<spring:url value='/image/letter/letterBoxDevil.png' /> " >
-            </div>
+   			
 		</c:otherwise>
 	</c:choose>
 		
@@ -207,43 +219,43 @@
 	<c:choose>
 		<c:when test="${lb.letterCategory == '天使'}">
 			<section class="leavesDiv">
-		         <div class="set">
-		             <div><img src="<spring:url value='/image/letter/leaves.png' /> " ></div>
-		             <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
-		             <div><img src="<spring:url value='/image/letter/leaves.png' /> " ></div>
-		             <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
-		             <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
-		             <div><img src="<spring:url value='/image/letter/leaves.png' /> " ></div>
-		             <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
-		             <div><img src="<spring:url value='/image/letter/leaves.png' /> " ></div>
-		             <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
-		             <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
-		         </div>
-		         <div class="set set2">
-		            <div><img src="<spring:url value='/image/letter/leaves.png' /> " ></div>
-		            <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
-		            <div><img src="<spring:url value='/image/letter/leaves.png' /> " ></div>
-		            <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
-		            <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
-		            <div><img src="<spring:url value='/image/letter/leaves.png' /> " ></div>
-		            <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
-		            <div><img src="<spring:url value='/image/letter/leaves.png' /> " ></div>
-		            <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
-		            <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
-		        </div>
-		        <div class="set set3">
-		            <div><img src="<spring:url value='/image/letter/leaves.png' /> " ></div>
-		            <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
-		            <div><img src="<spring:url value='/image/letter/leaves.png' /> " ></div>
-		            <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
-		            <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
-		            <div><img src="<spring:url value='/image/letter/leaves.png' /> " ></div>
-		            <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
-		            <div><img src="<spring:url value='/image/letter/leaves.png' /> " ></div>
-		            <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
-		            <div><img src="<spring:url value='/image/letter/greenLeaves.png' /> "></div>
-		        </div>
-     		</section>
+         <div class="set">
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+         </div>
+        <div class="set set2">
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+         </div>
+        <div class="set set3">
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+             <div><img src="<spring:url value='/image/letter/flower.png' /> " ></div>
+         </div>
+     </section>
 		</c:when>
 		<c:otherwise>
 			<section>
@@ -293,7 +305,7 @@
  
    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-<%--   <script src="<spring:url value='/js/letter/replyDevil.js' /> "></script> --%>
+  <script src="<spring:url value='/js/letter/replyLetters.js' /> "></script>
  
 </body>
 </html>

@@ -20,28 +20,34 @@ body{
 
  .mainContainer
 {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 1600px;
-    height: 800px;
+      display: flex;
+    flex-direction:row;
+    justify-content: flex-end;
+/*     width: 1600px; */
+/*     height: 800px; */
+	width: 100vw;
+    height: 100vh;
 }
 
 /*卡片的內容*/
 .mainContainer  .content
 {
+	position:absolute;
+	top:0;
+	left:0;
     display: flex; 
     align-items: center;
     width: 700px;
     height: 600px;
-    background: rgb(250, 237, 196);
+    background: #E1E4DF;
     font-size: 0.9rem;
     object-fit: cover; 
     padding: 20px 20px 100px 30px; 
-    border-radius: 5px;
-    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-    margin-top:15%;
-    margin-left:20%;
+    border-radius: 15px;
+    box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.5);
+/* box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.3); */
+   margin-top:10%;
+    margin-left:15%;
 }  
 
 
@@ -132,7 +138,7 @@ body{
  .letterText{
      margin-top: 50px;
     position: relative;
-    height: 300px;
+    height: 350px;
     width: 650px;
 }
 
@@ -186,15 +192,15 @@ body{
 }
 
 
-.letterBox{
-	position:absolute;
-	right:50px;
-    top:250px;
-    
+.sendBtnDiv{
+	display:flex;
+	item-direction:flex-end;
+	padding-right:10px;
 }
 
-#sendBtn{
+.sendBtn{
     margin-top: 20px;
+    margin-left:auto;
     border: none;
     box-shadow: none;
     padding:10px 25px;
@@ -206,6 +212,24 @@ body{
     border-radius: 5px;
 }
 
-#sendBtn:hover{
+.sendBtn:hover{
     background: rgb(78, 131, 211);
+}
+
+.letterBoxArea{
+	margin:200px;
+	display:flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.fakeLetter
+{	
+	opacity:0;
+	margin-bottom:40px;
+	width:55px;
+	height:60px;	
+	background:#d5d5d5;
+	z-index:-1;
 }

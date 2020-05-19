@@ -1,5 +1,3 @@
-
-
 function addShoppinCart(qty,content1,content2) {
 	xhr = new XMLHttpRequest();
 	$.ajax({
@@ -61,8 +59,6 @@ function addCartAnimation(){
 		});
 	}
 }
-
-
 function buyNow() {
 	buyForm = document.getElementById("buyForm");
 	buyForm.action = "/order/checkOrder";
