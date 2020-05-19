@@ -302,7 +302,6 @@ public class MemberController {
 		request.setAttribute("ErrorMsgKey", errorMsgMap); // 顯示錯誤訊息
 		
 		String password2 = GlobalService.getMD5Endocing(GlobalService.encryptString(password));
-		System.out.println("password" + password2);
 		MemberBean mb = null;
 		// 檢查帳號密碼是否正確
 		try {
@@ -585,16 +584,125 @@ public class MemberController {
 	}
 
 	/* 查詢會員詳細資料(傳入會員id) */
-	@GetMapping("/showManageMemberInfo/{id}")
-	public String showManageMemberInfo(Model model, HttpServletRequest request, @PathVariable("id") Integer id) {
+	@PostMapping("/showManageMemberInfo/{id}")
+	public void showManageMemberInfo(Model model, HttpServletRequest request, @PathVariable("id") Integer id,HttpServletResponse response) throws IOException {
+		
+		response.setContentType("application/json; charset=utf-8");
+		
+		try (PrintWriter out = response.getWriter()) {
 		String cmd = request.getParameter("cmd") == null ? "article" : request.getParameter("cmd");
-		String reportTimes = request.getParameter("reportTimes");
-
-		MemberBean mb = memberService.getMember(id);
+		
+		Map<ArticleBean, Integer> articlesNum = new LinkedHashMap<>();
+		Map<CommentBean, Integer> commentsNum = new LinkedHashMap<>();
+		
+//		MemberBean mb = memberService.getMember(id);
 		if (cmd.equals("article")) {
 			// 查詢文章
 			Map<ArticleBean, Integer> articles = articleService.getPersonArticle(id);
 			// 照value值排序
+			List<Entry<ArticleBean, Integer>> list = new ArrayList<Map.Entry<ArticleBean, Integer>>(
+					articles.entrySet());
+			Collections.sort(list, new Comparator<Map.Entry<ArticleBean, Integer>>() {
+				public int compare(Map.Entry<ArticleBean, Integer> o1, Map.Entry<ArticleBean, Integer> o2) {
+					return (o2.getValue() - o1.getValue());
+				}
+			});
+			for (Map.Entry<ArticleBean, Integer> t : list) {
+				articlesNum.put(t.getKey(), t.getValue());
+			}
+		} else if (cmd.equals("comment")) {
+			// 查詢留言
+			Map<CommentBean, Integer> comments = articleService.getPersonComment(id);
+			// 照value值排序
+			commentsNum = new LinkedHashMap<>();
+			List<Entry<CommentBean, Integer>> list = new ArrayList<Map.Entry<CommentBean, Integer>>(
+					comments.entrySet());
+			Collections.sort(list, new Comparator<Map.Entry<CommentBean, Integer>>() {
+				public int compare(Map.Entry<CommentBean, Integer> o1, Map.Entry<CommentBean, Integer> o2) {
+					return (o2.getValue() - o1.getValue());
+				}
+			});
+			for (Map.Entry<CommentBean, Integer> t : list) {
+				commentsNum.put(t.getKey(), t.getValue());
+			}
+		} else if (cmd.equals("deleteArticle")) {
+			// 查詢檢舉文章
+			Map<ArticleBean, Integer> articles = articleService.getPersonDeleteArticle(id);
+			// 照value值排序
+			List<Entry<ArticleBean, Integer>> list = new ArrayList<Map.Entry<ArticleBean, Integer>>(
+					articles.entrySet());
+			Collections.sort(list, new Comparator<Map.Entry<ArticleBean, Integer>>() {
+				public int compare(Map.Entry<ArticleBean, Integer> o1, Map.Entry<ArticleBean, Integer> o2) {
+					return (o2.getValue() - o1.getValue());
+				}
+			});
+			for (Map.Entry<ArticleBean, Integer> t : list) {
+				articlesNum.put(t.getKey(), t.getValue());
+			}
+		} else if (cmd.equals("deleteComment")) {
+			// 查詢檢舉留言
+			Map<CommentBean, Integer> comments = articleService.getPersonDeleteComment(id);
+			// 照value值排序
+			List<Entry<CommentBean, Integer>> list = new ArrayList<Map.Entry<CommentBean, Integer>>(
+					comments.entrySet());
+			Collections.sort(list, new Comparator<Map.Entry<CommentBean, Integer>>() {
+				public int compare(Map.Entry<CommentBean, Integer> o1, Map.Entry<CommentBean, Integer> o2) {
+					return (o2.getValue() - o1.getValue());
+				}
+			});
+			for (Map.Entry<CommentBean, Integer> t : list) {
+				commentsNum.put(t.getKey(), t.getValue());
+			}
+		}
+		if(cmd.equals("article") || cmd.equals("deleteArticle")) {
+			
+			List<Map<String,Object>> articles = new ArrayList<Map<String, Object>>();
+			for (ArticleBean bean : articlesNum.keySet()) {
+				Map<String, Object> map = new LinkedHashMap<String, Object>();
+				map.put("article", bean);
+				map.put("reportNum", articlesNum.get(bean));
+				articles.add(map);
+			}
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").excludeFieldsWithoutExposeAnnotation().create();
+			out.write(gson.toJson(articles));
+			System.out.println(gson.toJson(articles));
+			out.flush();		
+		} 
+		if(cmd.equals("comment") || cmd.equals("deleteComment")){
+			
+			List<Map<String,Object>> comments = new ArrayList<Map<String, Object>>();
+			for (CommentBean bean : commentsNum.keySet()) {
+				Map<String, Object> map = new LinkedHashMap<String, Object>();
+				map.put("comment", bean);
+				map.put("reportNum", commentsNum.get(bean));
+				comments.add(map);
+			}
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").excludeFieldsWithoutExposeAnnotation().create();
+			out.write(gson.toJson(comments));
+			System.out.println(gson.toJson(comments));
+			out.flush();
+		}
+		
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		
+		
+		
+	}
+	
+	/* 查詢會員詳細資料(傳入會員id) */
+	@GetMapping("/showManageMemberInfo/{id}")
+	public String showManageMemberInfo(Model model, HttpServletRequest request, @PathVariable("id") Integer id) {
+	String cmd = request.getParameter("cmd") == null ? "article" : request.getParameter("cmd");
+	String reportTimes = request.getParameter("reportTimes");
+
+		MemberBean mb = memberService.getMember(id);
+		if (cmd.equals("article")) {
+			
+			Map<ArticleBean, Integer> articles = articleService.getPersonArticle(id);
+			
 			Map<ArticleBean, Integer> articlesNum = new LinkedHashMap<>();
 			List<Entry<ArticleBean, Integer>> list = new ArrayList<Map.Entry<ArticleBean, Integer>>(
 					articles.entrySet());
@@ -607,7 +715,7 @@ public class MemberController {
 				articlesNum.put(t.getKey(), t.getValue());
 			}
 			model.addAttribute("article_map", articlesNum);
-//			model.addAttribute("cmd", cmd);
+			model.addAttribute("cmd", cmd);
 		} else if (cmd.equals("comment")) {
 			// 查詢留言
 			Map<CommentBean, Integer> comments = articleService.getPersonComment(id);
@@ -624,7 +732,7 @@ public class MemberController {
 				commentsNum.put(t.getKey(), t.getValue());
 			}
 			model.addAttribute("comment_map", commentsNum);
-//			model.addAttribute("cmd", cmd);
+			model.addAttribute("cmd", cmd);
 		} else if (cmd.equals("deleteArticle")) {
 			// 查詢檢舉文章
 			Map<ArticleBean, Integer> articles = articleService.getPersonDeleteArticle(id);
@@ -641,7 +749,7 @@ public class MemberController {
 				articlesNum.put(t.getKey(), t.getValue());
 			}
 			model.addAttribute("article_map", articlesNum);
-//			model.addAttribute("cmd", "article");
+			model.addAttribute("cmd", "article");
 		} else if (cmd.equals("deleteComment")) {
 			// 查詢檢舉留言
 			Map<CommentBean, Integer> comments = articleService.getPersonDeleteComment(id);
@@ -658,7 +766,7 @@ public class MemberController {
 				commentsNum.put(t.getKey(), t.getValue());
 			}
 			model.addAttribute("comment_map", commentsNum);
-//			model.addAttribute("cmd", "comment");
+		model.addAttribute("cmd", "comment");
 		}
 		model.addAttribute("id", id);
 		model.addAttribute("mb", mb);
@@ -667,24 +775,33 @@ public class MemberController {
 
 		return "manager/member/memberInfo";
 	}
-
+	
 	/* 封鎖帳號or解除封鎖 */
-	@GetMapping("/changeMemberStatus/{id}")
-	public String changeMemberStatus(HttpServletRequest request, @PathVariable("id") Integer id) {
+	@PostMapping("/changeMemberStatus/{id}")
+	public void changeMemberStatus(HttpServletRequest request, @PathVariable("id") Integer id,HttpServletResponse response) {
+		response.setCharacterEncoding("UTF-8");
 		String memberLock = request.getParameter("memberLock");
-		String reportTimes = request.getParameter("reportTimes");
 
 		MemberBean mb = memberService.getMember(id);
 
 		if (memberLock.equals("封鎖帳號")) {
+			System.out.println("封鎖起來");
 			mb.setStatus("封鎖");
 			memberService.saveMember(mb);
 		} else if (memberLock.equals("解除封鎖")) {
+			System.out.println("解除封鎖起來");
 			mb.setStatus("正常");
 			memberService.saveMember(mb);
 		}
-
-		return "redirect:/member/showManageMemberInfo/{id}?reportTimes=" + reportTimes;
+		
+		try {
+			PrintWriter out = response.getWriter();
+			out.print("");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return;
+		
 	}
 
 }
