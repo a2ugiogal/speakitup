@@ -2,6 +2,7 @@ package com.web.speakitup.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
@@ -30,6 +31,9 @@ import com.web.speakitup.model.ProductFormatBean;
 import com.web.speakitup.model.ShoppingCart;
 import com.web.speakitup.service.OrderService;
 import com.web.speakitup.service.ProductService;
+
+import ecpay.payment.integration.AllInOne;
+import ecpay.payment.integration.domain.AioCheckOutDevide;
 
 @Controller
 @RequestMapping("/order")
@@ -196,7 +200,7 @@ public class OrderController {
 		response.setCharacterEncoding("UTF-8");
 		ShoppingCart sc = (ShoppingCart) session.getAttribute("ShoppingCart");
 		if (sc == null) {
-			try (PrintWriter out = response.getWriter();){
+			try (PrintWriter out = response.getWriter();) {
 				out.print("");
 				out.flush();
 			} catch (IOException e) {
@@ -245,7 +249,7 @@ public class OrderController {
 			String chooseAll = request.getParameter("chooseAll");
 			sc.changeAllChecked(chooseAll);
 		}
-		try (PrintWriter out = response.getWriter();){
+		try (PrintWriter out = response.getWriter();) {
 			out.print("");
 			out.flush();
 		} catch (IOException e) {
@@ -256,7 +260,8 @@ public class OrderController {
 
 	/* 儲存會員的訂單 */
 	@GetMapping("/orderCheck")
-	public String orderCheck(Model model, HttpServletRequest request, HttpSession session) {
+	public String orderCheck(Model model, HttpServletRequest request, HttpServletResponse response,
+			HttpSession session) {
 		// 準備存放錯誤訊息的Map物件
 		Map<String, String> errorMsg = new HashMap<String, String>();
 		request.setAttribute("errorMsg", errorMsg); // 顯示錯誤訊息
@@ -279,6 +284,7 @@ public class OrderController {
 		Integer memberId = mb.getId();
 		String memberName = request.getParameter("name"); // 訂購人姓名 跟資料庫的不一樣
 		Integer totalPrice = cart.getFinalSubtotal();
+		request.setAttribute("totalPrice", totalPrice);
 		String city = request.getParameter("county"); // 訂購人地址
 		String area = request.getParameter("district"); // 訂購人地址
 		String address = request.getParameter("address"); // 訂購人地址
@@ -287,7 +293,7 @@ public class OrderController {
 		Date today = new Date();
 		// 封裝進OrderBean
 		OrderBean ob = new OrderBean(null, memberId, memberName, totalPrice, city + area + address, phone, note, today,
-				null, null, "待出貨", null);
+				null, null, "未付款", null);
 
 		Map<Integer, Map<OrderItemBean, Set<ProductFormatBean>>> content = cart.getContent();
 		Map<Integer, String> finalContent = cart.getCheckedMap();
@@ -321,10 +327,8 @@ public class OrderController {
 		if (!errorMsg.isEmpty()) {
 			return "order/shoppingCart";
 		}
-
 		// 裝入OrderBean
 		ob.setOrderItems(items);
-
 		try {
 			// 儲存OrderBean
 			// 如果是按直接購買=>刪除購物車(假)
@@ -334,8 +338,10 @@ public class OrderController {
 			} else {
 				orderService.persistOrder(ob, cart);
 			}
-//			return "forward:/order/creditCard";
-			return "redirect:/order/orderSuccessPage";
+			OrderBean orderBean = orderService.getOrder(ob.getOrderNo());
+			request.setAttribute("orderBean", orderBean);
+			return "forward:/order/goECPay";
+//			return "redirect:/order/orderSuccessPage";
 		} catch (RuntimeException ex) {
 			ex.printStackTrace();
 			String message = ex.getMessage();
@@ -345,6 +351,69 @@ public class OrderController {
 
 			return "redirect:/";
 		}
+	}
+
+	/* 準備前往綠界 */
+	@GetMapping("/goECPay")
+	public void goECPay(Model model, HttpServletRequest request, HttpServletResponse response, HttpSession session)
+			throws IOException {
+		OrderBean ob = (OrderBean) request.getAttribute("orderBean");
+		// 設定金流
+		AllInOne aio = new AllInOne("");
+		AioCheckOutDevide aioCheck = new AioCheckOutDevide();
+		/* 特店編號 */
+		aioCheck.setMerchantID("2000132");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		sdf.setLenient(false);
+		/* 特店交易時間 */
+		aioCheck.setMerchantTradeDate(sdf.format(new Date()));
+		/* 交易金額 */
+		aioCheck.setTotalAmount(ob.getTotalPrice().toString());
+		/* 交易描述 */
+		aioCheck.setTradeDesc("speakitup");
+		/* 商品名稱 */
+		String itemName = "";
+		for (OrderItemBean oib : ob.getOrderItems()) {
+			itemName += oib.getProductName() + oib.getUnitPrice() + "元x" + oib.getQuantity() + "#";
+		}
+		aioCheck.setItemName(itemName.substring(0, itemName.length() - 1));
+		/* 特店交易編號 */
+		aioCheck.setMerchantTradeNo("testSpeakitup" + ob.getOrderNo());
+		/* 付款完成通知回傳網址 */
+		aioCheck.setReturnURL("https://speakitup.nctu.me/order/returnURL");
+		/* Client端回傳付款結果網址 */
+		aioCheck.setOrderResultURL("https://speakitup.nctu.me");
+		// 輸出畫面
+		PrintWriter out = response.getWriter();
+		response.setContentType("text/html");
+		out.print(aio.aioCheckOut(aioCheck, null));
+	}
+
+	// 綠界回傳資料
+	@PostMapping("/returnURL")
+	public String returnURL(@RequestParam("MerchantTradeNo") String MerchantTradeNo,
+			@RequestParam("RtnCode") int RtnCode, @RequestParam("TradeAmt") int TradeAmt, HttpServletRequest request) {
+		// 交易成功
+		if ((request.getRemoteAddr().equalsIgnoreCase("175.99.72.1")
+				|| request.getRemoteAddr().equalsIgnoreCase("175.99.72.11")
+				|| request.getRemoteAddr().equalsIgnoreCase("175.99.72.24")
+				|| request.getRemoteAddr().equalsIgnoreCase("175.99.72.28")
+				|| request.getRemoteAddr().equalsIgnoreCase("175.99.72.32")) && RtnCode == 1) {
+			return "forward:/order/orderCheck";
+		}
+		// 交易失敗
+		return "redirect:/";
+	}
+
+	/* 確認會員的訂單已付款 */
+	@GetMapping("/orderCheckAgain")
+	public String orderCheckAgain(Model model, HttpServletRequest request, HttpSession session) {
+		String orderIdStr = request.getParameter("orderId");
+		int orderId = Integer.parseInt(orderIdStr);
+		OrderBean ob = orderService.getOrder(orderId);
+		ob.setStatus("待出貨");
+
+		return "forward:/order/orderSuccessPage";
 	}
 
 	/* 前往訂單成功 */

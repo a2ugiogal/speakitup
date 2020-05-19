@@ -386,7 +386,7 @@ public class ProductController {
 				}
 			}
 			// ?
-			model.addAttribute("product", pb);
+//			model.addAttribute("product", pb);
 
 			model.addAttribute("title1", title1);
 			model.addAttribute("content1_set", contentSet1);
@@ -414,6 +414,11 @@ public class ProductController {
 	@PostMapping("/addProduct/{productId}")
 	public String addProduct(Model model, HttpServletRequest request, @ModelAttribute("productBean") ProductBean pb,
 			@PathVariable("productId") Integer productId) {
+		ProductBean mainPb = productService.getProduct(productId);
+		if (mainPb == null) {
+			mainPb = pb;
+			mainPb.setProductId(null);
+		}
 		Integer categoryId = Integer.parseInt(request.getParameter("categoryId").trim());
 		String formatTitle1 = request.getParameter("formatTitle1");
 		Set<String> formatContents1 = new LinkedHashSet<String>();
@@ -437,39 +442,38 @@ public class ProductController {
 			try {
 				byte[] b = productImage.getBytes();
 				Blob blob = new SerialBlob(b);
-				pb.setImage(blob);
-				pb.setFileName(productImage.getOriginalFilename());
+				mainPb.setImage(blob);
+				mainPb.setFileName(productImage.getOriginalFilename());
 			} catch (Exception e) {
 				e.printStackTrace();
 				throw new RuntimeException("檔案上傳發生異常：" + e.getMessage());
 			}
 		}
 		try {
-			pb.setCategory(productService.getCategory(categoryId));
-			pb.setDetail(GlobalService.stringToClob(detail));
+			mainPb.setCategory(productService.getCategory(categoryId));
+			mainPb.setDetail(GlobalService.stringToClob(detail));
 			if (productId != 0) {
 				// 修改商品
 				// 刪除原本規格，新增新的規格
-				productService.deleteProductFormat(pb);
+				productService.deleteProductFormat(mainPb);
 			} else {
 				// 新增商品
 				// 新增銷量
-				pb.setSales(0);
+				mainPb.setSales(0);
 			}
 			int count = 0;
 			Set<ProductFormatBean> productFormats = new LinkedHashSet<>();
 			for (String formatContent1 : formatContents1) {
 				for (String formatContent2 : formatContents2) {
 					ProductFormatBean pfb = new ProductFormatBean(null, formatTitle1, formatContent1, formatTitle2,
-							formatContent2, stocks.get(count), pb);
+							formatContent2, stocks.get(count), mainPb);
 					productFormats.add(pfb);
 					count++;
 				}
 			}
-			pb.setProductFormat(productFormats);
+			mainPb.setProductFormat(productFormats);
 
-			productService.insertProduct(pb);
-
+			productService.insertProduct(mainPb);
 			return "redirect:/product/showProducts";
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -69,6 +69,8 @@ input[type="file"] {
   height: 100%;
   left: 0;
   top: 0;
+  color: #fff;
+  cursor: pointer;
 }
 
 .changeBtR {

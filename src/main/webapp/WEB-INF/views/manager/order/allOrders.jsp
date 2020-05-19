@@ -202,8 +202,8 @@
 							class="col-2 text-center d-flex justify-content-center align-items-center my-2">
 							<c:choose>
 								<c:when test="${entry.shippingDate==null}">
-									<i class="fa fa-plus-circle" style="font-size: 30px;"
-										onclick="checkDate()"></i>
+									<i class="fa fa-plus-circle" style="font-size: 30px;cursor: pointer;"
+										onclick="checkDate('shippingDate',${entry.orderNo},${searchStr})"></i>
 								</c:when>
 								<c:otherwise>
 									<fmt:formatDate value="${entry.shippingDate}"
@@ -215,8 +215,8 @@
 							class="col-2 text-center d-flex justify-content-center align-items-center my-2">
 							<c:choose>
 								<c:when test="${entry.arriveDate==null}">
-									<i class="fa fa-plus-circle" style="font-size: 30px;"
-										onclick="checkDate()"></i>
+									<i class="fa fa-plus-circle" style="font-size: 30px;cursor: pointer;"
+										onclick="checkDate('arriveDate',${entry.orderNo},${searchStr})"></i>
 								</c:when>
 								<c:otherwise>
 									<fmt:formatDate value="${entry.arriveDate}"
@@ -231,7 +231,7 @@
 							class="col-1 m-0 p-0 d-flex justify-content-center align-items-center orderRow"
 							data-toggle="collapse" data-target="#collapse${num.index}"
 							aria-expanded="false" aria-controls="collapse${num.index}"
-							style="background-color: rgba(94, 64, 49, 0.349);">
+							style="background-color: rgba(94, 64, 49, 0.349);cursor: pointer;">
 							<i class="fas fa-angle-down" style="font-size: 30px;"></i>
 						</div>
 					</div>
@@ -412,9 +412,9 @@
 				</div>
 				<div class="modal-footer">
 					<a
-						href="<c:url value='/manager/addOrderDate?cmd=${cmd}&id=${entry.orderNo}&searchStr=${searchStr}'/>"
+						href="<c:url value='/order/addOrderDate?cmd=${cmd}&id=${entry.orderNo}&searchStr=${searchStr}'/>"
 						style="text-decoration: none; color: black;" id="aSend"> <input
-						type="button" class="btn btn-primary" value="確認" />
+						type="button" class="btn" style="background: rgb(136, 116, 116) !important;color: #fff;" value="確認" />
 					</a>
 				</div>
 			</div>
@@ -452,7 +452,7 @@
 				modalBody.innerHTML = "確認訂單編號" + orderNo + "<br>於" + now
 						+ "到貨?";
 			}
-			aSend.href = "<c:url value='/manager/addOrderDate?cmd=" + cmd
+			aSend.href = "<c:url value='/order/addOrderDate?cmd=" + cmd
 					+ "&id=" + orderNo + "&searchStr=" + searchStr + "'/>";
 			$("#checkOrderDateModal").modal("hide");
 		}
