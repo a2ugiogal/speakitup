@@ -65,7 +65,7 @@ function addCartAnimation(){
 
 function buyNow() {
 	buyForm = document.getElementById("buyForm");
-	buyForm.action = "<spring:url value='/order/checkOrder' />";
+	buyForm.action = "/order/checkOrder";
 	buyForm.method = "GET";
 	buyForm.submit();
 }
