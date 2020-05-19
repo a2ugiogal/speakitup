@@ -414,8 +414,11 @@ public class ProductController {
 	@PostMapping("/addProduct/{productId}")
 	public String addProduct(Model model, HttpServletRequest request, @ModelAttribute("productBean") ProductBean pb,
 			@PathVariable("productId") Integer productId) {
-		ProductBean mainPb = productService.getProduct(productId) == null ? pb : productService.getProduct(productId);
-		mainPb.setProductId(null);
+		ProductBean mainPb = productService.getProduct(productId);
+		if (mainPb == null) {
+			mainPb = pb;
+			mainPb.setProductId(null);
+		}
 		Integer categoryId = Integer.parseInt(request.getParameter("categoryId").trim());
 		String formatTitle1 = request.getParameter("formatTitle1");
 		Set<String> formatContents1 = new LinkedHashSet<String>();

@@ -91,4 +91,5 @@
 .productRow:hover {
   background-color: rgba(58, 26, 26, 0.555);
   color: #fff;
+  cursor: pointer !important;
 }

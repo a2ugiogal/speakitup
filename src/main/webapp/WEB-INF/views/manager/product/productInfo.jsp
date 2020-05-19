@@ -138,14 +138,16 @@
 						<div class="m-3 p-4 px-5 contentBox">
 							<div
 								class="form-group row mx-0 d-flex justify-content-center align-items-center text-center">
-								<img class="my-2 border" src="<spring:url value='/product/getProductImage/${productId}' />" id="headPicture"
-									style="width: 250px; height: 250px;" />
+								<img class="my-2 border"
+									src="<spring:url value='/product/getProductImage/${productId}' />"
+									id="headPicture" style="width: 250px; height: 250px;" />
 							</div>
 							<div
 								class="form-group row mx-0 d-flex justify-content-cneter align-items-center text-center">
 								<div id="file">
-									<form:input name="memberMultipartFile" type="file" id="fileSelect"
-										path="productImage" style="visibility: hidden;" />
+									<form:input name="memberMultipartFile" type="file"
+										id="fileSelect" path="productImage"
+										style="visibility: hidden;" />
 									<label for="fileSelect" id="fileLabel"
 										class="d-flex align-items-center justify-content-center rounded">上傳商品圖片</label>
 								</div>
@@ -180,24 +182,39 @@
 								<div class="col-4 p-0">
 									<div class="btn-group-horizontal btn-group-toggle mb-5"
 										data-toggle="buttons">
-										<div class="btn btn-outline-secondary active" id="angel">
+
+										<div
+											<c:choose>
+											<c:when test="${productBean.category.categoryTitle=='天使'}"> class="btn btn-outline-secondary active"</c:when>
+											<c:otherwise> class="btn btn-outline-secondary"</c:otherwise>
+										</c:choose>
+											id="angel">
 											<input type="radio" required="required" value="天使" />天使
 										</div>
-										<div class="btn btn-outline-secondary" id="evil">
+										<div
+											<c:choose>
+											<c:when test="${productBean.category.categoryTitle=='惡魔'}"> class="btn btn-outline-secondary active"</c:when>
+											<c:otherwise> class="btn btn-outline-secondary"</c:otherwise>
+										</c:choose>
+											id="evil">
 											<input type="radio" required="required" value="惡魔" />惡魔
 										</div>
 									</div>
 								</div>
 								<div class="col-4 p-0">
 									<select class="form-control" id="angelCategory"
-										name="categoryId">
+										name="categoryId"
+										<c:if test="${productBean.category.categoryTitle=='惡魔'}"> style="display: none;" disabled</c:if>>
 										<c:forEach var="entry" items="${angel_set}">
-											<option value="${entry.categoryId}">${entry.categoryName}</option>
+											<option value="${entry.categoryId}"
+												<c:if test="${productBean.category.categoryTitle==entry.categoryName}"> select</c:if>>${entry.categoryName}</option>
 										</c:forEach>
 									</select> <select class="form-control" id="evilCategory"
-										style="display: none;" name="categoryId" disabled>
+										name="categoryId"
+										<c:if test="${productBean.category.categoryTitle=='天使'}"> style="display: none;" disabled</c:if>>
 										<c:forEach var="entry" items="${evil_set}">
-											<option value="${entry.categoryId}">${entry.categoryName}</option>
+											<option value="${entry.categoryId}"
+												<c:if test="${productBean.category.categoryTitle==entry.categoryName}"> select</c:if>>${entry.categoryName}</option>
 										</c:forEach>
 									</select>
 								</div>
@@ -211,7 +228,7 @@
 								class="d-flex justify-content-start align-items-center text-center my-2">
 								<h3>規格：</h3>
 								<i class="material-icons"
-									style="font-size: 30px; <c:if test='${productBean.productId!=null}'> display: none;</c:if>"
+									style="font-size: 30px;cursor: pointer; <c:if test='${productBean.productId!=null}'> display: none;</c:if>"
 									id="addProductFormat">add_circle</i>
 							</div>
 
@@ -305,7 +322,7 @@
 															<div
 																class="col-2 d-flex justify-content-center align-items-center text-center">
 																<i class="material-icons deleteProductFormatItem "
-																	style="font-size: 36px; display: none;">remove_circle_outline</i>
+																	style="font-size: 36px; display: none; cursor: pointer;">remove_circle_outline</i>
 															</div>
 														</div>
 													</c:otherwise>
@@ -317,13 +334,13 @@
 									<div
 										class="d-flex justify-content-center align-items-center text-center my-2 addProductFormatItemDiv">
 										<i class="material-icons addProductFormatItem"
-											style="font-size: 30px; <c:if test='${productBean.productId!=null}'> display: none;</c:if>">add_circle</i>
+											style="font-size: 30px; cursor: pointer; <c:if test='${productBean.productId!=null}'> display: none;</c:if>">add_circle</i>
 									</div>
 								</div>
 
 								<div class="col-2">
 									<i class="material-icons deleteProductFomat"
-										style="font-size: 36px; <c:if test='${productBean.productId!=null}'> display: none;</c:if>">remove_circle_outline</i>
+										style="font-size: 36px; cursor: pointer; <c:if test='${productBean.productId!=null}'> display: none;</c:if>">remove_circle_outline</i>
 								</div>
 							</div>
 
@@ -416,7 +433,7 @@
 															<div
 																class="col-2 d-flex justify-content-center align-items-center text-center">
 																<i class="material-icons deleteProductFormatItem"
-																	style="font-size: 36px; display: none;">remove_circle_outline</i>
+																	style="font-size: 36px; display: none; cursor: pointer;">remove_circle_outline</i>
 															</div>
 														</div>
 													</c:otherwise>
@@ -428,13 +445,13 @@
 									<div
 										class="d-flex justify-content-center align-items-center text-center my-2 addProductFormatItemDiv">
 										<i class="material-icons addProductFormatItem"
-											style="font-size: 30px; <c:if test='${productBean.productId!=null}'> display: none;</c:if>">add_circle</i>
+											style="font-size: 30px;cursor: pointer; <c:if test='${productBean.productId!=null}'> display: none;</c:if>">add_circle</i>
 									</div>
 								</div>
 
 								<div class="col-2">
 									<i class="material-icons deleteProductFomat"
-										style="font-size: 36px; <c:if test='${productBean.productId!=null}'> display: none;</c:if>">remove_circle_outline</i>
+										style="font-size: 36px;cursor: pointer; <c:if test='${productBean.productId!=null}'> display: none;</c:if>">remove_circle_outline</i>
 								</div>
 							</div>
 
@@ -443,22 +460,24 @@
 
 							<div
 								class="d-flex justify-content-center align-items-center text-center my-2">
-								
-								
-<%-- 								<c:choose> --%>
-<%-- 									<c:when test="${productBean==null}"> --%>
-										<button type="button" class="btn btn-primary"
-											id="checkFormatBtn" <c:if test="${productBean.productId!=null}"> style="display: none;" </c:if>>確認規格</button>
-										<button type="button" class="btn btn-primary"
-											id="changeFormatBtn" <c:if test="${productBean.productId==null}"> style="display: none;" </c:if>>修改規格</button>
-<%-- 									</c:when> --%>
-<%-- 									<c:otherwise> --%>
-<!-- 										<button type="button" class="btn btn-primary" -->
-<!-- 											id="checkFormatBtn" style="display: none;">確認規格</button> -->
-<!-- 										<button type="button" class="btn btn-primary" -->
-<!-- 											id="changeFormatBtn">修改規格</button> -->
-<%-- 									</c:otherwise> --%>
-<%-- 								</c:choose> --%>
+
+
+								<%-- 								<c:choose> --%>
+								<%-- 									<c:when test="${productBean==null}"> --%>
+								<button type="button" class="btn btn-primary"
+									id="checkFormatBtn"
+									<c:if test="${productBean.productId!=null}"> style="display: none;" </c:if>>確認規格</button>
+								<button type="button" class="btn btn-primary"
+									id="changeFormatBtn"
+									<c:if test="${productBean.productId==null}"> style="display: none;" </c:if>>修改規格</button>
+								<%-- 									</c:when> --%>
+								<%-- 									<c:otherwise> --%>
+								<!-- 										<button type="button" class="btn btn-primary" -->
+								<!-- 											id="checkFormatBtn" style="display: none;">確認規格</button> -->
+								<!-- 										<button type="button" class="btn btn-primary" -->
+								<!-- 											id="changeFormatBtn">修改規格</button> -->
+								<%-- 									</c:otherwise> --%>
+								<%-- 								</c:choose> --%>
 							</div>
 						</div>
 					</div>
@@ -509,24 +528,24 @@
 						<h3>產品介紹：</h3>
 					</div>
 					<div class="row m-0 bor mb-3">
-						<textarea class="py-2 px-3" name="detailStr" rows="10" style="width: 100%; resize: none;"
-							required="required">${detail}</textarea>
+						<textarea class="py-2 px-3" name="detailStr" rows="10"
+							style="width: 100%; resize: none;" required="required">${detail}</textarea>
 					</div>
 				</div>
 
 				<div class="text-center">
-				
-<%-- 					<c:choose> --%>
-<%-- 						<c:when test="${productBean.productId==null}"> --%>
-							<input class="btn btn-primary mt-3" type="submit" id="submitBtn"
-								<c:if test="${productBean.productId==null}">disabled="disabled"</c:if>
-								value="確認" />
-<%-- 						</c:when> --%>
-<%-- 						<c:otherwise> --%>
-<!-- 							<input class="btn btn-primary mt-3" type="submit" id="submitBtn" -->
-<!-- 								value="確認" /> -->
-<%-- 						</c:otherwise> --%>
-<%-- 					</c:choose> --%>
+
+					<%-- 					<c:choose> --%>
+					<%-- 						<c:when test="${productBean.productId==null}"> --%>
+					<input class="btn btn-primary mt-3" type="submit" id="submitBtn"
+						<c:if test="${productBean.productId==null}">disabled="disabled"</c:if>
+						value="確認" />
+					<%-- 						</c:when> --%>
+					<%-- 						<c:otherwise> --%>
+					<!-- 							<input class="btn btn-primary mt-3" type="submit" id="submitBtn" -->
+					<!-- 								value="確認" /> -->
+					<%-- 						</c:otherwise> --%>
+					<%-- 					</c:choose> --%>
 				</div>
 			</form:form>
 		</div>
@@ -640,8 +659,9 @@
 					</h6>
 				</div>
 				<div class="modal-footer">
-					<input type="button" class="btn btn-primary" value="仍要修改"
-						id="checkChangeFormat" />
+					<input type="button" class="btn"
+						style="background: rgb(136, 116, 116) !important; color: #fff;"
+						value="仍要修改" id="checkChangeFormat" />
 				</div>
 			</div>
 		</div>
