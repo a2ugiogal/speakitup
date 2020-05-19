@@ -151,16 +151,17 @@
 						<input type="hidden" id="memberId" value="${mb.id}">
 						<c:choose>
 							<c:when test="${mb.status=='正常'}">
-								<a
-									href="<spring:url value='/member/changeMemberStatus/${id}?memberLock=封鎖帳號&reportTimes=${reportTimes}'/>"
-									style="">
+<!-- 								<a -->
+<%-- 									href="<spring:url value='/member/changeMemberStatus/${id}?memberLock=封鎖帳號&reportTimes=${reportTimes}'/>" --%>
+<!-- 									style=""> -->
 									<button class="Reportdeletebutton">封鎖帳號</button>
-								</a>
+<!-- 								</a> -->
 							</c:when>
 							<c:otherwise>
-								<a
-									href="<spring:url value='/member/changeMemberStatus/${id}?memberLock=解除封鎖&reportTimes=${reportTimes}'/>"><button
-										class="Reportdeletebutton">解除封鎖</button></a>
+<!-- 								<a -->
+<%-- <%-- 									href="<spring:url value='/member/changeMemberStatus/${id}?memberLock=解除封鎖&reportTimes=${reportTimes}'/>"> --%>
+								<button	class="Reportdeletebutton">解除封鎖</button>
+<!-- 										</a> -->
 							</c:otherwise>
 						</c:choose>
 					</div>

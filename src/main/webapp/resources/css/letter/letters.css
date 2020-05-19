@@ -38,7 +38,7 @@ body{
 #showMyLetters{
     position: relative;
     width: 75%;
-    display: grid;
+    display:inline;
     grid-template-columns: repeat(auto-fill,minmax(400px,1fr));
     grid-template-rows: auto;
     gap: 0 40px;
@@ -626,4 +626,42 @@ font-size: 1.1rem;
 .devilLabel input:checked ~ .btn {
     left: 50%;
   
+}
+
+/*沒信件時的文字*/
+
+.noLettersDiv{
+	display:flex;
+	flex-direction:row;
+	justify-content: center;
+    align-items: center;
+   
+}
+
+.ml9 {
+  position: relative;
+  font-weight: 200;
+  font-size: 4em;
+  
+}
+
+.ml9 .text-wrapper {
+  position: relative;
+  display: inline-block;
+  padding-top: 0.2em;
+  padding-right: 0.05em;
+  padding-bottom: 0.1em;
+  overflow: hidden;
+}
+
+.ml9 .letter {
+  transform-origin: 50% 100%;
+  display: inline-block;
+  line-height: 1em;
+  color: black;
+   
+}
+
+.text-wrapper a{
+    text-decoration: none;
 }

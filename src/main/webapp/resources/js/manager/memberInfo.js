@@ -74,11 +74,10 @@ function getMemberInfoAjax(cmd){
 	
 	var id = $('#memberId').val();
 	
-	
-	if(cmd == "comment"){
+	if(cmd == "comment"|| cmd == "deleteComment"){
 		xhr = new XMLHttpRequest(); 
 		$.ajax({
-      		url : "/member/showManageMemberInfo/" + id + "?cmd=comment",
+				url : "/member/showManageMemberInfo/" + id + "?cmd=" + cmd,
       		type : 'POST',
       		success : function(response) {
       			$('#listNo').text("留言編號");
@@ -86,6 +85,7 @@ function getMemberInfoAjax(cmd){
       			let memberInfo_list = $('#memberInfo_list');
       			var inner = "";
       			 $.each(list, function (i, map){
+      				 
       				inner+= `<a href="/article/showReportInfo/${map.comment.commentId}/comment" style="text-decoration: none; color: black;">`;
           			inner+= `<div class="row">`;
           			inner+= `<div class="col-3 d-flex justify-content-center align-items-center my-2">${map.comment.commentId}</div>`;
@@ -95,74 +95,40 @@ function getMemberInfoAjax(cmd){
         			inner+= `<div class="col-3 d-flex justify-content-center align-items-center my-2">${map.reportNum}</div>`;
         			inner+=`</div></a>`
       			 })
-      			memberInfo_list.html(inner)
-      		},
-		
-      	});
-	
-	}else if(cmd == "deleteArticle"){
-		xhr = new XMLHttpRequest(); 
-		$.ajax({
-      		url : "/member/showManageMemberInfo/" + id + "?cmd=deleteArticle",
-      		type : 'POST',
-      		success : function(response) {
-      			$('#listNo').text("文章編號");
-      			var list = response;
-      			let memberInfo_list = $('#memberInfo_list');
-      			var inner = "";
-      			 $.each(list, function (i, map){
-      				 
-      				inner+= `<a href="/article/showReportInfo/${map.article.articleId}/deleteArticle" style="text-decoration: none; color: black;">`;
-      				inner+= `<div class="row">`;
-      				inner+= `<div class="col-3 d-flex justify-content-center align-items-center my-2">${map.article.articleId}</div>`;
-      				inner+= `<div class="col-3 d-flex justify-content-center align-items-center my-2">${map.article.publishTime}`;
-      				inner+=`</div>`;
-    				inner+= `<div class="col-3 d-flex justify-content-center align-items-center my-2">${map.article.title}</div>`;
-    				inner+= `<div　class="col-3 d-flex justify-content-center align-items-center my-2">${map.reportNum}</div>`;
-    				inner+=`</div></a>`;
-
-      			 })
-      			 memberInfo_list.html(inner)
-      		},
-		
-      	});
-		
-	}else if(cmd == "deleteComment"){
-		xhr = new XMLHttpRequest(); 
-		$.ajax({
-      		url : "/member/showManageMemberInfo/" + id + "?cmd=deleteComment",
-      		type : 'POST',
-      		success : function(response) {
-      			$('#listNo').text("留言編號");
+      			memberInfo_list.html(inner);
       		}
 		
       	});
-	}if(cmd == "article"){
+	
+	}
+	if(cmd == "article" || cmd == "deleteArticle"){
 		xhr = new XMLHttpRequest(); 
 		$.ajax({
-      		url : "/member/showManageMemberInfo/" + id + "?cmd=article",
-      		type : 'POST',
-      		success : function(response) {
-      			$('#listNo').text("文章編號");
-      			var list = response;
-      			let memberInfo_list = $('#memberInfo_list');
-      			var inner = "";
-      			 $.each(list, function (i, map){
-      				 
-      				inner+= `<a href="/article/showReportInfo/${map.article.articleId}/article" style="text-decoration: none; color: black;">`;
-      				inner+= `<div class="row">`;
-      				inner+= `<div class="col-3 d-flex justify-content-center align-items-center my-2">${map.article.articleId}</div>`;
-      				inner+= `<div class="col-3 d-flex justify-content-center align-items-center my-2">`;
-      				inner+=`<fmt:formatDate value="${map.article.publishTime}" pattern="yyyy-MM-dd HH:mm" />`;
-      				inner+=`</div>`;
-    				inner+= `<div class="col-3 d-flex justify-content-center align-items-center my-2">${map.article.title}</div>`;
-    				inner+= `<div　class="col-3 d-flex justify-content-center align-items-center my-2">${map.reportNum}</div>`;
-    				inner+=`</div></a>`;
-
-      			 })
-      			 memberInfo_list.html(inner)
-      		},
+				url : "/member/showManageMemberInfo/" + id + "?cmd=" + cmd,
+				type : 'POST',
+				success : function(response) {
+					
+	      			$('#listNo').text("文章編號");
+	      			var list = response;
+	      			let memberInfo_list = $('#memberInfo_list');
+	      			var inner = "";
+	      			 $.each(list, function (i, map){
+	      				 
+	      				inner+= `<a href="/article/showReportInfo/${map.article.articleId}/article" style="text-decoration: none; color: black;">`;
+	      				inner+= `<div class="row">`;
+	      				inner+= `<div class="col-3 d-flex justify-content-center align-items-center my-2">${map.article.articleId}</div>`;
+	      				inner+= `<div class="col-3 d-flex justify-content-center align-items-center my-2">${map.article.publishTime}`;
+	      				inner+=`</div>`;
+	    				inner+= `<div class="col-3 d-flex justify-content-center align-items-center my-2">${map.article.title}</div>`;
+	    				inner+= `<div　class="col-3 d-flex justify-content-center align-items-center my-2">${map.reportNum}</div>`;
+	    				inner+=`</div></a>`;
+	
+	      			 })
+	      			 memberInfo_list.html(inner);
+      		}
 		
       	});
+		
 	}
 }
+

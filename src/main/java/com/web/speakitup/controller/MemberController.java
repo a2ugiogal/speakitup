@@ -665,7 +665,6 @@ public class MemberController {
 			}
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").excludeFieldsWithoutExposeAnnotation().create();
 			out.write(gson.toJson(articles));
-			System.out.println(gson.toJson(articles));
 			out.flush();		
 		} 
 		if(cmd.equals("comment") || cmd.equals("deleteComment")){
@@ -679,7 +678,6 @@ public class MemberController {
 			}
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").excludeFieldsWithoutExposeAnnotation().create();
 			out.write(gson.toJson(comments));
-			System.out.println(gson.toJson(comments));
 			out.flush();
 		}
 		
@@ -785,11 +783,9 @@ public class MemberController {
 		MemberBean mb = memberService.getMember(id);
 
 		if (memberLock.equals("封鎖帳號")) {
-			System.out.println("封鎖起來");
 			mb.setStatus("封鎖");
 			memberService.saveMember(mb);
 		} else if (memberLock.equals("解除封鎖")) {
-			System.out.println("解除封鎖起來");
 			mb.setStatus("正常");
 			memberService.saveMember(mb);
 		}

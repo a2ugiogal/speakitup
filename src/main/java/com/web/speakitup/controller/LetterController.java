@@ -253,8 +253,11 @@ public class LetterController {
 		//取得已完成的信件(有寄信內容也有回信內容)
 		List<LetterBean> letters = letterService.getAllLettersByMemberSend(memberId, GlobalService.LETTER_STATUS_DONE,
 				letterCategory);
-		//並交給jsp
-		model.addAttribute("letters", letters);
+		if(letters.size() == 0) {
+			model.addAttribute("noLetters", "noLetters");
+		}else {
+			model.addAttribute("letters", letters);
+		}
 		model.addAttribute("letterCategory", letterCategory);
 		return "driftLetter/letters";
 	}
@@ -279,9 +282,15 @@ public class LetterController {
 				letterCategory);
 		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 		try (PrintWriter out = response.getWriter()) {
-			System.out.println(gson.toJson(letters));
-			out.write(gson.toJson(letters));
-			out.flush();
+			if(letters.size() == 0) {
+				out.write("noLetters");
+				out.flush();
+			}else {
+				System.out.println(gson.toJson(letters));
+				out.write(gson.toJson(letters));
+				out.flush();
+				
+			}
 			
 		}
 	}

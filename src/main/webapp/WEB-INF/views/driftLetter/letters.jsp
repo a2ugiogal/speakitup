@@ -127,6 +127,17 @@
 	
 	<div id="showMyLetters" class="mainBox animated fadeIn">
 			<c:if test="${letterCategory == '天使'}">
+				<c:if test="${not empty noLetters}" >
+				<div class="noLettersDiv">
+					<div>
+					 <h1 class="ml9">
+        				<span class="text-wrapper">
+            				<a href="<spring:url value='/letter/letterHome' />"><span class="letters">目前沒有信件，點此前往寄信</span></a>
+        				</span>
+    				</h1>
+    				</div>
+    			</div>
+				</c:if>
 					<c:forEach var='letters' items='${letters}' varStatus="letterNo">
 						<!--1-->
 						<div class="letterBox">
@@ -271,6 +282,22 @@
 <!-- 		</div> -->
 <!-- 	</div> -->
 	
+	<c:if test="${not empty noLetters}" >
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+    <script>
+        // Wrap every letter in a span
+        var textWrapper = document.querySelector('.ml9 .letters');
+        textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+        anime({
+            targets: '.ml9 .letter',
+            scale: [0, 1],
+            duration: 1500,
+            elasticity: 600,
+            duration: 1000,
+            delay: (el, i) =>45 * (i + 1)
+        })
+    </script>
+	</c:if>
 	
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"
 		integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
@@ -284,6 +311,6 @@
 		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
 		crossorigin="anonymous"></script>
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
-	<script src="<spring:url value='/js/letter/letters.js' /> "></script>
+	<script src="<spring:url value='/js/letter/letters.js' /> " ></script>
 </body>
 </html>
