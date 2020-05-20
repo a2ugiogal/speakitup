@@ -15,6 +15,24 @@
   
 <title>歡迎來到漂流瓶專區</title>
 </head>
+<c:choose>
+	<c:when test="${not empty noLettersDevil}">
+		<script>
+			alert("目前沒有惡魔信件可以回!試試看天使信件ㄅ")
+		</script>
+		<%
+			session.removeAttribute("noLettersDevil");
+		%>
+	</c:when>
+	<c:when test="${not empty noLettersAngel}">
+		<script>
+			alert("目前沒有天使信件可以回!試試看惡魔信件ㄅ")
+		</script>
+		<%
+			session.removeAttribute("noLettersAngel");
+		%>
+	</c:when>
+</c:choose>
 <body>
 <!-- =======================導覽列================= -->
 	<nav class="navbar navbar-expand-lg navbar-light fixed-top p-0"
@@ -128,7 +146,6 @@
         <div class="intro-container">
                 <div>					
                 <div class="formTop">	
-                <img  class="letterImg" src="<spring:url value='/image/letter/undraw_blog_anyj.svg' /> ">
                     <h1>漂流信專區</h1>
                 </div>
                 <ul>
