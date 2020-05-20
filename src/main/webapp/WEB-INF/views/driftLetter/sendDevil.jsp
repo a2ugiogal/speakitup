@@ -22,7 +22,6 @@
 	<link rel="stylesheet" href="<spring:url value='/css/letter/snowflake.css' /> ">
 <link rel="stylesheet" href="<spring:url value='/css/letter/sendDevil.css' /> ">
 <link rel="stylesheet" href="<spring:url value='/css/letter/nav.css' /> ">
-    <script src="<spring:url value='/js/letter/forSend.js' /> "></script>
 <title>寄個惡魔信</title>
 </head>
 <body>
@@ -135,7 +134,7 @@
                 <!-- <h2>信件主題:天使</h2> -->
                 <form action ="<spring:url value='/letter/sendDevil' />" method="POST" id="letterForm">
                     <div class="letterInput">
-                        <input type="text" name="title" required="">
+                        <input type="text" name="title" required="" autocomplete="off">
                         <label>信件標題</label>
                         <span></span>
                     </div>

@@ -120,7 +120,8 @@ public class MemberController {
 	/* 存入會員資料 */
 	@PostMapping("/register")
 	public String addMember(@ModelAttribute("memberBean") MemberBean mb, BindingResult bindingResult,
-			HttpServletRequest request, HttpServletResponse response, RedirectAttributes rad,HttpSession session,Model model) {
+			HttpServletRequest request, HttpServletResponse response, RedirectAttributes rad, HttpSession session,
+			Model model) {
 
 		new RegisterValidator(memberService).validate(mb, bindingResult);
 
@@ -180,7 +181,7 @@ public class MemberController {
 			// 寄信
 			String subject = null;
 			StringBuilder content = new StringBuilder();
-			String[] memberEmail = { mb.getEmail() };
+			String memberEmail = mb.getEmail();
 			subject = "歡迎你加入要抒啦的會員";
 			content.setLength(0);
 			content.append("<p>" + "請點選以下連結" + "</p>" + "<br>" + "<a href='" + GlobalService.DOMAIN_PATTERN
@@ -251,7 +252,7 @@ public class MemberController {
 			if (mb.getStatus().trim().equals("未驗證")) {
 				mb.setStatus("正常");
 				memberService.updateMember(mb);
-				
+
 				session.setAttribute("LoginOK", mb);
 			}
 
@@ -263,21 +264,61 @@ public class MemberController {
 		return "redirect:/";
 	}
 
+	// 聯絡我們
+	@PostMapping("/contactUs")
+	public String contactUs(@RequestParam("name") String name, @RequestParam("email") String email,
+			@RequestParam("guestSubject") String guestSubject, @RequestParam("message") String message,
+			HttpSession session) {
+
+		System.out.println("name" + name);
+		System.out.println("email" + email);
+		System.out.println("guestSubject" + guestSubject);
+		System.out.println("message" + message);
+
+		// 寄信給官方
+		StringBuilder contentToUs = new StringBuilder();
+		contentToUs.setLength(0);
+		contentToUs
+				.append("<p>" + message + "</p>" + "<br>" + "<p>" + "Letter from " + name + "email: " + email + "</p>");
+		Thread sendEmailToUs = new SendEmail(GlobalService.NOREPLY_EMAIL, guestSubject.toString(),
+				contentToUs.toString(), "");
+		sendEmailToUs.start();
+
+		// 寄信回去
+		StringBuilder content = new StringBuilder();
+		String subject = "要抒啦謝謝你的回覆";
+		content.setLength(0);
+		content.append("<p>" + name + " 感謝你給予我們回饋，我們會盡快派專人與你聯繫 😀" + "</p>" + "<br>" + "<a href='"
+				+ GlobalService.DOMAIN_PATTERN_SINGLE + "'>點我回要抒啦首頁</a>" + "<br>");
+		Thread sendEmail = new SendEmail(email, subject, content.toString(), "");
+		sendEmail.start();
+
+		session.setAttribute("sendSuccess", "寄信成功");
+		return "redirect:/aboutUs/contact";
+	}
+
 	// ==================非管理員(登入)===================
 
 	/* 前往登入 */
 	@GetMapping("/login")
 	public String loginForm(HttpSession session, HttpServletRequest request) {
+
+		
 		if (request.getAttribute("loginFilter") == null) {
 			session.removeAttribute("target");
 		}
-
-		session.setAttribute("target", request.getParameter("target"));
-
+		String target = request.getParameter("target");
+		session.setAttribute("target", target);
+		
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
 		if (mb != null) {
+			
+			if(target.equals("/letter/letterHome")) {
+				return "redirect:" + target;
+			}
 			return "redirect:/";
 		}
+		
 		return "login/login";
 	}
 
@@ -300,7 +341,7 @@ public class MemberController {
 		// 準備存放錯誤訊息的Map物件
 		Map<String, String> errorMsgMap = new HashMap<String, String>();
 		request.setAttribute("ErrorMsgKey", errorMsgMap); // 顯示錯誤訊息
-		
+
 		String password2 = GlobalService.getMD5Endocing(GlobalService.encryptString(password));
 		MemberBean mb = null;
 		// 檢查帳號密碼是否正確
@@ -387,7 +428,7 @@ public class MemberController {
 	public String findPassword(HttpServletRequest request) {
 		String memberEmailStr = request.getParameter("email");
 		if (memberService.emailExists(memberEmailStr) == true) {
-			String[] memberEmail = { memberEmailStr };
+			String memberEmail = memberEmailStr;
 			String authToken = GlobalService.getMD5Endocing(GlobalService.encryptString(memberEmailStr));
 			String subject = null;
 			StringBuilder content = new StringBuilder();
@@ -461,11 +502,11 @@ public class MemberController {
 
 	/* 修改會員資料 */
 	@PostMapping("/personPage")
-	public void updateMember(Model model, HttpServletRequest request, HttpSession session,
-			HttpServletResponse response) throws IOException {
+	public void updateMember(Model model, HttpServletRequest request, HttpSession session, HttpServletResponse response)
+			throws IOException {
 		response.setContentType("application/json; charset=utf-8");
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-		
+
 		String cancel = multipartRequest.getParameter("cancel");
 		MemberBean oldmb = (MemberBean) session.getAttribute("LoginOK");
 		// 如果沒有取消的話代表新增 就去抓資料
@@ -585,122 +626,122 @@ public class MemberController {
 
 	/* 查詢會員詳細資料(傳入會員id) */
 	@PostMapping("/showManageMemberInfo/{id}")
-	public void showManageMemberInfo(Model model, HttpServletRequest request, @PathVariable("id") Integer id,HttpServletResponse response) throws IOException {
-		
+	public void showManageMemberInfo(Model model, HttpServletRequest request, @PathVariable("id") Integer id,
+			HttpServletResponse response) throws IOException {
+
 		response.setContentType("application/json; charset=utf-8");
-		
+
 		try (PrintWriter out = response.getWriter()) {
-		String cmd = request.getParameter("cmd") == null ? "article" : request.getParameter("cmd");
-		
-		Map<ArticleBean, Integer> articlesNum = new LinkedHashMap<>();
-		Map<CommentBean, Integer> commentsNum = new LinkedHashMap<>();
-		
+			String cmd = request.getParameter("cmd") == null ? "article" : request.getParameter("cmd");
+
+			Map<ArticleBean, Integer> articlesNum = new LinkedHashMap<>();
+			Map<CommentBean, Integer> commentsNum = new LinkedHashMap<>();
+
 //		MemberBean mb = memberService.getMember(id);
-		if (cmd.equals("article")) {
-			// 查詢文章
-			Map<ArticleBean, Integer> articles = articleService.getPersonArticle(id);
-			// 照value值排序
-			List<Entry<ArticleBean, Integer>> list = new ArrayList<Map.Entry<ArticleBean, Integer>>(
-					articles.entrySet());
-			Collections.sort(list, new Comparator<Map.Entry<ArticleBean, Integer>>() {
-				public int compare(Map.Entry<ArticleBean, Integer> o1, Map.Entry<ArticleBean, Integer> o2) {
-					return (o2.getValue() - o1.getValue());
+			if (cmd.equals("article")) {
+				// 查詢文章
+				Map<ArticleBean, Integer> articles = articleService.getPersonArticle(id);
+				// 照value值排序
+				List<Entry<ArticleBean, Integer>> list = new ArrayList<Map.Entry<ArticleBean, Integer>>(
+						articles.entrySet());
+				Collections.sort(list, new Comparator<Map.Entry<ArticleBean, Integer>>() {
+					public int compare(Map.Entry<ArticleBean, Integer> o1, Map.Entry<ArticleBean, Integer> o2) {
+						return (o2.getValue() - o1.getValue());
+					}
+				});
+				for (Map.Entry<ArticleBean, Integer> t : list) {
+					articlesNum.put(t.getKey(), t.getValue());
 				}
-			});
-			for (Map.Entry<ArticleBean, Integer> t : list) {
-				articlesNum.put(t.getKey(), t.getValue());
-			}
-		} else if (cmd.equals("comment")) {
-			// 查詢留言
-			Map<CommentBean, Integer> comments = articleService.getPersonComment(id);
-			// 照value值排序
-			commentsNum = new LinkedHashMap<>();
-			List<Entry<CommentBean, Integer>> list = new ArrayList<Map.Entry<CommentBean, Integer>>(
-					comments.entrySet());
-			Collections.sort(list, new Comparator<Map.Entry<CommentBean, Integer>>() {
-				public int compare(Map.Entry<CommentBean, Integer> o1, Map.Entry<CommentBean, Integer> o2) {
-					return (o2.getValue() - o1.getValue());
+			} else if (cmd.equals("comment")) {
+				// 查詢留言
+				Map<CommentBean, Integer> comments = articleService.getPersonComment(id);
+				// 照value值排序
+				commentsNum = new LinkedHashMap<>();
+				List<Entry<CommentBean, Integer>> list = new ArrayList<Map.Entry<CommentBean, Integer>>(
+						comments.entrySet());
+				Collections.sort(list, new Comparator<Map.Entry<CommentBean, Integer>>() {
+					public int compare(Map.Entry<CommentBean, Integer> o1, Map.Entry<CommentBean, Integer> o2) {
+						return (o2.getValue() - o1.getValue());
+					}
+				});
+				for (Map.Entry<CommentBean, Integer> t : list) {
+					commentsNum.put(t.getKey(), t.getValue());
 				}
-			});
-			for (Map.Entry<CommentBean, Integer> t : list) {
-				commentsNum.put(t.getKey(), t.getValue());
-			}
-		} else if (cmd.equals("deleteArticle")) {
-			// 查詢檢舉文章
-			Map<ArticleBean, Integer> articles = articleService.getPersonDeleteArticle(id);
-			// 照value值排序
-			List<Entry<ArticleBean, Integer>> list = new ArrayList<Map.Entry<ArticleBean, Integer>>(
-					articles.entrySet());
-			Collections.sort(list, new Comparator<Map.Entry<ArticleBean, Integer>>() {
-				public int compare(Map.Entry<ArticleBean, Integer> o1, Map.Entry<ArticleBean, Integer> o2) {
-					return (o2.getValue() - o1.getValue());
+			} else if (cmd.equals("deleteArticle")) {
+				// 查詢檢舉文章
+				Map<ArticleBean, Integer> articles = articleService.getPersonDeleteArticle(id);
+				// 照value值排序
+				List<Entry<ArticleBean, Integer>> list = new ArrayList<Map.Entry<ArticleBean, Integer>>(
+						articles.entrySet());
+				Collections.sort(list, new Comparator<Map.Entry<ArticleBean, Integer>>() {
+					public int compare(Map.Entry<ArticleBean, Integer> o1, Map.Entry<ArticleBean, Integer> o2) {
+						return (o2.getValue() - o1.getValue());
+					}
+				});
+				for (Map.Entry<ArticleBean, Integer> t : list) {
+					articlesNum.put(t.getKey(), t.getValue());
 				}
-			});
-			for (Map.Entry<ArticleBean, Integer> t : list) {
-				articlesNum.put(t.getKey(), t.getValue());
-			}
-		} else if (cmd.equals("deleteComment")) {
-			// 查詢檢舉留言
-			Map<CommentBean, Integer> comments = articleService.getPersonDeleteComment(id);
-			// 照value值排序
-			List<Entry<CommentBean, Integer>> list = new ArrayList<Map.Entry<CommentBean, Integer>>(
-					comments.entrySet());
-			Collections.sort(list, new Comparator<Map.Entry<CommentBean, Integer>>() {
-				public int compare(Map.Entry<CommentBean, Integer> o1, Map.Entry<CommentBean, Integer> o2) {
-					return (o2.getValue() - o1.getValue());
+			} else if (cmd.equals("deleteComment")) {
+				// 查詢檢舉留言
+				Map<CommentBean, Integer> comments = articleService.getPersonDeleteComment(id);
+				// 照value值排序
+				List<Entry<CommentBean, Integer>> list = new ArrayList<Map.Entry<CommentBean, Integer>>(
+						comments.entrySet());
+				Collections.sort(list, new Comparator<Map.Entry<CommentBean, Integer>>() {
+					public int compare(Map.Entry<CommentBean, Integer> o1, Map.Entry<CommentBean, Integer> o2) {
+						return (o2.getValue() - o1.getValue());
+					}
+				});
+				for (Map.Entry<CommentBean, Integer> t : list) {
+					commentsNum.put(t.getKey(), t.getValue());
 				}
-			});
-			for (Map.Entry<CommentBean, Integer> t : list) {
-				commentsNum.put(t.getKey(), t.getValue());
 			}
-		}
-		if(cmd.equals("article") || cmd.equals("deleteArticle")) {
-			
-			List<Map<String,Object>> articles = new ArrayList<Map<String, Object>>();
-			for (ArticleBean bean : articlesNum.keySet()) {
-				Map<String, Object> map = new LinkedHashMap<String, Object>();
-				map.put("article", bean);
-				map.put("reportNum", articlesNum.get(bean));
-				articles.add(map);
+			if (cmd.equals("article") || cmd.equals("deleteArticle")) {
+
+				List<Map<String, Object>> articles = new ArrayList<Map<String, Object>>();
+				for (ArticleBean bean : articlesNum.keySet()) {
+					Map<String, Object> map = new LinkedHashMap<String, Object>();
+					map.put("article", bean);
+					map.put("reportNum", articlesNum.get(bean));
+					articles.add(map);
+				}
+				Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").excludeFieldsWithoutExposeAnnotation()
+						.create();
+				out.write(gson.toJson(articles));
+				out.flush();
 			}
-			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").excludeFieldsWithoutExposeAnnotation().create();
-			out.write(gson.toJson(articles));
-			out.flush();		
-		} 
-		if(cmd.equals("comment") || cmd.equals("deleteComment")){
-			
-			List<Map<String,Object>> comments = new ArrayList<Map<String, Object>>();
-			for (CommentBean bean : commentsNum.keySet()) {
-				Map<String, Object> map = new LinkedHashMap<String, Object>();
-				map.put("comment", bean);
-				map.put("reportNum", commentsNum.get(bean));
-				comments.add(map);
+			if (cmd.equals("comment") || cmd.equals("deleteComment")) {
+
+				List<Map<String, Object>> comments = new ArrayList<Map<String, Object>>();
+				for (CommentBean bean : commentsNum.keySet()) {
+					Map<String, Object> map = new LinkedHashMap<String, Object>();
+					map.put("comment", bean);
+					map.put("reportNum", commentsNum.get(bean));
+					comments.add(map);
+				}
+				Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").excludeFieldsWithoutExposeAnnotation()
+						.create();
+				out.write(gson.toJson(comments));
+				out.flush();
 			}
-			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").excludeFieldsWithoutExposeAnnotation().create();
-			out.write(gson.toJson(comments));
-			out.flush();
-		}
-		
-		}catch (IOException e) {
+
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		
-		
-		
 	}
-	
+
 	/* 查詢會員詳細資料(傳入會員id) */
 	@GetMapping("/showManageMemberInfo/{id}")
 	public String showManageMemberInfo(Model model, HttpServletRequest request, @PathVariable("id") Integer id) {
-	String cmd = request.getParameter("cmd") == null ? "article" : request.getParameter("cmd");
-	String reportTimes = request.getParameter("reportTimes");
+		String cmd = request.getParameter("cmd") == null ? "article" : request.getParameter("cmd");
+		String reportTimes = request.getParameter("reportTimes");
 
 		MemberBean mb = memberService.getMember(id);
 		if (cmd.equals("article")) {
-			
+
 			Map<ArticleBean, Integer> articles = articleService.getPersonArticle(id);
-			
+
 			Map<ArticleBean, Integer> articlesNum = new LinkedHashMap<>();
 			List<Entry<ArticleBean, Integer>> list = new ArrayList<Map.Entry<ArticleBean, Integer>>(
 					articles.entrySet());
@@ -764,7 +805,7 @@ public class MemberController {
 				commentsNum.put(t.getKey(), t.getValue());
 			}
 			model.addAttribute("comment_map", commentsNum);
-		model.addAttribute("cmd", "comment");
+			model.addAttribute("cmd", "comment");
 		}
 		model.addAttribute("id", id);
 		model.addAttribute("mb", mb);
@@ -773,10 +814,11 @@ public class MemberController {
 
 		return "manager/member/memberInfo";
 	}
-	
+
 	/* 封鎖帳號or解除封鎖 */
 	@PostMapping("/changeMemberStatus/{id}")
-	public void changeMemberStatus(HttpServletRequest request, @PathVariable("id") Integer id,HttpServletResponse response) {
+	public void changeMemberStatus(HttpServletRequest request, @PathVariable("id") Integer id,
+			HttpServletResponse response) {
 		response.setCharacterEncoding("UTF-8");
 		String memberLock = request.getParameter("memberLock");
 
@@ -789,7 +831,7 @@ public class MemberController {
 			mb.setStatus("正常");
 			memberService.saveMember(mb);
 		}
-		
+
 		try {
 			PrintWriter out = response.getWriter();
 			out.print("");
@@ -797,7 +839,7 @@ public class MemberController {
 			e.printStackTrace();
 		}
 		return;
-		
+
 	}
 
 }

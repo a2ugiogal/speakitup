@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="<spring:url value='/css/letter/sendAngel.css' /> ">
     <link rel="stylesheet" href="<spring:url value='/css/letter/nav.css' /> ">
 <link rel="stylesheet" href="<spring:url value='/css/letter/leaves.css' /> ">
-<%--     <script src="<spring:url value='/js/letter/forSend.js' /> "></script> --%>
 
 <title>寄封天使信</title>
 </head>
@@ -130,7 +129,7 @@
                 <!-- <h2>信件主題:天使</h2> -->
                 <form action ="<spring:url value='/letter/sendAngel' />" method="POST" id="letterForm">
                     <div class="letterInput">
-                        <input type="text" name="title" required="">
+                        <input type="text" name="title" required="" autocomplete="off">
                         <label>信件標題</label>
                         <span></span>
                     </div>

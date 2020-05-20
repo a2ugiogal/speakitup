@@ -109,8 +109,19 @@
 							</div></li>
 					</c:otherwise>
 				</c:choose>
-				<li class="nav-item mx-2"><a class="nav-link"
-					href="<spring:url value='/letter/letterHome' />">漂流瓶</a></li>
+				<li class="nav-item mx-2">
+<%-- 					<c:choose> --%>
+<%-- 						<c:when test="${not empty LoginOK}"> --%>
+<!-- 							<a class="nav-link" -->
+<%-- 							href="<spring:url value='/letter/letterHome' />">漂流瓶</a> --%>
+<%-- 						</c:when> --%>
+<%-- 						<c:otherwise> --%>
+							<a class="nav-link"
+					href="<spring:url value='/member/login?target=/letter/letterHome&loginFilter=true' />">漂流瓶</a>
+<%-- 						</c:otherwise> --%>
+<%-- 					</c:choose> --%>
+					
+				</li>
 				<li class="nav-item dropdown mx-2"><a
 					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 					role="button" data-toggle="dropdown" aria-haspopup="true"

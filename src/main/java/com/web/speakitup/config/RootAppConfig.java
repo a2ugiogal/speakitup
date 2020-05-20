@@ -28,7 +28,10 @@ public class RootAppConfig {
 
 	@Value("${spring.database.maxPoolSize}")
 	int mps;
-
+	
+	@Value("${spring.database.maxIdleTime}")
+	int mit;
+	
 	Environment env;
 
 	@Autowired
@@ -65,6 +68,7 @@ public class RootAppConfig {
 		ds.setJdbcUrl(env.getProperty("spring.database.url"));
 		ds.setInitialPoolSize(ips);
 		ds.setMaxPoolSize(mps);
+		ds.setMaxIdleTime(mit);
 		return ds;
 	}
 
