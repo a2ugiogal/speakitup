@@ -142,8 +142,8 @@
         <div class="intro-container">
                 <div>
                 	<c:if test="${! empty sendError || ! empty replyError}" >
-                	<h2 style="width:300px;text-align:center;">  距離下次更新時間</h2>
-                		<div style="width:300px;font-size:18px;text-align: center; margin-bottom:10px;">
+                	<h2 style="width:350px;text-align:center;">  距離下次更新時間</h2>
+                		<div style="width:350px;font-size:18px;text-align: center; margin-bottom:10px;">
 		                	<i class="fas fa-arrow-down"></i>
 							<i class="fas fa-arrow-down"></i>
 							<i class="fas fa-arrow-down"></i>

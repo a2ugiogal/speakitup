@@ -28,7 +28,6 @@
 	
 </c:if>
 	<link rel="stylesheet" href="<spring:url value='/css/letter/nav.css' /> ">
-<script src="<spring:url value='/js/letter/forSend.js' /> "></script>
 <title>要抒啦------回信</title>
 
 </head>
