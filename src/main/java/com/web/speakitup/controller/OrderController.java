@@ -382,7 +382,7 @@ public class OrderController {
 		/* 付款完成通知回傳網址 */
 		aioCheck.setReturnURL("https://speakitup.nctu.me/order/returnURL");
 		/* Client端回傳付款結果網址 */
-		aioCheck.setOrderResultURL("https://speakitup.nctu.me");
+		aioCheck.setOrderResultURL("https://speakitup.nctu.me/product/productHome");
 		// 輸出畫面
 		PrintWriter out = response.getWriter();
 		response.setContentType("text/html");
@@ -391,7 +391,7 @@ public class OrderController {
 
 	// 綠界回傳資料
 	@PostMapping("/returnURL")
-	public String returnURL(@RequestParam("MerchantTradeNo") String MerchantTradeNo,
+	public void  returnURL(@RequestParam("MerchantTradeNo") String MerchantTradeNo,
 			@RequestParam("RtnCode") int RtnCode, @RequestParam("TradeAmt") int TradeAmt, HttpServletRequest request) {
 		// 交易成功
 		if ((request.getRemoteAddr().equalsIgnoreCase("175.99.72.1")
@@ -399,21 +399,11 @@ public class OrderController {
 				|| request.getRemoteAddr().equalsIgnoreCase("175.99.72.24")
 				|| request.getRemoteAddr().equalsIgnoreCase("175.99.72.28")
 				|| request.getRemoteAddr().equalsIgnoreCase("175.99.72.32")) && RtnCode == 1) {
-			return "forward:/order/orderCheck";
+			String orderIdStr = MerchantTradeNo.substring(12);
+			int orderId = Integer.parseInt(orderIdStr);
+			OrderBean ob = orderService.getOrder(orderId);
+			ob.setStatus("待出貨");
 		}
-		// 交易失敗
-		return "redirect:/";
-	}
-
-	/* 確認會員的訂單已付款 */
-	@GetMapping("/orderCheckAgain")
-	public String orderCheckAgain(Model model, HttpServletRequest request, HttpSession session) {
-		String orderIdStr = request.getParameter("orderId");
-		int orderId = Integer.parseInt(orderIdStr);
-		OrderBean ob = orderService.getOrder(orderId);
-		ob.setStatus("待出貨");
-
-		return "forward:/order/orderSuccessPage";
 	}
 
 	/* 前往訂單成功 */
