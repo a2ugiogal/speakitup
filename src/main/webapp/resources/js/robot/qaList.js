@@ -43,7 +43,7 @@ var qaList = [
   // 卡片====================================================================================
     { Q:"員|站長|經理|客服|克服", A:"客服電話000-111-222"},
     { Q:"唱歌", A:"喔～妳是我的花朵 我要擁有妳 插在我心窩 喔～妳是我的花朵 我要保護妳 一路都暢通 喔～妳是我的花朵 就算妳身邊 很多小石頭 喔～妳是我的花朵 我要愛著妳 不眠也不休"},
-    { Q:"惡魔", A:"<a href='https://store.line.me/stickershop/product/12999/zh-Hant' \
+    { Q:"惡魔|抱怨", A:"<a href='https://store.line.me/stickershop/product/12999/zh-Hant' \
     target='_blank' \
     style='text-decoration:none;'>\
     <img class='card__cover' src='https://i.imgur.com/1eh1Wkq.jpg'>\
@@ -53,7 +53,7 @@ var qaList = [
     </div>\
     </a>"},
 
-    { Q:"天使", A:"<a href='https://store.line.me/stickershop/product/12999/zh-Hant' \
+    { Q:"天使|抱怨", A:"<a href='https://store.line.me/stickershop/product/12999/zh-Hant' \
     target='_blank' \
     style='text-decoration:none;'>\
     <img class='card__cover' src='https://i.imgur.com/D3MXcYP.jpg'>\
