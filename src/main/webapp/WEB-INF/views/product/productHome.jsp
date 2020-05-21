@@ -310,10 +310,10 @@
 	<!-- 第四區塊  推薦商品-->
 	<div id="recommend-product" class="mt-5 pt-5 pb-3">
 		<div class="four_title">
-			<div class="recommend text-white">推薦商品</div>
-			<div class="four_top">
+			<div class="recommend text-white mb-4">推薦商品</div>
+			<div class="four_top row">
 				<c:forEach var="entry" items="${top_product_list}">
-					<div>
+					<div class="col-md-12 col-lg-6 col-xl-4">
 						<a href="<spring:url value='/product/showProductInfo/${entry}'/>">
 							<img
 							src="<spring:url value='/product/getProductImage/${entry}' />"
@@ -322,9 +322,9 @@
 					</div>
 				</c:forEach>
 			</div>
-			<div class="four_under">
+			<div class="four_under row">
 				<c:forEach var="entry" items="${bot_product_list}">
-					<div>
+					<div class="col-md-12 col-lg-6 col-xl-4">
 						<a href="<spring:url value='/product/showProductInfo/${entry}'/>">
 							<img
 							src="<spring:url value='/product/getProductImage/${entry}' />"
