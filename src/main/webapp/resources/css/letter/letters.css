@@ -66,15 +66,12 @@ position: relative;
     margin: 10px;
 	box-shadow: 10px 10px 10px -6px rgba(0,0,0,0.75);
 	-webkit-border-radius: 10px 10px 10px 10px;
-/* 	border: 4px solid black; */
-	background: #cde6f3;
-	z-index:-100;
 }
 
  .letterBox{
  
     position: relative;
-    height: 600px;
+    height: 580px;
     justify-content: center;
     align-items: center;
 	
@@ -124,13 +121,12 @@ pre{
     width:100%;
     height: 580px;
     background: #cde6f3;
-/*     overflow:hidden; */
     justify-content: center;
     align-items: center;
     z-index: -1;
-/*     font-size: 1.1rem; */
     padding-left:30px;
 	padding-right:30px;
+	
 } 
 
 
@@ -366,7 +362,7 @@ font-size: 1.1rem;
 
  .letterBoxDevil{
     position: relative;
-    height: 600px;
+    height: 580px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -386,14 +382,10 @@ font-size: 1.1rem;
     width:100%;
     height: 580px;
     background: #020202;
-/*     padding: auto auto 5px 5px; */
     font-size: 1.1rem;
-	overflow:hidden;
 	justify-content: center;
     align-items: center;
     z-index: 1;
-    word-break:break-all;
-    overflow-y:auto;
     padding-left:30px;
 	padding-right:30px;
 }
@@ -407,13 +399,10 @@ font-size: 1.1rem;
     width:100%;
     height: 580px;
     background: #020202;
-    overflow: hidden;
     font-size: 1.1rem;
     justify-content: center;
     align-items: center;
     z-index: -1;
-    word-break:break-all;
-    overflow-y:auto;
     padding-left:30px;
 	padding-right:30px;
 } 

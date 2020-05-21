@@ -150,7 +150,7 @@
 								<p><h2>${letters.letterTitle}</h2></p>
 								<p><h3>${letterCategory}</h3></p>
 								<p><h5>${letters.sendTime}</h5></p>
-									<pre>${letters.letterContent}</pre>
+								<pre>${letters.letterContent}</pre>
 <%-- 								<div id="${letters.letterId}" style="display:none"></div> --%>
 								<div class="sendBoxBotAngel">
 								<div class="watchReply">看回信</div>
@@ -229,7 +229,7 @@
 <%-- 						</c:forEach> --%>
 <!-- 					</div> -->
 <%-- 				</c:when> --%>
-</div>
+		</div>
 	</div>
 	<label class="angelLabel">
         <input type="checkbox" name="letterType">
