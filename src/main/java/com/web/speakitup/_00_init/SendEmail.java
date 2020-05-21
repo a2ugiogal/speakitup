@@ -18,12 +18,12 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 public class SendEmail extends Thread {
-	private String[] reciver;
+	private String reciver;
 	private String subject;
 	private String content;
 	private String attachmentLocation;
 
-	public SendEmail(String[] reciver, String subject, String content, String attachmentLocation) {
+	public SendEmail(String reciver, String subject, String content, String attachmentLocation) {
 		super();
 		this.reciver = reciver;
 		this.subject = subject;
@@ -32,7 +32,8 @@ public class SendEmail extends Thread {
 	}
 
 	public void run() {
-		for (String to : reciver) {
+//		for (String to : reciver) {
+			
 //			 Recipient's email ID needs to be mentioned.
 //			String to = "";
 			// Sender's email ID needs to be mentioned
@@ -61,7 +62,7 @@ public class SendEmail extends Thread {
 				// Set From: header field of the header.
 				message.setFrom(new InternetAddress(from, GlobalService.SYSTEM_NAME));  //寄件者
 				// Set To: header field of the header.
-				message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));	//收件者
+				message.addRecipient(Message.RecipientType.TO, new InternetAddress(reciver));	//收件者
 				// Set Subject: header field
 				message.setSubject(subject);
 				if (attachmentLocation.trim().length() != 0) {
@@ -96,6 +97,6 @@ public class SendEmail extends Thread {
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
-		}
+//		}
 	}
 }

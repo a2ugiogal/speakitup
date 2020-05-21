@@ -28,7 +28,6 @@
 	
 </c:if>
 	<link rel="stylesheet" href="<spring:url value='/css/letter/nav.css' /> ">
-<script src="<spring:url value='/js/letter/forSend.js' /> "></script>
 <title>要抒啦------回信</title>
 
 </head>
@@ -110,8 +109,6 @@
 					</div></li>
 				<li class="nav-item mx-2"><a class="nav-link"
 					href="<spring:url value='/letter/letterHome' />">漂流瓶</a></li>
-				<li class="nav-item mx-2"><a class="nav-link"
-					href="<spring:url value='/product/showPageProducts' />">商品列表</a></li>
 				<c:if test="${LoginOK.permission=='管理員'}">
 					<li class="nav-item dropdown mx-2"><a
 						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"

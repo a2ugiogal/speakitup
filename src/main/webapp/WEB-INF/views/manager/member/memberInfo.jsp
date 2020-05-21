@@ -148,18 +148,20 @@
 					</div>
 					<div class="Reportbutton d-flex justify-content-end"
 						style="position: absolute; top: 55px; right: 5%;">
+						<input type="hidden" id="memberId" value="${mb.id}">
 						<c:choose>
 							<c:when test="${mb.status=='正常'}">
-								<a
-									href="<spring:url value='/member/changeMemberStatus/${id}?memberLock=封鎖帳號&reportTimes=${reportTimes}'/>"
-									style="">
+<!-- 								<a -->
+<%-- 									href="<spring:url value='/member/changeMemberStatus/${id}?memberLock=封鎖帳號&reportTimes=${reportTimes}'/>" --%>
+<!-- 									style=""> -->
 									<button class="Reportdeletebutton">封鎖帳號</button>
-								</a>
+<!-- 								</a> -->
 							</c:when>
 							<c:otherwise>
-								<a
-									href="<spring:url value='/member/changeMemberStatus/${id}?memberLock=解除封鎖&reportTimes=${reportTimes}'/>"><button
-										class="Reportdeletebutton">解除封鎖</button></a>
+<!-- 								<a -->
+<%-- <%-- 									href="<spring:url value='/member/changeMemberStatus/${id}?memberLock=解除封鎖&reportTimes=${reportTimes}'/>"> --%>
+								<button	class="Reportdeletebutton">解除封鎖</button>
+<!-- 										</a> -->
 							</c:otherwise>
 						</c:choose>
 					</div>
@@ -181,50 +183,28 @@
 					style="border-bottom: 1px solid rgba(0, 0, 0, 0.575);">
 					<li class="nav-item col text-sm-center"
 						style="padding-left: 0px !important; padding-right: 0px !important;">
-						<a
-						<c:choose>
-							<c:when test="${cmd=='article'}">class="nav-link active"</c:when>
-							<c:otherwise>class="nav-link"</c:otherwise>
-						</c:choose>
-						href="<spring:url value='/member/showManageMemberInfo/${id}?cmd=article&reportTimes=${reportTimes}'/>"
-						role="tab" aria-controls="pills-home" aria-selected="true">文章</a>
+						<div
+						
+						 class="nav-link" id="getArticles">文章</div>
 					</li>
 					<li class="nav-item col text-sm-center"
 						style="padding-left: 0px !important; padding-right: 0px !important;">
-						<a
-						<c:choose>
-							<c:when test="${cmd=='comment'}">class="nav-link active"</c:when>
-							<c:otherwise>class="nav-link"</c:otherwise>
-						</c:choose>
-						href="<spring:url value='/member/showManageMemberInfo/${id}?cmd=comment&reportTimes=${reportTimes}'/>"
-						role="tab" aria-controls="pills-profile" aria-selected="false">留言</a>
+						<div class="nav-link" id="getComments">留言</div>
 					</li>
 					<li class="nav-item col text-sm-center"
 						style="padding-left: 0px !important; padding-right: 0px !important;">
-						<a
-						<c:choose>
-							<c:when test="${cmd=='deleteArticle'}">class="nav-link active"</c:when>
-							<c:otherwise>class="nav-link"</c:otherwise>
-						</c:choose>
-						href="<spring:url value='/member/showManageMemberInfo/${id}?cmd=deleteArticle&reportTimes=${reportTimes}'/>"
-						role="tab" aria-controls="pills-profile" aria-selected="false">被刪除文章</a>
+						<div class="nav-link" id="getDeletedArticles">被刪除文章</div>
 					</li>
 					<li class="nav-item col text-sm-center"
 						style="padding-left: 0px !important; padding-right: 0px !important;">
-						<a
-						<c:choose>
-							<c:when test="${cmd=='deleteComment'}">class="nav-link active"</c:when>
-							<c:otherwise>class="nav-link"</c:otherwise>
-						</c:choose>
-						href="<spring:url value='/member/showManageMemberInfo/${id}?cmd=deleteComment&reportTimes=${reportTimes}'/>"
-						role="tab" aria-controls="pills-profile" aria-selected="false">被刪除留言</a>
+						<div class="nav-link" id="getDeletedComment">被刪除留言</div>
 					</li>
 				</ul>
 
 				<!-- 文章留言列表============== -->
 				<div class="row">
 					<div
-						class="col-3 d-flex justify-content-center align-items-center my-2">
+						class="col-3 d-flex justify-content-center align-items-center my-2" id="listNo">
 						<c:choose>
 							<c:when test="${not empty article_map}">文章編號</c:when>
 							<c:otherwise>留言編號</c:otherwise>
@@ -395,6 +375,11 @@
 		crossorigin="anonymous"></script>
 	<script src="https://kit.fontawesome.com/041970ba48.js"
 		crossorigin="anonymous"></script>
+		<script
+  src="https://code.jquery.com/jquery-3.5.1.min.js"
+  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+  crossorigin="anonymous"></script>
+	<script src="<spring:url value='/js/manager/memberInfo.js' /> "></script>
 
 </body>
 </html>

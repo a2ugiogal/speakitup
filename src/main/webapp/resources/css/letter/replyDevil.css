@@ -7,7 +7,8 @@
 
 
 body{
-    background: #535657;
+/*     background: #535657; */
+    background: #abdff8;
 }
 
 /*左邊的卡片*/
@@ -20,7 +21,7 @@ body{
      z-index:-1;
      border-radius:10px;
 /*      background: rgb(247, 242, 224); */
-     background: #A3BBAD;
+     background: #f3f5d3;
 }
 
 
@@ -63,12 +64,12 @@ body{
     width: 550px;
     height: 450px;
 /*     background: #E4DEE4; */
-    background: #748CAB;
+    background: #F4F4F9;
     margin-left:150px;
     box-sizing: border-box;
 box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.5);
 border-radius:10px;
-color:#E1F2FE;
+color:black;
     
 }
 
@@ -86,7 +87,7 @@ color:#E1F2FE;
     font-weight: lighter;
     letter-spacing: 2px;
     resize: none;
-    color:#E1F2FE;
+    color:black;
 }
 
 .mainContainer .letterCard .replyContentBox h2

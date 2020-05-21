@@ -1,5 +1,9 @@
 $(document).ready(() => {
-	
+	if($('.letterBox').length > 0){
+		$('#showMyLetters').css('display','grid')
+	}else{
+		$('#showMyLetters').css('display','inline')
+	}
 	watchReply();
 	back();
 	
@@ -12,10 +16,18 @@ $(document).ready(() => {
         		url : "/letter/myLetters/devil",
         		type : 'POST',
         		success : function(response) {
-        			success(response,"devil");
+        			if(response == "noLetters"){
+        				$('#showMyLetters').css('display','inline')
+        			}
+        			else{
+        				success(response,"devil");
+        				$('#showMyLetters').css('display','grid')
+        			}
         		}
         	});
             $('body').css('background','black')
+            $('.letter').css('color','#fff')
+           
             $(e.target).parent().removeClass('angelLabel')
             $(e.target).parent().addClass('devilLabel')
         }else{
@@ -23,11 +35,19 @@ $(document).ready(() => {
         		url : "/letter/myLetters/angel",
         		type : 'POST',
         		success : function(response) {
-        			success(response,"angel");
+        			if(response == "noLetters"){
+        				$('#showMyLetters').css('display','inline')
+        			}
+        			else{
+        				success(response,"angel");
+        				$('#showMyLetters').css('display','grid')
+        			}
         		}
 
         	});
         	$('body').css('background','#fff')
+        	$('.letter').css('color','black')
+        	
             $(e.target).parent().removeClass('devilLabel')
             $(e.target).parent().addClass('angelLabel')
             
@@ -135,6 +155,9 @@ function success(response,type){
 		back();
 
 }
+
+
+
 
 //看回信內容
 function watchReply(){
