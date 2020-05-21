@@ -103,7 +103,7 @@ function sendComment(articleId) {
         speechContent += ` <div class="d-flex justify-content-end" style="height: 20%;">`;
         speechContent += ` <i class="fas fa-exclamation-circle" style="font-size: 30px;" title="檢舉" onclick="showReportModal('${response.commentId}')"></i>`;
         speechContent += ` </div>`;
-        speechContent += ` <div class="comment"><pre>${response.content}</pre></div>`;
+        speechContent += ` <div class="comment"><pre style="white-space:pre-wrap;">${response.content}</pre></div>`;
         count = CCL + 1;
         speechContent += ` <div class="commentCount">${count}</div>`;
         speechContent += `<div class="d-flex justify-content-end commentDate">`;

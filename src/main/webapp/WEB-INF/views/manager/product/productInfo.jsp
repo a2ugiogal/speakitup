@@ -185,7 +185,7 @@
 
 										<div
 											<c:choose>
-											<c:when test="${productBean.category.categoryTitle=='天使'}"> class="btn btn-outline-secondary active"</c:when>
+											<c:when test="${productBean.category.categoryTitle=='天使'||productBean.productId==null}"> class="btn btn-outline-secondary active"</c:when>
 											<c:otherwise> class="btn btn-outline-secondary"</c:otherwise>
 										</c:choose>
 											id="angel">
@@ -211,7 +211,7 @@
 										</c:forEach>
 									</select> <select class="form-control" id="evilCategory"
 										name="categoryId"
-										<c:if test="${productBean.category.categoryTitle=='天使'}"> style="display: none;" disabled</c:if>>
+										<c:if test="${productBean.category.categoryTitle=='天使'||productBean.productId==null}"> style="display: none;" disabled</c:if>>
 										<c:forEach var="entry" items="${evil_set}">
 											<option value="${entry.categoryId}"
 												<c:if test="${productBean.category.categoryTitle==entry.categoryName}"> select</c:if>>${entry.categoryName}</option>
