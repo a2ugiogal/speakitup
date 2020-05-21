@@ -19,6 +19,9 @@ function doFirst(){
         document.getElementById('hour').innerText = h;
         document.getElementById('minute').innerText = m;
         document.getElementById('second').innerText = s;
+        if(h<10){
+        	document.getElementById('hour').innerText = "0" + h;
+        }
         if(m<10){
         	document.getElementById('minute').innerText = "0" + m;
         }
