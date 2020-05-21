@@ -44,11 +44,9 @@ public class LetterController {
 
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
 
-		System.out.println("memberId : " + mb.getMemberId());
 
 		String sendQuota = mb.getSendQuota();
 		String replyQuota = mb.getReplyQuota();
-		System.out.println("本日寄信扣打:" + sendQuota);
 		// 如果當天寄過信或是寄信欄是不是空的 就不能寄
 		if (sendQuota.equals("false")) {
 			System.out.println("不能寄信");
@@ -137,7 +135,7 @@ public class LetterController {
 	}
 
 	@GetMapping("/replyLetters/{type}")
-	public String replyLetterAngel(@PathVariable("type")String type,HttpSession session) {
+	public String replyLetterAngel(@PathVariable("type")String type,HttpSession session,Model model) {
 		
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
 		String memberId = mb.getMemberId();
@@ -172,7 +170,7 @@ public class LetterController {
 
 				} catch (ArrayIndexOutOfBoundsException e) {
 					System.out.println("無天使信可回");
-					session.setAttribute("noLetters", "noLetters");
+					session.setAttribute("noLettersAngel", "noLetters");
 					return "redirect:/letter/letterHome";
 
 				} catch (Exception e) {
@@ -211,7 +209,7 @@ public class LetterController {
 				} catch (ArrayIndexOutOfBoundsException e) {
 					//沒信的話會進到此處
 					System.out.println("無惡魔信可回");
-					session.setAttribute("noLetters", "noLetters");
+					session.setAttribute("noLettersDevil", "noLetters");
 					return "redirect:/letter/letterHome";
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -253,8 +251,11 @@ public class LetterController {
 		//取得已完成的信件(有寄信內容也有回信內容)
 		List<LetterBean> letters = letterService.getAllLettersByMemberSend(memberId, GlobalService.LETTER_STATUS_DONE,
 				letterCategory);
-		//並交給jsp
-		model.addAttribute("letters", letters);
+		if(letters.size() == 0) {
+			model.addAttribute("noLetters", "noLetters");
+		}else {
+			model.addAttribute("letters", letters);
+		}
 		model.addAttribute("letterCategory", letterCategory);
 		return "driftLetter/letters";
 	}
@@ -279,9 +280,15 @@ public class LetterController {
 				letterCategory);
 		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 		try (PrintWriter out = response.getWriter()) {
-			System.out.println(gson.toJson(letters));
-			out.write(gson.toJson(letters));
-			out.flush();
+			if(letters.size() == 0) {
+				out.write("noLetters");
+				out.flush();
+			}else {
+				System.out.println(gson.toJson(letters));
+				out.write(gson.toJson(letters));
+				out.flush();
+				
+			}
 			
 		}
 	}

@@ -399,7 +399,6 @@ public class ProductController {
 			// 新增商品
 			ProductBean pb = new ProductBean();
 			model.addAttribute("productBean", pb);
-
 		}
 		Set<CategoryBean> angelProductCategorys = productService.getCategorys("天使");
 		Set<CategoryBean> evilProductCategorys = productService.getCategorys("惡魔");
@@ -416,8 +415,11 @@ public class ProductController {
 	public String addProduct(Model model, HttpServletRequest request, @ModelAttribute("productBean") ProductBean pb,
 			@PathVariable("productId") Integer productId) {
 		ProductBean mainPb = productService.getProduct(productId);
+		if (mainPb == null) {
+			mainPb = pb;
+			mainPb.setProductId(null);
+		}
 		Integer categoryId = Integer.parseInt(request.getParameter("categoryId").trim());
-		System.out.println("categoryId= " + categoryId);
 		String formatTitle1 = request.getParameter("formatTitle1");
 		Set<String> formatContents1 = new LinkedHashSet<String>();
 		for (String formatContent : request.getParameterValues("formatContent1")) {
@@ -437,7 +439,6 @@ public class ProductController {
 		// 存入圖片
 		MultipartFile productImage = pb.getProductImage();
 		if (productImage != null && !productImage.isEmpty()) {
-			System.out.println("in");
 			try {
 				byte[] b = productImage.getBytes();
 				Blob blob = new SerialBlob(b);
@@ -449,9 +450,7 @@ public class ProductController {
 			}
 		}
 		try {
-			System.out.println("categoryId= " + categoryId);
-			System.out.println("categoryBean= " + productService.getCategory(categoryId));
-//			mainPb.setCategory(productService.getCategory(categoryId));
+			mainPb.setCategory(productService.getCategory(categoryId));
 			mainPb.setDetail(GlobalService.stringToClob(detail));
 			if (productId != 0) {
 				// 修改商品
@@ -475,7 +474,6 @@ public class ProductController {
 			mainPb.setProductFormat(productFormats);
 
 			productService.insertProduct(mainPb);
-
 			return "redirect:/product/showProducts";
 		} catch (Exception e) {
 			e.printStackTrace();

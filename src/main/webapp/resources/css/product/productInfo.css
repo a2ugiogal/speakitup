@@ -175,6 +175,10 @@ body {
 	padding-left: 1em;
 }
 
+.list-group-item.active{
+	background-color: #2FA4E7 !important;
+	border-color: #2FA4E7 !important;
+}
 
 .productImg img{
     display: block;

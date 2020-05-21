@@ -1,0 +1,67 @@
+
+
+.countdown{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom:20px;
+    margin-left:-15px;
+}
+
+.countdown div{
+    position: relative;
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    text-align: center;
+    border-radius:5px;
+    background: black;
+    color: #fff;
+    margin: 0 15px;
+    font-size: 3em;
+    font-weight: 500;
+    font-family: 'Noto Sans TC', sans-serif;
+}
+
+.countdown div:nth-child(1)::after,
+.countdown div:nth-child(2)::after
+{
+	position: absolute;
+	content:':';
+	bottom:3px;
+	right:-20px;
+	font-size: 1em;
+	background:#fff;
+	color:black;
+}
+
+/* .countdown div::before{ */
+/*     content: ''; */
+/*     position: absolute; */
+/*     bottom: -30px; */
+/*     left: 0; */
+/*     width: 100%; */
+/*     height: 35px; */
+/* /*     background: rgb(255, 217, 0); */ */
+/* background: black; */
+/*     color: #fff; */
+/*     font-size: 0.5em; */
+/*     line-height: 35px; */
+/*     font-weight: 400; */
+/* } */
+
+/* .countdown div#hour::before */
+/* { */
+/*     content: '時'; */
+/* } */
+
+/* .countdown div#minute::before */
+/* { */
+/*     content: '分'; */
+/* } */
+
+/* .countdown div#second::before */
+/* { */
+/*     content: '秒'; */
+/* } */
+

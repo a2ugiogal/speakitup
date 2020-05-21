@@ -9,11 +9,32 @@
  <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" href="<spring:url value='/css/letter/info.css' /> ">
-    <link rel="stylesheet" href="<spring:url value='/css/letter/nav.css' /> ">
+    <link rel="stylesheet" href="<c:url value='/css/letter/nav.css' /> ">
+    <link rel="stylesheet" href="<c:url value='/css/letter/countdown.css' /> ">
+    
 <title>歡迎來到漂流瓶專區</title>
 </head>
+<c:choose>
+	<c:when test="${not empty noLettersDevil}">
+		<script>
+			alert("目前沒有惡魔信件可以回!試試看天使信件ㄅ")
+		</script>
+		<%
+			session.removeAttribute("noLettersDevil");
+		%>
+	</c:when>
+	<c:when test="${not empty noLettersAngel}">
+		<script>
+			alert("目前沒有天使信件可以回!試試看惡魔信件ㄅ")
+		</script>
+		<%
+			session.removeAttribute("noLettersAngel");
+		%>
+	</c:when>
+</c:choose>
 <body>
 <!-- =======================導覽列================= -->
 	<nav class="navbar navbar-expand-lg navbar-light fixed-top p-0"
@@ -32,12 +53,6 @@
 		</div>
 		<div class="navbar-nav flex-row ml-auto"
 			style="position: absolute; right: 250px; top: 10px;">
-			<!-- 			<form class="form-inline mr-5"> -->
-			<!-- 				<input class="form-control mr-sm-2" type="search" id="search" -->
-			<!-- 					placeholder="Search" aria-label="Search" /> -->
-			<!-- 				<button class="btn d-flex justify-content-center" type="submit" -->
-			<!-- 					id="search-btn">Search</button> -->
-			<!-- 			</form> -->
 		</div>
 		<div class="navbar-nav flex-row ml-auto"
 			style="position: absolute; right: 0; top: 10px;">
@@ -90,8 +105,6 @@
 					</div></li>
 				<li class="nav-item mx-2"><a class="nav-link"
 					href="<spring:url value='/letter/letterHome' />">漂流瓶</a></li>
-				<li class="nav-item mx-2"><a class="nav-link"
-					href="<spring:url value='/product/showPageProducts' />">商品列表</a></li>
 				<c:if test="${LoginOK.permission=='管理員'}">
 					<li class="nav-item dropdown mx-2"><a
 						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
@@ -120,23 +133,47 @@
 			</ul>
 		</div>
 	</nav>
+	<!-- 導覽列 -->
 	<div class="container-fluid mainContent">
         <div class="info_img">
             <img src="<spring:url value='/image/letter/undraw_delivery_address_03n0.svg '/> " >
         </div>
 
         <div class="intro-container">
-                <div>					
+                <div>
+                	<c:if test="${! empty sendError || ! empty replyError}" >
+                	<h2 style="width:350px;text-align:center;">  距離下次更新時間</h2>
+                		<div style="width:350px;font-size:18px;text-align: center; margin-bottom:10px;">
+		                	<i class="fas fa-arrow-down"></i>
+							<i class="fas fa-arrow-down"></i>
+							<i class="fas fa-arrow-down"></i>
+							<i class="fas fa-arrow-down"></i>
+							<i class="fas fa-arrow-down"></i>
+							<i class="fas fa-arrow-down"></i>
+							<i class="fas fa-arrow-down"></i>
+							<i class="fas fa-arrow-down"></i>
+							<i class="fas fa-arrow-down"></i>
+							<i class="fas fa-arrow-down"></i>
+							<i class="fas fa-arrow-down"></i>
+							<i class="fas fa-arrow-down"></i>
+							<i class="fas fa-arrow-down"></i>
+							<i class="fas fa-arrow-down"></i>
+						</div>
+                	<div class="countdown">
+				        <div id="hour"></div>        
+				        <div id="minute"></div>        
+				        <div id="second"></div>        
+    				</div>
+    				</c:if>			
                 <div class="formTop">	
-                <img  class="letterImg" src="<spring:url value='/image/letter/undraw_blog_anyj.svg' /> ">
                     <h1>漂流信專區</h1>
                 </div>
                 <ul>
                     <li>會員每日可選擇寄一封信及回一封信</li>
                     <li>保證只會有一個人看到你的煩惱或回覆。</li>
-                    <li>可選擇該信件所呈現的主題(天使or惡魔)</li>
-                    <li>如果成功幫助了對方，可以獲得對方給予的能量勳章。</li>
-                    <li>也可從會員信箱看到自己曾經寄過及回過的完整信件。</li>
+                    <li>可以從會員信箱看到自己曾經寄過的完整信件。</li>
+                    <li>可選擇該信件的主題(天使or惡魔)</li>
+                    <li>每天中午十二點刷新寄信與回信的扣打</li>
                 </ul>
             <div class="btnGroup">
 
@@ -160,6 +197,7 @@
                	<a href="<spring:url value='/letter/myLetters' /> "><div class="btn" >我的信箱</div>
                	</a>
             </div>
+            
            
         </div>
         </div>
@@ -176,5 +214,6 @@
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
 		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
 		crossorigin="anonymous"></script>
+		<script src="<spring:url value='/js/letter/letterInfo.js' /> " ></script>
 </body>
 </html>

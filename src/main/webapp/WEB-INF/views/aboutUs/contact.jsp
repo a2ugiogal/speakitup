@@ -24,6 +24,7 @@
 <link rel="stylesheet"
 	href="<spring:url value='/css/register/nav.css' /> " />
 <title>聯絡我們--要抒啦</title>
+
 </head>
 <body>
 	<!-- =======================導覽列================= -->
@@ -184,28 +185,28 @@
 					</div>
 
 					<div class="col-lg-6">
-						<form action="#" method="post" role="form" class="php-email-form"
+						<form action="<spring:url value='/member/contactUs' /> " method="POST" role="form" class="php-email-form"
 							data-aos="fade-up">
 							<div class="form-row">
 								<div class="col-md-6 form-group">
 									<input type="text" name="name" class="form-control" id="name"
-										placeholder="您的大名" />
+										placeholder="您的大名" required  autocomplete="off"/>
 									<div class="validate"></div>
 								</div>
 								<div class="col-md-6 form-group">
 									<input type="email" class="form-control" name="email"
-										id="email" placeholder="聯絡信箱" />
+										id="email" placeholder="聯絡信箱" required/>
 									<div class="validate"></div>
 								</div>
 							</div>
 							<div class="form-group">
-								<input type="text" class="form-control" name="subject"
-									id="subject" placeholder="主旨" />
+								<input type="text" class="form-control" name="guestSubject"
+									id="subject" placeholder="主旨" required/>
 								<div class="validate"></div>
 							</div>
 							<div class="form-group">
-								<textarea class="form-control" name="message" rows="5"
-									data-rule="required" placeholder="想說的話..."></textarea>
+								<textarea class="form-control" name="message" rows="5" maxlength="250"
+									data-rule="required" placeholder="想說的話..." required></textarea>
 								<div class="validate"></div>
 							</div>
 							<div class="mb-3">
@@ -337,7 +338,14 @@
 			</div>
 		</div>
 	</div>
-
+<c:if test="${not empty sendSuccess}">
+	<script>
+		alert("寄信成功，感謝你的來信")
+	</script>
+	<%
+		session.removeAttribute("sendSuccess");
+	%>
+</c:if>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 		crossorigin="anonymous"></script>

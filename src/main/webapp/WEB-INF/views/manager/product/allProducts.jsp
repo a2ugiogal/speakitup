@@ -205,7 +205,7 @@
 							onclick="location.href='<spring:url value="/product/addProduct/${entry.value.productId}"/>';">
 							<img
 								src="<spring:url value='/product/getProductImage/${entry.value.productId}' />"
-								alt="" style="max-width: 100px;" />
+								alt="" style="width: 100px; height: 100px;" />
 						</div>
 						<div
 							class="col-2 d-flex justify-content-center align-items-center text-center my-2"
@@ -338,7 +338,7 @@
 				</div>
 				<div class="modal-footer">
 					<a style="text-decoration: none; color: black;" id="aSend"> <input
-						type="button" class="btn btn-primary" value="刪除" />
+						type="button" class="btn" style="background: rgb(136, 116, 116) !important;color: #fff;" value="刪除" />
 					</a>
 				</div>
 			</div>
@@ -365,7 +365,7 @@
 			modalBody = document.getElementById("modalBody");
 			modalBody.innerHTML = "確認是否刪除<br> 編號：" + productId + " 名稱："
 					+ productName + "之商品?";
-			aSend.href = "<c:url value='/manager/deleteProduct?id=" + productId
+			aSend.href = "<c:url value='/product/deleteProduct/" + productId
 					+ "'/>";
 			$("#deleteProductModal").modal("hide");
 		}

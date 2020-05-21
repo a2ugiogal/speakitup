@@ -54,7 +54,6 @@ public class FindUserPassword implements Filter {
 				}
 
 			}
-
 			request.setAttribute("rememberMe", rememberMe);
 			request.setAttribute("memberId", memberId);
 			request.setAttribute("password", password);

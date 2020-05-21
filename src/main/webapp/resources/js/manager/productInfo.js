@@ -8,8 +8,8 @@ function doFirst() {
     readFile.addEventListener("load", function () {
       source = this.result;
       headPicture.src = source;
-      headPicture.style.maxWidth = "50%";
-      headPicture.style.maxHeight = "200px";
+      headPicture.style.width = "250px";
+      headPicture.style.height = "250px";
     });
   });
   angel = document.getElementById("angel");
@@ -359,6 +359,7 @@ function addFormatItem(n) {
   );
   removeIcon = document.createElement("i");
   removeIcon.setAttribute("class", "material-icons deleteProductFormatItem");
+  removeIcon.style.cursor = "pointer";
   removeIcon.style.fontSize = "36px";
   removeIcon.innerText = "remove_circle_outline";
   removeMark.appendChild(removeIcon);

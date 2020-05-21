@@ -109,8 +109,19 @@
 							</div></li>
 					</c:otherwise>
 				</c:choose>
-				<li class="nav-item mx-2"><a class="nav-link"
-					href="<spring:url value='/letter/letterHome' />">漂流瓶</a></li>
+				<li class="nav-item mx-2">
+<%-- 					<c:choose> --%>
+<%-- 						<c:when test="${not empty LoginOK}"> --%>
+<!-- 							<a class="nav-link" -->
+<%-- 							href="<spring:url value='/letter/letterHome' />">漂流瓶</a> --%>
+<%-- 						</c:when> --%>
+<%-- 						<c:otherwise> --%>
+							<a class="nav-link"
+					href="<spring:url value='/member/login?target=/letter/letterHome&loginFilter=true' />">漂流瓶</a>
+<%-- 						</c:otherwise> --%>
+<%-- 					</c:choose> --%>
+					
+				</li>
 				<li class="nav-item dropdown mx-2"><a
 					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 					role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -180,8 +191,8 @@
 							<div class="es_scTxt">
 								<a href="https://world.taobao.com/item/523235463919.htm"
 									target="_blank" style="text-decoration: none;"> <img
-									class="card__cover" src="https://i.imgur.com/4yN2Alu.jpg">
-									<div class="card__description">2020要抒拉論壇高人氣吉祥物玩偶，小惡魔抱枕！</div>
+									class="card__cover" src="<spring:url value='/product/getProductImage/2' />">
+									<div class="card__description">2020要抒拉論壇高人氣吉祥物玩偶，戽斗星球玩偶！</div>
 									<div class="card__btn-link">
 										<span>點擊前去看看 >></span>
 									</div>
@@ -192,9 +203,9 @@
 								<a
 									href="https://store.line.me/stickershop/product/12999/zh-Hant"
 									target="_blank" style="text-decoration: none;"> <img
-									class="card__cover" src="https://i.imgur.com/Rf1WqoS.png">
+									class="card__cover" src="<spring:url value='/product/getProductImage/42' />">
 									<div class="card__description">
-										2020要抒拉論壇票選人氣TOP10，LINE最新貼圖！</div>
+										2020要抒拉論壇票選人氣最高紓壓商品！超大Enter鍵！</div>
 									<div class="card__btn-link">
 										<span>點擊前去看看 >></span>
 									</div>
