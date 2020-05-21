@@ -184,7 +184,7 @@ public class MemberController {
 			String memberEmail = mb.getEmail();
 			subject = "歡迎你加入要抒啦的會員";
 			content.setLength(0);
-			content.append("<p>" + "請點選以下連結" + "</p>" + "<br>" + "<a href='" + GlobalService.DOMAIN_PATTERN_SINGLE
+			content.append("<p>" + "請點選以下連結" + "</p>" + "<br>" + "<a href='" + GlobalService.DOMAIN_PATTERN
 					+ "/member/register/emailVerify" + "/" + authToken + "'>請點我</a>" + "<br>" + "<p>"
 					+ "進入連結後即認證成功，可以去抒發一下了!" + "</p>");
 
@@ -289,7 +289,7 @@ public class MemberController {
 		String subject = "要抒啦謝謝你的回覆";
 		content.setLength(0);
 		content.append("<p>" + name + " 感謝你給予我們回饋，我們會盡快派專人與你聯繫 😀" + "</p>" + "<br>" + "<a href='"
-				+ GlobalService.DOMAIN_PATTERN_SINGLE + "'>點我回要抒啦首頁</a>" + "<br>");
+				+ GlobalService.DOMAIN_PATTERN + "'>點我回要抒啦首頁</a>" + "<br>");
 		Thread sendEmail = new SendEmail(email, subject, content.toString(), "");
 		sendEmail.start();
 
