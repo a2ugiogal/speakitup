@@ -63,7 +63,7 @@
 						href="<spring:url value='/member/register' />">註冊</a>
 				</c:when>
 				<c:otherwise>
-					<div style="width: 150px;">
+					<div style="width: 160px;">
 						<a class="mr-4" href="<spring:url value='/member/personPage' />"
 							style="text-decoration: none;" id="nav-memberId"> <img
 							src="<spring:url value='/member/getUserImage/${LoginOK.id}' />"
@@ -189,10 +189,10 @@
 							</div>
 							<!-- 卡片=======================================-->
 							<div class="es_scTxt">
-								<a href="https://world.taobao.com/item/523235463919.htm"
+								<a href="https://speakitup.nctu.me/product/showProductInfo/2"
 									target="_blank" style="text-decoration: none;"> <img
-									class="card__cover" src="https://i.imgur.com/4yN2Alu.jpg">
-									<div class="card__description">2020要抒拉論壇高人氣吉祥物玩偶，小惡魔抱枕！</div>
+									class="card__cover" src="<spring:url value='/product/getProductImage/2' />">
+									<div class="card__description">2020要抒拉論壇高人氣吉祥物玩偶，戽斗星球玩偶！</div>
 									<div class="card__btn-link">
 										<span>點擊前去看看 >></span>
 									</div>
@@ -201,11 +201,11 @@
 
 							<div class="es_scTxt">
 								<a
-									href="https://store.line.me/stickershop/product/12999/zh-Hant"
+									href="https://speakitup.nctu.me/product/showProductInfo/42"
 									target="_blank" style="text-decoration: none;"> <img
-									class="card__cover" src="https://i.imgur.com/Rf1WqoS.png">
+									class="card__cover" src="<spring:url value='/product/getProductImage/42' />">
 									<div class="card__description">
-										2020要抒拉論壇票選人氣TOP10，LINE最新貼圖！</div>
+										2020要抒拉論壇票選人氣最高紓壓商品！超大Enter鍵！</div>
 									<div class="card__btn-link">
 										<span>點擊前去看看 >></span>
 									</div>

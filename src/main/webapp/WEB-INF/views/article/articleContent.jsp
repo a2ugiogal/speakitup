@@ -68,7 +68,7 @@
 						href="<spring:url value='/member/register' />">註冊</a>
 				</c:when>
 				<c:otherwise>
-					<div style="width: 150px;">
+					<div style="width: 160px;">
 						<a id="nav-memberId" class="mr-4"
 							href="<spring:url value='/member/personPage' />"
 							style="text-decoration: none;"> <img id="nav-memberPicture"
@@ -169,7 +169,7 @@
 								</c:if>
 							</div>
 							<div class="comment">
-								<pre>${entry.content}</pre>
+								<pre style="white-space:pre-wrap;">${entry.content}</pre>
 							</div>
 							<div class="commentCount">${number.count}</div>
 							<div class="d-flex justify-content-end commentDate">
@@ -208,7 +208,7 @@
 					</c:if>
 				</div>
 				<div class="comment">
-					<pre>${entry.content}</pre>
+					<pre style="white-space:pre-wrap;">${entry.content}</pre>
 				</div>
 				<div class="commentCount">${number.count}</div>
 				<div class="d-flex justify-content-end commentDate">

@@ -60,7 +60,7 @@
 						href="<spring:url value='/member/register' />">註冊</a>
 				</c:when>
 				<c:otherwise>
-					<div style="width: 150px;">
+					<div style="width: 160px;">
 						<a class="mr-4" href="<spring:url value='/member/personPage' />"
 							style="text-decoration: none;" id="nav-memberId"> <img
 							src="<spring:url value='/member/getUserImage/${LoginOK.id}' />"
@@ -173,7 +173,7 @@
 							<p class="mb-3" id="permissionStr">${LoginOK.permission}</p>
 						</div>
 
-						<div class="card mx-auto text-center" style="width: 14rem;">
+						<div class="card mx-auto text-center" style="width: 14rem; z-index: 1000">
 							<ul class="list-group list-group-flush">
 								<li class="list-group-item" id="edit">編輯檔案<i
 									class="bx bx-edit ml-1"></i>

@@ -62,7 +62,7 @@
 						href="<spring:url value='/member/register' />">註冊</a>
 				</c:when>
 				<c:otherwise>
-					<div style="width: 150px;">
+					<div style="width: 160px;">
 						<a class="mr-4" href="<spring:url value='/member/personPage' />"
 							style="text-decoration: none;" id="nav-memberId"> <img
 							src="<spring:url value='/member/getUserImage/${LoginOK.id}' />"
@@ -146,13 +146,14 @@
 		<section>
 			<!-- 商品分類 -->
 			<div id="procentext" class="row m-0">
-				<div class="col-2 ">
+				<div class="col-2">
 					<div id="left_list"
-						class="list-group sticky-element mt-3 dropdown-menuy">
+						class="list-group sticky-element dropdown-menuy"
+						style="margin-top: 20px">
 						<a id="left_list_0" style="font-size: 20px;"
 							href="<spring:url value='/product/showPageProducts' />"
 							<c:choose>
-								<c:when test="${categoryTitle==''}">
+								<c:when test="${product.category.categoryTitle}==''}">
 									class="list-group-item list-group-item-action active"
 								</c:when>
 								<c:otherwise>
@@ -162,7 +163,7 @@
 						<a id="left_list_a" href="#pane-2" data-toggle="list"
 							style="font-size: 20px;"
 							<c:choose>
-								<c:when test="${categoryTitle=='天使'}">
+								<c:when test="${product.category.categoryTitle=='天使'}">
 									class="list-group-item list-group-item-action active"
 								</c:when>
 								<c:otherwise>
@@ -171,20 +172,20 @@
 							</c:choose>>天使</a>
 
 						<ul id="list_a"
-							<c:if test="${categoryTitle=='天使'}">style="display: block"</c:if>>
+							<c:if test="${product.category.categoryTitle=='天使'}">style="display: block"</c:if>>
 							<li><a
 								href="<spring:url value='/product/showPageProducts?categoryTitle=天使' />"
-								<c:if test="${categoryTitle=='天使'&&categoryName==''}">style="color: rgb(73, 105, 247) !important; font-weight: bold;"</c:if>>全部</a></li>
+								<c:if test="${product.category.categoryTitle=='天使'&&product.category.categoryName==''}">style="color: rgb(73, 105, 247) !important; font-weight: bold;"</c:if>>全部</a></li>
 							<c:forEach var="angelCategory" items="${angelCategoryList}">
 								<li><a
-									<c:if test="${categoryTitle=='天使'&&categoryName==angelCategory}">style="color: rgb(73, 105, 247) !important; font-weight: bold;"</c:if>
+									<c:if test="${product.category.categoryTitle=='天使'&&product.category.categoryName==angelCategory}">style="color: rgb(73, 105, 247) !important; font-weight: bold;"</c:if>
 									href="<spring:url value='/product/showPageProducts?categoryTitle=天使&categoryName=${angelCategory}' />">${angelCategory}</a></li>
 							</c:forEach>
 						</ul>
 						<a id="left_list_b" href="#pane-3" data-toggle="list"
 							style="font-size: 20px;"
 							<c:choose>
-								<c:when test="${categoryTitle=='惡魔'}">
+								<c:when test="${product.category.categoryTitle=='惡魔'}">
 									class="list-group-item list-group-item-action active"
 								</c:when>
 								<c:otherwise>
@@ -192,19 +193,17 @@
 								</c:otherwise>
 							</c:choose>>惡魔</a>
 						<ul id="list_b"
-							<c:if test="${categoryTitle=='惡魔'}">style="display: block"</c:if>>
+							<c:if test="${product.category.categoryTitle=='惡魔'}">style="display: block"</c:if>>
 							<li><a
-								<c:if test="${categoryTitle=='惡魔'&&categoryName==''}">style="color: rgb(73, 105, 247) !important; font-weight: bold;"</c:if>
+								<c:if test="${product.category.categoryTitle=='惡魔'&&product.category.categoryName==''}">style="color: rgb(73, 105, 247) !important; font-weight: bold;"</c:if>
 								href="<spring:url value='/product/showPageProducts?categoryTitle=惡魔' />">全部</a></li>
 							<c:forEach var="evilCategory" items="${evilCategoryList}">
 								<li><a
-									<c:if test="${categoryTitle=='惡魔'&&categoryName==evilCategory}">style="color: rgb(73, 105, 247) !important; font-weight: bold;"</c:if>
+									<c:if test="${product.category.categoryTitle=='惡魔'&&product.category.categoryName==evilCategory}">style="color: rgb(73, 105, 247) !important; font-weight: bold;"</c:if>
 									href="<spring:url value='/product/showPageProducts?categoryTitle=惡魔&categoryName=${evilCategory}' />">${evilCategory}</a></li>
 							</c:forEach>
 						</ul>
 					</div>
-
-
 				</div>
 				<!-- 商品 -->
 				<div class="col-8 Product_content">
