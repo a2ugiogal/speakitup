@@ -189,7 +189,7 @@
 							</div>
 							<!-- 卡片=======================================-->
 							<div class="es_scTxt">
-								<a href="https://world.taobao.com/item/523235463919.htm"
+								<a href="https://speakitup.nctu.me/product/showProductInfo/2"
 									target="_blank" style="text-decoration: none;"> <img
 									class="card__cover" src="<spring:url value='/product/getProductImage/2' />">
 									<div class="card__description">2020要抒拉論壇高人氣吉祥物玩偶，戽斗星球玩偶！</div>
@@ -201,7 +201,7 @@
 
 							<div class="es_scTxt">
 								<a
-									href="https://store.line.me/stickershop/product/12999/zh-Hant"
+									href="https://speakitup.nctu.me/product/showProductInfo/42"
 									target="_blank" style="text-decoration: none;"> <img
 									class="card__cover" src="<spring:url value='/product/getProductImage/42' />">
 									<div class="card__description">

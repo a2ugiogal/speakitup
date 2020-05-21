@@ -250,16 +250,23 @@ public class ProductController {
 	/* 前往商城首頁 */
 	@GetMapping("/productHome")
 	public String showFamousProducts(Model model) {
-		int productIdTop;
+		List<Integer> allProductList = new ArrayList<Integer>();
 		List<Integer> topProductList = new ArrayList<Integer>();
 		List<Integer> botProductList = new ArrayList<Integer>();
 
 		Map<Integer, ProductBean> angelProductMap = productService.getFamousProducts("天使");
 		Map<Integer, ProductBean> evilProductMap = productService.getFamousProducts("惡魔");
-		for (int i = 0; i < 3; i++) {
-			productIdTop = (int) (Math.random() * 10);
-			topProductList.add(productIdTop);
-			botProductList.add(productIdTop + 10);
+		for (int i = 1; i <= 43; i++) {
+			allProductList.add(i);
+		}
+		for (int i = 0; i < 6; i++) {
+			int productIdTop = (int) (Math.random() * allProductList.size());
+			if (i < 3) {
+				topProductList.add(allProductList.get(productIdTop));
+			} else {
+				botProductList.add(allProductList.get(productIdTop));
+			}
+			allProductList.remove(productIdTop);
 		}
 		model.addAttribute("angel_products_map", angelProductMap);
 		model.addAttribute("evil_products_map", evilProductMap);

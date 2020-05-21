@@ -55,13 +55,13 @@ a {
 }
 /* 輪播圖片控制 */
 #carousel-card1 img {
-	width: 500px;
-	height: 500px;
+/* 	width: 500px; */
+/* 	height: 500px; */
 }
 /* 輪播圖片控制 */
 #carousel-card2 img {
-	width: 500px;
-	height: 500px;
+/* 	width: 500px; */
+/* 	height: 500px; */
 }
 
 /* 置頂按鈕 設定 */
@@ -209,21 +209,22 @@ a {
 
 /* 推薦商品圖片控制 */
 .four_img {
-	width: 430px;
-	height: 430px;
+	width: 100%
+/* 	width: 430px; */
+/* 	height: 430px; */
 	/*  padding: 10px; */
 }
 
 /* 推薦商品上排區塊控制 */
 .four_top {
-	display: flex;
-	justify-content: space-around;
+/* 	display: flex; */
+/* 	justify-content: space-around; */
 }
 
 /* 推薦商品下排區塊控制 */
 .four_under {
-	display: flex;
-	justify-content: space-around;
+/* 	display: flex; */
+/* 	justify-content: space-around; */
 }
 
 /* 調整第四區塊內div的距離 */
