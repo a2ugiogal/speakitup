@@ -173,7 +173,7 @@
 							<p class="mb-3" id="permissionStr">${LoginOK.permission}</p>
 						</div>
 
-						<div class="card mx-auto text-center" style="width: 14rem;">
+						<div class="card mx-auto text-center" style="width: 14rem; z-index: 1000">
 							<ul class="list-group list-group-flush">
 								<li class="list-group-item" id="edit">編輯檔案<i
 									class="bx bx-edit ml-1"></i>
