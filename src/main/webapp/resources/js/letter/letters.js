@@ -17,11 +17,13 @@ $(document).ready(() => {
         		type : 'POST',
         		success : function(response) {
         			if(response == "noLetters"){
-        				$('#showMyLetters').css('display','inline')
+        				$('.showAngelLetters').css('display','none')
+//        				$('#showMyLetters').css('display','inline')
         			}
         			else{
         				success(response,"devil");
-        				$('#showMyLetters').css('display','grid')
+//        				$('#showMyLetters').css('display','grid')
+        				$('.showDevilLetters').css('display','grid')
         			}
         		}
         	});
@@ -36,11 +38,13 @@ $(document).ready(() => {
         		type : 'POST',
         		success : function(response) {
         			if(response == "noLetters"){
-        				$('#showMyLetters').css('display','inline')
+        				$('.showDevilLetters').css('display','none')
+//        				$('#showMyLetters').css('display','inline')
         			}
         			else{
         				success(response,"angel");
-        				$('#showMyLetters').css('display','grid')
+//        				$('#showMyLetters').css('display','grid')
+        				$('.showAngelLetters').css('display','grid')
         			}
         		}
 
@@ -89,7 +93,13 @@ function success(response,type){
 		class10 = "deleteFeedbackAngel";
 		class11 = "replyBox";
 	}
-		
+	
+	if(type == 'devil'){
+		inner+="<div class='showDevilLetters'>";
+	}else{
+		inner+="<div class='showAngelLetters'>";
+	}
+	
 	for(i=0;i<response.length;i++){
 		inner+="<div class='"+class1+"'>";
 		inner+="<div class='"+class2+"'>";
@@ -99,9 +109,9 @@ function success(response,type){
 		}
 		inner+="<p><h2>"+(i+1)+"</h2></p>";
 		inner+="<p><h2>"+response[i].letterTitle+"</h2></p>";
-		inner+="<p><h3>惡魔</h3></p>";
+		inner+="<p><h3>"+response[i].letterCategory+"</h3></p>";
 		inner+="<p><h5>"+response[i].sendTime+"</h5></p>";
-		inner+="<p>"+response[i].letterContent+"</p>";
+		inner+="<pre>"+response[i].letterContent+"</pre>";
 		inner+="<div class='"+class4+"'>";	
 		inner+="<div class='watchReply'>看回信</div>";
 		if(type=="devil" && response[i].feedback == null){	
@@ -145,7 +155,7 @@ function success(response,type){
 		inner+="</div>";
 		inner+="<div class='"+class11+" animated'>";
 		inner+="<p><h3>回信內容</h3></p>";
-		inner+="<p>"+response[i].replyContent+"</p>";
+		inner+="<pre>"+response[i].replyContent+"</pre>";
 		inner+="<div class='back'>返回</div>";
 		inner+="</div>";
 		inner+="</div>";

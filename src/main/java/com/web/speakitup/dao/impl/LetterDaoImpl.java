@@ -5,6 +5,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.EntityManager;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ public class LetterDaoImpl implements LetterDao {
 	
 	@Autowired
 	SessionFactory factory;
+	
 	
 	public LetterDaoImpl() {
 		

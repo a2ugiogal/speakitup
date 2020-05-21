@@ -126,6 +126,7 @@
 	
 	
 	<div id="showMyLetters" class="mainBox animated fadeIn">
+		<div class="showAngelLetters">
 			<c:if test="${letterCategory == '天使'}">
 				<c:if test="${not empty noLetters}" >
 				<div class="noLettersDiv">
@@ -149,7 +150,7 @@
 								<p><h2>${letters.letterTitle}</h2></p>
 								<p><h3>${letterCategory}</h3></p>
 								<p><h5>${letters.sendTime}</h5></p>
-								<p>${letters.letterContent}</p>
+									<pre>${letters.letterContent}</pre>
 <%-- 								<div id="${letters.letterId}" style="display:none"></div> --%>
 								<div class="sendBoxBotAngel">
 								<div class="watchReply">看回信</div>
@@ -197,7 +198,7 @@
 							</div>
 							<div class="replyBox animated">
 								<p><h3>回信內容</h3></p>
-								<p>${letters.replyContent}</p>
+									<pre>${letters.replyContent}</pre>
 								<div class="back">返回</div>
 							</div>
 						</div>		
@@ -228,6 +229,7 @@
 <%-- 						</c:forEach> --%>
 <!-- 					</div> -->
 <%-- 				</c:when> --%>
+</div>
 	</div>
 	<label class="angelLabel">
         <input type="checkbox" name="letterType">

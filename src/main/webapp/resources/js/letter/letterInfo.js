@@ -1,6 +1,6 @@
 function doFirst(){
 	var start = new Date;
-    start.setHours(12,0,0)
+    start.setHours(16,02,20)
     function updateTime(){
         var now = new Date().getTime();
         if(now > start){
@@ -19,6 +19,9 @@ function doFirst(){
         document.getElementById('hour').innerText = h;
         document.getElementById('minute').innerText = m;
         document.getElementById('second').innerText = s;
+        if(h<10){
+        	document.getElementById('hour').innerText = "0" + h;
+        }
         if(m<10){
         	document.getElementById('minute').innerText = "0" + m;
         }

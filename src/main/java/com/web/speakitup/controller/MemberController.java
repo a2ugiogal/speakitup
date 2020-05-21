@@ -289,7 +289,7 @@ public class MemberController {
 		String subject = "要抒啦謝謝你的回覆";
 		content.setLength(0);
 		content.append("<p>" + name + " 感謝你給予我們回饋，我們會盡快派專人與你聯繫 😀" + "</p>" + "<br>" + "<a href='"
-				+ GlobalService.DOMAIN_PATTERN_SINGLE + "'>點我回要抒啦首頁</a>" + "<br>");
+				+ GlobalService.DOMAIN_PATTERN + "'>點我回要抒啦首頁</a>" + "<br>");
 		Thread sendEmail = new SendEmail(email, subject, content.toString(), "");
 		sendEmail.start();
 
@@ -354,9 +354,7 @@ public class MemberController {
 //						session.setAttribute("LoginOK", mb);
 				} else if (mb.getStatus().equals("封鎖")) {
 					errorMsgMap.put("LoginBlockError", "此帳號已被封鎖");
-				} else {
-					session.setAttribute("LoginOK", mb);
-				}
+				} 
 			} else {
 				errorMsgMap.put("LoginError", "帳號或密碼錯誤唷");
 			}
@@ -367,6 +365,10 @@ public class MemberController {
 		if (errorMsgMap.isEmpty()) {
 			// 存入LoginOK=登入成功
 			session.setAttribute("LoginOK", mb);
+			
+//			session.setAttribute("sendQuota", mb.getSendQuota());
+//			session.setAttribute("replyQuota", mb.getReplyQuota());
+			
 			// 因為如果沒勾會是null 用@RequestParam註釋一定要傳值進來 如果沒有值會當掉 所以需要用過去request的方式去抓
 			String rm = request.getParameter("rememberMe");
 			Cookie cookieUser = null;
