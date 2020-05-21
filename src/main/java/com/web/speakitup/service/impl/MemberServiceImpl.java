@@ -3,6 +3,8 @@ package com.web.speakitup.service.impl;
 import java.io.IOException;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -126,7 +128,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	@Scheduled(cron = "00 00 12 * * *")
+	@Scheduled(cron = "00 06 16 * * *")
 	public void letterScheduleWork() throws IOException{
 		System.out.println("執行定期工作"); 
 //		String [] cmds = {"curl", "https://speakitup.nctu.me/scheduledWork"};

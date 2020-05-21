@@ -1,6 +1,6 @@
 function doFirst(){
 	var start = new Date;
-    start.setHours(12,0,0)
+    start.setHours(16,02,20)
     function updateTime(){
         var now = new Date().getTime();
         if(now > start){

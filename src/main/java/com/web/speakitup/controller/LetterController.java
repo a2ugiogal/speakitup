@@ -37,15 +37,30 @@ public class LetterController {
 
 	@Autowired
 	LetterService letterService;
-
+	
+	
+	
+	
 	// 漂流信首頁
 	@GetMapping("/letterHome")
-	public String letterHome(HttpSession session) {
+	public String letterHome(HttpSession session,HttpServletRequest request) {
 
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
-
-
+		System.out.println("mb" + mb);
 		String sendQuota = mb.getSendQuota();
+		System.out.println("sendQuota: " + sendQuota);
+		Integer id = mb.getId();
+		
+//		if(request.getAttribute("updateLetter") != null) {
+//			mb = memberService.getMember(id);
+//			session.setAttribute("LoginOK", mb);
+//			System.out.println("111sendQuota" + mb.getSendQuota());
+//			System.out.println("重新學一次mb");
+//			return "driftLetter/letterInfo";
+//		}
+		
+//		String sendQuota = mb.getSendQuota();
+		sendQuota = mb.getSendQuota();
 		String replyQuota = mb.getReplyQuota();
 		// 如果當天寄過信或是寄信欄是不是空的 就不能寄
 		if (sendQuota.equals("false")) {
