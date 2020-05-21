@@ -10,16 +10,16 @@ window.addEventListener("load", doFirst);
 
 /* 超過字變成... */
 $(function() {
-	var len = 100; // 超過140個字以"..."取代
+	var len = 60; // 超過140個字以"..."取代
 	$(".card-text").each(
 			function(i) {
 				if ($(this).text().length > len) {
-					var text = $(this).html().replace(/<br>/g, "，").substring(
+					var text = $(this).html().replace(/<br>/g, "\n").substring(
 							0, len - 1)
 							+ "...";
 					$(this).text(text);
 				} else {
-					var text = $(this).html().replace(/<br>/g, "，");
+					var text = $(this).html().replace(/<br>/g, "\n");
 					text = text.substring(0, text.length - 1);
 					$(this).text(text);
 				}

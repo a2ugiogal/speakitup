@@ -1,7 +1,7 @@
 // Q&A 陣列宣告===================================================
 var qaList = [
   // 卡片====================================================================================
-  { Q:"玩偶", A:"<a href='https://www.kidsroom.com.tw/zh-hant/sterntaler-shou-hu-tian-shi-wan-ou-jin-hellblau' \
+  { Q:"玩偶", A:"<a href='https://speakitup.nctu.me/product/showProductInfo/4' \
   target='_blank' \
   style='text-decoration:none;'>\
   <img class='card__cover' src='https://i.imgur.com/LgMJD2h.jpg'>\
@@ -11,7 +11,7 @@ var qaList = [
   </div>\
   </a>\
       \
-  |<a href='https://world.taobao.com/item/523235463919.htm' \
+  |<a href='https://speakitup.nctu.me/product/showProductInfo/12' \
   target='_blank' \
   style='text-decoration:none;'>\
   <img class='card__cover' src='https://i.imgur.com/4yN2Alu.jpg'>\
@@ -21,29 +21,29 @@ var qaList = [
   </div>\
   </a>"},
 
-  { Q:"貼圖", A:"<a href='https://store.line.me/stickershop/product/12999/zh-Hant' \
-  target='_blank' \
-  style='text-decoration:none;'>\
-  <img class='card__cover' src='https://i.imgur.com/Rf1WqoS.png'>\
-  <div class='card__description'>2020要抒拉論壇人氣票選TOP10，LINE最新貼圖！</div>\
-  <div class='card__btn-link'>\
-  <span>點擊前去看看 >></span>\
-  </div>\
-  </a>\
-  \
-  |<a href='https://store.line.me/stickershop/product/12999/zh-Hant' \
-  target='_blank' \
-  style='text-decoration:none;'>\
-  <img class='card__cover' src='https://i.imgur.com/UG9fu32.png'>\
-  <div class='card__description'>2020要抒拉論壇人氣票選TOP10，LINE最新貼圖！</div>\
-  <div class='card__btn-link'>\
-  <span>點擊前去看看 >></span>\
-  </div>\
-  </a>"},
+//  { Q:"貼圖", A:"<a href='https://store.line.me/stickershop/product/12999/zh-Hant' \
+//  target='_blank' \
+//  style='text-decoration:none;'>\
+//  <img class='card__cover' src='https://i.imgur.com/Rf1WqoS.png'>\
+//  <div class='card__description'>2020要抒拉論壇人氣票選TOP10，LINE最新貼圖！</div>\
+//  <div class='card__btn-link'>\
+//  <span>點擊前去看看 >></span>\
+//  </div>\
+//  </a>\
+//  \
+//  |<a href='https://store.line.me/stickershop/product/12999/zh-Hant' \
+//  target='_blank' \
+//  style='text-decoration:none;'>\
+//  <img class='card__cover' src='https://i.imgur.com/UG9fu32.png'>\
+//  <div class='card__description'>2020要抒拉論壇人氣票選TOP10，LINE最新貼圖！</div>\
+//  <div class='card__btn-link'>\
+//  <span>點擊前去看看 >></span>\
+//  </div>\
+//  </a>"},
   // 卡片====================================================================================
-    { Q:"員|站長|經理|客服|克服", A:"客服電話000-111-222"},
+    { Q:"員|站長|經理|客服|克服", A:"客服電話2835-3415"},
     { Q:"唱歌", A:"喔～妳是我的花朵 我要擁有妳 插在我心窩 喔～妳是我的花朵 我要保護妳 一路都暢通 喔～妳是我的花朵 就算妳身邊 很多小石頭 喔～妳是我的花朵 我要愛著妳 不眠也不休"},
-    { Q:"惡魔", A:"<a href='https://store.line.me/stickershop/product/12999/zh-Hant' \
+    { Q:"惡魔", A:"<a href='https://speakitup.nctu.me/article/showPageArticles?categoryTitle=惡魔' \
     target='_blank' \
     style='text-decoration:none;'>\
     <img class='card__cover' src='https://i.imgur.com/1eh1Wkq.jpg'>\
@@ -52,8 +52,26 @@ var qaList = [
     <span>點擊前去看看 >></span>\
     </div>\
     </a>"},
+    { Q:"抱怨|論壇", A:"<a href='https://speakitup.nctu.me/article/showPageArticles?categoryTitle=惡魔' \
+        target='_blank' \
+        style='text-decoration:none;'>\
+        <img class='card__cover' src='https://i.imgur.com/1eh1Wkq.jpg'>\
+        <div class='card__description'>要抒拉論壇人氣<span style='color:blue'>惡魔版</span>，壓抑一整天想找個地方抒發嗎?來惡魔版就對了！</div>\
+        <div class='card__btn-link'>\
+        <span>點擊前去看看 >></span>\
+        </div>\
+        </a><hr><a href='https://speakitup.nctu.me/article/showPageArticles?categoryTitle=天使' \
+    target='_blank' \
+    style='text-decoration:none;'>\
+    <img class='card__cover' src='https://i.imgur.com/D3MXcYP.jpg'>\
+    <div class='card__description'>要抒拉論壇人氣<span style='color:blue'>天使版</span>，一肚子委屈想找個人安慰、拍拍嗎?來天使版就對了！</div>\
+    <div class='card__btn-link'>\
+    <span>點擊前去看看 >></span>\
+    </div>\
+    </a>"},
+    
 
-    { Q:"天使", A:"<a href='https://store.line.me/stickershop/product/12999/zh-Hant' \
+    { Q:"天使", A:"<a href='https://speakitup.nctu.me/article/showPageArticles?categoryTitle=天使' \
     target='_blank' \
     style='text-decoration:none;'>\
     <img class='card__cover' src='https://i.imgur.com/D3MXcYP.jpg'>\
@@ -63,7 +81,7 @@ var qaList = [
     </div>\
     </a>"},
 
-    { Q:"首頁", A:"<a href='https://store.line.me/stickershop/product/12999/zh-Hant' \
+    { Q:"首頁", A:"<a href='https://speakitup.nctu.me' \
     target='_blank' \
     style='text-decoration:none;'>\
     <img class='card__cover' src='https://i.imgur.com/6UJgJhM.jpg'>\
@@ -73,7 +91,7 @@ var qaList = [
     </div>\
     </a>"},
 
-    { Q:"商城", A:"<a href='https://store.line.me/stickershop/product/12999/zh-Hant' \
+    { Q:"商城", A:"<a href='https://speakitup.nctu.me/product/productHome' \
     target='_blank' \
     style='text-decoration:none;'>\
     <img class='card__cover' src='https://i.imgur.com/6UJgJhM.jpg'>\
@@ -111,7 +129,7 @@ var qaList = [
       }
      } catch (err) {}
     }clear();
-    return "不明白，請換個問題或聯繫客服000-111-222"; // 如果發生任何錯誤，就回答「不明白，請聯繫客服000-111-222」來混過去。
+    return "不明白，請換個問題或聯繫客服 2835-3415"; // 如果發生任何錯誤，就回答「不明白，請聯繫客服000-111-222」來混過去。
   }   
 
   //回答樣式1=====================================================
