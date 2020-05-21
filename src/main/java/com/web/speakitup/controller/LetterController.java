@@ -39,37 +39,32 @@ public class LetterController {
 	LetterService letterService;
 	
 	
-	
+	//及時刷新寄信的時間，萬一倒數計時到的話
+	@GetMapping("/letterHomeForUpdate")
+	public String letterHomeForUpdate(HttpSession session) {
+		
+		MemberBean mbOld = (MemberBean) session.getAttribute("LoginOK");
+		MemberBean mb = memberService.getMember(mbOld.getId());
+		session.removeAttribute("sendError");
+		session.removeAttribute("replyError");
+		session.setAttribute("LoginOK", mb);
+		
+		return "driftLetter/letterInfo"; 
+	}
 	
 	// 漂流信首頁
 	@GetMapping("/letterHome")
 	public String letterHome(HttpSession session,HttpServletRequest request) {
 
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
-		System.out.println("mb" + mb);
 		String sendQuota = mb.getSendQuota();
-		System.out.println("sendQuota: " + sendQuota);
-		Integer id = mb.getId();
-		
-//		if(request.getAttribute("updateLetter") != null) {
-//			mb = memberService.getMember(id);
-//			session.setAttribute("LoginOK", mb);
-//			System.out.println("111sendQuota" + mb.getSendQuota());
-//			System.out.println("重新學一次mb");
-//			return "driftLetter/letterInfo";
-//		}
-		
-//		String sendQuota = mb.getSendQuota();
 		sendQuota = mb.getSendQuota();
 		String replyQuota = mb.getReplyQuota();
 		// 如果當天寄過信或是寄信欄是不是空的 就不能寄
 		if (sendQuota.equals("false")) {
-			System.out.println("不能寄信");
 			session.setAttribute("sendError", "不能寄信");
-
 		}
 		if(replyQuota.equals("false")) {
-			System.out.println("本日已回過信");
 			session.setAttribute("replyError", "不能寄信");
 		}
 		return "driftLetter/letterInfo";

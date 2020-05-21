@@ -10,7 +10,7 @@ body{
 	
 	width: 100%;
     min-height: 100vh;
-    background: #535657;
+    background: #abdff8;
 }
 
 #contentLength {
@@ -39,7 +39,7 @@ body{
     align-items: center;
     width: 700px;
     height: 600px;
-    background: #E1E4DF;
+    background: #F4F4F9;
     font-size: 0.9rem;
     object-fit: cover; 
     padding: 20px 20px 100px 30px; 
@@ -230,6 +230,6 @@ body{
 	margin-bottom:40px;
 	width:55px;
 	height:60px;	
-	background:#d5d5d5;
+	background:#f0f0f0;
 	z-index:-1;
 }

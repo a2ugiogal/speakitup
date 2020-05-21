@@ -15,13 +15,13 @@
        
         setTimeout(function(){
 	        			$('.fakeLetter').css('opacity','1');
-	        			$('.fakeLetter').addClass('animate__fadeOutDown animate__slow');
+	        			$('.fakeLetter').addClass('animate__fadeOutDown animate__slower');
 	        		
 	        	}, 4000);
        
        setTimeout(function(){
 			form.submit();
-		}, 5500);
+		}, 6000);
 	})
 	
 	

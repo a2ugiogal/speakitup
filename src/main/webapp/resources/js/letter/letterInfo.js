@@ -1,6 +1,7 @@
+//漂流信的倒數計時器
 function doFirst(){
 	var start = new Date;
-    start.setHours(16,02,20)
+    start.setHours(23,48,00)
     function updateTime(){
         var now = new Date().getTime();
         if(now > start){
@@ -27,8 +28,17 @@ function doFirst(){
         }
         if(s<10){
         	document.getElementById('second').innerText = "0" + s;
+        	
         }
-
+        if(s<=5){
+    		document.getElementById('second').style.color="#E70E02";
+    	}else{
+    		document.getElementById('second').style.color="#fff";
+    	}
+        
+        if(h == 0 && m == 0 && s == 0){
+        	window.location = "http://localhost:8080/letter/letterHomeForUpdate"
+        }
     }
 
     setInterval(() => {
