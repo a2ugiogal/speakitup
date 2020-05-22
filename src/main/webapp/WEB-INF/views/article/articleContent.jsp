@@ -35,7 +35,7 @@
 <body>
 	<!-- =======================導覽列================= -->
 	<nav class="navbar navbar-expand-lg navbar-light fixed-top p-0"
-		id="navBody">
+		style="margin-bottom: 200px" id="navBody">
 		<div class="mr-auto">
 			<button id="hamberger-btn" class="navbar-toggler ml-3" type="button"
 				data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -49,15 +49,6 @@
 			</a>
 		</div>
 		<div class="navbar-nav flex-row ml-auto"
-			style="position: absolute; right: 250px; top: 10px;">
-			<form class="form-inline mr-5">
-				<input class="form-control mr-sm-2" type="search" id="search"
-					placeholder="Search" aria-label="Search" />
-				<button class="btn d-flex justify-content-center" type="submit"
-					id="search-btn">Search</button>
-			</form>
-		</div>
-		<div class="navbar-nav flex-row ml-auto"
 			style="position: absolute; right: 0; top: 10px;">
 			<!-- ==========判斷是否登入======== -->
 			<c:choose>
@@ -69,12 +60,11 @@
 				</c:when>
 				<c:otherwise>
 					<div style="width: 160px;">
-						<a id="nav-memberId" class="mr-4"
-							href="<spring:url value='/member/personPage' />"
-							style="text-decoration: none;"> <img id="nav-memberPicture"
+						<a class="mr-4" href="<spring:url value='/member/personPage' />"
+							style="text-decoration: none;" id="nav-memberId"> <img
 							src="<spring:url value='/member/getUserImage/${LoginOK.id}' />"
-							width="45px" height="45px" class="rounded-circle mr-2" />
-							${LoginOK.memberId}
+							width="45px" height="45px" class="rounded-circle mr-2"
+							id="nav-memberPicture" /> ${LoginOK.memberId}
 						</a>
 					</div>
 					<a class="navbar-brand mr-5"
@@ -95,16 +85,26 @@
 						<a class="dropdown-item"
 							href="<spring:url value='/article/showPageArticles?categoryTitle=惡魔' />">惡魔板</a>
 					</div></li>
-				<li class="nav-item dropdown mx-2"><a
-					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-					role="button" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false"> 商城 </a>
-					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="#">首頁</a> <a class="dropdown-item"
-							href="<spring:url value='/order/shoppingCartList' />">購物車</a> <a
-							class="dropdown-item"
-							href="<spring:url value='/order/showHistoryOrder' />">歷史訂單</a>
-					</div></li>
+				<c:choose>
+					<c:when test="${empty LoginOK}">
+						<li class="nav-item mx-2"><a class="nav-link"
+							href="<spring:url value='/product/productHome' />">商城</a></li>
+					</c:when>
+					<c:otherwise>
+						<li class="nav-item dropdown mx-2"><a
+							class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+							role="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false"> 商城 </a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item"
+									href="<spring:url value='/product/productHome' />">首頁</a> <a
+									class="dropdown-item"
+									href="<spring:url value='/order/shoppingCartList' />">購物車</a> <a
+									class="dropdown-item"
+									href="<spring:url value='/order/showHistoryOrder' />">歷史訂單</a>
+							</div></li>
+					</c:otherwise>
+				</c:choose>
 				<li class="nav-item mx-2"><a class="nav-link"
 					href="<spring:url value='/letter/letterHome' />">漂流瓶</a></li>
 				<c:if test="${LoginOK.permission=='管理員'}">
@@ -130,13 +130,12 @@
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<a class="dropdown-item" href="#">創建理念</a> <a
 							class="dropdown-item" href="#">團隊介紹</a> <a class="dropdown-item"
-							href="#">聯絡我們</a>
+							href="<spring:url value='/aboutUs/contact' />">聯絡我們</a>
 					</div></li>
 			</ul>
 		</div>
 	</nav>
 	<!-- 導覽列 -->
-
 
 	<!-- 文章留言========================================= -->
 	<div id="commentsDiv">
@@ -274,7 +273,7 @@
 			</div>
 			<div class="d-flex justify-content-center align-items-center p-1">
 				<i id="lastPage" class="fas fa-caret-left"
-					style="font-size: 36px; cursor: pointer; visibility: hidden;"></i>
+					style="font-size: 36px; cursor: pointer; visibility: hidden;z-index: 1001;"></i>
 				<div class="text-center" style="width: 150px;">
 					<span id="commentPage">1</span> / <span id="totalPage"> <c:set
 							var="commentsLength" value="${fn:length(comments_set)}"></c:set>
@@ -296,7 +295,7 @@
 					</span>
 				</div>
 				<i id="nextPage" class="fas fa-caret-right"
-					style="font-size: 36px; cursor: pointer;"></i>
+					style="font-size: 36px; cursor: pointer;z-index: 1001;"></i>
 			</div>
 		</div>
 		<div id="headDad">
