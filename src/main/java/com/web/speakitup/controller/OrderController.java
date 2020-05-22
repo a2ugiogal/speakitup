@@ -362,7 +362,7 @@ public class OrderController {
 		AllInOne aio = new AllInOne("");
 		AioCheckOutDevide aioCheck = new AioCheckOutDevide();
 		/* 特店編號 */
-		aioCheck.setMerchantID("2000132");
+		aioCheck.setMerchantID("2000214");
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		sdf.setLenient(false);
 		/* 特店交易時間 */
@@ -372,17 +372,17 @@ public class OrderController {
 		/* 交易描述 */
 		aioCheck.setTradeDesc("speakitup");
 		/* 商品名稱 */
-		String itemName = "";
-		for (OrderItemBean oib : ob.getOrderItems()) {
-			itemName += oib.getProductName() + oib.getUnitPrice() + "元x" + oib.getQuantity() + "#";
-		}
-		aioCheck.setItemName(itemName.substring(0, itemName.length() - 1));
+//		String itemName = "";
+//		for (OrderItemBean oib : ob.getOrderItems()) {
+//			itemName += oib.getProductName() + oib.getUnitPrice() + "元x" + oib.getQuantity() + "#";
+//		}
+		aioCheck.setItemName("500");
 		/* 特店交易編號 */
 		aioCheck.setMerchantTradeNo("testSpeakitup" + ob.getOrderNo());
 		/* 付款完成通知回傳網址 */
 		aioCheck.setReturnURL("https://speakitup.nctu.me/order/returnURL");
 		/* Client端回傳付款結果網址 */
-		aioCheck.setOrderResultURL("https://speakitup.nctu.me/product/productHome");
+		aioCheck.setOrderResultURL("https://speakitup.nctu.me/order//showHistoryOrder");
 		// 輸出畫面
 		PrintWriter out = response.getWriter();
 		response.setContentType("text/html");
@@ -399,7 +399,7 @@ public class OrderController {
 				|| request.getRemoteAddr().equalsIgnoreCase("175.99.72.24")
 				|| request.getRemoteAddr().equalsIgnoreCase("175.99.72.28")
 				|| request.getRemoteAddr().equalsIgnoreCase("175.99.72.32")) && RtnCode == 1) {
-			String orderIdStr = MerchantTradeNo.substring(12);
+			String orderIdStr = MerchantTradeNo.substring(13);
 			int orderId = Integer.parseInt(orderIdStr);
 			OrderBean ob = orderService.getOrder(orderId);
 			ob.setStatus("待出貨");
@@ -407,10 +407,10 @@ public class OrderController {
 	}
 
 	/* 前往訂單成功 */
-	@GetMapping("/orderSuccessPage")
-	public String orderSuccessPage() {
-		return "order/orderSuccess";
-	}
+//	@GetMapping("/orderSuccessPage")
+//	public String orderSuccessPage() {
+//		return "order/orderSuccess";
+//	}
 
 	/* 查詢歷史訂單 */
 	@GetMapping("/showHistoryOrder")

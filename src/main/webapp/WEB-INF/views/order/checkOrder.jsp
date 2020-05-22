@@ -272,7 +272,7 @@
 										style="text-align: left; font-size: 1.5em;">付款方式</label> <select
 										name="" id=""
 										style="padding-left: 0.5em; width: 8.7em; font-size: 1.5em;">
-										<option value="">貨到付款</option>
+										<option value="">信用卡付款</option>
 									</select>
 								</div>
 								<input type="hidden" name="buyCartStr" value="${buyCartStr}">

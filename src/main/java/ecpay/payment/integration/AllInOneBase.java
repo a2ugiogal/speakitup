@@ -39,7 +39,7 @@ public class AllInOneBase {
 //			doc = EcpayFunction.xmlParser(configPath);
 			/* when using testing code*/
 //			String paymentConfPath = "./src/main/resources/payment_conf.xml";
-			String paymentConfPath = "C:\\Users\\user-1742-4\\Desktop\\speakitup\\src\\main\\resources/payment_conf.xml";
+			String paymentConfPath = "C:/TOOLS/JAVA/workspace/speakitup/src/main/resources/payment_conf.xml";
 			doc = EcpayFunction.xmlParser(paymentConfPath);
 			
 			doc.getDocumentElement().normalize();
