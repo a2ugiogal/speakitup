@@ -3,9 +3,11 @@ package com.web.speakitup.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,7 +40,6 @@ public class LetterController {
 	@Autowired
 	LetterService letterService;
 	
-	
 	//及時刷新寄信的時間，萬一倒數計時到的話
 	@GetMapping("/letterHomeForUpdate")
 	public String letterHomeForUpdate(HttpSession session) {
@@ -49,7 +50,7 @@ public class LetterController {
 		session.removeAttribute("replyError");
 		session.setAttribute("LoginOK", mb);
 		
-		return "driftLetter/letterInfo"; 
+		return "forward:/letter/letterHome"; 
 	}
 	
 	// 漂流信首頁
@@ -65,7 +66,7 @@ public class LetterController {
 			session.setAttribute("sendError", "不能寄信");
 		}
 		if(replyQuota.equals("false")) {
-			session.setAttribute("replyError", "不能寄信");
+			session.setAttribute("replyError", "不能回信");
 		}
 		return "driftLetter/letterInfo";
 		
@@ -294,7 +295,6 @@ public class LetterController {
 				out.write("noLetters");
 				out.flush();
 			}else {
-				System.out.println(gson.toJson(letters));
 				out.write(gson.toJson(letters));
 				out.flush();
 				
@@ -306,13 +306,11 @@ public class LetterController {
 	//不喜歡的信
 	@PostMapping("/deleteLetter")
 	public void deleteLetters(@RequestParam("id") int letterId,HttpSession session,HttpServletResponse response) {
-		System.out.println("不喜歡的信件ID" + letterId);
 		response.setCharacterEncoding("UTF-8");
 		LetterBean lb = letterService.getLetter(letterId);
 		String feedBack = lb.getFeedback();
 		if(feedBack.equals("dislike")) {
 			letterService.updateLetterFeedback(letterId, "");
-			System.out.println("收回不喜歡"+ letterId);
 		}else {
 			letterService.updateLetterFeedback(letterId, GlobalService.LETTER_BADFEEDBACK);
 		}
@@ -329,7 +327,6 @@ public class LetterController {
 	//在信件上按下正面回饋鈕 送回資料庫 回信的作者可以知道自己獲得正面回饋的數量
 	@PostMapping("/likeLetter")
 	public void likeLetters(@RequestParam("id") int letterId,HttpSession session,HttpServletResponse response) {
-		System.out.println("喜歡的信件ID" + letterId);
 		response.setCharacterEncoding("UTF-8");
 		//更新信件的回饋欄位
 		
@@ -338,7 +335,6 @@ public class LetterController {
 		
 		if(feedBack.equals("like")) {
 			letterService.updateLetterFeedback(letterId, "");
-			System.out.println("收回喜歡:" + letterId);
 		}else {
 			letterService.updateLetterFeedback(letterId, GlobalService.LETTER_FEEDBACK);
 		}

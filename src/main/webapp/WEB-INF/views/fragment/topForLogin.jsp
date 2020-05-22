@@ -9,7 +9,7 @@
 <link rel="stylesheet"
 	href="<spring:url value='/css/product/productInfo.css' />">
 
-
+<link rel="shortcut icon" href="<spring:url value='/image/logo/logo_trans_92px.png' /> ">
 <c:set var='debug' value='true' scope='application' />
 <div class="top_area">
 

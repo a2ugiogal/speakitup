@@ -14,6 +14,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 	crossorigin="anonymous">
+	<link rel="shortcut icon" href="<spring:url value='/image/logo/logo_trans_92px.png' /> ">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet" />
 <c:choose>
@@ -208,7 +209,7 @@
 					</c:if>
 				</div>
 				<div class="comment">
-					<pre style="white-space:pre-wrap;">${entry.content}</pre>
+					<pre>${entry.content}</pre>
 				</div>
 				<div class="commentCount">${number.count}</div>
 				<div class="d-flex justify-content-end commentDate">

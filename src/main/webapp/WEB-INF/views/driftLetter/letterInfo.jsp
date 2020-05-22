@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="<spring:url value='/css/letter/info.css' /> ">
     <link rel="stylesheet" href="<c:url value='/css/letter/nav.css' /> ">
     <link rel="stylesheet" href="<c:url value='/css/letter/countdown.css' /> ">
-    
+    <link rel="shortcut icon" href="<spring:url value='/image/logo/logo_trans_92px.png' /> ">
 <title>歡迎來到漂流瓶專區</title>
 </head>
 <c:choose>

@@ -1,7 +1,7 @@
 //漂流信的倒數計時器
 function doFirst(){
 	var start = new Date;
-    start.setHours(23,48,00)
+    start.setHours(15,26,00)
     function updateTime(){
         var now = new Date().getTime();
         if(now > start){
@@ -30,7 +30,9 @@ function doFirst(){
         	document.getElementById('second').innerText = "0" + s;
         	
         }
-        if(s<=5){
+        if(h == 0 && m == 0 && s<=5){
+    		document.getElementById('hour').style.color="#E70E02";
+    		document.getElementById('minute').style.color="#E70E02";
     		document.getElementById('second').style.color="#E70E02";
     	}else{
     		document.getElementById('second').style.color="#fff";

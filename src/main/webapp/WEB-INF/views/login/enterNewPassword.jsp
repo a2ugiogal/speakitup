@@ -11,6 +11,7 @@
 <link
 	href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css'
 	rel='stylesheet'>
+	<link rel="shortcut icon" href="<spring:url value='/image/logo/logo_trans_92px.png' /> ">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"

@@ -14,6 +14,7 @@
 <link
 	href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css'
 	rel='stylesheet'>
+	<link rel="shortcut icon" href="<spring:url value='/image/logo/logo_trans_92px.png' /> ">
 <!-- aos是別人寫好的動畫效果，載入時會浮上來的感覺，不要可拿掉 -->
 <link rel="stylesheet"
 	href="<spring:url value='/css/aboutUs/aos.css' />">

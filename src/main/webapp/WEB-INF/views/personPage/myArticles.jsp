@@ -14,6 +14,7 @@
 	crossorigin="anonymous">
 <link href="https://unpkg.com/boxicons@2.0.5/css/boxicons.min.css"
 	rel="stylesheet" />
+	<link rel="shortcut icon" href="<spring:url value='/image/logo/logo_trans_92px.png' /> ">
 <link rel="stylesheet"
 	href="<spring:url value='/css/personPage/myArticles.css' /> " />
 <link rel="stylesheet"

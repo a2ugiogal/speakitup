@@ -22,6 +22,7 @@
 	href="<spring:url value='/css/product/nav.css' /> " />
 <link rel="stylesheet"
 	href="<spring:url value='/css/order/historyOrder.css' /> " />
+	<link rel="shortcut icon" href="<spring:url value='/image/logo/logo_trans_92px.png' /> ">
 </head>
 <body>
 	<!-- =======================導覽列================= -->

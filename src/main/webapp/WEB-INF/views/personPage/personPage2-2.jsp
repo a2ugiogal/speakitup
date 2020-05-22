@@ -7,6 +7,7 @@ prefix="c"%>
   <head>
     <meta charset="UTF-8" />
     <title>要抒拉--個人頁面</title>
+    <link rel="shortcut icon" href="<spring:url value='/image/logo/logo_trans_92px.png' /> ">
     <link
       rel="stylesheet"
       href="${pageContext.request.contextPath}/css/_03_personPage/personPageForm.css"
