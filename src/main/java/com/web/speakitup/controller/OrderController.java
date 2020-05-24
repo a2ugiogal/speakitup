@@ -382,7 +382,7 @@ public class OrderController {
 		/* 付款完成通知回傳網址 */
 		aioCheck.setReturnURL("https://speakitup.nctu.me/order/returnURL");
 		/* Client端回傳付款結果網址 */
-		aioCheck.setOrderResultURL("https://speakitup.nctu.me/order//showHistoryOrder");
+		aioCheck.setOrderResultURL("https://speakitup.nctu.me/order/showHistoryOrder");
 		// 輸出畫面
 		PrintWriter out = response.getWriter();
 		response.setContentType("text/html");
@@ -412,6 +412,29 @@ public class OrderController {
 //		return "order/orderSuccess";
 //	}
 
+	/* 查詢歷史訂單 */
+	@PostMapping("/showHistoryOrder")
+	public String showECPAYHistoryOrder(Model model, HttpSession session) {
+		// 取得使用者資料(MemberBean)
+		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
+		Integer memberId = mb.getId();
+		// 取得使用者的訂單資料(OrderBean)
+		List<OrderBean> orders = orderService.getMemberOrders(memberId);
+
+		// 取出訂單詳細資料(OrderItemBean)
+		Map<Integer, Set<OrderItemBean>> orderItemGroup = new HashMap<Integer, Set<OrderItemBean>>();
+		for (OrderBean ob : orders) {
+			int orderNo = ob.getOrderNo();
+			Set<OrderItemBean> OrderItemBeans = ob.getOrderItems();
+			orderItemGroup.put(orderNo, OrderItemBeans);
+		}
+
+		model.addAttribute("order_list", orders);
+		model.addAttribute("orderItem_map", orderItemGroup);
+
+		return "order/historyOrder";
+	}
+	
 	/* 查詢歷史訂單 */
 	@GetMapping("/showHistoryOrder")
 	public String showHistoryOrder(Model model, HttpSession session) {
