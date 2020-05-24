@@ -1,0 +1,94 @@
+*{
+    border: 0;
+    margin: 0;
+    font-family: 'Noto Sans TC', sans-serif;
+}
+
+body{
+    background: #dbdbdb;
+}
+
+.ourteam{
+    text-align: center;
+    margin-top: 100px;
+    margin-bottom: 50px;
+    font-weight: 200;
+}
+
+.mainContent{
+/* 		width:100%; */
+		height:95vh;
+}
+
+/* .imgSection */
+/* { */
+
+/*     display: flex; */
+/*     justify-content: center; */
+    
+/* } */
+
+/* .imgBox */
+/* { */
+/*     margin-bottom: 100px; */
+/* } */
+
+.imgBox img
+{
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+/*     margin: auto 30px; */
+    cursor: pointer;
+}
+
+.imgBox img:hover
+{
+    transition: 0.5s;
+    transform: scale(1.25);
+    box-shadow: 2px 4px 5px  rgba(0, 0, 0,0.5);
+}
+
+.imgChecked{
+    transition: 0.5s;
+    transform: scale(1.25);
+    box-shadow: 2px 4px 5px  rgba(0, 0, 0,0.5);
+}
+
+/*下方的團隊介紹*/
+
+.infoSection{
+    width: 600px; 
+    height: auto;
+    display: flex;
+    margin: 0 auto;
+}
+
+.infoBox
+{
+    position: absolute;
+    font-size: 2rem;
+/*     width: 600px; */
+    height: auto;
+    display: none;
+    border-radius: 8px;
+    
+}
+
+.border{
+    display: block;
+    background: #FDC134;
+    border-bottom: 5px solid #FDC134 !important;
+}
+
+/*介紹*/
+p{
+    padding-top: 10px;
+    margin-bottom: 50px;
+}
+
+/*名字*/
+.name{
+    display: block;
+    margin-bottom: 10px;
+}

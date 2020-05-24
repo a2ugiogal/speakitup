@@ -1,7 +1,7 @@
 //漂流信的倒數計時器
 function doFirst(){
 	var start = new Date;
-    start.setHours(12,00,00)
+    start.setHours(18,20,00)
     function updateTime(){
         var now = new Date().getTime();
         if(now > start){
@@ -39,8 +39,8 @@ function doFirst(){
     	}
         
         if(h == 0 && m == 0 && s == 0){
-//        	window.location = "http://localhost:8080/letter/letterHomeForUpdate"
-        	window.location = "https://speakitup.nctu.me/letter/letterHomeForUpdate"
+        	window.location = "http://localhost:8080/letter/letterHomeForUpdate"
+//        	window.location = "https://speakitup.nctu.me/letter/letterHomeForUpdate"
         }
     }
 

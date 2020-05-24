@@ -1,8 +1,8 @@
 $(document).ready(() => {
 	if($('.letterBox').length > 0){
-		$('#showMyLetters').css('display','grid')
+		$('.showAngelLetters').css('display','grid')
 	}else{
-		$('#showMyLetters').css('display','inline')
+		$('.showAngelLetters').css('display','inline')
 	}
 	watchReply();
 	back();
@@ -17,19 +17,19 @@ $(document).ready(() => {
         		type : 'POST',
         		success : function(response) {
         			if(response == "noLetters"){
-        				$('.showAngelLetters').css('display','none')
-//        				$('.noLettersDiv').css('display','block')
+        				noLetters("devil");
         				
         			}
         			else{
-        				success(response,"devil");
         				$('.showDevilLetters').css('display','grid')
         				$('.noLettersDiv').css('display','none')
+        				success(response,"devil");
+        				
         			}
         		}
         	});
             $('body').css('background','black')
-            $('.letter').css('color','#fff')
+            $('.letters').css('color','#fff')
            
             $(e.target).parent().removeClass('angelLabel')
             $(e.target).parent().addClass('devilLabel')
@@ -39,19 +39,20 @@ $(document).ready(() => {
         		type : 'POST',
         		success : function(response) {
         			if(response == "noLetters"){
-        				$('.showDevilLetters').css('display','none')
-        				$('.noLettersDiv').css('display','block')
+        				noLetters("angel");
+        				
         			}
         			else{
-        				success(response,"angel");
         				$('.showAngelLetters').css('display','grid')
         				$('.noLettersDiv').css('display','none')
+        				success(response,"angel");
+        				
         			}
         		}
 
         	});
         	$('body').css('background','#fff')
-        	$('.letter').css('color','black')
+        	$('.letters').css('color','black')
         	
             $(e.target).parent().removeClass('devilLabel')
             $(e.target).parent().addClass('angelLabel')
@@ -167,8 +168,65 @@ function success(response,type){
 
 }
 
+function noLetters(type){
+	
+	let letters = $('#showMyLetters');
+	let inner="";
+	
+	if(type == 'devil'){
+		inner+="<div class='noLettersDiv'>";
+		inner+="<div>";
+		inner+="<h1 class='ml9'>";
+		inner+="<span class='text-wrapper'>";
+		inner+="<a href='/letter/letterHome'>";
+		inner+="<span class='letters'>目前沒有信件，點此前往寄信</span></a>";
+		inner+="</span>";
+		inner+="</h1>";
+		inner+="</div>";
+		inner+="</div>";
+	}else{
+		inner+="<div class='noLettersDiv'>";
+		inner+="<div>";
+		inner+="<h1 class='ml9'>";
+		inner+="<span class='text-wrapper'>";
+		inner+="<a href='/letter/letterHome'>";
+		inner+="<span class='lettersAngel'>目前沒有信件，點此前往寄信</span></a>";
+		inner+="</span>";
+		inner+="</h1>";
+		inner+="</div>";
+		inner+="</div>";
+	}
+	letters.html(inner);
+	noLettersAnimation(type);
+}
 
-
+function noLettersAnimation(type){
+	if(type == "devil"){
+		
+		var textWrapper = document.querySelector('.ml9 .letters');
+	    textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letterDevil'>$&</span>");
+	    anime({
+	        targets: '.ml9 .letterDevil',
+	        scale: [0, 1],
+	        duration: 1500,
+	        elasticity: 600,
+	        duration: 1000,
+	        delay:(el,i) =>45 * (i + 1),
+	    })
+	}else{
+		var textWrapper = document.querySelector('.ml9 .lettersAngel');
+	    textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+	    anime({
+	        targets: '.ml9 .letter',
+	        scale: [0, 1],
+	        duration: 1500,
+	        elasticity: 600,
+	        duration: 1000,
+	        delay:(el,i) =>45 * (i + 1),
+	    })
+	}
+	
+}
 
 //看回信內容
 function watchReply(){

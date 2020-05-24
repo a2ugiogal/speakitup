@@ -32,6 +32,16 @@ public class HomeController {
 	public String contact() {
 		return "aboutUs/contact";
 	}
+	
+	@GetMapping("/aboutUs/groupInfo")
+	public String groupInfo() {
+		return "aboutUs/groupInfo";
+	}
+	
+	@GetMapping("/aboutUs/createIdea")
+	public String createIdea() {
+		return "aboutUs/createIdea";
+	}
 
 	@GetMapping("/scheduledWork")
 	public void scheduledWork(HttpServletRequest request) {
