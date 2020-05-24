@@ -18,10 +18,13 @@ $(document).ready(() => {
         		success : function(response) {
         			if(response == "noLetters"){
         				$('.showAngelLetters').css('display','none')
+//        				$('.noLettersDiv').css('display','block')
+        				
         			}
         			else{
         				success(response,"devil");
         				$('.showDevilLetters').css('display','grid')
+        				$('.noLettersDiv').css('display','none')
         			}
         		}
         	});
@@ -37,10 +40,12 @@ $(document).ready(() => {
         		success : function(response) {
         			if(response == "noLetters"){
         				$('.showDevilLetters').css('display','none')
+        				$('.noLettersDiv').css('display','block')
         			}
         			else{
         				success(response,"angel");
         				$('.showAngelLetters').css('display','grid')
+        				$('.noLettersDiv').css('display','none')
         			}
         		}
 
@@ -107,7 +112,7 @@ function success(response,type){
 		inner+="<p><h2>"+response[i].letterTitle+"</h2></p>";
 		inner+="<p><h3>"+response[i].letterCategory+"</h3></p>";
 		inner+="<p><h5>"+response[i].sendTime+"</h5></p>";
-		inner+="<pre>"+response[i].letterContent+"</pre>";
+		inner+="<div class='preDiv'><pre>"+response[i].letterContent+"</pre></div>";
 		inner+="<div class='"+class4+"'>";	
 		inner+="<div class='watchReply'>看回信</div>";
 		if(type=="devil" && response[i].feedback == null){	

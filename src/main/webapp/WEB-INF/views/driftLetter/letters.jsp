@@ -130,15 +130,15 @@
 		<div class="showAngelLetters">
 			<c:if test="${letterCategory == '天使'}">
 				<c:if test="${not empty noLetters}" >
-				<div class="noLettersDiv">
-					<div>
-					 <h1 class="ml9">
-        				<span class="text-wrapper">
-            				<a href="<spring:url value='/letter/letterHome' />"><span class="letters">目前沒有信件，點此前往寄信</span></a>
-        				</span>
-    				</h1>
-    				</div>
-    			</div>
+					<div class="noLettersDiv">
+						<div>
+						 <h1 class="ml9">
+	        				<span class="text-wrapper">
+	            				<a href="<spring:url value='/letter/letterHome' />"><span class="letters">目前沒有信件，點此前往寄信</span></a>
+	        				</span>
+	    				</h1>
+	    				</div>
+	    			</div>
 				</c:if>
 					<c:forEach var='letters' items='${letters}' varStatus="letterNo">
 						<!--1-->

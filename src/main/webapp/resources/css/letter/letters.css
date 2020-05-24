@@ -38,17 +38,10 @@ body{
 #showMyLetters{
     position: relative;
     width: 75%;
-/*     display:inline; */
-/*     grid-template-columns: repeat(auto-fill,minmax(400px,1fr)); */
-/*     grid-template-rows: auto; */
-/*     gap: 0 40px; */
-/*     margin-top:5%; */
-/*     margin-right:100px; */
 }
 .showAngelLetters,.showDevilLetters{
 	
 position: relative;
-/*     width: 75%; */
     display:grid;
     grid-template-columns: repeat(auto-fill,minmax(400px,1fr));
     grid-template-rows: auto;
@@ -81,9 +74,9 @@ position: relative;
 
 
 .preDiv{
-	    width: 100%;
+	width: 100%;
     height: 33%;
-	    word-break: break-all;
+	word-break: break-all;
     overflow-y: auto;
 }
 

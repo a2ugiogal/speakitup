@@ -13,14 +13,14 @@
 	href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css'
 	rel='stylesheet'>
 <link rel="stylesheet"
-	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+	href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <script type="text/javascript"
-	src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript"
-	src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
 <link rel="stylesheet"
-	href="http://jqueryui.com/resources/demos/style.css" />
+	href="https://jqueryui.com/resources/demos/style.css" />
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
