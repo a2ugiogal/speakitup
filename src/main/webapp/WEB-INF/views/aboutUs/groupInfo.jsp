@@ -158,89 +158,99 @@
 	<!-- 導覽列 -->
 	
 	<div class="mainContent container-fluid ">
-	 <h1 class="ourteam">團隊介紹</h1>
-    <div class="imgSection d-flex row align-items-center justify-content-center mb-5">
-        <div class="imgBox w-50 col-xl-2 col-md-6 col-sm-12 pl-5 mt-3 mb-3" id="no1">
-                <img src="<spring:url value='/image/aboutus/品睿.JPG' />" alt="" class="imgChecked">
+    <div class="imgSection">
+	 
+    <!-- 左邊 -->
+    	<div class="imgLeft">
+	        <div class="imgBox" id="no1">
+	                <img src="<spring:url value='/image/aboutus/品睿.JPG' />" alt="" class="imgChecked">
+	        </div>
+	        <div class="imgBox" id="no2">
+	                <img src="<spring:url value='/image/aboutus/婷伃.JPG' />" alt="">
+	        </div>
+	        <div class="imgBox" id="no3">
+	                <img src="<spring:url value='/image/aboutus/于婷.JPG' />" alt="">
+	        </div> 
         </div>
-        <div class="imgBox w-50 col-xl-2 col-md-6 col-sm-12  pl-5 mt-3 mb-3" id="no2">
-                <img src="<spring:url value='/image/aboutus/婷伃.JPG' />" alt="">
-        </div>
-        <div class="imgBox w-50 col-xl-2 col-md-6 col-sm-12  pl-5 mt-3 mb-3" id="no3">
-                <img src="<spring:url value='/image/aboutus/于婷.JPG' />" alt="">
-        </div> 
-        
-        <div class="imgBox w-50 col-xl-2 col-md-6 col-sm-12  pl-5 mt-3 mb-3" id="no4">
-                <img src="<spring:url value='/image/aboutus/昱廷.JPG' />" alt="">
-        </div>
-        <div class="imgBox w-50 col-xl-2 col-md-6 col-sm-12  pl-5 mt-3 mb-3" id="no5">
-                <img src="<spring:url value='/image/aboutus/泓哲.JPG' />" alt="">
-        </div>
-        <div class="imgBox w-50 col-xl-2 col-md-6 col-sm-12  pl-5 mt-3 mb-3" id="no6">
-                <img src="<spring:url value='/image/aboutus/將軍.JPG' />" alt="">
+        <!-- 中間 -->
+        <div class="infoSection">
+        	<div class="ourteamDiv">
+       	 		<h1 class="ourteam">團隊介紹</h1>
+       	 	</div>
+		    <div class="infoBox no1 animate__animated animate__zoomIn" >
+		        <span class="name">曾品睿(組長)</span>
+		        <span class="border"></span>
+		        <p> 
+		        	國立台北大學應用外語系<br>
+		                                會員系統前端版面<br>
+		     		UI設計      
+		        </p>
+		    </div>
+		    <div class="infoBox no2 animate__animated animate__zoomIn">
+		        <span class="name">詹婷伃 (副組長兼技術長)</span>
+		        <span class="border"></span>
+		        <p> 
+		        	國立中央大學數學系<br>
+				           論壇前端版面<br>
+		                                前端工程整合<br>
+		 		          資料庫設計<br>
+		                                後端系統
+		        </p>
+		    </div>
+		    <div class="infoBox no3 animate__animated animate__zoomIn">
+		        <span class="name">孫于婷(被程式耽誤的編劇)</span>
+		        <span class="border"></span>
+		        <p>  
+		        	國立中央大學數學系<br>
+		        	論壇前端版面<br>
+		           	前端工程整合<br>
+		          	資料庫設計<br>
+		          	後端系統
+		        </p>
+		    </div>
+		    <div class="infoBox no4 animate__animated animate__zoomIn">
+		        <span class="name">劉昱廷(要抒啦專業打雜)</span>
+		        <span class="border"></span>
+		        <p> 
+		        	世新大學社會心理學系<br>
+		           	 前端工程整合<br>
+		           	 漂流瓶系統<br>
+		           	 資料庫設計<br>
+		                                  後端系統
+		        </p>
+		    </div>
+		    <div class="infoBox no5 animate__animated animate__zoomIn">
+		        <span class="name">蔡泓哲(要抒啦御用特效師)</span>
+		        <span class="border"></span>
+		        <p>  
+		        	龍華科技大學電機工程系<br>
+		           	商城系統前端版面<br>
+		           	管理系統前端版面
+		        </p>
+		    </div>
+		    <div class="infoBox no6 animate__animated animate__zoomIn">
+		        <span class="name">彭淳義(要抒啦向心力博士)</span>
+		        <span class="border"></span>
+		        <p>   
+		        	龍華科技大學電機工程系<br>
+		           	聊天機器人
+		        </p>
+		    </div>
+		</div>
+		<!-- 右邊 -->
+		<div class="imgRight">
+	        <div class="imgBox" id="no4">
+	                <img src="<spring:url value='/image/aboutus/昱廷.JPG' />" alt="">
+	        </div>
+	        <div class="imgBox" id="no5">
+	                <img src="<spring:url value='/image/aboutus/泓哲.JPG' />" alt="">
+	        </div>
+	        <div class="imgBox" id="no6">
+	                <img src="<spring:url value='/image/aboutus/將軍.JPG' />" alt="">
+	        </div>
         </div>
     </div>
-    <div class="infoSection">
-	    <div class="infoBox no1 animate__animated animate__zoomIn" >
-	        <span class="name">曾品睿(組長)</span>
-	        <span class="border"></span>
-	        <p> 
-	        	國立台北大學應用外語系<br>
-	                                會員系統前端版面<br>
-	     		UI設計      
-	        </p>
-	    </div>
-	    <div class="infoBox no2 animate__animated animate__zoomIn">
-	        <span class="name">詹婷伃 (副組長兼技術長)</span>
-	        <span class="border"></span>
-	        <p> 
-	        	國立中央大學數學系<br>
-			           論壇前端版面<br>
-	                                前端工程整合<br>
-	 		          資料庫設計<br>
-	                                後端系統
-	        </p>
-	    </div>
-	    <div class="infoBox no3 animate__animated animate__zoomIn">
-	        <span class="name">孫于婷(被程式耽誤的編劇)</span>
-	        <span class="border"></span>
-	        <p>  
-	        	國立中央大學數學系<br>
-	        	論壇前端版面<br>
-	           	前端工程整合<br>
-	          	資料庫設計<br>
-	          	後端系統
-	        </p>
-	    </div>
-	    <div class="infoBox no4 animate__animated animate__zoomIn">
-	        <span class="name">劉昱廷(要抒啦專業打雜)</span>
-	        <span class="border"></span>
-	        <p> 
-	        	世新大學社會心理學系<br>
-	           	 前端工程整合<br>
-	           	 漂流瓶系統<br>
-	           	 資料庫設計<br>
-	                                  後端系統
-	        </p>
-	    </div>
-	    <div class="infoBox no5 animate__animated animate__zoomIn">
-	        <span class="name">蔡泓哲(要抒啦御用特效師)</span>
-	        <span class="border"></span>
-	        <p>  
-	        	龍華科技大學電機工程系<br>
-	           	商城系統前端版面<br>
-	           	管理系統前端版面
-	        </p>
-	    </div>
-	    <div class="infoBox no6 animate__animated animate__zoomIn">
-	        <span class="name">彭淳義(要抒啦向心力博士)</span>
-	        <span class="border"></span>
-	        <p>   
-	        	龍華科技大學電機工程系<br>
-	           	聊天機器人
-	        </p>
-	    </div>
-</div>
+    
 </div>
 <!--========= footer================= -->
 	<!-- Footer -->
@@ -368,12 +378,22 @@
             $('.imgBox').click(function(){
                 var id = $(this).attr('id');
                 //點的時候其他的資料隱藏
-                $('.'+id).siblings().not(this).css('display','none')
+//                 $('.'+id).siblings().not(this).css('display','none')
+                $('.infoBox:not(.id)').css('display','none')
                 //該元素出現
                 $('.' + id).css('display','block')
-                $(this).find('img').addClass('imgChecked')
                 //在點擊狀態時保持放大一點的狀態
+                $(this).find('img').addClass('imgChecked')
+                
+                if($(this).parent().attr('class') == 'imgLeft' ){
                 $(this).siblings().find('img').removeClass('imgChecked').css('transition','0.5s')
+                $('.imgRight').find('img').removeClass('imgChecked').css('transition','0.5s')
+                }else{
+                	 $(this).siblings().find('img').removeClass('imgChecked').css('transition','0.5s')
+                     $('.imgLeft').find('img').removeClass('imgChecked').css('transition','0.5s')
+                }
+//                 $('.imgLeft').find('img').not(this).removeClass('imgChecked').css('transition','0.5s')
+//                 $('.imgRight').find('img').not(this).removeClass('imgChecked').css('transition','0.5s')
                 
             })
         });
