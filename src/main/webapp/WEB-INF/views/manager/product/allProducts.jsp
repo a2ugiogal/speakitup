@@ -14,6 +14,7 @@
 	rel="stylesheet"
 	integrity="sha384-LV/SIoc08vbV9CCeAwiz7RJZMI5YntsH8rGov0Y2nysmepqMWVvJqds6y0RaxIXT"
 	crossorigin="anonymous" />
+	<link rel="shortcut icon" href="<spring:url value='/image/logo/logo_trans_92px.png' /> ">
 <link rel="stylesheet"
 	href="<spring:url value='/css/manager/allProducts.css' />" />
 <link rel="stylesheet"

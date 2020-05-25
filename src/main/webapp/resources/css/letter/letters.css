@@ -62,48 +62,43 @@ position: relative;
     
 }
 
-.letterBox{
-    margin: 10px;
-	box-shadow: 10px 10px 10px -6px rgba(0,0,0,0.75);
-	-webkit-border-radius: 10px 10px 10px 10px;
-/* 	border: 4px solid black; */
-	background: #cde6f3;
-	z-index:-100;
-}
-
  .letterBox{
  
     position: relative;
-    height: 600px;
+    height: 580px;
     justify-content: center;
     align-items: center;
-	
+	 margin: 10px;
+	box-shadow: 10px 10px 10px -6px rgba(0,0,0,0.75);
+	-webkit-border-radius: 10px 10px 10px 10px;
 }
 
 /*滾輪*/
-::-webkit-scrollbar {
-	width: 6px;
-}
-
-.sendContent::-webkit-scrollbar {
-  display: none;
-}
-
-.replyContent::-webkit-scrollbar {
-  display: none;
+ ::-webkit-scrollbar {
+	width: 5px;
 }
 
 
 
-pre{
+.preDiv{
+	    width: 100%;
+    height: 33%;
+	    word-break: break-all;
+    overflow-y: auto;
+}
+
+ pre{
 	white-space: pre-wrap;
 	word-wrap:break-word;
 	font-size: 1.2rem;
 	font-family: 'Noto Sans TC', sans-serif;
+	overflow:auto;
 }
 
 .replyBoxDevil pre{
 	color:#CFCFCF !important;
+	white-space: pre-wrap;
+	word-wrap:break-word;
 }
 
  .sendBox{
@@ -117,6 +112,7 @@ pre{
     font-size: 1.1rem;
     padding-left:30px;
 	padding-right:30px;
+	border-radius: 8px;
 }
 
  .replyBox{
@@ -124,13 +120,13 @@ pre{
     width:100%;
     height: 580px;
     background: #cde6f3;
-/*     overflow:hidden; */
     justify-content: center;
     align-items: center;
     z-index: -1;
-/*     font-size: 1.1rem; */
     padding-left:30px;
 	padding-right:30px;
+	border-radius: 8px;
+	
 } 
 
 
@@ -154,7 +150,8 @@ pre{
     margin-top:5%;
 }
 
-.angelLabel input{
+.angelLabel input,
+.devilLabel input{
     opacity: 0;
 }
 
@@ -358,15 +355,16 @@ pre{
 
 .watchReplyDevil:hover, .backDevil:hover{
     color: cadetblue;
-    cursor: pointer;
 }
-.watchReplyDevil{
-font-size: 1.1rem;
+.watchReplyDevil,.watchReply{
+font-size: 1.3rem;
+font-weight:700;
+margin-top:20px;
 }
 
  .letterBoxDevil{
     position: relative;
-    height: 600px;
+    height: 580px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -384,16 +382,13 @@ font-size: 1.1rem;
  .sendBoxDevil{
     position: absolute;
     width:100%;
-    height: 580px;
+    height: 575px;
     background: #020202;
-/*     padding: auto auto 5px 5px; */
     font-size: 1.1rem;
-	overflow:hidden;
 	justify-content: center;
     align-items: center;
+    border-radius: 8px;
     z-index: 1;
-    word-break:break-all;
-    overflow-y:auto;
     padding-left:30px;
 	padding-right:30px;
 }
@@ -405,15 +400,13 @@ font-size: 1.1rem;
  .replyBoxDevil{
     position: absolute;
     width:100%;
-    height: 580px;
+    height: 575px;
     background: #020202;
-    overflow: hidden;
     font-size: 1.1rem;
     justify-content: center;
     align-items: center;
+    border-radius: 8px;
     z-index: -1;
-    word-break:break-all;
-    overflow-y:auto;
     padding-left:30px;
 	padding-right:30px;
 } 
@@ -534,11 +527,6 @@ font-size: 1.1rem;
     cursor: pointer;
     margin:5% auto auto 20px;
 }
-
-.devilLabel input{
-    opacity: 0;
-}
-
 
 /*長長的軌道*/
 .devilLabel .check{

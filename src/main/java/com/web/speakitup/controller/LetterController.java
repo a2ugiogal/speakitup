@@ -3,9 +3,11 @@ package com.web.speakitup.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,39 +40,33 @@ public class LetterController {
 	@Autowired
 	LetterService letterService;
 	
-	
-	
+	//及時刷新寄信的時間，萬一倒數計時到的話
+	@GetMapping("/letterHomeForUpdate")
+	public String letterHomeForUpdate(HttpSession session) {
+		
+		MemberBean mbOld = (MemberBean) session.getAttribute("LoginOK");
+		MemberBean mb = memberService.getMember(mbOld.getId());
+		session.removeAttribute("sendError");
+		session.removeAttribute("replyError");
+		session.setAttribute("LoginOK", mb);
+		
+		return "forward:/letter/letterHome"; 
+	}
 	
 	// 漂流信首頁
 	@GetMapping("/letterHome")
 	public String letterHome(HttpSession session,HttpServletRequest request) {
 
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
-		System.out.println("mb" + mb);
 		String sendQuota = mb.getSendQuota();
-		System.out.println("sendQuota: " + sendQuota);
-		Integer id = mb.getId();
-		
-//		if(request.getAttribute("updateLetter") != null) {
-//			mb = memberService.getMember(id);
-//			session.setAttribute("LoginOK", mb);
-//			System.out.println("111sendQuota" + mb.getSendQuota());
-//			System.out.println("重新學一次mb");
-//			return "driftLetter/letterInfo";
-//		}
-		
-//		String sendQuota = mb.getSendQuota();
 		sendQuota = mb.getSendQuota();
 		String replyQuota = mb.getReplyQuota();
 		// 如果當天寄過信或是寄信欄是不是空的 就不能寄
 		if (sendQuota.equals("false")) {
-			System.out.println("不能寄信");
 			session.setAttribute("sendError", "不能寄信");
-
 		}
 		if(replyQuota.equals("false")) {
-			System.out.println("本日已回過信");
-			session.setAttribute("replyError", "不能寄信");
+			session.setAttribute("replyError", "不能回信");
 		}
 		return "driftLetter/letterInfo";
 		
@@ -299,7 +295,6 @@ public class LetterController {
 				out.write("noLetters");
 				out.flush();
 			}else {
-				System.out.println(gson.toJson(letters));
 				out.write(gson.toJson(letters));
 				out.flush();
 				
@@ -311,13 +306,11 @@ public class LetterController {
 	//不喜歡的信
 	@PostMapping("/deleteLetter")
 	public void deleteLetters(@RequestParam("id") int letterId,HttpSession session,HttpServletResponse response) {
-		System.out.println("不喜歡的信件ID" + letterId);
 		response.setCharacterEncoding("UTF-8");
 		LetterBean lb = letterService.getLetter(letterId);
 		String feedBack = lb.getFeedback();
 		if(feedBack.equals("dislike")) {
 			letterService.updateLetterFeedback(letterId, "");
-			System.out.println("收回不喜歡"+ letterId);
 		}else {
 			letterService.updateLetterFeedback(letterId, GlobalService.LETTER_BADFEEDBACK);
 		}
@@ -334,7 +327,6 @@ public class LetterController {
 	//在信件上按下正面回饋鈕 送回資料庫 回信的作者可以知道自己獲得正面回饋的數量
 	@PostMapping("/likeLetter")
 	public void likeLetters(@RequestParam("id") int letterId,HttpSession session,HttpServletResponse response) {
-		System.out.println("喜歡的信件ID" + letterId);
 		response.setCharacterEncoding("UTF-8");
 		//更新信件的回饋欄位
 		
@@ -343,7 +335,6 @@ public class LetterController {
 		
 		if(feedBack.equals("like")) {
 			letterService.updateLetterFeedback(letterId, "");
-			System.out.println("收回喜歡:" + letterId);
 		}else {
 			letterService.updateLetterFeedback(letterId, GlobalService.LETTER_FEEDBACK);
 		}

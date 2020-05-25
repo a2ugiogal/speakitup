@@ -10,6 +10,7 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&display=swap"
 	rel="stylesheet">
+<link rel="shortcut icon" href="<spring:url value='/image/logo/logo_trans_92px.png' /> ">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -146,11 +147,14 @@
 								<c:if test="${letterNo.count <6}">
 									<div class="newLetters"><i class="fas fa-bullhorn"></i></div>
 								</c:if>
-								<p><h2>${letterNo.count}</h2></p>
-								<p><h2>${letters.letterTitle}</h2></p>
-								<p><h3>${letterCategory}</h3></p>
-								<p><h5>${letters.sendTime}</h5></p>
-									<pre>${letters.letterContent}</pre>
+								<p><h2>${letterNo.count}</h2>
+								<p><h2>${letters.letterTitle}</h2>
+								<p><h3>${letterCategory}</h3>
+								<p><h4>${letters.sendTime}</h4>
+								<p></p>
+								<div class="preDiv">
+								<pre>${letters.letterContent}</pre>
+								</div>
 <%-- 								<div id="${letters.letterId}" style="display:none"></div> --%>
 								<div class="sendBoxBotAngel">
 								<div class="watchReply">看回信</div>
@@ -166,8 +170,8 @@
 	                                  </div>
 	                             	</c:when>
 	                             	<c:otherwise>
-		                             	<input type="checkbox"   class="likeAngel${letters.letterId}">
-	                                 	<div class="iconBox"  onclick="likeFeedbackAngel(${letters.letterId})">
+		                             	<input type="checkbox" class="likeAngel${letters.letterId}">
+	                                 	<div class="iconBox" onclick="likeFeedbackAngel(${letters.letterId})">
 	                                     	<i class="far fa-handshake"></i>
 	                                  </div>
 	                             	</c:otherwise>
@@ -229,7 +233,7 @@
 <%-- 						</c:forEach> --%>
 <!-- 					</div> -->
 <%-- 				</c:when> --%>
-</div>
+		</div>
 	</div>
 	<label class="angelLabel">
         <input type="checkbox" name="letterType">

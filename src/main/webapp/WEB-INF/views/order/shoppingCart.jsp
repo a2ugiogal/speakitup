@@ -16,7 +16,7 @@
 	rel="stylesheet"
 	integrity="sha384-LV/SIoc08vbV9CCeAwiz7RJZMI5YntsH8rGov0Y2nysmepqMWVvJqds6y0RaxIXT"
 	crossorigin="anonymous">
-
+<link rel="shortcut icon" href="<spring:url value='/image/logo/logo_trans_92px.png' /> ">
 	
 <!-- icon -->
 <script src="https://kit.fontawesome.com/041970ba48.js"

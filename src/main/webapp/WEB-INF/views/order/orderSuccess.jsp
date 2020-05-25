@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/_04_order/success.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+<link rel="shortcut icon" href="<spring:url value='/image/logo/logo_trans_92px.png' /> ">
 <title>要抒拉--訂單完成</title>
 </head>
 <style>

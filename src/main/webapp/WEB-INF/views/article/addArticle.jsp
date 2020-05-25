@@ -12,6 +12,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 	crossorigin="anonymous">
+	<link rel="shortcut icon" href="<spring:url value='/image/logo/logo_trans_92px.png' /> ">
 <link rel="stylesheet"
 	href="<spring:url value='/css/article/addArticle.css' />" />
 <link rel="stylesheet"
@@ -116,7 +117,7 @@
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<a class="dropdown-item" href="#">創建理念</a> <a
 							class="dropdown-item" href="#">團隊介紹</a> <a class="dropdown-item"
-							href="#">聯絡我們</a>
+							href="<spring:url value='/aboutUs/contact' />">聯絡我們</a>
 					</div></li>
 			</ul>
 		</div>

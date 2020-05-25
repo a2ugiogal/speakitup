@@ -18,11 +18,9 @@ $(document).ready(() => {
         		success : function(response) {
         			if(response == "noLetters"){
         				$('.showAngelLetters').css('display','none')
-//        				$('#showMyLetters').css('display','inline')
         			}
         			else{
         				success(response,"devil");
-//        				$('#showMyLetters').css('display','grid')
         				$('.showDevilLetters').css('display','grid')
         			}
         		}
@@ -39,11 +37,9 @@ $(document).ready(() => {
         		success : function(response) {
         			if(response == "noLetters"){
         				$('.showDevilLetters').css('display','none')
-//        				$('#showMyLetters').css('display','inline')
         			}
         			else{
         				success(response,"angel");
-//        				$('#showMyLetters').css('display','grid')
         				$('.showAngelLetters').css('display','grid')
         			}
         		}

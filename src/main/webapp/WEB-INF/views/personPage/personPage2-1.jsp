@@ -9,6 +9,7 @@
 <title>要抒拉--個人頁面</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/_03_personPage/personPageForm.css" />
+	<link rel="shortcut icon" href="<spring:url value='/image/logo/logo_trans_92px.png' /> ">
 <script
 	src="${pageContext.request.contextPath}/js/_03_personPage/updatePersonPageForm.js"></script>
 </head>

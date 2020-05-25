@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="<spring:url value='/css/letter/info.css' /> ">
     <link rel="stylesheet" href="<c:url value='/css/letter/nav.css' /> ">
     <link rel="stylesheet" href="<c:url value='/css/letter/countdown.css' /> ">
-    
+    <link rel="shortcut icon" href="<spring:url value='/image/logo/logo_trans_92px.png' /> ">
 <title>歡迎來到漂流瓶專區</title>
 </head>
 <c:choose>
@@ -142,9 +142,10 @@
         <div class="intro-container">
                 <div>
                 	<c:if test="${! empty sendError || ! empty replyError}" >
-                	<h2 style="width:350px;text-align:center;">  距離下次更新時間</h2>
-                		<div style="width:350px;font-size:18px;text-align: center; margin-bottom:10px;">
+                	<h2 style="width:350px;">  距離下次更新時間</h2>
+                		<div style="width:350px;font-size:18px; margin-bottom:10px;">
 		                	<i class="fas fa-arrow-down"></i>
+							<i class="fas fa-arrow-down"></i>
 							<i class="fas fa-arrow-down"></i>
 							<i class="fas fa-arrow-down"></i>
 							<i class="fas fa-arrow-down"></i>

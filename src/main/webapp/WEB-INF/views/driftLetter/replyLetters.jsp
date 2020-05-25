@@ -12,6 +12,7 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&display=swap"
 	rel="stylesheet">
+	<link rel="shortcut icon" href="<spring:url value='/image/logo/logo_trans_92px.png' /> ">
 	 <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"

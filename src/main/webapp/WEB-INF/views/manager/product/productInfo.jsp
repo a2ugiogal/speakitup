@@ -15,6 +15,7 @@
 	crossorigin="anonymous" />
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet" />
+	<link rel="shortcut icon" href="<spring:url value='/image/logo/logo_trans_92px.png' /> ">
 <link rel="stylesheet"
 	href="<spring:url value='/css/manager/nav.css' />" />
 <link rel="stylesheet"

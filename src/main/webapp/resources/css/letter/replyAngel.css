@@ -48,8 +48,7 @@
     width: 100%;
     height: 100%;
     font-size:1.3rem;
-/*     background: rgb(247, 242, 224); */
-    background: #DEFFFC;
+    background: #f3f5d3;
     z-index: 1;
 /*     opacity: 0.7; */
     box-sizing: border-box;
@@ -82,7 +81,7 @@
     width: 550px;
     height: 450px;
 /*     background: #E4DEE4; */
-    background: #D8E1E9;
+    background: #d5edf2;
     box-sizing: border-box;
 	margin-left:150px;
     box-shadow: 7px 7px 5px 0px rgba(0,0,0,0.5);

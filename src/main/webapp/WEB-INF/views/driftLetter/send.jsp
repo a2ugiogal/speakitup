@@ -13,7 +13,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 	crossorigin="anonymous" />
-    
+    <link rel="shortcut icon" href="<spring:url value='/image/logo/logo_trans_92px.png' /> ">
     <link rel="stylesheet" href="<spring:url value='/css/letter/send.css' /> ">
         <link rel="stylesheet" href="<spring:url value='/css/letter/nav.css' /> ">
     <script src="<spring:url value='/js/letter/sendReply.js' /> " ></script>

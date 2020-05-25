@@ -52,6 +52,7 @@
     position: relative;
     height: 300px;
     width: 550px;
+    font-size:20px;
 }
 
 
@@ -104,15 +105,6 @@
 	align-items: center;
 }
 
-.fakeLetter
-{	
-	opacity:0;
-	margin-bottom:40px;
-width:80px;
-	height:85px;
-	background:#F4F4F9;
-	z-index:-1;
-}
 
 
 /*input submit按鈕的部分*/
