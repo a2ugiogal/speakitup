@@ -64,7 +64,7 @@
 						href="<spring:url value='/member/register' />">註冊</a>
 				</c:when>
 				<c:otherwise>
-					<div style="width: 160px;">
+					<div style="width: 170px;">
 						<a class="mr-4" href="<spring:url value='/member/personPage' />"
 							style="text-decoration: none;" id="nav-memberId"> <img
 							src="<spring:url value='/member/getUserImage/${LoginOK.id}' />"
@@ -266,8 +266,8 @@
 							style="margin-left: auto; width: fit-content; position: relative;"
 							id="left-content">
 							<p>
-								<strong>你</strong>：花了八萬五來學程式，但我什麼也沒學會，<br />沒車沒防沒技能沒工作沒女友沒未來，我的人生好失敗><<br />
-								<strong>友</strong>：八萬五丟水溝啦！你就爛，我也爛 <i class="bx bx-like"></i>
+								<strong>你</strong>：常常覺得什麼事都做不好欸，<br />沒車沒房沒技能沒工作沒女友沒未來，我的人生好失敗><<br />
+								<strong>友</strong>：你就爛，我也爛！ <i class="bx bx-like"></i>
 							</p>
 
 							<p style="margin-bottom: 130px;">

@@ -49,7 +49,7 @@
 						href="<spring:url value='/member/register' />">註冊</a>
 				</c:when>
 				<c:otherwise>
-					<div style="width: 160px;">
+					<div style="width: 170px;">
 						<a class="mr-4" href="<spring:url value='/member/personPage' />"
 							style="text-decoration: none;" id="nav-memberId"> <img
 							src="<spring:url value='/member/getUserImage/${LoginOK.id}' />"
@@ -144,7 +144,7 @@
 						class="col-lg-6 col-xl-3 d-flex flex-column justify-content-around py-2">
 						<div>帳號：${mb.memberId}</div>
 						<div>權限：${mb.permission}</div>
-						<div>狀態：${mb.status}</div>
+						<div id="status">狀態：${mb.status}</div>
 						<div>刪除文章/留言：${reportTimes}</div>
 					</div>
 					<div class="Reportbutton d-flex justify-content-end"

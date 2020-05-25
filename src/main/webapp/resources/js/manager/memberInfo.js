@@ -3,7 +3,7 @@ $(document).ready(function(){
 })
 
 
-//封鎖帳號跟解除封鎖帳號
+// 封鎖帳號跟解除封鎖帳號
 $('.Reportdeletebutton').click(function(e){
 	var type = $(e.target).text();
 	reportAjax(type);
@@ -18,6 +18,7 @@ function reportAjax(type){
       		url : "/member/changeMemberStatus/" + id + "?memberLock=封鎖帳號",
       		type : 'POST',
       		success : function() {
+      			$('#status').text('狀態：封鎖');
       			$('.Reportdeletebutton').text('解除封鎖');
       		}
 		
@@ -29,6 +30,7 @@ function reportAjax(type){
       		url : "/member/changeMemberStatus/" + id + "?memberLock=解除封鎖",
       		type : 'POST',
       		success : function() {
+      			$('#status').text('狀態：正常');
       			$('.Reportdeletebutton').text('封鎖帳號');
       		}
       	});
@@ -69,7 +71,7 @@ $('#getDeletedComment').click((e)=>{
 
 
 
-//ajax傳值的部分
+// ajax傳值的部分
 function getMemberInfoAjax(cmd){
 	
 	var id = $('#memberId').val();

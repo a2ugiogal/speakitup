@@ -81,7 +81,7 @@
 						href="<spring:url value='/member/register' />">註冊</a>
 				</c:when>
 				<c:otherwise>
-					<div style="width: 160px;">
+					<div style="width: 170px;">
 						<a class="mr-4" href="<spring:url value='/member/personPage' />"
 							style="text-decoration: none;" id="nav-memberId"> <img
 							src="<spring:url value='/member/getUserImage/${LoginOK.id}' />"
