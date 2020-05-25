@@ -35,6 +35,22 @@
 		%>
 	</c:when>
 </c:choose>
+<c:if test="${not empty sendAgainError}">
+	<script>
+		alert("發生錯誤！今天已經寄過信囉！")
+	</script>
+		<%
+			session.removeAttribute("sendAgainError");
+		%>
+</c:if>
+<c:if test="${not empty replyAgainError }">
+	<script>
+		alert("發生錯誤！今天已經回過信囉！")
+	</script>
+		<%
+			session.removeAttribute("replyAgainError");
+		%>
+</c:if>
 <body>
 <!-- =======================導覽列================= -->
 	<nav class="navbar navbar-expand-lg navbar-light fixed-top p-0"
@@ -126,8 +142,8 @@
 					role="button" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false"> 關於我們 </a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="#">創建理念</a> <a
-							class="dropdown-item" href="#">團隊介紹</a> <a class="dropdown-item"
+						<a class="dropdown-item" href="<spring:url value='/aboutUs/createIdea' />">創建理念</a> <a
+							class="dropdown-item" href="<spring:url value='/aboutUs/groupInfo' />">團隊介紹</a> <a class="dropdown-item"
 							href="<spring:url value='/aboutUs/contact' />">聯絡我們</a>
 					</div></li>
 			</ul>

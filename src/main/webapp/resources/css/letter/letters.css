@@ -38,17 +38,10 @@ body{
 #showMyLetters{
     position: relative;
     width: 75%;
-/*     display:inline; */
-/*     grid-template-columns: repeat(auto-fill,minmax(400px,1fr)); */
-/*     grid-template-rows: auto; */
-/*     gap: 0 40px; */
-/*     margin-top:5%; */
-/*     margin-right:100px; */
 }
 .showAngelLetters,.showDevilLetters{
 	
 position: relative;
-/*     width: 75%; */
     display:grid;
     grid-template-columns: repeat(auto-fill,minmax(400px,1fr));
     grid-template-rows: auto;
@@ -81,9 +74,9 @@ position: relative;
 
 
 .preDiv{
-	    width: 100%;
+	width: 100%;
     height: 33%;
-	    word-break: break-all;
+	word-break: break-all;
     overflow-y: auto;
 }
 
@@ -655,7 +648,7 @@ margin-top:20px;
 	flex-direction:row;
 	justify-content: center;
     align-items: center;
-   
+   colo:#fff;
 }
 
 .ml9 {
@@ -681,6 +674,22 @@ margin-top:20px;
   color: black;
    
 }
+
+.ml9 .letterDevil {
+  transform-origin: 50% 100%;
+  display: inline-block;
+  line-height: 1em;
+  color: #fff;
+   
+}
+
+.ml9 .letters {
+  transform-origin: 50% 100%;
+  display: inline-block;
+  line-height: 1em;
+  color:#fff;
+}
+
 
 .text-wrapper a{
     text-decoration: none;

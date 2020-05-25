@@ -111,6 +111,12 @@ public class LetterController {
 			@RequestParam("letterContent") String content) {
 
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
+		//做個簡單的防止別人按上一頁重新寄信
+		String SendQuota = mb.getSendQuota();
+		if(SendQuota.equals("false")) {
+			session.setAttribute("sendAgainError", "sendAgainError");
+			return "redirect:/letter/letterHome";
+		}
 		String memberId = mb.getMemberId();
 		// 取得現在日期 擺入信件資訊
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -131,6 +137,14 @@ public class LetterController {
 			@RequestParam("letterContent") String content) {
 
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
+		//做個簡單的防止別人按上一頁重新寄信
+		String SendQuota = mb.getSendQuota();
+		if(SendQuota.equals("false")) {
+			session.setAttribute("sendAgainError", "sendAgainError");
+			return "driftLetter/letterInfo";
+		}
+		
+		//如果沒問題的話就存資料庫
 		String memberId = mb.getMemberId();
 		// 取得現在日期 擺入信件資訊
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -237,8 +251,13 @@ public class LetterController {
 	public String sendReplyContent(HttpSession session, @RequestParam("id") int letterId,
 			@RequestParam("replyContent") String replyContent) {
 		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
-		String replyierId = mb.getMemberId();
 
+		String replyQuota = mb.getReplyQuota();
+		if(replyQuota.equals("false")) {
+			session.setAttribute("replyAgainError", "replyAgainError");
+			return "driftLetter/letterInfo";
+		}
+		String replyierId = mb.getMemberId();
 		LetterBean lb = letterService.getLetter(letterId);
 		// 把資訊存入原本的信件裡
 		lb = new LetterBean(letterId, replyierId, replyContent, "y");

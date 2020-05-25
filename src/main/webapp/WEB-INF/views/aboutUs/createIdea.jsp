@@ -1,32 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+    pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8" />
-<title>個人頁面--要抒啦</title>
-<link rel="stylesheet"
+<meta charset="UTF-8">
+<title>Insert title here</title>
+ <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-	crossorigin="anonymous" />
-<link
-	href="https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css"
-	rel="stylesheet" />
-	<link rel="shortcut icon" href="<spring:url value='/image/logo/logo_trans_92px.png' /> ">
-<link rel="stylesheet"
-	href="<spring:url value='/css/personPage/personPage.css' />" />
-<link rel="stylesheet"
+    crossorigin="anonymous" />
+     <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="<spring:url value='/image/logo/logo_trans_92px.png' /> ">
+    <link rel="stylesheet"
 	href="<spring:url value='/css/register/nav.css' /> " />
-<!-- 下拉式地址 -->
-<script
-	src="https://cdn.jsdelivr.net/npm/tw-city-selector@2.1.0/dist/tw-city-selector.min.js"></script>
-<!-- 下拉式地址 -->
+	<link rel="stylesheet"
+	href="<spring:url value='/css/aboutUs/createIdea.css' /> " />
 </head>
+
 <body>
-	<!-- =======================導覽列================= -->
+<!-- =======================導覽列================= -->
 	<nav class="navbar navbar-expand-lg navbar-light fixed-top p-0"
 		style="margin-bottom: 200px" id="navBody">
 		<div class="mr-auto">
@@ -80,7 +77,7 @@
 				<li class="nav-item dropdown mx-2"><a
 					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 					role="button" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false"> 論壇 </a>
+					aria-expanded="false">論壇 </a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<a class="dropdown-item"
 							href="<spring:url value='/article/showPageArticles?categoryTitle=天使' />">天使板</a>
@@ -96,7 +93,7 @@
 						<li class="nav-item dropdown mx-2"><a
 							class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false"> 商城 </a>
+							aria-expanded="false">商城 </a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<a class="dropdown-item"
 									href="<spring:url value='/product/productHome' />">首頁</a> <a
@@ -107,13 +104,34 @@
 							</div></li>
 					</c:otherwise>
 				</c:choose>
-				<li class="nav-item mx-2"><a class="nav-link"
-					href="<spring:url value='/letter/letterHome' />">漂流瓶</a></li>
+				<li class="nav-item mx-2">
+<%-- 					<c:choose> --%>
+<%-- 						<c:when test="${not empty LoginOK}"> --%>
+<!-- 							<a class="nav-link" -->
+<%-- 							href="<spring:url value='/letter/letterHome' />">漂流瓶</a> --%>
+<%-- 						</c:when> --%>
+<%-- 						<c:otherwise> --%>
+							<a class="nav-link"
+					href="<spring:url value='/member/login?target=/letter/letterHome&loginFilter=true' />">漂流瓶</a>
+<%-- 						</c:otherwise> --%>
+<%-- 					</c:choose> --%>
+					
+				</li>
+				<li class="nav-item dropdown mx-2"><a
+					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+					role="button" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false">歡樂吧</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" style="cursor: pointer;"
+							onclick="showGameModel()">掉落吧！方塊！</a>
+					</div></li>
+				<!-- 				<li class="nav-item mx-2"><a class="nav-link" -->
+				<!-- 					style="cursor: pointer;" onclick="showGameModel()">紓壓遊戲</a></li> -->
 				<c:if test="${LoginOK.permission=='管理員'}">
 					<li class="nav-item dropdown mx-2"><a
 						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false"> 管理後台 </a>
+						aria-expanded="false">管理後台 </a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<a class="dropdown-item"
 								href="<spring:url value='/article/showReports' />">檢舉專區</a> <a
@@ -128,140 +146,75 @@
 				<li class="nav-item dropdown mx-2 mb-1"><a
 					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 					role="button" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false"> 關於我們 </a>
+					aria-expanded="false">關於我們 </a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="<spring:url value='/aboutUs/createIdea' />">創建理念</a> <a
-							class="dropdown-item" href="<spring:url value='/aboutUs/groupInfo' />">團隊介紹</a> <a class="dropdown-item"
-							href="<spring:url value='/aboutUs/contact' />">聯絡我們</a>
+						<a class="dropdown-item" href="<spring:url value='/aboutUs/createIdea' />">創建理念</a> 
+						<a class="dropdown-item" href="<spring:url value='/aboutUs/groupInfo' />">團隊介紹</a> 
+						<a class="dropdown-item" href="<spring:url value='/aboutUs/contact' />">聯絡我們</a>
 					</div></li>
 			</ul>
 		</div>
 	</nav>
 	<!-- 導覽列 -->
-	<!-- ======main=======個人頁面從這裡開始 -->
-	<%-- 	<form:form modelAttribute="memberBean" method="POST" --%>
-	<%-- 		enctype="multipart/form-data" id="personForm" class="py-4" --%>
-	<%-- 		style="margin-top: 60px"> --%>
-	<div id="personForm" class="py-4" style="margin-top: 60px">
-		<div class="container rounded my-5" id="personPage"
-			style="background-color: white; height: 544px;">
-			<div class="row my-5">
-				<!-- 左側欄 -->
-				<div
-					class="col-lg-4 pull-lg-8 text-xs-center d-flex flex-column align-items-center"
-					id="left">
-					<!-- 編輯的按鈕 -->
-					<div id="boxHeadPicture">
-						<!-- 大頭貼照 -->
-						<img
-							src="<spring:url value='/member/getUserImage/${LoginOK.id}' />"
-							class="m-x-auto mt-5 img-fluid img-circle rounded-circle"
-							style="border: 3px solid rgb(196, 190, 190); width: 120px; height: 120px"
-							alt="avatar" id="headPicture" />
-					</div>
-					<div id="boxFileSelect"
-						class="d-flex text-center w-75 mx-auto mt-2 mb-1">
-						<!-- 上傳檔案 -->
-						<input type="file" style="visibility: hidden;" id="fileSelect"
-							class="w-100 mt-1" />
-					</div>
-					<label class="custom-file d-flex flex-column align-items-center">
-						<div class="text-center">
-							<p class="mb-2">
-								<strong id="idStr">${LoginOK.memberId}</strong>
-							</p>
-							<!-- 這裡的字可以再議 -->
-							<p class="mb-3" id="permissionStr">${LoginOK.permission}</p>
-						</div>
-
-						<div class="card mx-auto text-center" style="width: 14rem; z-index: 1000">
-							<ul class="list-group list-group-flush">
-								<li class="list-group-item" id="edit">編輯檔案<i
-									class="bx bx-edit ml-1"></i>
-								</li>
-								<a href="<spring:url value='/member/showMyArticles' />">
-									<li class="list-group-item">我的文章<i class="bx bx-file ml-1"></i></li>
-								</a>
-								<a href="<spring:url value='/letter/myLetters' />">
-									<li class="list-group-item">我的漂流信<i
-										class="bx bx-paper-plane ml-1"></i>
-								</li>
-								</a>
-							</ul>
-						</div>
-					</label>
-				</div>
-
-				<!-- 右側欄 -->
-				<div class="col-lg-8 push-lg-4" id="right">
-					<div class="tab-content">
-						<h2 class="m-y-2 mt-5 mb-4">會員檔案</h2>
-
-						<div class="form-group row">
-							<label
-								class="col-lg-2 col-form-label form-control-label personalTitle">帳號</label>
-							<label
-								class="col-lg-8 col-form-label form-control-label personal">
-								${LoginOK.memberId}</label>
-						</div>
-						<div class="form-group row">
-							<label
-								class="col-lg-2 col-form-label form-control-label personalTitle">性別</label>
-							<label
-								class="col-lg-8 col-form-label form-control-label personal">
-								${LoginOK.gender}</label>
-						</div>
-						<div class="form-group row">
-							<label
-								class="col-lg-2 col-form-label form-control-label personalTitle">生日</label>
-							<label
-								class="col-lg-8 col-form-label form-control-label personal">${LoginOK.birthday}
-							</label>
-						</div>
-						<div class="form-group row">
-							<label
-								class="col-lg-2 col-form-label form-control-label personalTitle">E-mail</label>
-							<label
-								class="col-lg-8 col-form-label form-control-label personal">
-								${LoginOK.email}</label>
-						</div>
-						<div class="form-group row">
-							<label
-								class="col-lg-2 col-form-label form-control-label personalTitle">手機</label>
-							<label
-								class="col-lg-8 col-form-label form-control-label personalUpdate">
-								<span id="phone">${LoginOK.phone}</span>
-							</label>
-						</div>
-						<div class="form-group row">
-							<label
-								class="col-lg-2 col-form-label form-control-label personalTitle">地址</label>
-							<label
-								class="col-lg-8 col-form-label form-control-label personalUpdate">
-								<span id="city">${LoginOK.city}</span><span id="area">${LoginOK.area}</span><span
-								id="address">${LoginOK.address}</span>
-							</label>
-						</div>
-
-						<div class="form-group row">
-							<div class="col-lg-10 d-flex justify-content-center">
-								<input type="button" class="btn btn-secondary mr-2"
-									style="visibility: hidden;" id="btCancel" value="取消" />
-								<input class="btn btn-primary ml-2" style="visibility: hidden;"
-									id="btSubmit" type="button" value="儲存" />
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<%-- 	</form:form> --%>
-
-
-
-
-	<!--========= footer================= -->
+	<div class="mainContent animate__animated animate__fadeIn">
+	
+    <div class="card col-8 col-md-6 ml-2 mb-2 mt-5">
+        <div class="card-header">
+            <h3>創建理念</h3>
+        </div>
+        <div class="card-body">
+          <blockquote class="blockquote mb-0">
+            <p>  「要抒啦！」的理念是能夠預期回應溫度的論壇空間，想被
+                拍拍誇誇來碗心靈雞湯的你請右轉「天使版」， 想來碗惡魔
+                毒湯被罵醒或和鄉民講講幹話的你左轉「惡魔版」。</p>
+           
+          </blockquote>
+        </div>
+      </div>
+      <div class="card col-8 col-md-6 ml-2 mb-2">
+        <div class="card-header">
+            <h3>功能特色</h3>論壇
+        </div>
+        <div class="card-body">
+          <blockquote class="blockquote mb-0">
+            <p class="">有別於多數論壇既定的前端設計，我們的網站想呈現的不只是一段單純文字，而是一個有溫度的世界。因此我們把每篇文章視為該作者的內心世界，留言則是外界給予他的想法，而天使版與惡魔版能將這些想法變成作者想要的能量，讓現實中的大家都能找到屬於自己的抒壓方式。</p>
+          </blockquote>
+        </div>
+      </div>
+      <div class="card col-8 col-md-6 ml-2 mb-2">
+        <div class="card-header">
+            <h3>功能特色</h3>商城
+        </div>
+        <div class="card-body">
+          <blockquote class="blockquote mb-0">
+            <p>商品規格是我們當初努力的重點之一，讓網站管理員可以在新增商品時任意的填寫商品規格與庫存，加入購物車也適當的加入了視覺回饋的特效，在前端的呈現上能有更直觀的使用介面。</p>
+          </blockquote>
+        </div>
+      </div>
+      <div class="card col-8 col-md-6 ml-2 mb-2">
+        <div class="card-header">
+            <h3>特色功能</h3>漂流瓶
+        </div>
+        <div class="card-body">
+          <blockquote class="blockquote mb-0">
+            <p> 對於寄信的人來說，希望透過匿名的方式得到最單純、真誠的回覆
+                對於回信的人來說，希望在幫助別人的同時自己也獲得心靈上的滿足 
+                當然啦，如果無聊想寄信、回信，我們也是OK~</p>
+          </blockquote>
+        </div>
+    </div>
+        <div class="card col-8 col-md-6 ml-2 mb-2">
+            <div class="card-header">
+                <h3>特色功能</h3>歡樂吧
+            </div>
+            <div class="card-body">
+              <blockquote class="blockquote mb-0">
+                <p>原本只是組員分享的有趣特效，意外變成了抒壓小遊戲，讓負面情緒得以釋放，我們希望可以把這份快樂分享給大家，散播歡樂散播愛~</p>
+              </blockquote>
+            </div>
+          </div>
+    </div>
+    <!--========= footer================= -->
 	<!-- Footer -->
 	<footer class="page-footer font-small stylish-color-dark pt-2">
 		<!-- Footer Links -->
@@ -343,10 +296,11 @@
 		<!-- Copyright -->
 	</footer>
 	<!-- Footer -->
-	<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+	
+	 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
 		integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 		crossorigin="anonymous"></script>
-	<script
+		<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
 		integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
 		crossorigin="anonymous"></script>
@@ -354,7 +308,5 @@
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
 		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
 		crossorigin="anonymous"></script>
-	<script
-		src="<spring:url value='/js/personPage/updatePersonPage.js' /> "></script>
 </body>
 </html>
