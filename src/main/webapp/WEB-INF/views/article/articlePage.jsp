@@ -43,7 +43,7 @@
 			</button>
 			<a class="navbar-brand ml-3" href="<spring:url value='/' />"> <img
 				src="<spring:url value='/image/logo/logo_trans_92px.png' /> "
-				height="50px" /> 要抒拉
+				height="50px" /> 要抒啦
 			</a>
 		</div>
 		<div class="navbar-nav flex-row ml-auto"
@@ -337,7 +337,9 @@
 															<c:when test="${not empty entry.key.articleComments}">
 																<c:forEach var="comments"
 																	items="${entry.key.articleComments}" varStatus="number">
-																	<c:if test="${number.last}">${number.count}</c:if>
+																	<c:set var="normal" value="0"></c:set>
+																	<c:if test="${comments.status=='正常'}"><c:set var="normal" value="${normal+1}"></c:set></c:if>
+																	<c:if test="${number.last}">${normal}</c:if>
 																</c:forEach>
 															</c:when>
 															<c:otherwise>0</c:otherwise>

@@ -1,13 +1,3 @@
-function doFirst() {
-	arrange = document.getElementById("arrange");
-	searchForm = document.getElementById("searchForm");
-
-	arrange.addEventListener("change", function() {
-		searchForm.submit();
-	});
-}
-window.addEventListener("load", doFirst);
-
 /* 登入浮動視窗 */
 function loginModel() {
 	$("#ignismyModal").modal("show");

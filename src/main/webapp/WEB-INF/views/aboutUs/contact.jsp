@@ -40,7 +40,7 @@
 			</button>
 			<a class="navbar-brand ml-3" href="<spring:url value='/' />"> <img
 				src="<spring:url value='/image/logo/logo_trans_92px.png' /> "
-				height="50px" /> 要抒拉
+				height="50px" /> 要抒啦
 			</a>
 		</div>
 		<div class="navbar-nav flex-row ml-auto"

@@ -10,7 +10,8 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 	crossorigin="anonymous" />
-<link rel="shortcut icon" href="<spring:url value='/image/logo/logo_trans_92px.png' /> ">
+<link rel="shortcut icon"
+	href="<spring:url value='/image/logo/logo_trans_92px.png' /> ">
 <link rel="stylesheet" href="<spring:url value='/css/index.css' /> " />
 <link rel="stylesheet" href="<spring:url value='/css/bot.css' /> " />
 <link rel="stylesheet"
@@ -109,18 +110,8 @@
 							</div></li>
 					</c:otherwise>
 				</c:choose>
-				<li class="nav-item mx-2">
-<%-- 					<c:choose> --%>
-<%-- 						<c:when test="${not empty LoginOK}"> --%>
-<!-- 							<a class="nav-link" -->
-<%-- 							href="<spring:url value='/letter/letterHome' />">漂流瓶</a> --%>
-<%-- 						</c:when> --%>
-<%-- 						<c:otherwise> --%>
-							<a class="nav-link"
+				<li class="nav-item mx-2"><a class="nav-link"
 					href="<spring:url value='/member/login?target=/letter/letterHome&loginFilter=true' />">漂流瓶</a>
-<%-- 						</c:otherwise> --%>
-<%-- 					</c:choose> --%>
-					
 				</li>
 				<li class="nav-item dropdown mx-2"><a
 					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
@@ -130,8 +121,6 @@
 						<a class="dropdown-item" style="cursor: pointer;"
 							onclick="showGameModel()">掉落吧！方塊！</a>
 					</div></li>
-				<!-- 				<li class="nav-item mx-2"><a class="nav-link" -->
-				<!-- 					style="cursor: pointer;" onclick="showGameModel()">紓壓遊戲</a></li> -->
 				<c:if test="${LoginOK.permission=='管理員'}">
 					<li class="nav-item dropdown mx-2"><a
 						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
@@ -164,7 +153,8 @@
 
 	<!-- 聊天機器人 -->
 
-	<button class="open-button open-button:after" onclick="openForm()" style="background-image: url('<spring:url value="/image/logo/logo_trans_92px.png "/> '); background-size: 50px 50px;">
+	<button class="open-button open-button:after" onclick="openForm()"
+		style="background-image: url('<spring:url value="/image/logo/logo_trans_92px.png "/> '); background-size: 50px 50px;">
 	</button>
 	<!-- 彈出視窗+視窗大小 -->
 	<div class="chat-popup es_bg" id="myForm">
@@ -191,7 +181,8 @@
 							<div class="es_scTxt">
 								<a href="https://speakitup.nctu.me/product/showProductInfo/2"
 									target="_blank" style="text-decoration: none;"> <img
-									class="card__cover" src="<spring:url value='/product/getProductImage/2' />">
+									class="card__cover"
+									src="<spring:url value='/product/getProductImage/2' />">
 									<div class="card__description">2020要抒拉論壇高人氣吉祥物玩偶，戽斗星球玩偶！</div>
 									<div class="card__btn-link">
 										<span>點擊前去看看 >></span>
@@ -200,10 +191,10 @@
 							</div>
 
 							<div class="es_scTxt">
-								<a
-									href="https://speakitup.nctu.me/product/showProductInfo/42"
+								<a href="https://speakitup.nctu.me/product/showProductInfo/42"
 									target="_blank" style="text-decoration: none;"> <img
-									class="card__cover" src="<spring:url value='/product/getProductImage/42' />">
+									class="card__cover"
+									src="<spring:url value='/product/getProductImage/42' />">
 									<div class="card__description">
 										2020要抒拉論壇票選人氣最高紓壓商品！超大Enter鍵！</div>
 									<div class="card__btn-link">
@@ -217,7 +208,7 @@
 					<!--開頭============================= -->
 				</div>
 			</div>
-			<div style="margin-top:5px;">
+			<div style="margin-top: 5px;">
 				<!-- 按enter回答 -->
 				<input id="say" name="say" type="text" value=""
 					onkeydown="keyin(event)" placeholder="寫點什麼.."

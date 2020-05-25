@@ -46,7 +46,7 @@
 			</button>
 			<a class="navbar-brand ml-3" href="<spring:url value='/' />"> <img
 				src="<spring:url value='/image/logo/logo_trans_92px.png' /> "
-				height="50px" /> 要抒拉
+				height="50px" /> 要抒啦
 			</a>
 		</div>
 		<div class="navbar-nav flex-row ml-auto"
@@ -373,9 +373,11 @@
 				<div id="myCommentContent" class="text-center"
 					style="display: none;">
 					<div style="margin-top: 43px; margin-bottom: 8px;">
-						<img class="rounded-circle border-dark border my-auto"
+						<c:if test="${not empty LoginOK}">
+							<img class="rounded-circle border-dark border my-auto"
 							style="width: 40px; height: 40px;"
 							src="<spring:url value='/member/getUserImage/${LoginOK.id}' />" />
+						</c:if>
 						<span>&nbsp; &nbsp; ${LoginOK.memberId}</span>
 					</div>
 					<div class="mt-3 mb-2">
