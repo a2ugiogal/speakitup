@@ -142,9 +142,9 @@
 					role="button" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false">關於我們 </a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="#">創建理念</a> <a
-							class="dropdown-item" href="#">團隊介紹</a> <a class="dropdown-item"
-							href="<spring:url value='/aboutUs/contact' />">聯絡我們</a>
+						<a class="dropdown-item" href="<spring:url value='/aboutUs/createIdea' /> ">創建理念</a> 
+						<a class="dropdown-item" href="<spring:url value='/aboutUs/groupInfo' />">團隊介紹</a> 
+						<a class="dropdown-item" href="<spring:url value='/aboutUs/contact' />">聯絡我們</a>
 					</div></li>
 			</ul>
 		</div>
@@ -572,3 +572,4 @@
 	<script src="<spring:url value='/js/robot/user.js' />"></script>
 </body>
 </html>
+												

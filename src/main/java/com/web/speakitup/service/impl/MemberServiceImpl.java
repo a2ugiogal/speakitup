@@ -128,13 +128,13 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	@Scheduled(cron = "00 00 12 * * *")
+	@Scheduled(cron = "55 19 18 * * *")
 	public void letterScheduleWork() throws IOException{
 		System.out.println("執行定期工作"); 
-		String [] cmds = {"curl", "https://speakitup.nctu.me/scheduledWork"};
-//		String [] cmdsLocalHost = {"curl", "http://localhost:8080/scheduledWork"};
-		ProcessBuilder process = new ProcessBuilder(cmds);
-//		ProcessBuilder process = new ProcessBuilder(cmdsLocalHost);
+//		String [] cmds = {"curl", "https://speakitup.nctu.me/scheduledWork"};
+		String [] cmdsLocalHost = {"curl", "http://localhost:8080/scheduledWork"};
+//		ProcessBuilder process = new ProcessBuilder(cmds);
+		ProcessBuilder process = new ProcessBuilder(cmdsLocalHost);
 		process.start();
 	
 	}

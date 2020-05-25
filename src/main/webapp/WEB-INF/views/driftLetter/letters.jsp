@@ -117,8 +117,8 @@
 					role="button" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false"> 關於我們 </a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="#">創建理念</a> <a
-							class="dropdown-item" href="#">團隊介紹</a> <a class="dropdown-item"
+						<a class="dropdown-item" href="<spring:url value='/aboutUs/createIdea' />">創建理念</a> <a
+							class="dropdown-item" href="<spring:url value='/aboutUs/groupInfo' />">團隊介紹</a> <a class="dropdown-item"
 							href="<spring:url value='/aboutUs/contact' />">聯絡我們</a>
 					</div></li>
 			</ul>
@@ -134,7 +134,7 @@
 						<div>
 						 <h1 class="ml9">
 	        				<span class="text-wrapper">
-	            				<a href="<spring:url value='/letter/letterHome' />"><span class="letters">目前沒有信件，點此前往寄信</span></a>
+	            				<a href="<spring:url value='/letter/letterHome' />"><span class="lettersAngel">目前沒有信件，點此前往寄信</span></a>
 	        				</span>
 	    				</h1>
 	    				</div>
@@ -292,7 +292,7 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
     <script>
         // Wrap every letter in a span
-        var textWrapper = document.querySelector('.ml9 .letters');
+        var textWrapper = document.querySelector('.ml9 .lettersAngel');
         textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
         anime({
             targets: '.ml9 .letter',
@@ -300,7 +300,7 @@
             duration: 1500,
             elasticity: 600,
             duration: 1000,
-            delay: (el, i) =>45 * (i + 1)
+            delay:(el,i) => 45 * (i + 1)
         })
     </script>
 	</c:if>
@@ -317,6 +317,7 @@
 		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
 		crossorigin="anonymous"></script>
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
 	<script src="<spring:url value='/js/letter/letters.js' /> " ></script>
 </body>
 </html>

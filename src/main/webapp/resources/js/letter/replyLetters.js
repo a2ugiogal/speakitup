@@ -21,7 +21,7 @@
        
        setTimeout(function(){
 			form.submit();
-		}, 6000);
+		}, 5000);
 	})
 	
 	

@@ -1,34 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<meta charset="UTF-8" />
-<!-- Vendor CSS Files -->
-<link rel="stylesheet"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>團隊介紹</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
+    <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 	crossorigin="anonymous" />
-<link
-	href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css'
-	rel='stylesheet'>
-	<link rel="shortcut icon" href="<spring:url value='/image/logo/logo_trans_92px.png' /> ">
-<!-- aos是別人寫好的動畫效果，載入時會浮上來的感覺，不要可拿掉 -->
-<link rel="stylesheet"
-	href="<spring:url value='/css/aboutUs/aos.css' />">
-<!-- my css -->
-<link rel="stylesheet"
-	href="<spring:url value='/css/aboutUs/contact.css' /> " />
-
-<link rel="stylesheet"
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="<spring:url value='/css/aboutUs/team.css' /> ">
+    <link rel="shortcut icon" href="<spring:url value='/image/logo/logo_trans_92px.png' /> ">
+    <link rel="stylesheet"
 	href="<spring:url value='/css/register/nav.css' /> " />
-<title>聯絡我們--要抒啦</title>
-
 </head>
 <body>
-	<!-- =======================導覽列================= -->
+
+<!-- =======================導覽列================= -->
 	<nav class="navbar navbar-expand-lg navbar-light fixed-top p-0"
 		style="margin-bottom: 200px" id="navBody">
 		<div class="mr-auto">
@@ -40,7 +35,7 @@
 			</button>
 			<a class="navbar-brand ml-3" href="<spring:url value='/' />"> <img
 				src="<spring:url value='/image/logo/logo_trans_92px.png' /> "
-				height="50px" /> 要抒啦
+				height="50px" /> 要抒拉
 			</a>
 		</div>
 		<div class="navbar-nav flex-row ml-auto"
@@ -82,7 +77,7 @@
 				<li class="nav-item dropdown mx-2"><a
 					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 					role="button" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false"> 論壇 </a>
+					aria-expanded="false">論壇 </a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<a class="dropdown-item"
 							href="<spring:url value='/article/showPageArticles?categoryTitle=天使' />">天使板</a>
@@ -98,7 +93,7 @@
 						<li class="nav-item dropdown mx-2"><a
 							class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false"> 商城 </a>
+							aria-expanded="false">商城 </a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<a class="dropdown-item"
 									href="<spring:url value='/product/productHome' />">首頁</a> <a
@@ -109,13 +104,34 @@
 							</div></li>
 					</c:otherwise>
 				</c:choose>
-				<li class="nav-item mx-2"><a class="nav-link"
-					href="<spring:url value='/letter/letterHome' />">漂流瓶</a></li>
+				<li class="nav-item mx-2">
+<%-- 					<c:choose> --%>
+<%-- 						<c:when test="${not empty LoginOK}"> --%>
+<!-- 							<a class="nav-link" -->
+<%-- 							href="<spring:url value='/letter/letterHome' />">漂流瓶</a> --%>
+<%-- 						</c:when> --%>
+<%-- 						<c:otherwise> --%>
+							<a class="nav-link"
+					href="<spring:url value='/member/login?target=/letter/letterHome&loginFilter=true' />">漂流瓶</a>
+<%-- 						</c:otherwise> --%>
+<%-- 					</c:choose> --%>
+					
+				</li>
+				<li class="nav-item dropdown mx-2"><a
+					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+					role="button" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false">歡樂吧</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" style="cursor: pointer;"
+							onclick="showGameModel()">掉落吧！方塊！</a>
+					</div></li>
+				<!-- 				<li class="nav-item mx-2"><a class="nav-link" -->
+				<!-- 					style="cursor: pointer;" onclick="showGameModel()">紓壓遊戲</a></li> -->
 				<c:if test="${LoginOK.permission=='管理員'}">
 					<li class="nav-item dropdown mx-2"><a
 						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false"> 管理後台 </a>
+						aria-expanded="false">管理後台 </a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<a class="dropdown-item"
 								href="<spring:url value='/article/showReports' />">檢舉專區</a> <a
@@ -130,111 +146,113 @@
 				<li class="nav-item dropdown mx-2 mb-1"><a
 					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 					role="button" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false"> 關於我們 </a>
+					aria-expanded="false">關於我們 </a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="<spring:url value='/aboutUs/createIdea' />">創建理念</a> <a
-							class="dropdown-item" href="<spring:url value='/aboutUs/groupInfo' />">團隊介紹</a> <a class="dropdown-item"
-							href="<spring:url value='/aboutUs/contact' />">聯絡我們</a>
+						<a class="dropdown-item" href="<spring:url value='/aboutUs/createIdea' />">創建理念</a> 
+						<a class="dropdown-item" href="<spring:url value='/aboutUs/groupInfo' />">團隊介紹</a> 
+						<a class="dropdown-item" href="<spring:url value='/aboutUs/contact' />">聯絡我們</a>
 					</div></li>
 			</ul>
 		</div>
 	</nav>
 	<!-- 導覽列 -->
-
-	<!-- ======= Contact Section ======= -->
-	<div style="background-color: rgb(219, 219, 219)">
-		<section id="contact" class="contact section-bg mt-5">
-			<div class="container">
-
-				<div class="section-title">
-					<h2 data-aos="fade-in" class="pb-4">
-						<strong>CONTACT US </strong>
-					</h2>
-					<p data-aos="fade-in">若您有任何問題，歡迎於週一至週五上午10點至下午6點來電洽詢。也歡迎您留下訊息，我們將盡快與您聯繫。</p>
-				</div>
-
-				<div class="row">
-
-					<div class="col-lg-6">
-
-						<div class="row">
-							<div class="col-md-12">
-								<div class="info-box" data-aos="fade-up">
-									<i class="bx bx-map"></i>
-									<h3>Our Address</h3>
-									<p>10608 台北市大安區新生南路一段1號 光華館 2樓 210室</p>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="info-box mt-4" data-aos="fade-up"
-									data-aos-delay="100">
-									<i class="bx bx-envelope"></i>
-									<h3>Email Us</h3>
-									<p>speak_it_up@ntnu.com</p>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="info-box mt-4" data-aos="fade-up"
-									data-aos-delay="100">
-									<i class="bx bx-phone-call"></i>
-									<h3>Call Us</h3>
-									<p>+886-2-2835-3415</p>
-								</div>
-							</div>
-						</div>
-
-					</div>
-
-					<div class="col-lg-6">
-						<form action="<spring:url value='/member/contactUs' /> " method="POST" role="form" class="php-email-form"
-							data-aos="fade-up">
-							<div class="form-row">
-								<div class="col-md-6 form-group">
-									<input type="text" name="name" class="form-control" id="name"
-										placeholder="您的大名" required  autocomplete="off"/>
-									<div class="validate"></div>
-								</div>
-								<div class="col-md-6 form-group">
-									<input type="email" class="form-control" name="email"
-										id="email" placeholder="聯絡信箱" required/>
-									<div class="validate"></div>
-								</div>
-							</div>
-							<div class="form-group">
-								<input type="text" class="form-control" name="guestSubject"
-									id="subject" placeholder="主旨" required/>
-								<div class="validate"></div>
-							</div>
-							<div class="form-group">
-								<textarea class="form-control" name="message" rows="5" maxlength="250"
-									data-rule="required" placeholder="想說的話..." required></textarea>
-								<div class="validate"></div>
-							</div>
-							<div class="mb-3">
-								<div class="loading">Loading</div>
-								<div class="error-message"></div>
-								<div class="sent-message">Your message has been sent.
-									Thank you!</div>
-							</div>
-							<div class="text-center">
-								<button type="submit">Send Message</button>
-							</div>
-						</form>
-					</div>
-
-				</div>
-		</section>
-		<!-- End Contact Section -->
-		<div id="googlemap" class="d-flex justify-content-center pb-5">
-			<iframe
-				src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.7595495555097!2d121.53330871501322!3d25.042232883968556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a97d255598df%3A0x47ea748e8f3f53aa!2z5ZyL56uL6Ie65YyX56eR5oqA5aSn5a24!5e0!3m2!1szh-TW!2stw!4v1586255037278!5m2!1szh-TW!2stw"
-				width="1100" height="350" frameborder="0" style="border: 0;"
-				allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+	
+	<div class="mainContent container-fluid ">
+    <div class="imgSection">
+	 
+    <!-- 左邊 -->
+    	<div class="imgLeft">
+	        <div class="imgBox" id="no1">
+	                <img src="<spring:url value='/image/aboutus/品睿.JPG' />" alt="" class="imgChecked">
+	        </div>
+	        <div class="imgBox" id="no2">
+	                <img src="<spring:url value='/image/aboutus/婷伃.JPG' />" alt="">
+	        </div>
+	        <div class="imgBox" id="no3">
+	                <img src="<spring:url value='/image/aboutus/于婷.JPG' />" alt="">
+	        </div> 
+        </div>
+        <!-- 中間 -->
+        <div class="infoSection">
+        	<div class="ourteamDiv">
+       	 		<h1 class="ourteam">團隊介紹</h1>
+       	 	</div>
+		    <div class="infoBox no1 animate__animated animate__zoomIn" >
+		        <span class="name">曾品睿(組長)</span>
+		        <span class="border"></span>
+		        <p> 
+		        	國立台北大學應用外語系<br>
+		                                會員系統前端版面<br>
+		     		UI設計      
+		        </p>
+		    </div>
+		    <div class="infoBox no2 animate__animated animate__zoomIn">
+		        <span class="name">詹婷伃 (副組長兼技術長)</span>
+		        <span class="border"></span>
+		        <p> 
+		        	國立中央大學數學系<br>
+				           論壇前端版面<br>
+		                                前端工程整合<br>
+		 		          資料庫設計<br>
+		                                後端系統
+		        </p>
+		    </div>
+		    <div class="infoBox no3 animate__animated animate__zoomIn">
+		        <span class="name">孫于婷(被程式耽誤的編劇)</span>
+		        <span class="border"></span>
+		        <p>  
+		        	國立中央大學數學系<br>
+		        	論壇前端版面<br>
+		           	前端工程整合<br>
+		          	資料庫設計<br>
+		          	後端系統
+		        </p>
+		    </div>
+		    <div class="infoBox no4 animate__animated animate__zoomIn">
+		        <span class="name">劉昱廷(要抒啦專業打雜)</span>
+		        <span class="border"></span>
+		        <p> 
+		        	世新大學社會心理學系<br>
+		           	 前端工程整合<br>
+		           	 漂流瓶系統<br>
+		           	 資料庫設計<br>
+		                                  後端系統
+		        </p>
+		    </div>
+		    <div class="infoBox no5 animate__animated animate__zoomIn">
+		        <span class="name">蔡泓哲(要抒啦御用特效師)</span>
+		        <span class="border"></span>
+		        <p>  
+		        	龍華科技大學電機工程系<br>
+		           	商城系統前端版面<br>
+		           	管理系統前端版面
+		        </p>
+		    </div>
+		    <div class="infoBox no6 animate__animated animate__zoomIn">
+		        <span class="name">彭淳義(要抒啦向心力博士)</span>
+		        <span class="border"></span>
+		        <p>   
+		        	龍華科技大學電機工程系<br>
+		           	聊天機器人
+		        </p>
+		    </div>
 		</div>
-	</div>
-
-
-	<!--========= footer================= -->
+		<!-- 右邊 -->
+		<div class="imgRight">
+	        <div class="imgBox" id="no4">
+	                <img src="<spring:url value='/image/aboutus/昱廷.JPG' />" alt="">
+	        </div>
+	        <div class="imgBox" id="no5">
+	                <img src="<spring:url value='/image/aboutus/泓哲.JPG' />" alt="">
+	        </div>
+	        <div class="imgBox" id="no6">
+	                <img src="<spring:url value='/image/aboutus/將軍.JPG' />" alt="">
+	        </div>
+        </div>
+    </div>
+    
+</div>
+<!--========= footer================= -->
 	<!-- Footer -->
 	<footer class="page-footer font-small stylish-color-dark pt-2">
 		<!-- Footer Links -->
@@ -339,18 +357,11 @@
 			</div>
 		</div>
 	</div>
-<c:if test="${not empty sendSuccess}">
-	<script>
-		alert("寄信成功，感謝你的來信")
-	</script>
-	<%
-		session.removeAttribute("sendSuccess");
-	%>
-</c:if>
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+		integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 		crossorigin="anonymous"></script>
-	<script
+		<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
 		integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
 		crossorigin="anonymous"></script>
@@ -358,8 +369,35 @@
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
 		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
 		crossorigin="anonymous"></script>
-	<!-- Template Main JS File -->
-	<script src="<spring:url value='/js/aboutUs/aos.js' />"></script>
-	<script src="<spring:url value='/js/aboutUs/contact.js' />"></script>
+    <script >
+
+        $(document).ready(function () {
+            //一開始預設是品叡的資料
+            $('.no1').css('display','block')
+
+            $('.imgBox').click(function(){
+                var id = $(this).attr('id');
+                //點的時候其他的資料隱藏
+//                 $('.'+id).siblings().not(this).css('display','none')
+                $('.infoBox:not(.id)').css('display','none')
+                //該元素出現
+                $('.' + id).css('display','block')
+                //在點擊狀態時保持放大一點的狀態
+                $(this).find('img').addClass('imgChecked')
+                
+                if($(this).parent().attr('class') == 'imgLeft' ){
+                $(this).siblings().find('img').removeClass('imgChecked').css('transition','0.5s')
+                $('.imgRight').find('img').removeClass('imgChecked').css('transition','0.5s')
+                }else{
+                	 $(this).siblings().find('img').removeClass('imgChecked').css('transition','0.5s')
+                     $('.imgLeft').find('img').removeClass('imgChecked').css('transition','0.5s')
+                }
+//                 $('.imgLeft').find('img').not(this).removeClass('imgChecked').css('transition','0.5s')
+//                 $('.imgRight').find('img').not(this).removeClass('imgChecked').css('transition','0.5s')
+                
+            })
+        });
+
+    </script>
 </body>
 </html>
