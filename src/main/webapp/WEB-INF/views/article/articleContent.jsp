@@ -208,7 +208,7 @@
 					</c:if>
 				</div>
 				<div class="comment">
-					<pre>${entry.content}</pre>
+					<pre style="white-space:pre-wrap;">${entry.content}</pre>
 				</div>
 				<div class="commentCount">${number.count}</div>
 				<div class="d-flex justify-content-end commentDate">
