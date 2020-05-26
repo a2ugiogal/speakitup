@@ -6,13 +6,24 @@
 
 body{
     background: #dbdbdb;
+    
 }
 
 .blockquote p{
     font-size: 1rem;
 }
 
+
 .mainContent{
 	margin-top:100px;
 	margin-bottom:200px;
+	height:90vh;
+}
+
+.cardBox{
+/* 	height:200px !important; */
+	width:80vw;
+	margin: 50px auto !important;
+	background: #fff;
+	padding:50px;
 }

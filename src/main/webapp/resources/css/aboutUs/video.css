@@ -1,0 +1,54 @@
+#skin{
+    width: 820px;
+    border: 3px solid steelblue;
+    border-radius: 10px;
+    margin: 50px auto;
+    padding: 15px 0px;
+    text-align: center;
+    
+/*     background: #e9e9e9; */
+/*     box-shadow: 10px 10px 5px -4px rgba(0,0,0,0.4); */
+box-shadow: 10px 10px 16px -4px rgba(0,0,0,0.75);
+}
+
+#skin nav{
+    /* border: 1px solid red; */
+    margin-top: 10px;
+}
+
+button{
+    width: 90px;
+    text-transform: uppercase;
+    font:  bold 14px Comic Sans MS ;
+    border-radius: 14px;
+    box-shadow: rgba(2, 24, 122, 0.6)6px 8px 6px;
+}
+
+#defaultBar{
+    border: 1px solid #000;
+    border-radius: 16px;
+    box-shadow: rgba(2, 24, 122, 0.5)6px 8px 6px;
+    width: 550px;
+/*     height: 20px; */
+    margin: 17px auto;
+    padding: 3px;
+    
+
+}
+
+#progressBar{
+    background: #aaa;
+    border-radius: 16px;
+    width: 10px;
+    height: 16px;
+}
+
+#volume{
+    /* border: 1px solid red; */
+    width: 100px;
+    margin: 10px 30px;
+    position: absolute;
+    font: 14px Tahoma,微軟正黑體;
+    color: red;
+    visibility: hidden;
+}

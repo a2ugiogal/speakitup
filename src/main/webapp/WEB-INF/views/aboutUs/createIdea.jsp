@@ -20,6 +20,9 @@
 	href="<spring:url value='/css/register/nav.css' /> " />
 	<link rel="stylesheet"
 	href="<spring:url value='/css/aboutUs/createIdea.css' /> " />
+	<link rel="stylesheet"
+	href="<spring:url value='/css/aboutUs/video.css' /> " />
+	
 </head>
 
 <body>
@@ -158,61 +161,22 @@
 	<!-- 導覽列 -->
 	<div class="mainContent animate__animated animate__fadeIn">
 	
-    <div class="card col-8 col-md-6 ml-2 mb-2 mt-5">
+    <div class="cardBox">
         <div class="card-header">
             <h3>創建理念</h3>
         </div>
         <div class="card-body">
           <blockquote class="blockquote mb-0">
-            <p>  「要抒啦！」的理念是能夠預期回應溫度的論壇空間，想被
-                拍拍誇誇來碗心靈雞湯的你請右轉「天使版」， 想來碗惡魔
-                毒湯被罵醒或和鄉民講講幹話的你左轉「惡魔版」。</p>
+            <p>  「要抒啦！」的理念是能夠預期回應溫度的論壇空間，想被拍拍誇誇來碗心靈雞湯的你請右轉「天使版」，想來碗惡魔毒湯被罵醒或和鄉民講講幹話的你左轉「惡魔版」。</p>
            
           </blockquote>
         </div>
-      </div>
-      <div class="card col-8 col-md-6 ml-2 mb-2">
-        <div class="card-header">
-            <h3>功能特色</h3>論壇
-        </div>
-        <div class="card-body">
-          <blockquote class="blockquote mb-0">
-            <p class="">有別於多數論壇既定的前端設計，我們的網站想呈現的不只是一段單純文字，而是一個有溫度的世界。因此我們把每篇文章視為該作者的內心世界，留言則是外界給予他的想法，而天使版與惡魔版能將這些想法變成作者想要的能量，讓現實中的大家都能找到屬於自己的抒壓方式。</p>
-          </blockquote>
-        </div>
-      </div>
-      <div class="card col-8 col-md-6 ml-2 mb-2">
-        <div class="card-header">
-            <h3>功能特色</h3>商城
-        </div>
-        <div class="card-body">
-          <blockquote class="blockquote mb-0">
-            <p>商品規格是我們當初努力的重點之一，讓網站管理員可以在新增商品時任意的填寫商品規格與庫存，加入購物車也適當的加入了視覺回饋的特效，在前端的呈現上能有更直觀的使用介面。</p>
-          </blockquote>
-        </div>
-      </div>
-      <div class="card col-8 col-md-6 ml-2 mb-2">
-        <div class="card-header">
-            <h3>特色功能</h3>漂流瓶
-        </div>
-        <div class="card-body">
-          <blockquote class="blockquote mb-0">
-            <p> 對於寄信的人來說，希望透過匿名的方式得到最單純、真誠的回覆
-                對於回信的人來說，希望在幫助別人的同時自己也獲得心靈上的滿足 
-                當然啦，如果無聊想寄信、回信，我們也是OK~</p>
-          </blockquote>
-        </div>
-    </div>
-        <div class="card col-8 col-md-6 ml-2 mb-2">
-            <div class="card-header">
-                <h3>特色功能</h3>歡樂吧
-            </div>
-            <div class="card-body">
-              <blockquote class="blockquote mb-0">
-                <p>原本只是組員分享的有趣特效，意外變成了抒壓小遊戲，讓負面情緒得以釋放，我們希望可以把這份快樂分享給大家，散播歡樂散播愛~</p>
-              </blockquote>
-            </div>
-          </div>
+
+		<div style="text-align:center;">
+	
+		<iframe width="800" height="450"  src="https://www.youtube.com/embed/lNC2tKbTwR8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		 </div>
+	
     </div>
     <!--========= footer================= -->
 	<!-- Footer -->
@@ -308,5 +272,6 @@
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
 		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
 		crossorigin="anonymous"></script>
+<%-- 		<script src="<spring:url value='/js/aboutUs/video.js' /> "></script> --%>
 </body>
 </html>

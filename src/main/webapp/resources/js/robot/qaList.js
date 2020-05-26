@@ -100,7 +100,13 @@ var qaList = [
     <span>點擊前去看看 >></span>\
     </div>\
     </a>"},
-
+    
+    { Q:"影片", A:"\
+        <iframe width='350' height='350'\
+        src='https://www.youtube.com/embed/LKwvtF1Y6Pw'\
+        frameborder='0' allow='accelerometer; autoplay; encrypted-media;\
+         gyroscope; picture-in-picture' allowfullscreen></iframe>"},
+    
     { Q:"謝", A:"不客氣!|謝謝你的體驗，歡迎下次光臨"},
     { Q:"對不起|抱歉|不好意思", A:"別客氣，儘管說!"},
     { Q:"你好|嗨|您好|安|hi|嘿", A:"你好，我是要抒拉智能客服，有甚麼問題都可以問我哦!!"},
