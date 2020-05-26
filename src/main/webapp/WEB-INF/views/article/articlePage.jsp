@@ -335,9 +335,9 @@
 											<i class="my-0 p-0 h5 bx bx-message-detail col-1 text-info"><span
 												class="h6 ml-1 text-secondary"><i> <c:choose>
 															<c:when test="${not empty entry.key.articleComments}">
+																<c:set var="normal" value="0"></c:set>
 																<c:forEach var="comments"
 																	items="${entry.key.articleComments}" varStatus="number">
-																	<c:set var="normal" value="0"></c:set>
 																	<c:if test="${comments.status=='正常'}"><c:set var="normal" value="${normal+1}"></c:set></c:if>
 																	<c:if test="${number.last}">${normal}</c:if>
 																</c:forEach>
