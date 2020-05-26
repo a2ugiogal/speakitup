@@ -328,10 +328,12 @@ public class LetterController {
 		response.setCharacterEncoding("UTF-8");
 		LetterBean lb = letterService.getLetter(letterId);
 		String feedBack = lb.getFeedback();
-		if(feedBack.equals("dislike")) {
-			letterService.updateLetterFeedback(letterId, "");
-		}else {
+		if(feedBack == null || feedBack.equals("") || feedBack.equals("like")) {
 			letterService.updateLetterFeedback(letterId, GlobalService.LETTER_BADFEEDBACK);
+			System.out.println("不喜歡");
+		}if(feedBack.equals("dislike")) {
+			letterService.updateLetterFeedback(letterId, "");
+			System.out.println("收回不喜歡");
 		}
 		try {
 			PrintWriter out = response.getWriter();
@@ -351,11 +353,12 @@ public class LetterController {
 		
 		LetterBean lb = letterService.getLetter(letterId);
 		String feedBack = lb.getFeedback();
-		
-		if(feedBack.equals("like")) {
-			letterService.updateLetterFeedback(letterId, "");
-		}else {
+		if(feedBack == null || feedBack.equals("") || feedBack.equals("dislike")) {
 			letterService.updateLetterFeedback(letterId, GlobalService.LETTER_FEEDBACK);
+			System.out.println("喜歡");
+		}if(feedBack.equals("like")) {
+			letterService.updateLetterFeedback(letterId, "");
+			System.out.println("收回喜歡");
 		}
 		try {
 			PrintWriter out = response.getWriter();
@@ -366,6 +369,4 @@ public class LetterController {
 		return;
 	}
 	
-	
-
-}
+	}
