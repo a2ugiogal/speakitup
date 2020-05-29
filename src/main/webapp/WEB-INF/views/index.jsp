@@ -19,16 +19,17 @@
 <title>首頁--要抒啦</title>
 <c:if test="${not empty verifyAlert}">
 	<script>
-		alert("請前往信箱驗證");
-	</script>
+		alert("請前往信箱驗證"); 
+	</script> 
 	<%
-		session.removeAttribute("verifyAlert");
-	%>
+ 		session.removeAttribute("verifyAlert"); 
+ 	%> 
 </c:if>
-
+<!-- <script> -->
+// 	alert("本網頁為專題課程使用，未有任何營利意圖，如有侵犯請聯繫我們，之後將會全面下架！謝謝！");
+<!-- </script> -->
 </head>
 <body>
-
 	<!-- =======================導覽列================= -->
 	<nav class="navbar navbar-expand-lg navbar-light fixed-top p-0"
 		style="margin-bottom: 200px" id="navBody">
@@ -149,11 +150,10 @@
 			</ul>
 		</div>
 	</nav>
-	<!-- 導覽列 -->
+<!-- 	<!-- 導覽列 --> 
 
 	<!-- 聊天機器人 -->
-
-	<button class="open-button open-button:after" onclick="openForm()"
+<button class="open-button open-button:after" onclick="openForm()"
 		style="background-image: url('<spring:url value="/image/logo/logo_trans_92px.png "/> '); background-size: 50px 50px;">
 	</button>
 	<!-- 彈出視窗+視窗大小 -->
@@ -544,6 +544,27 @@
 			</div>
 		</div>
 	</div>
+	
+	<!-- 聲明浮動視窗============================= -->
+	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">免責聲明</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        本網頁為專題課程使用，未有任何營利意圖，如有侵犯請聯繫我們，之後將會全面下架！謝謝！
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 	<script type="text/javascript">
 		function showGameModel() {
 			$("#gameModal").modal("show");
@@ -554,7 +575,7 @@
 					.text($("#range").val() + ' X ' + $("#range").val());
 		}
 	</script>
-
+	
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 		crossorigin="anonymous"></script>
@@ -566,10 +587,16 @@
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
 		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
 		crossorigin="anonymous"></script>
+		<script>
+		$(document).ready(function(){
+			$("#exampleModalCenter").modal("show");
+		})
+	</script>
 	<script src="<spring:url value='/js/index.js' />"></script>
 	<script src="<spring:url value='/js/robot/bot.js' />"></script>
 	<script src="<spring:url value='/js/robot/qaList.js' />"></script>
 	<script src="<spring:url value='/js/robot/user.js' />"></script>
 </body>
 </html>
-												
+
+													

@@ -41,7 +41,7 @@ var qaList = [
 //  </div>\
 //  </a>"},
   // 卡片====================================================================================
-    { Q:"員|站長|經理|客服|克服", A:"Email:speakitup002@gmail.com"},
+    { Q:"員|站長|經理|客服|克服", A:"客服Email: speakitup002@gmail.com"},
     { Q:"唱歌", A:"喔～妳是我的花朵 我要擁有妳 插在我心窩 喔～妳是我的花朵 我要保護妳 一路都暢通 喔～妳是我的花朵 就算妳身邊 很多小石頭 喔～妳是我的花朵 我要愛著妳 不眠也不休"},
     { Q:"惡魔", A:"<a href='https://speakitup.nctu.me/article/showPageArticles?categoryTitle=惡魔' \
     target='_blank' \

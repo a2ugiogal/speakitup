@@ -20,8 +20,10 @@ import javax.servlet.http.HttpSession;
 
 import com.web.speakitup.model.MemberBean;
 
-@WebFilter(urlPatterns = { "/*" }, initParams = { @WebInitParam(name = "url_2", value = "/member/showMyArticles"),
-		@WebInitParam(name = "url_3", value = "/member/personPage"), @WebInitParam(name = "url_4", value = "/order/*"),
+@WebFilter(urlPatterns = { "/*" }, initParams = { 
+		@WebInitParam(name = "url_2", value = "/member/showMyArticles"),
+		@WebInitParam(name = "url_3", value = "/member/personPage"), 
+		@WebInitParam(name = "url_4", value = "/order/*"),
 		@WebInitParam(name = "url_5", value = "/article/likeArticle/*"),
 		@WebInitParam(name = "url_6", value = "/article/addComment/*"),
 		@WebInitParam(name = "url_7", value = "/article/addArticle"),
